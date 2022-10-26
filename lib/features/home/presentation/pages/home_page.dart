@@ -2,7 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/core/widgets/base_app_bar.dart';
+import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,32 +14,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _bottomNavIndex = 3;
+  int _bottomNavIndex = 2;
+
+  final List<Widget> _pages = [
+    const Scaffold(),
+    const Scaffold(),
+    const TimerPage(),
+    const Scaffold(),
+    const Scaffold(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MoveWindow(
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: AppConstant.cyanColor,
           currentIndex: _bottomNavIndex,
           onTap: (value) {
             _bottomNavIndex = value;
             setState(() {});
           },
-          selectedItemColor: AppConstant.orangeColor,
-          unselectedItemColor: AppConstant.orangeColor.withOpacity(.2),
+          selectedItemColor: AppConstant.purpleColor,
+          unselectedItemColor: AppConstant.blackColor,
           type: BottomNavigationBarType.fixed,
           items: [
-            const BottomNavigationBarItem(icon: Icon(Ionicons.home), label: "Home"),
-            const BottomNavigationBarItem(icon: Icon(Ionicons.book), label: "Tasks"),
             const BottomNavigationBarItem(
-                icon: Icon(Ionicons.people), label: "Profile"),
+                icon: Icon(Ionicons.home), label: AppConstant.homeTab),
+            const BottomNavigationBarItem(
+                icon: Icon(Ionicons.book), label: AppConstant.tasksTab),
             BottomNavigationBarItem(
                 icon: Container(
                   width: 30,
                   height: 30,
                   decoration: const BoxDecoration(
-                    color: AppConstant.orangeColor,
+                    color: AppConstant.purpleColor,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -47,12 +56,17 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                   ),
                 ),
-                label: "Timer"),
+                label: AppConstant.timerTab),
+            const BottomNavigationBarItem(
+                icon: Icon(Ionicons.people), label: AppConstant.profileTab),
+            const BottomNavigationBarItem(
+                icon: Icon(Ionicons.settings_outline),
+                label: AppConstant.settingTab),
           ],
           showSelectedLabels: false,
           showUnselectedLabels: false,
         ),
-        appBar: const BaseAppBar(),
+        body: _pages[_bottomNavIndex],
       ),
     );
   }

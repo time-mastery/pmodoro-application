@@ -4,7 +4,9 @@ import 'package:ionicons/ionicons.dart';
 import '../constant/constant.dart';
 
 class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
-  const BaseAppBar({Key? key}) : super(key: key);
+  const BaseAppBar({Key? key, required this.title}) : super(key: key);
+
+  final String title;
 
   @override
   Size get preferredSize => const Size.fromHeight(90);
@@ -15,7 +17,7 @@ class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
       margin: const EdgeInsets.only(top: 30, left: 10, right: 10),
       child: AppBar(
         leading: const Hero(
-            tag: "__splash-home__",
+            tag: AppConstant.splashIconHeroTag,
             child: Material(
               color: Colors.transparent,
               child: IconButton(
@@ -27,18 +29,18 @@ class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
             )),
         title: Text(
-          "Pomodore Timer",
+          title,
           style: Theme.of(context)
               .textTheme
               .titleLarge
-              ?.copyWith(color: AppConstant.orangeColor),
+              ?.copyWith(color: AppConstant.cyanColor),
         ),
         actions: [
           IconButton(
               onPressed: () {},
               icon: const Icon(
                 Ionicons.stats_chart,
-                color: AppConstant.orangeColor,
+                color: AppConstant.cyanColor,
               ))
         ],
       ),

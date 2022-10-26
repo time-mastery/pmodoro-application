@@ -1,5 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:pomodore/core/constant/constant.dart';
 
 import '../../../home/presentation/pages/home_page.dart';
 
@@ -25,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
       child: const Scaffold(
         body: Center(
           child: Hero(
-            tag: "__splash-home__",
+            tag: AppConstant.splashIconHeroTag,
             child: FlutterLogo(
               size: 150,
             ),
