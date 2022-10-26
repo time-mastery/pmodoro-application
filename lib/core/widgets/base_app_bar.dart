@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../core/constant/constant.dart';
+import '../constant/constant.dart';
 
-class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
-  const HomeAppBar({Key? key}) : super(key: key);
+class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
+  const BaseAppBar({Key? key}) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(90);
+  Size get preferredSize => const Size.fromHeight(90);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Ionicons.stats_chart,
                 color: AppConstant.orangeColor,
               ))

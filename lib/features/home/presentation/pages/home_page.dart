@@ -2,7 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/features/home/presentation/widgets/home_app_bar.dart';
+import 'package:pomodore/core/widgets/base_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,19 +30,19 @@ class _HomePageState extends State<HomePage> {
           unselectedItemColor: AppConstant.orangeColor.withOpacity(.2),
           type: BottomNavigationBarType.fixed,
           items: [
-            BottomNavigationBarItem(icon: Icon(Ionicons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Ionicons.book), label: "Tasks"),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(icon: Icon(Ionicons.home), label: "Home"),
+            const BottomNavigationBarItem(icon: Icon(Ionicons.book), label: "Tasks"),
+            const BottomNavigationBarItem(
                 icon: Icon(Ionicons.people), label: "Profile"),
             BottomNavigationBarItem(
                 icon: Container(
                   width: 30,
                   height: 30,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: AppConstant.orangeColor,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Ionicons.timer_outline,
                     color: Colors.white,
                   ),
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
         ),
-        appBar: HomeAppBar(),
+        appBar: const BaseAppBar(),
       ),
     );
   }
