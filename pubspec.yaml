@@ -15,6 +15,12 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   bitsdojo_window: ^0.1.5
+  flutter_bloc: ^8.1.1
+  get_it: ^7.2.0
+  google_fonts: ^3.0.1
+  hive: ^2.2.3
+  equatable: ^2.0.5
+  ionicons: ^0.2.1
 
 dev_dependencies:
   flutter_test:
