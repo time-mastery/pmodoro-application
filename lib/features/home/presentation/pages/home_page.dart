@@ -2,6 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
+import 'package:pomodore/features/settings/presentation/pages/settings_page.dart';
 import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     const Scaffold(),
     const TimerPage(),
     const Scaffold(),
-    const Scaffold(),
+    const SettingsPage(),
   ];
 
   @override

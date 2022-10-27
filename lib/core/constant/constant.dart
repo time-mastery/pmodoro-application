@@ -43,7 +43,7 @@ class AppConstant {
           ),
         ),
         iconTheme: const IconThemeData(
-          color: purpleColor,
+          color: cyanColor,
         ),
         buttonTheme: const ButtonThemeData(
           textTheme: ButtonTextTheme.normal,

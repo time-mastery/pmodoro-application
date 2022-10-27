@@ -35,15 +35,15 @@ class TimerTask extends StatelessWidget {
             color: AppConstant.pinkColor,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: Padding(
-              padding: const EdgeInsets.all(11.0),
+            child: const Padding(
+              padding: EdgeInsets.all(11.0),
               child: Icon(
                 Ionicons.ice_cream,
                 color: AppConstant.blackColor,
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Expanded(

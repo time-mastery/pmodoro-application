@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 
 import '../constant/constant.dart';
 
 class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
-  const BaseAppBar({Key? key, required this.title}) : super(key: key);
+  const BaseAppBar({Key? key, required this.title, this.action, this.onPressed})
+      : super(key: key);
 
   final String title;
+  final Widget? action;
+  final VoidCallback? onPressed;
 
   @override
   Size get preferredSize => const Size.fromHeight(90);
@@ -37,11 +39,9 @@ class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Ionicons.stats_chart,
-                color: AppConstant.cyanColor,
-              ))
+            onPressed: () => onPressed,
+            icon: action ?? Container(),
+          ),
         ],
       ),
     );

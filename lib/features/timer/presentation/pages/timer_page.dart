@@ -57,18 +57,25 @@ class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BaseAppBar(title: AppConstant.timerTitle),
+      appBar: BaseAppBar(
+        title: AppConstant.timerTitle,
+        action: const Icon(
+          Ionicons.stats_chart,
+          color: AppConstant.cyanColor,
+        ),
+        onPressed: () {},
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TimerTask(
+            const TimerTask(
                 count: 2,
                 targetCount: 5,
                 title: "Deutsch lernen",
                 totalTime: 29),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * .6,
