@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodore/features/home/presentation/pages/home_page.dart';
+import 'package:pomodore/features/settings/presentation/pages/settings_page.dart';
 import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
 
 class AppConstant {
@@ -20,6 +21,17 @@ class AppConstant {
   static const timerTitle = "Timer";
   static const smile = ":)";
   static const stayFocus = "Focus Time #";
+
+  /// [SettingsPage]
+  static const settingsTitle = "Settings";
+  static const generalNotificationTitle = "General Notification";
+  static const soundTitle = "Sound";
+  static const vibrationTitle = "Vibration";
+  static const appUpdatesTitle = "App Updates";
+  static const newTipTitle = "New Tip Available";
+  static const showAdsTitle = "Show Ads To Support";
+  static const changeThemeTitle = "Change Theme";
+  static const changeLanguageTitle = "Change Language";
 
   // colors
   static const whiteColor = Color(0xffF2F2F2);

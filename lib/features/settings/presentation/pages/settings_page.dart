@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/widgets/base_app_bar.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -11,125 +11,127 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(title: "Settings"),
+      appBar: const BaseAppBar(title: AppConstant.settingsTitle),
       body: Column(
         children: [
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           SwitchListTile.adaptive(
             title: Row(
-              children: [
+              children: const [
                 Icon(Icons.notifications_off),
                 SizedBox(width: 10),
-                Text("General Notification"),
+                Text(AppConstant.generalNotificationTitle),
               ],
             ),
             value: true,
             onChanged: (value) {},
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           SwitchListTile.adaptive(
             title: Row(
-              children: [
+              children: const [
                 Icon(Icons.keyboard_voice),
                 SizedBox(width: 10),
-                Text("Sound"),
+                Text(AppConstant.soundTitle),
               ],
             ),
             value: true,
             onChanged: (value) {},
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           if (Platform.isAndroid || Platform.isIOS)
             Column(
               children: [
                 SwitchListTile.adaptive(
                   title: Row(
-                    children: [
+                    children: const [
                       Icon(Icons.vibration),
                       SizedBox(width: 10),
-                      Text("Vibration"),
+                      Text(AppConstant.vibrationTitle),
                     ],
                   ),
                   value: true,
                   onChanged: (value) {},
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
               ],
             ),
           SwitchListTile.adaptive(
             title: Row(
-              children: [
+              children: const [
                 Icon(Icons.update),
                 SizedBox(width: 10),
-                Text("App Updates"),
+                Text(AppConstant.appUpdatesTitle),
               ],
             ),
             value: true,
             onChanged: (value) {},
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           SwitchListTile.adaptive(
             title: Row(
-              children: [
+              children: const [
                 Icon(Icons.tips_and_updates),
                 SizedBox(width: 10),
-                Text("New Tip Available"),
+                Text(AppConstant.newTipTitle),
               ],
             ),
             value: true,
             onChanged: (value) {},
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           SwitchListTile.adaptive(
             title: Row(
-              children: [
+              children: const [
                 Icon(Icons.celebration),
                 SizedBox(width: 10),
-                Text("Show Ads To Support"),
+                Text(AppConstant.showAdsTitle),
               ],
             ),
             value: true,
             onChanged: (value) {},
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Row(
               children: [
                 Row(
                   children: [
-                    Icon(Icons.color_lens),
-                    SizedBox(width: 10),
+                    const Icon(Icons.color_lens),
+                    const SizedBox(width: 10),
                     Text(
-                      "Change Theme",
+                      AppConstant.changeThemeTitle,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
                 ),
-                Expanded(child: SizedBox(width: 1)),
+                const Expanded(child: SizedBox(width: 1)),
                 IconButton(
-                    onPressed: () {}, icon: Icon(Icons.arrow_drop_down_circle)),
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_drop_down_circle)),
               ],
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Row(
               children: [
                 Row(
                   children: [
-                    Icon(Ionicons.language),
-                    SizedBox(width: 10),
+                    const Icon(Ionicons.language),
+                    const SizedBox(width: 10),
                     Text(
-                      "Change Language",
+                      AppConstant.changeLanguageTitle,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
                 ),
-                Expanded(child: SizedBox(width: 1)),
+                const Expanded(child: SizedBox(width: 1)),
                 IconButton(
-                    onPressed: () {}, icon: Icon(Icons.arrow_drop_down_circle)),
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_drop_down_circle)),
               ],
             ),
           ),
