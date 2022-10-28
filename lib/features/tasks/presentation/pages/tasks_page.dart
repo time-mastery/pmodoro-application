@@ -15,23 +15,22 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
-  final tasks = [
-    "Deutsch lernen",
-    "English",
-    "Sport",
-    "Cleaning",
-    "Listen",
-    "CarWash",
-    "Call",
-    "Rufen",
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final tasks = [
+      "Deutsch lernen",
+      "English",
+      "Sport",
+      "Cleaning",
+      "Listen",
+      "CarWash",
+      "Call",
+      "Rufen",
+    ];
     return Scaffold(
       appBar: BaseAppBar(
-        title: "Tasks",
-        action: tasks.isEmpty ? null : Icon(CupertinoIcons.add_circled_solid),
+        title: AppConstant.tasksTitle,
+        action: tasks.isEmpty ? null : const Icon(CupertinoIcons.add_circled_solid),
       ),
       body: Column(
         children: [
@@ -54,7 +53,7 @@ class _TasksPageState extends State<TasksPage> {
           tasks.isNotEmpty
               ? Expanded(
                   child: ListView.separated(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     itemCount: tasks.length,
                     itemBuilder: (context, index) => TaskItem(
                       color: Colors.primaries[index % 17],
@@ -62,9 +61,9 @@ class _TasksPageState extends State<TasksPage> {
                       time: '10:00 - 20:00',
                     ),
                     separatorBuilder: (BuildContext context, int index) {
-                      if (index == 2)
+                      if (index == 2) {
                         return Column(
-                          children: [
+                          children: const [
                             Divider(
                               color: AppConstant.cyanColor,
                               thickness: 8,
@@ -76,8 +75,9 @@ class _TasksPageState extends State<TasksPage> {
                             )
                           ],
                         );
-                      else
+                      } else {
                         return Container();
+                      }
                     },
                   ),
                 )
@@ -94,7 +94,7 @@ class _TasksPageState extends State<TasksPage> {
                       height: SizeConfig.heightMultiplier * 5,
                     ),
                     Text(
-                      "You have no task today !",
+                      AppConstant.emptyTaskListTitle,
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall
@@ -103,7 +103,7 @@ class _TasksPageState extends State<TasksPage> {
                     SizedBox(
                       height: SizeConfig.heightMultiplier * 2,
                     ),
-                    const Text("Click the (+) icon to add a new task !"),
+                    const Text(AppConstant.emptyTaskListHint),
                     SizedBox(
                       height: SizeConfig.heightMultiplier * 2,
                     ),

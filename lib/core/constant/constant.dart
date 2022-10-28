@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodore/features/home/presentation/pages/home_page.dart';
 import 'package:pomodore/features/settings/presentation/pages/settings_page.dart';
+import 'package:pomodore/features/tasks/presentation/pages/tasks_page.dart';
 import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
 
 class AppConstant {
@@ -32,6 +33,11 @@ class AppConstant {
   static const showAdsTitle = "Show Ads To Support";
   static const changeThemeTitle = "Change Theme";
   static const changeLanguageTitle = "Change Language";
+
+  /// [TasksPage]
+  static const tasksTitle = "Tasks";
+  static const emptyTaskListTitle = "You have no task today !";
+  static const emptyTaskListHint = "Click the (+) icon to add a new task !";
 
   // colors
   static const whiteColor = Color(0xffF2F2F2);

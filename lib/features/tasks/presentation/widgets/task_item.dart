@@ -18,11 +18,11 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       child: Row(
         children: [
-          Text("09:00 AM"),
-          SizedBox(width: 20),
+          const Text("09:00 AM"),
+          const SizedBox(width: 20),
           Expanded(
             child: Container(
               height: SizeConfig.heightMultiplier * 11,
@@ -43,7 +43,7 @@ class TaskItem extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 6),
+                  const SizedBox(height: 6),
                   Text(
                     time,
                     style: Theme.of(context).textTheme.labelSmall,
