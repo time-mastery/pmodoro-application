@@ -51,7 +51,7 @@ class AppConstant {
           backgroundColor: Colors.transparent,
           centerTitle: false,
           iconTheme: IconThemeData(
-            color: purpleColor,
+            color: cyanColor,
           ),
         ),
         iconTheme: const IconThemeData(

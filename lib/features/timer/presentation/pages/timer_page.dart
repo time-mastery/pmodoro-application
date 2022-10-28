@@ -60,8 +60,7 @@ class _TimerPageState extends State<TimerPage> {
       appBar: BaseAppBar(
         title: AppConstant.timerTitle,
         action: const Icon(
-          Ionicons.stats_chart,
-          color: AppConstant.cyanColor,
+          Icons.bar_chart,
         ),
         onPressed: () {},
       ),
@@ -70,10 +69,11 @@ class _TimerPageState extends State<TimerPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const TimerTask(
-                count: 2,
-                targetCount: 5,
-                title: "Deutsch lernen",
-                totalTime: 29),
+              count: 2,
+              targetCount: 5,
+              title: "Deutsch lernen",
+              totalTime: 29,
+            ),
             const SizedBox(
               height: 30,
             ),
