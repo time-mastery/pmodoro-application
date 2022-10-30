@@ -98,17 +98,15 @@ class _TimerPageState extends State<TimerPage> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: SizedBox(
-                      child: Text(
-                        _sec == 0
-                            ? AppConstant.smile
-                            : formattedTime(timeInSecond: _sec),
-                        style:
-                            Theme.of(context).textTheme.headlineLarge?.copyWith(
-                                  color: AppConstant.purpleColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                      ),
+                    child: Text(
+                      _sec == 0
+                          ? AppConstant.smile
+                          : formattedTime(timeInSecond: _sec),
+                      style:
+                          Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                color: AppConstant.purpleColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                     ),
                   ),
                 ],

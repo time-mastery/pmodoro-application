@@ -1,8 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/constant/constant.dart';
-
-import '../../../home/presentation/pages/home_page.dart';
+import 'package:pomodore/features/base/presentation/pages/base_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -15,7 +14,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3)).then(
-        (value) => Navigator.pushReplacementNamed(context, HomePage.routeName));
+        (value) => Navigator.pushReplacementNamed(context, BasePage.routeName));
 
     super.initState();
   }
