@@ -5,11 +5,14 @@ import 'package:pomodore/features/tasks/presentation/pages/tasks_page.dart';
 import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
 
 class AppConstant {
-  // Hero tags
-  static const splashIconHeroTag = "__splash-appbar__";
+  /// dimens
+  static const radius = 10;
 
   // strings
   static const appName = "Pomodore";
+
+  // Hero tags
+  static const splashIconHeroTag = "__splash-appbar__";
 
   /// [HomePage]
   static const homeTab = "Home";
@@ -38,6 +41,14 @@ class AppConstant {
   static const tasksTitle = "Tasks";
   static const emptyTaskListTitle = "You have no task today !";
   static const emptyTaskListHint = "Click the (+) icon to add a new task !";
+
+  /// [HomePage]
+  static const homeTitle = "Pmodore";
+  static const welcomeTitle = "Morning Christina 👋🏻";
+  static const dailyTasksDoneTitle = "Wow! Your daily goals is almost done!";
+  static const completedTasks = "{d} of {a} completed!";
+  static const todayTasks = "Today Tasks (#)";
+  static const seeAllTitle = "See All";
 
   // colors
   static const whiteColor = Color(0xffF2F2F2);
