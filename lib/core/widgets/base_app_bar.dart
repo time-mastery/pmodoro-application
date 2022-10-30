@@ -18,14 +18,17 @@ class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
     return Container(
       margin: const EdgeInsets.only(top: 30, left: 10, right: 10),
       child: AppBar(
-        leading: const Hero(
+        leading: Hero(
             tag: AppConstant.splashIconHeroTag,
             child: Material(
               color: Colors.transparent,
               child: IconButton(
-                icon: FlutterLogo(
-                  size: 30,
-                  curve: Curves.bounceIn,
+                icon: Material(
+                  color: Colors.transparent,
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "assets/images/pmodore_app_icon.png",
+                  ),
                 ),
                 onPressed: null,
               ),

@@ -1,6 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/constant/constant.dart';
+import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/features/base/presentation/pages/base_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -22,14 +23,19 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return MoveWindow(
-      child: const Scaffold(
+      child: Scaffold(
         body: Center(
           child: Hero(
-            tag: AppConstant.splashIconHeroTag,
-            child: FlutterLogo(
-              size: 150,
-            ),
-          ),
+              tag: AppConstant.splashIconHeroTag,
+              child: Material(
+                color: Colors.transparent,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Image.asset(
+                  "assets/images/pmodore_app_icon.png",
+                  width: SizeConfig.widthMultiplier * 35,
+                  height: SizeConfig.widthMultiplier * 35,
+                ),
+              )),
         ),
       ),
     );

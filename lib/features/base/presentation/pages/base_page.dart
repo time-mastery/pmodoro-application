@@ -17,14 +17,14 @@ class BasePage extends StatefulWidget {
 }
 
 class _BasePageState extends State<BasePage> {
-  int _bottomNavIndex = 2;
+  int _bottomNavIndex = 3;
 
   final List<Widget> _pages = [
     const HomePage(),
     const TasksPage(),
-    const TimerPage(),
-    const Scaffold(),
     const SettingsPage(),
+    const TimerPage(),
+    // const ProfilePage(),
   ];
 
   @override
@@ -46,6 +46,9 @@ class _BasePageState extends State<BasePage> {
                 icon: Icon(Ionicons.home), label: AppConstant.homeTab),
             const BottomNavigationBarItem(
                 icon: Icon(Ionicons.book), label: AppConstant.tasksTab),
+            const BottomNavigationBarItem(
+                icon: Icon(Ionicons.settings_outline),
+                label: AppConstant.settingTab),
             BottomNavigationBarItem(
                 icon: Container(
                   width: 30,
@@ -60,11 +63,8 @@ class _BasePageState extends State<BasePage> {
                   ),
                 ),
                 label: AppConstant.timerTab),
-            const BottomNavigationBarItem(
-                icon: Icon(Ionicons.people), label: AppConstant.profileTab),
-            const BottomNavigationBarItem(
-                icon: Icon(Ionicons.settings_outline),
-                label: AppConstant.settingTab),
+            // const BottomNavigationBarItem(
+            //     icon: Icon(Ionicons.people), label: AppConstant.profileTab),
           ],
           showSelectedLabels: false,
           showUnselectedLabels: false,
