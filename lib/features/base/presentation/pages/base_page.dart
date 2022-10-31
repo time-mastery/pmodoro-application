@@ -1,4 +1,3 @@
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
@@ -29,48 +28,46 @@ class _BasePageState extends State<BasePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MoveWindow(
-      child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: AppConstant.cyanColor,
-          currentIndex: _bottomNavIndex,
-          onTap: (value) {
-            _bottomNavIndex = value;
-            setState(() {});
-          },
-          selectedItemColor: AppConstant.purpleColor,
-          unselectedItemColor: AppConstant.blackColor,
-          type: BottomNavigationBarType.fixed,
-          items: [
-            const BottomNavigationBarItem(
-                icon: Icon(Ionicons.home), label: AppConstant.homeTab),
-            const BottomNavigationBarItem(
-                icon: Icon(Ionicons.book), label: AppConstant.tasksTab),
-            const BottomNavigationBarItem(
-                icon: Icon(Ionicons.settings_outline),
-                label: AppConstant.settingTab),
-            BottomNavigationBarItem(
-                icon: Container(
-                  width: 30,
-                  height: 30,
-                  decoration: const BoxDecoration(
-                    color: AppConstant.purpleColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Ionicons.timer_outline,
-                    color: Colors.white,
-                  ),
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: AppConstant.cyanColor,
+        currentIndex: _bottomNavIndex,
+        onTap: (value) {
+          _bottomNavIndex = value;
+          setState(() {});
+        },
+        selectedItemColor: AppConstant.purpleColor,
+        unselectedItemColor: AppConstant.blackColor,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          const BottomNavigationBarItem(
+              icon: Icon(Ionicons.home), label: AppConstant.homeTab),
+          const BottomNavigationBarItem(
+              icon: Icon(Ionicons.book), label: AppConstant.tasksTab),
+          const BottomNavigationBarItem(
+              icon: Icon(Ionicons.settings_outline),
+              label: AppConstant.settingTab),
+          BottomNavigationBarItem(
+              icon: Container(
+                width: 30,
+                height: 30,
+                decoration: const BoxDecoration(
+                  color: AppConstant.purpleColor,
+                  shape: BoxShape.circle,
                 ),
-                label: AppConstant.timerTab),
-            // const BottomNavigationBarItem(
-            //     icon: Icon(Ionicons.people), label: AppConstant.profileTab),
-          ],
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-        ),
-        body: _pages[_bottomNavIndex],
+                child: const Icon(
+                  Ionicons.timer_outline,
+                  color: Colors.white,
+                ),
+              ),
+              label: AppConstant.timerTab),
+          // const BottomNavigationBarItem(
+          //     icon: Icon(Ionicons.people), label: AppConstant.profileTab),
+        ],
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
       ),
+      body: _pages[_bottomNavIndex],
     );
   }
 }

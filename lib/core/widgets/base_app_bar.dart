@@ -27,7 +27,7 @@ class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
                   color: Colors.transparent,
                   clipBehavior: Clip.antiAlias,
                   child: Image.asset(
-                    "assets/images/pmodore_app_icon.png",
+                    "assets/images/logo.png",
                   ),
                 ),
                 onPressed: null,
