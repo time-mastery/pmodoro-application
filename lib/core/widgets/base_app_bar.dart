@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 import '../constant/constant.dart';
 
 class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
-  const BaseAppBar({Key? key, required this.title, this.action, this.onPressed})
+  const BaseAppBar(
+      {Key? key,
+      required this.title,
+      this.action,
+      this.onPressed,
+      this.hasBackBtn = false})
       : super(key: key);
 
   final String title;
   final Widget? action;
   final VoidCallback? onPressed;
+  final bool hasBackBtn;
 
   @override
   Size get preferredSize => const Size.fromHeight(90);
@@ -23,14 +29,16 @@ class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
             child: Material(
               color: Colors.transparent,
               child: IconButton(
-                icon: Material(
-                  color: Colors.transparent,
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "assets/images/logo.png",
-                  ),
-                ),
-                onPressed: null,
+                icon: hasBackBtn
+                    ? const Icon(Icons.arrow_back)
+                    : Material(
+                        color: Colors.transparent,
+                        clipBehavior: Clip.antiAlias,
+                        child: Image.asset(
+                          "assets/images/logo.png",
+                        ),
+                      ),
+                onPressed: hasBackBtn ? () => Navigator.pop(context) : null,
               ),
             )),
         title: Text(
@@ -42,7 +50,7 @@ class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () => onPressed,
+            onPressed: onPressed,
             icon: action ?? Container(),
           ),
         ],
