@@ -5,15 +5,19 @@ import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/widgets/base_app_bar.dart';
 import 'package:pomodore/features/home/presentation/widgets/home_task_item.dart';
 
+import 'notifications_page.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BaseAppBar(
+      appBar: BaseAppBar(
         title: AppConstant.homeTitle,
-        action: Icon(Ionicons.notifications),
+        action: const Icon(Ionicons.notifications),
+        onPressed: () =>
+            Navigator.pushNamed(context, NotificationsPage.routeName),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),

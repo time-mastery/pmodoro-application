@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodore/features/home/presentation/pages/home_page.dart';
+import 'package:pomodore/features/home/presentation/pages/notifications_page.dart';
 import 'package:pomodore/features/settings/presentation/pages/settings_page.dart';
 import 'package:pomodore/features/tasks/presentation/pages/tasks_page.dart';
 import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
@@ -49,6 +50,9 @@ class AppConstant {
   static const completedTasks = "{d} of {a} completed!";
   static const todayTasks = "Today Tasks (#)";
   static const seeAllTitle = "See All";
+
+  /// [NotificationsPage]
+  static const notificationsTitle = "Notifications";
 
   // colors
   static const whiteColor = Color(0xffF2F2F2);
