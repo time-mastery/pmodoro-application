@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodore/features/home/presentation/pages/home_page.dart';
 import 'package:pomodore/features/home/presentation/pages/notifications_page.dart';
 import 'package:pomodore/features/settings/presentation/pages/settings_page.dart';
+import 'package:pomodore/features/tasks/presentation/pages/add_task_page.dart';
 import 'package:pomodore/features/tasks/presentation/pages/tasks_page.dart';
 import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
 
@@ -53,6 +54,13 @@ class AppConstant {
 
   /// [NotificationsPage]
   static const notificationsTitle = "Notifications";
+
+  /// [AddTaskPage]
+  static const addNewTaskTitle = "Add New Task";
+  static const dateTitle = "Date";
+  static const taskTitle = "Task Title";
+  static const categoryTitle = "Category";
+  static const submitTask = "Submit Task";
 
   // colors
   static const whiteColor = Color(0xffF2F2F2);

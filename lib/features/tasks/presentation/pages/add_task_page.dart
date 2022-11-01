@@ -14,24 +14,24 @@ class AddTaskPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const BaseAppBar(
-        title: "Add New Task",
+        title: AppConstant.addNewTaskTitle,
         hasBackBtn: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            const CustomFormField(hint: "Task Title"),
+            const CustomFormField(hint: AppConstant.taskTitle),
             const SizedBox(height: 20),
             const CustomFormField(
-              hint: "Date",
+              hint: AppConstant.dateTitle,
             ),
             const SizedBox(height: 20),
-            const CustomFormField(hint: "Category"),
+            const CustomFormField(hint: AppConstant.categoryTitle),
             const Expanded(child: SizedBox(height: 1)),
             MyButton(
               onPressed: () {},
-              title: "Submit Task",
+              title: AppConstant.submitTask,
               backgroundColor: AppConstant.cyanColor,
             ),
           ],
