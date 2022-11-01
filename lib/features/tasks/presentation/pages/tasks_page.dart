@@ -5,6 +5,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/widgets/base_app_bar.dart';
+import 'package:pomodore/features/tasks/presentation/pages/add_task_page.dart';
 import 'package:pomodore/features/tasks/presentation/widgets/task_item.dart';
 
 class TasksPage extends StatefulWidget {
@@ -30,7 +31,14 @@ class _TasksPageState extends State<TasksPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppConstant.tasksTitle,
-        action: tasks.isEmpty ? null : const Icon(CupertinoIcons.add_circled_solid),
+        action:
+            tasks.isEmpty ? null : const Icon(CupertinoIcons.add_circled_solid),
+        onPressed: tasks.isEmpty
+            ? null
+            : () => Navigator.pushNamed(
+                  context,
+                  AddTaskPage.routeName,
+                ),
       ),
       body: Column(
         children: [
