@@ -23,6 +23,7 @@ dependencies:
   ionicons: ^0.2.1
   calendar_timeline: ^1.0.5
   timeline_tile: ^2.0.0
+  r13n: ^0.1.0-dev.2
 
 dev_dependencies:
   flutter_test:
