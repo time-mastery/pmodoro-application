@@ -3,6 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/widgets/base_app_bar.dart';
+import 'package:pomodore/features/home/presentation/pages/all_today_tasks_page.dart';
 import 'package:pomodore/features/home/presentation/widgets/home_task_item.dart';
 
 import 'notifications_page.dart';
@@ -110,7 +111,8 @@ class HomePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () =>
+                      Navigator.pushNamed(context, AllTodayTasksPage.routeName),
                   child: Text(
                     AppConstant.seeAllTitle,
                     style: Theme.of(context)

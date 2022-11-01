@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodore/features/base/presentation/pages/base_page.dart';
 import 'package:pomodore/features/home/presentation/pages/all_today_tasks_page.dart';
 import 'package:pomodore/features/home/presentation/pages/notifications_page.dart';
+import 'package:pomodore/features/tasks/presentation/pages/add_task_page.dart';
 
 import '../../features/splash/presentation/pages/splash_page.dart';
 
@@ -16,6 +17,8 @@ class AppRouter {
       case AllTodayTasksPage.routeName:
         return MaterialPageRoute(
             builder: (context) => const AllTodayTasksPage());
+      case AddTaskPage.routeName:
+        return MaterialPageRoute(builder: (context) => const AddTaskPage());
       default:
         return MaterialPageRoute(builder: (context) => const SplashPage());
     }
