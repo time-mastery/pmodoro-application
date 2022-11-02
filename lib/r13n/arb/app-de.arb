@@ -1,11 +1,11 @@
 {
-    "@@region": "us",
+    "@@region": "de",
     "appName": "Pomodore",
     "homeTab": "Home",
     "tasksTab": "Tasks",
     "timerTab": "Timer",
     "profileTab": "Profile",
-    "settingTab": "Setting",
+    "settingTab": "Settings",
     "timerTitle": "Timer",
     "smile": ":)",
     "stayFocus": "Focus Time #",
