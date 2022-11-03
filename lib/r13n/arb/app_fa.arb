@@ -1,0 +1,36 @@
+{
+    "@@region": "fa",
+    "appName": "پومودور",
+    "homeTab": "خانه",
+    "tasksTab": "وظایف",
+    "timerTab": "تایمر",
+    "profileTab": "نمایه",
+    "settingTab": "تنظیمات",
+    "timerTitle": "تایمر",
+    "smile": ":)",
+    "stayFocus": "زمان تمرکز #",
+    "settingsTitle": "تنظیمات",
+    "generalNotificationTitle": "اعلان عمومی",
+    "soundTitle": "صدا",
+    "vibrationTitle": "لرزش",
+    "appUpdatesTitle": "به روز رسانی برنامه",
+    "newTipTitle": "نکات جدید",
+    "showAdsTitle": "نمایش تبلیغات برای پشتیبانی",
+    "changeThemeTitle": "تغییر پوسته",
+    "changeLanguageTitle": "تغییر زبان",
+    "tasksTitle": "وظایف",
+    "emptyTaskListTitle": "امروز هیچ وظیفه ای ندارید!",
+    "emptyTaskListHint": "برای افزودن یک کار جدید روی نماد (+) کلیک کنید!",
+    "homeTitle": "پومودور",
+    "welcomeTitle": "صبح بخیر # 👋🏻",
+    "dailyTasksDoneTitle": "وای! اهداف روزانه شما تقریباً انجام شده است!",
+    "completedTasks": "{d} از {a} کامل شده!",
+    "todayTasks": "امروز وظایف (#)",
+    "seeAllTitle": "مشاهده همه",
+    "notificationsTitle": "اعلان ها",
+    "addNewTaskTitle": "اضافه کردن وظیفه جدید",
+    "dateTitle": "تاریخ",
+    "taskTitle": "عنوان وظیفه",
+    "categoryTitle": "دسته",
+    "submitTask": "ثبت وظیفه"
+}
