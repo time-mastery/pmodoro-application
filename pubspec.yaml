@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter         
 
 
   cupertino_icons: ^1.0.2
@@ -23,16 +25,17 @@ dependencies:
   ionicons: ^0.2.1
   calendar_timeline: ^1.0.5
   timeline_tile: ^2.0.0
-  r13n: ^0.1.0-dev.2
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+
   flutter_lints: ^2.0.0
 
 flutter:
-
+  generate: true
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:

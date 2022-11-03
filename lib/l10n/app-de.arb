@@ -1,6 +1,6 @@
 {
-    "@@region": "en",
-    "appName": "Pmodore",
+    "@@locale": "de",
+    "appName": "Pomodore",
     "homeTab": "Home",
     "tasksTab": "Tasks",
     "timerTab": "Timer",

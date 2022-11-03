@@ -1,5 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/router/router.dart';
 
@@ -33,6 +34,17 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: AppRouter.onGenerationRouter,
           theme: AppConstant.getTheme(context),
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''),
+            Locale('fa', ''),
+            Locale('de', ''),
+          ],
+          locale: const Locale('en', ''),
         );
       }),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/utils/size_config.dart';
@@ -15,7 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(
-        title: AppConstant.homeTitle,
+        title: AppLocalizations.of(context)!.homeTitle,
         action: const Icon(Ionicons.notifications),
         onPressed: () =>
             Navigator.pushNamed(context, NotificationsPage.routeName),
