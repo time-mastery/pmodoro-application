@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
+import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/widgets/base_app_bar.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -108,8 +109,47 @@ class SettingsPage extends StatelessWidget {
                 ),
                 const Expanded(child: SizedBox(width: 1)),
                 IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_drop_down_circle)),
+                  icon: const Icon(Icons.arrow_drop_down_circle),
+                  onPressed: () {
+                    bottomSheet(
+                        context,
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                                horizontal: 10,
+                              ),
+                              child: Text(
+                                "Select Theme",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                            Expanded(
+                              child: GridView.count(
+                                crossAxisCount: 3,
+                                children: List.generate(
+                                  Colors.primaries.length,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.primaries[index]
+                                            .withOpacity(index == 1 ? .2 : 1),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: index == 1
+                                          ? const Icon(Icons.check)
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ));
+                  },
+                ),
               ],
             ),
           ),
@@ -130,8 +170,9 @@ class SettingsPage extends StatelessWidget {
                 ),
                 const Expanded(child: SizedBox(width: 1)),
                 IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_drop_down_circle)),
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_drop_down_circle),
+                ),
               ],
             ),
           ),
@@ -139,4 +180,17 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
+
+  bottomSheet(BuildContext context, Widget? child) =>
+      showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              height: SizeConfig.heightMultiplier * 90,
+              decoration: const BoxDecoration(
+                color: AppConstant.blackColor,
+              ),
+              child: child ?? Container());
+        },
+      );
 }
