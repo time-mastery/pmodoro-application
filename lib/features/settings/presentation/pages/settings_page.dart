@@ -11,6 +11,11 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List flags = [
+      '🇩🇪       German',
+      '🇺🇸       English',
+      '🇮🇷       Farsi',
+    ];
     return Scaffold(
       appBar: const BaseAppBar(title: AppConstant.settingsTitle),
       body: Column(
@@ -170,7 +175,54 @@ class SettingsPage extends StatelessWidget {
                 ),
                 const Expanded(child: SizedBox(width: 1)),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    bottomSheet(
+                        context,
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                                horizontal: 10,
+                              ),
+                              child: Text(
+                                "Select Language",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: flags.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0, vertical: 10),
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                        padding: const EdgeInsets.all(20),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: AppConstant.cyanColor),
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                        child: Text(
+                                          flags[index],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ));
+                  },
                   icon: const Icon(Icons.arrow_drop_down_circle),
                 ),
               ],
