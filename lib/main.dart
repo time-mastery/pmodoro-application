@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
             Locale('fa', ''),
             Locale('de', ''),
           ],
-          locale: const Locale('en', ''),
+          locale: const Locale('fa', ''),
         );
       }),
     );
