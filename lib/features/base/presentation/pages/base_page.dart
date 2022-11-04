@@ -6,6 +6,8 @@ import 'package:pomodore/features/settings/presentation/pages/settings_page.dart
 import 'package:pomodore/features/tasks/presentation/pages/tasks_page.dart';
 import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
 
+import '../../../../exports.dart';
+
 class BasePage extends StatefulWidget {
   const BasePage({Key? key}) : super(key: key);
 
@@ -28,6 +30,8 @@ class _BasePageState extends State<BasePage> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppConstant.cyanColor,
@@ -40,13 +44,13 @@ class _BasePageState extends State<BasePage> {
         unselectedItemColor: AppConstant.blackColor,
         type: BottomNavigationBarType.fixed,
         items: [
-          const BottomNavigationBarItem(
-              icon: Icon(Ionicons.home), label: AppConstant.homeTab),
-          const BottomNavigationBarItem(
-              icon: Icon(Ionicons.book), label: AppConstant.tasksTab),
-          const BottomNavigationBarItem(
-              icon: Icon(Ionicons.settings_outline),
-              label: AppConstant.settingTab),
+          BottomNavigationBarItem(
+              icon: const Icon(Ionicons.home), label: localization.homeTab),
+          BottomNavigationBarItem(
+              icon: const Icon(Ionicons.book), label: localization.tasksTab),
+          BottomNavigationBarItem(
+              icon: const Icon(Ionicons.settings_outline),
+              label: localization.settingTab),
           BottomNavigationBarItem(
               icon: Container(
                 width: 30,
@@ -60,7 +64,7 @@ class _BasePageState extends State<BasePage> {
                   color: Colors.white,
                 ),
               ),
-              label: AppConstant.timerTab),
+              label: localization.timerTab),
           // const BottomNavigationBarItem(
           //     icon: Icon(Ionicons.people), label: AppConstant.profileTab),
         ],

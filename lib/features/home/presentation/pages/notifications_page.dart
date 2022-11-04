@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/widgets/base_app_bar.dart';
 import 'package:pomodore/features/home/presentation/widgets/notificaiton_item.dart';
+
+import '../../../../exports.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -10,9 +11,11 @@ class NotificationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: const BaseAppBar(
-        title: AppConstant.notificationsTitle,
+      appBar: BaseAppBar(
+        title: localization.notificationsTitle,
         hasBackBtn: true,
       ),
       body: ListView.builder(

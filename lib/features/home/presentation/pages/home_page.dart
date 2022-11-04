@@ -6,6 +6,7 @@ import 'package:pomodore/core/widgets/base_app_bar.dart';
 import 'package:pomodore/features/home/presentation/pages/all_today_tasks_page.dart';
 import 'package:pomodore/features/home/presentation/widgets/home_task_item.dart';
 
+import '../../../../exports.dart';
 import 'notifications_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,9 +14,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: BaseAppBar(
-        title: AppConstant.homeTitle,
+        title: localization.homeTitle,
         action: const Icon(Ionicons.notifications),
         onPressed: () =>
             Navigator.pushNamed(context, NotificationsPage.routeName),
@@ -28,7 +30,7 @@ class HomePage extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                AppConstant.welcomeTitle,
+                localization.welcomeTitle,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
@@ -81,14 +83,14 @@ class HomePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AppConstant.dailyTasksDoneTitle,
+                            localization.dailyTasksDoneTitle,
                             style: Theme.of(context).textTheme.titleLarge,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           SizedBox(height: SizeConfig.heightMultiplier * 2),
                           Text(
-                            AppConstant.completedTasks
+                            localization.completedTasks
                                 .replaceFirst("{d}", "12")
                                 .replaceFirst("{a}", "16"),
                             style: Theme.of(context).textTheme.bodySmall,
@@ -107,14 +109,14 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  AppConstant.todayTasks.replaceAll("#", "16"),
+                  localization.todayTasks.replaceAll("#", "16"),
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 InkWell(
                   onTap: () =>
                       Navigator.pushNamed(context, AllTodayTasksPage.routeName),
                   child: Text(
-                    AppConstant.seeAllTitle,
+                    localization.seeAllTitle,
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge

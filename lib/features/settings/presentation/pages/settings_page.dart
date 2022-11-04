@@ -6,27 +6,31 @@ import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/widgets/base_app_bar.dart';
 
+import '../../../../exports.dart';
+
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
     List flags = [
       '🇩🇪       German',
       '🇺🇸       English',
       '🇮🇷       Farsi',
     ];
     return Scaffold(
-      appBar: const BaseAppBar(title: AppConstant.settingsTitle),
+      appBar: BaseAppBar(title: localization.settingsTitle),
       body: Column(
         children: [
           const SizedBox(height: 10),
           SwitchListTile.adaptive(
             title: Row(
-              children: const [
-                Icon(Icons.notifications_off),
-                SizedBox(width: 10),
-                Text(AppConstant.generalNotificationTitle),
+              children: [
+                const Icon(Icons.notifications_off),
+                const SizedBox(width: 10),
+                Text(localization.generalNotificationTitle),
               ],
             ),
             value: true,
@@ -35,10 +39,10 @@ class SettingsPage extends StatelessWidget {
           const SizedBox(height: 10),
           SwitchListTile.adaptive(
             title: Row(
-              children: const [
-                Icon(Icons.keyboard_voice),
-                SizedBox(width: 10),
-                Text(AppConstant.soundTitle),
+              children: [
+                const Icon(Icons.keyboard_voice),
+                const SizedBox(width: 10),
+                Text(localization.soundTitle),
               ],
             ),
             value: true,
@@ -50,10 +54,10 @@ class SettingsPage extends StatelessWidget {
               children: [
                 SwitchListTile.adaptive(
                   title: Row(
-                    children: const [
-                      Icon(Icons.vibration),
-                      SizedBox(width: 10),
-                      Text(AppConstant.vibrationTitle),
+                    children: [
+                      const Icon(Icons.vibration),
+                      const SizedBox(width: 10),
+                      Text(localization.vibrationTitle),
                     ],
                   ),
                   value: true,
@@ -64,10 +68,10 @@ class SettingsPage extends StatelessWidget {
             ),
           SwitchListTile.adaptive(
             title: Row(
-              children: const [
-                Icon(Icons.update),
-                SizedBox(width: 10),
-                Text(AppConstant.appUpdatesTitle),
+              children: [
+                const Icon(Icons.update),
+                const SizedBox(width: 10),
+                Text(localization.appUpdatesTitle),
               ],
             ),
             value: true,
@@ -76,10 +80,10 @@ class SettingsPage extends StatelessWidget {
           const SizedBox(height: 10),
           SwitchListTile.adaptive(
             title: Row(
-              children: const [
-                Icon(Icons.tips_and_updates),
-                SizedBox(width: 10),
-                Text(AppConstant.newTipTitle),
+              children: [
+                const Icon(Icons.tips_and_updates),
+                const SizedBox(width: 10),
+                Text(localization.newTipTitle),
               ],
             ),
             value: true,
@@ -88,10 +92,10 @@ class SettingsPage extends StatelessWidget {
           const SizedBox(height: 10),
           SwitchListTile.adaptive(
             title: Row(
-              children: const [
-                Icon(Icons.celebration),
-                SizedBox(width: 10),
-                Text(AppConstant.showAdsTitle),
+              children: [
+                const Icon(Icons.celebration),
+                const SizedBox(width: 10),
+                Text(localization.showAdsTitle),
               ],
             ),
             value: true,
@@ -107,7 +111,7 @@ class SettingsPage extends StatelessWidget {
                     const Icon(Icons.color_lens),
                     const SizedBox(width: 10),
                     Text(
-                      AppConstant.changeThemeTitle,
+                      localization.changeThemeTitle,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
@@ -126,7 +130,7 @@ class SettingsPage extends StatelessWidget {
                                 horizontal: 10,
                               ),
                               child: Text(
-                                "Select Theme",
+                                localization.changeThemeTitle,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),
@@ -168,7 +172,7 @@ class SettingsPage extends StatelessWidget {
                     const Icon(Ionicons.language),
                     const SizedBox(width: 10),
                     Text(
-                      AppConstant.changeLanguageTitle,
+                      localization.changeLanguageTitle,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
@@ -186,7 +190,7 @@ class SettingsPage extends StatelessWidget {
                                 horizontal: 10,
                               ),
                               child: Text(
-                                "Select Language",
+                                localization.changeLanguageTitle,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),

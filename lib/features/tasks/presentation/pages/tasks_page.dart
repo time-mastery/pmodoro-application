@@ -8,6 +8,8 @@ import 'package:pomodore/core/widgets/base_app_bar.dart';
 import 'package:pomodore/features/tasks/presentation/pages/add_task_page.dart';
 import 'package:pomodore/features/tasks/presentation/widgets/task_item.dart';
 
+import '../../../../exports.dart';
+
 class TasksPage extends StatefulWidget {
   const TasksPage({Key? key}) : super(key: key);
 
@@ -18,6 +20,8 @@ class TasksPage extends StatefulWidget {
 class _TasksPageState extends State<TasksPage> {
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
     final tasks = [
       "Deutsch lernen",
       "English",
@@ -30,7 +34,7 @@ class _TasksPageState extends State<TasksPage> {
     ];
     return Scaffold(
       appBar: BaseAppBar(
-        title: AppConstant.tasksTitle,
+        title: localization.tasksTitle,
         action:
             tasks.isEmpty ? null : const Icon(CupertinoIcons.add_circled_solid),
         onPressed: tasks.isEmpty
@@ -102,7 +106,7 @@ class _TasksPageState extends State<TasksPage> {
                       height: SizeConfig.heightMultiplier * 5,
                     ),
                     Text(
-                      AppConstant.emptyTaskListTitle,
+                      localization.emptyTaskListTitle,
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall
@@ -111,7 +115,7 @@ class _TasksPageState extends State<TasksPage> {
                     SizedBox(
                       height: SizeConfig.heightMultiplier * 2,
                     ),
-                    const Text(AppConstant.emptyTaskListHint),
+                    Text(localization.emptyTaskListHint),
                     SizedBox(
                       height: SizeConfig.heightMultiplier * 2,
                     ),

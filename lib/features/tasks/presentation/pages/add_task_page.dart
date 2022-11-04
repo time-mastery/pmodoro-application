@@ -4,6 +4,7 @@ import 'package:pomodore/core/widgets/custom_form_field.dart';
 import 'package:pomodore/core/widgets/my_button.dart';
 
 import '../../../../core/constant/constant.dart';
+import '../../../../exports.dart';
 
 class AddTaskPage extends StatelessWidget {
   const AddTaskPage({Key? key}) : super(key: key);
@@ -12,26 +13,28 @@ class AddTaskPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: const BaseAppBar(
-        title: AppConstant.addNewTaskTitle,
+      appBar: BaseAppBar(
+        title: localization.addNewTaskTitle,
         hasBackBtn: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            const CustomFormField(hint: AppConstant.taskTitle),
+            CustomFormField(hint: localization.taskTitle),
             const SizedBox(height: 20),
-            const CustomFormField(
-              hint: AppConstant.dateTitle,
+            CustomFormField(
+              hint: localization.dateTitle,
             ),
             const SizedBox(height: 20),
-            const CustomFormField(hint: AppConstant.categoryTitle),
+            CustomFormField(hint: localization.categoryTitle),
             const Expanded(child: SizedBox(height: 1)),
             MyButton(
               onPressed: () {},
-              title: AppConstant.submitTask,
+              title: localization.submitTask,
               backgroundColor: AppConstant.cyanColor,
             ),
           ],
