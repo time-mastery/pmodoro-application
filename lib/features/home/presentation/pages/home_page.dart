@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
               width: SizeConfig.widthMultiplier * 100,
               height: SizeConfig.heightMultiplier * 20,
               decoration: BoxDecoration(
-                color: AppConstant.pinkColor.withOpacity(.09),
+                color: AppConstant.swatchColor.withOpacity(.09),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
@@ -61,8 +61,8 @@ class HomePage extends StatelessWidget {
                                 value: .7,
                                 strokeWidth: 10,
                                 backgroundColor:
-                                    AppConstant.pinkColor.withOpacity(.2),
-                                color: AppConstant.pinkColor,
+                                    AppConstant.swatchColor.withOpacity(.2),
+                                color: AppConstant.swatchColor,
                               ),
                             ),
                           ),
@@ -120,7 +120,7 @@ class HomePage extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge
-                        ?.copyWith(color: AppConstant.pinkColor),
+                        ?.copyWith(color: AppConstant.swatchColor),
                   ),
                 ),
               ],

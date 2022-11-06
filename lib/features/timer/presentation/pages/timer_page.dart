@@ -5,6 +5,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/widgets/base_app_bar.dart';
 import 'package:pomodore/core/widgets/my_button.dart';
+import 'package:pomodore/features/analyze/presentation/pages/analyze_page.dart';
 import 'package:pomodore/features/timer/presentation/widgets/timer_task.dart';
 
 import '../../../../exports.dart';
@@ -66,7 +67,9 @@ class _TimerPageState extends State<TimerPage> {
         action: const Icon(
           Icons.bar_chart,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, AnalyzePage.routeName);
+        },
       ),
       body: Center(
         child: Column(
@@ -93,9 +96,9 @@ class _TimerPageState extends State<TimerPage> {
                       height: MediaQuery.of(context).size.width * .6,
                       child: CircularProgressIndicator(
                         value: _sec / _max,
-                        color: AppConstant.purpleColor,
+                        color: AppConstant.primaryColor,
                         backgroundColor:
-                            AppConstant.purpleColor.withOpacity(.2),
+                            AppConstant.primaryColor.withOpacity(.2),
                         strokeWidth: 7,
                       ),
                     ),
@@ -108,7 +111,7 @@ class _TimerPageState extends State<TimerPage> {
                           : formattedTime(timeInSecond: _sec),
                       style:
                           Theme.of(context).textTheme.headlineLarge?.copyWith(
-                                color: AppConstant.purpleColor,
+                                color: AppConstant.primaryColor,
                                 fontWeight: FontWeight.bold,
                               ),
                     ),
@@ -130,7 +133,7 @@ class _TimerPageState extends State<TimerPage> {
                 MyButton(
                   width: 55,
                   height: 55,
-                  backgroundColor: AppConstant.purpleColor,
+                  backgroundColor: AppConstant.primaryColor,
                   onPressed: () => reset(),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
@@ -144,7 +147,7 @@ class _TimerPageState extends State<TimerPage> {
                 MyButton(
                   width: 80,
                   height: 80,
-                  backgroundColor: AppConstant.cyanColor,
+                  backgroundColor: AppConstant.secondaryColor,
                   onPressed: () => start(),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
@@ -159,7 +162,7 @@ class _TimerPageState extends State<TimerPage> {
                 MyButton(
                   width: 55,
                   height: 55,
-                  backgroundColor: AppConstant.purpleColor,
+                  backgroundColor: AppConstant.primaryColor,
                   onPressed: () => stopAndDelete(),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),

@@ -57,11 +57,11 @@ class _TasksPageState extends State<TasksPage> {
                 lastDate: DateTime(2030, 11, 20),
                 onDateSelected: (date) {},
                 leftMargin: 20,
-                monthColor: AppConstant.cyanColor,
-                dayColor: AppConstant.cyanColor,
-                activeDayColor: AppConstant.blackColor,
-                activeBackgroundDayColor: AppConstant.pinkColor,
-                dotsColor: AppConstant.blackColor,
+                monthColor: AppConstant.secondaryColor,
+                dayColor: AppConstant.secondaryColor,
+                activeDayColor: AppConstant.scaffoldColor,
+                activeBackgroundDayColor: AppConstant.swatchColor,
+                dotsColor: AppConstant.scaffoldColor,
               ),
             ),
           ),
@@ -80,7 +80,7 @@ class _TasksPageState extends State<TasksPage> {
                         return Column(
                           children: const [
                             Divider(
-                              color: AppConstant.cyanColor,
+                              color: AppConstant.secondaryColor,
                               thickness: 8,
                               endIndent: 20,
                               indent: 20,

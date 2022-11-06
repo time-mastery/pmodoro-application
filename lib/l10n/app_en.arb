@@ -31,5 +31,12 @@
     "dateTitle": "Date",
     "taskTitle": "Task Title",
     "categoryTitle": "Category",
-    "submitTask": "Submit Task"
+    "submitTask": "Submit Task",
+    "analysisPageTitle":"Analysis",
+    "todayPmodoreTitle":"Today's Pmodore :",
+    "todayFocusTitle":"Today's Focus :",
+    "fromYesterdayTitle":"x from yesterday",
+    "taskDetailTitle":"Today Tasks Details",
+    "yearAnalysisTitle":"Pmodore Yearly Analysis",
+    "dailyActivityTitle":"Pmodore Daily Activity Counter"
 }

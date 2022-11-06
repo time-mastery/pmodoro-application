@@ -29,7 +29,7 @@ class TaskItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: color != null
                     ? color?.withOpacity(.2)
-                    : AppConstant.cyanColor.withOpacity(.07),
+                    : AppConstant.secondaryColor.withOpacity(.07),
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20),

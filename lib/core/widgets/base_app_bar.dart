@@ -46,7 +46,7 @@ class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
           style: Theme.of(context)
               .textTheme
               .titleLarge
-              ?.copyWith(color: AppConstant.cyanColor),
+              ?.copyWith(color: AppConstant.secondaryColor),
         ),
         actions: [
           IconButton(

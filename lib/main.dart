@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,15 +12,17 @@ import 'core/utils/size_config.dart';
 void main() async {
   runApp(const MyApp());
 
-  doWhenWindowReady(() {
-    const initialSize = Size(400, 700);
-    appWindow.minSize = initialSize;
-    appWindow.maxSize = initialSize;
-    appWindow.size = initialSize;
-    appWindow.alignment = Alignment.centerRight;
-    appWindow.title = AppConstant.appName;
-    appWindow.show();
-  });
+  if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
+    doWhenWindowReady(() {
+      const initialSize = Size(400, 700);
+      appWindow.minSize = initialSize;
+      appWindow.maxSize = initialSize;
+      appWindow.size = initialSize;
+      appWindow.alignment = Alignment.centerRight;
+      appWindow.title = AppConstant.appName;
+      appWindow.show();
+    });
+  }
 }
 
 class MyApp extends StatelessWidget {

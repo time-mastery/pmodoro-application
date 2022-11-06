@@ -20,7 +20,7 @@ class HomeTaskItem extends StatelessWidget {
         width: SizeConfig.widthMultiplier * 85,
         height: SizeConfig.heightMultiplier * 12,
         decoration: BoxDecoration(
-          color: AppConstant.cyanColor.withOpacity(.07),
+          color: AppConstant.secondaryColor.withOpacity(.07),
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -28,14 +28,14 @@ class HomeTaskItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Material(
-              color: AppConstant.pinkColor,
+              color: AppConstant.swatchColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               child: const Padding(
                 padding: EdgeInsets.all(11.0),
                 child: Icon(
                   Ionicons.ice_cream,
-                  color: AppConstant.blackColor,
+                  color: AppConstant.scaffoldColor,
                 ),
               ),
             ),
@@ -67,10 +67,10 @@ class HomeTaskItem extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(1000),
               ),
-              backgroundColor: AppConstant.purpleColor,
+              backgroundColor: AppConstant.primaryColor,
               child: const Icon(
                 Icons.play_arrow,
-                color: AppConstant.blackColor,
+                color: AppConstant.scaffoldColor,
               ),
             ),
           ],

@@ -207,7 +207,8 @@ class SettingsPage extends StatelessWidget {
                                         padding: const EdgeInsets.all(20),
                                         decoration: BoxDecoration(
                                           border: Border.all(
-                                              color: AppConstant.cyanColor),
+                                              color:
+                                                  AppConstant.secondaryColor),
                                           borderRadius:
                                               BorderRadius.circular(50),
                                         ),
@@ -244,7 +245,7 @@ class SettingsPage extends StatelessWidget {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
               decoration: const BoxDecoration(
-                color: AppConstant.blackColor,
+                color: AppConstant.scaffoldColor,
               ),
               child: child ?? Container());
         },

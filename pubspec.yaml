@@ -26,6 +26,8 @@ dependencies:
   calendar_timeline: ^1.0.5
   timeline_tile: ^2.0.0
   intl: ^0.17.0
+  flutter_heatmap_calendar: ^1.0.5
+  syncfusion_flutter_charts: ^20.3.52
 
 dev_dependencies:
   flutter_test:

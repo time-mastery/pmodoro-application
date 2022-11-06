@@ -34,14 +34,14 @@ class _BasePageState extends State<BasePage> {
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppConstant.cyanColor,
+        backgroundColor: AppConstant.secondaryColor,
         currentIndex: _bottomNavIndex,
         onTap: (value) {
           _bottomNavIndex = value;
           setState(() {});
         },
-        selectedItemColor: AppConstant.purpleColor,
-        unselectedItemColor: AppConstant.blackColor,
+        selectedItemColor: AppConstant.primaryColor,
+        unselectedItemColor: AppConstant.scaffoldColor,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
@@ -56,7 +56,7 @@ class _BasePageState extends State<BasePage> {
                 width: 30,
                 height: 30,
                 decoration: const BoxDecoration(
-                  color: AppConstant.purpleColor,
+                  color: AppConstant.primaryColor,
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(

@@ -23,7 +23,7 @@ class NotificationItem extends StatelessWidget {
       child: Container(
         height: SizeConfig.heightMultiplier * 15,
         decoration: BoxDecoration(
-          color: AppConstant.cyanColor.withOpacity(.08),
+          color: AppConstant.secondaryColor.withOpacity(.08),
           borderRadius: BorderRadius.circular(15),
         ),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),

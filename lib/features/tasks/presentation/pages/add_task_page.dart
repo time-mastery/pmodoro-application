@@ -35,7 +35,7 @@ class AddTaskPage extends StatelessWidget {
             MyButton(
               onPressed: () {},
               title: localization.submitTask,
-              backgroundColor: AppConstant.cyanColor,
+              backgroundColor: AppConstant.secondaryColor,
             ),
           ],
         ),

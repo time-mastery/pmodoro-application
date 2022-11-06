@@ -11,38 +11,38 @@ class AppConstant {
   static const splashIconHeroTag = "__splash-appbar__";
 
   // colors
-  static const whiteColor = Color(0xffF2F2F2);
-  static const cyanColor = Color(0xff5CB8E4);
-  static const purpleColor = Color(0xff8758FF);
-  static const blackColor = Color(0xff181818);
-  static const limeColor = Color(0xffF0FF42);
-  static const pinkColor = Color(0xffFF74B1);
+  static const textColor = Color(0xffF7F7F7);
+  static const secondaryColor = Color(0xffF2E7D5);
+  static const primaryColor = Color(0xff6D9886);
+  static const scaffoldColor = Color(0xff393E46);
+  static const funColor = Color(0xffFF1E00);
+  static const swatchColor = Color(0xff59CE8F);
 
   // app theme
   static getTheme(BuildContext context) => ThemeData(
-        primaryColor: purpleColor,
-        scaffoldBackgroundColor: blackColor,
+        primaryColor: primaryColor,
+        scaffoldBackgroundColor: scaffoldColor,
         brightness: Brightness.dark,
         appBarTheme: const AppBarTheme(
           elevation: 0,
           backgroundColor: Colors.transparent,
           centerTitle: false,
           iconTheme: IconThemeData(
-            color: cyanColor,
+            color: secondaryColor,
           ),
         ),
         iconTheme: const IconThemeData(
-          color: cyanColor,
+          color: secondaryColor,
         ),
         buttonTheme: const ButtonThemeData(
           textTheme: ButtonTextTheme.normal,
         ),
         textTheme: Theme.of(context)
             .textTheme
-            .copyWith(button: const TextStyle(color: whiteColor))
+            .copyWith(button: const TextStyle(color: textColor))
             .apply(
-              bodyColor: whiteColor,
-              displayColor: whiteColor,
+              bodyColor: textColor,
+              displayColor: textColor,
             ),
       );
 }
