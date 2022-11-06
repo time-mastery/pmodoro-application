@@ -48,18 +48,21 @@ class _TasksPageState extends State<TasksPage> {
         children: [
           SizedBox(
             width: SizeConfig.widthMultiplier * 100,
-            child: CalendarTimeline(
-              initialDate: DateTime(DateTime.now().year, DateTime.now().month,
-                  DateTime.now().day),
-              firstDate: DateTime(2022, 1, 15),
-              lastDate: DateTime(2030, 11, 20),
-              onDateSelected: (date) {},
-              leftMargin: 20,
-              monthColor: AppConstant.cyanColor,
-              dayColor: AppConstant.cyanColor,
-              activeDayColor: AppConstant.blackColor,
-              activeBackgroundDayColor: AppConstant.pinkColor,
-              dotsColor: AppConstant.blackColor,
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: CalendarTimeline(
+                initialDate: DateTime(DateTime.now().year, DateTime.now().month,
+                    DateTime.now().day),
+                firstDate: DateTime(2022, 1, 15),
+                lastDate: DateTime(2030, 11, 20),
+                onDateSelected: (date) {},
+                leftMargin: 20,
+                monthColor: AppConstant.cyanColor,
+                dayColor: AppConstant.cyanColor,
+                activeDayColor: AppConstant.blackColor,
+                activeBackgroundDayColor: AppConstant.pinkColor,
+                dotsColor: AppConstant.blackColor,
+              ),
             ),
           ),
           tasks.isNotEmpty
