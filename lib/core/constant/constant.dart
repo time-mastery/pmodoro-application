@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pomodore/features/home/presentation/pages/home_page.dart';
-import 'package:pomodore/features/home/presentation/pages/notifications_page.dart';
-import 'package:pomodore/features/settings/presentation/pages/settings_page.dart';
-import 'package:pomodore/features/tasks/presentation/pages/add_task_page.dart';
-import 'package:pomodore/features/tasks/presentation/pages/tasks_page.dart';
-import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
 
 class AppConstant {
   /// dimens
@@ -15,52 +9,6 @@ class AppConstant {
 
   // Hero tags
   static const splashIconHeroTag = "__splash-appbar__";
-
-  /// [HomePage]
-  static const homeTab = "Home";
-  static const tasksTab = "Tasks";
-  static const timerTab = "Timer";
-  static const profileTab = "Profile";
-  static const settingTab = "Setting";
-
-  /// [TimerPage]
-  static const timerTitle = "Timer";
-  static const smile = ":)";
-  static const stayFocus = "Focus Time #";
-
-  /// [SettingsPage]
-  static const settingsTitle = "Settings";
-  static const generalNotificationTitle = "General Notification";
-  static const soundTitle = "Sound";
-  static const vibrationTitle = "Vibration";
-  static const appUpdatesTitle = "App Updates";
-  static const newTipTitle = "New Tip Available";
-  static const showAdsTitle = "Show Ads To Support";
-  static const changeThemeTitle = "Change Theme";
-  static const changeLanguageTitle = "Change Language";
-
-  /// [TasksPage]
-  static const tasksTitle = "Tasks";
-  static const emptyTaskListTitle = "You have no task today !";
-  static const emptyTaskListHint = "Click the (+) icon to add a new task !";
-
-  /// [HomePage]
-  static const homeTitle = "Pmodore";
-  static const welcomeTitle = "Morning Christina 👋🏻";
-  static const dailyTasksDoneTitle = "Wow! Your daily goals is almost done!";
-  static const completedTasks = "{d} of {a} completed!";
-  static const todayTasks = "Today Tasks (#)";
-  static const seeAllTitle = "See All";
-
-  /// [NotificationsPage]
-  static const notificationsTitle = "Notifications";
-
-  /// [AddTaskPage]
-  static const addNewTaskTitle = "Add New Task";
-  static const dateTitle = "Date";
-  static const taskTitle = "Task Title";
-  static const categoryTitle = "Category";
-  static const submitTask = "Submit Task";
 
   // colors
   static const whiteColor = Color(0xffF2F2F2);

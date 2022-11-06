@@ -7,6 +7,8 @@ import 'package:pomodore/core/widgets/base_app_bar.dart';
 import 'package:pomodore/core/widgets/my_button.dart';
 import 'package:pomodore/features/timer/presentation/widgets/timer_task.dart';
 
+import '../../../../exports.dart';
+
 // todo : timer should be global
 class TimerPage extends StatefulWidget {
   const TimerPage({Key? key}) : super(key: key);
@@ -56,9 +58,11 @@ class _TimerPageState extends State<TimerPage> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: BaseAppBar(
-        title: AppConstant.timerTitle,
+        title: localization.timerTitle,
         action: const Icon(
           Icons.bar_chart,
         ),
@@ -100,7 +104,7 @@ class _TimerPageState extends State<TimerPage> {
                     alignment: Alignment.center,
                     child: Text(
                       _sec == 0
-                          ? AppConstant.smile
+                          ? localization.smile
                           : formattedTime(timeInSecond: _sec),
                       style:
                           Theme.of(context).textTheme.headlineLarge?.copyWith(
@@ -115,7 +119,7 @@ class _TimerPageState extends State<TimerPage> {
             const SizedBox(
               height: 30,
             ),
-            Text(AppConstant.stayFocus.replaceAll(
+            Text(localization.stayFocus.replaceAll(
                 "#", formattedTime(timeInSecond: (30 * 60) - _sec))),
             const SizedBox(
               height: 30,
