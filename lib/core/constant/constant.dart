@@ -12,11 +12,11 @@ class AppConstant {
 
   // colors
   static const textColor = Color(0xffF7F7F7);
-  static const secondaryColor = Color(0xffF2E7D5);
-  static const primaryColor = Color(0xff6D9886);
-  static const scaffoldColor = Color(0xff393E46);
+  static const secondaryColor = Color(0xffFFDAB9);
+  static const primaryColor = Color(0xffFA8072);
+  static const scaffoldColor = Color(0xff002366);
   static const funColor = Color(0xffFF1E00);
-  static const swatchColor = Color(0xff59CE8F);
+  static const swatchColor = Color(0xff0F52BA);
 
   // app theme
   static getTheme(BuildContext context) => ThemeData(

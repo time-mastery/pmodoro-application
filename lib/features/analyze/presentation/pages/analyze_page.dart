@@ -54,7 +54,7 @@ class AnalyzePage extends StatelessWidget {
               Center(
                 child: Container(
                   width: SizeConfig.widthMultiplier * 90,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: AppConstant.primaryColor.withOpacity(.1),
                     borderRadius: BorderRadius.circular(20),
@@ -129,7 +129,8 @@ class AnalyzePage extends StatelessWidget {
                           ],
                           xValueMapper: (SalesData sales, _) => sales.year,
                           yValueMapper: (SalesData sales, _) => sales.sales,
-                          dataLabelSettings: DataLabelSettings(isVisible: true),
+                          dataLabelSettings:
+                              const DataLabelSettings(isVisible: true),
                         )
                       ]),
                 ),
