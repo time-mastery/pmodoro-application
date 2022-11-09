@@ -35,7 +35,7 @@ class BaseAppBar extends StatelessWidget with PreferredSizeWidget {
                         color: Colors.transparent,
                         clipBehavior: Clip.antiAlias,
                         child: Image.asset(
-                          "assets/images/logo.png",
+                          "assets/images/logov2.png",
                         ),
                       ),
                 onPressed: hasBackBtn ? () => Navigator.pop(context) : null,
