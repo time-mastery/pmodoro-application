@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
+import 'package:pomodore/core/utils/datetime_converter.dart';
 import 'package:pomodore/core/widgets/base_app_bar.dart';
 import 'package:pomodore/core/widgets/my_button.dart';
 import 'package:pomodore/features/analyze/presentation/pages/analyze_page.dart';
@@ -10,7 +11,6 @@ import 'package:pomodore/features/timer/presentation/widgets/timer_task.dart';
 
 import '../../../../exports.dart';
 
-// todo : timer should be global
 class TimerPage extends StatefulWidget {
   const TimerPage({Key? key}) : super(key: key);
 
@@ -47,14 +47,6 @@ class _TimerPageState extends State<TimerPage> {
         _timer?.cancel();
       }
     });
-  }
-
-  formattedTime({required int timeInSecond}) {
-    int sec = timeInSecond % 60;
-    int min = (timeInSecond / 60).floor();
-    String minute = min.toString().length <= 1 ? "0$min" : "$min";
-    String second = sec.toString().length <= 1 ? "0$sec" : "$sec";
-    return "$minute : $second";
   }
 
   @override
@@ -108,7 +100,8 @@ class _TimerPageState extends State<TimerPage> {
                     child: Text(
                       _sec == 0
                           ? localization.smile
-                          : formattedTime(timeInSecond: _sec),
+                          : DateTimeConverter.formatSecToMinSec(
+                              timeInSecond: _sec),
                       style:
                           Theme.of(context).textTheme.headlineLarge?.copyWith(
                                 color: AppConstant.primaryColor,
@@ -123,7 +116,9 @@ class _TimerPageState extends State<TimerPage> {
               height: 30,
             ),
             Text(localization.stayFocus.replaceAll(
-                "#", formattedTime(timeInSecond: (30 * 60) - _sec))),
+                "#",
+                DateTimeConverter.formatSecToMinSec(
+                    timeInSecond: (30 * 60) - _sec))),
             const SizedBox(
               height: 30,
             ),

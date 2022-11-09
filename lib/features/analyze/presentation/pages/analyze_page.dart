@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/utils/size_config.dart';
-import 'package:pomodore/core/widgets/base_app_bar.dart';
 import 'package:pomodore/features/analyze/presentation/widgets/detail_richtext_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../../core/widgets/base_app_bar.dart';
 import '../../../../exports.dart';
 
 class SalesData {

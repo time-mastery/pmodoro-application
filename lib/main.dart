@@ -2,16 +2,23 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/router/router.dart';
+import 'package:pomodore/core/utils/bloc_observer.dart';
+import 'package:pomodore/features/timer/presentation/bloc/timer/timer_cubit.dart';
 
 import 'core/utils/size_config.dart';
 
 void main() async {
+  // Dependency injection
+
+  Bloc.observer = GlobalBlocObserver();
   runApp(const MyApp());
 
+  // some setting to config Desktop version
   if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
     doWhenWindowReady(() {
       const initialSize = Size(400, 700);
@@ -30,29 +37,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
-      builder: (context, orientation) =>
-          LayoutBuilder(builder: (context, constraints) {
-        SizeConfig().init(constraints, orientation);
-        return MaterialApp(
-          title: AppConstant.appName,
-          onGenerateRoute: AppRouter.onGenerationRouter,
-          theme: AppConstant.getTheme(context),
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en'),
-            Locale('fa'),
-            Locale('de'),
-          ],
-          locale: const Locale('en'),
-        );
-      }),
+    return BlocProvider(
+      create: (context) => TimerCubit()..start(),
+      child: OrientationBuilder(
+        builder: (context, orientation) =>
+            LayoutBuilder(builder: (context, constraints) {
+          SizeConfig().init(constraints, orientation);
+          return MaterialApp(
+            title: AppConstant.appName,
+            onGenerateRoute: AppRouter.onGenerationRouter,
+            theme: AppConstant.getTheme(context),
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'),
+              Locale('fa'),
+              Locale('de'),
+            ],
+            locale: const Locale('en'),
+          );
+        }),
+      ),
     );
   }
 }
