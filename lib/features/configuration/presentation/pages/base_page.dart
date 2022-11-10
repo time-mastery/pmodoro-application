@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/features/home/presentation/pages/home_page.dart';
-import 'package:pomodore/features/settings/presentation/pages/settings_page.dart';
-import 'package:pomodore/features/tasks/presentation/pages/tasks_page.dart';
-import 'package:pomodore/features/timer/presentation/pages/timer_page.dart';
+import 'package:pomodore/features/configuration/presentation/pages/settings_page.dart';
+import 'package:pomodore/features/task_management/presentation/pages/home_page.dart';
+import 'package:pomodore/features/task_management/presentation/pages/tasks_page.dart';
+import 'package:pomodore/features/task_management/presentation/pages/timer_page.dart';
 
 import '../../../../exports.dart';
 

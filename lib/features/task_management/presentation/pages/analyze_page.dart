@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/utils/size_config.dart';
-import 'package:pomodore/features/analyze/presentation/widgets/detail_richtext_widget.dart';
+import 'package:pomodore/features/task_management/presentation/widgets/detail_richtext_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/shared_widgets/base_app_bar.dart';

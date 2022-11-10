@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/features/tasks/presentation/pages/add_task_page.dart';
-import 'package:pomodore/features/tasks/presentation/widgets/task_item.dart';
+import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/features/task_management/presentation/pages/add_task_page.dart';
 
 import '../../../../exports.dart';
+import '../widgets/task_item.dart';
 
 class TasksPage extends StatefulWidget {
   const TasksPage({Key? key}) : super(key: key);
