@@ -1,18 +1,25 @@
-class TaskModel {
-  final String taskTitle, taskDescription, timerValue;
-  final double taskTimeDeadline, taskDoneTime;
-  final DateTime taskDateDeadline, taskDoneDate;
-  final bool taskDone;
+import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
-  TaskModel(
-      this.taskTitle,
-      this.timerValue,
-      this.taskDescription,
-      this.taskTimeDeadline,
-      this.taskDoneTime,
-      this.taskDateDeadline,
-      this.taskDoneDate,
-      this.taskDone);
+class TaskModel extends TaskEntity {
+  const TaskModel(
+      String taskTitle,
+      String timerValue,
+      String taskDescription,
+      double taskTimeDeadline,
+      double taskDoneTime,
+      DateTime taskDateDeadline,
+      DateTime taskDoneDate,
+      bool taskDone)
+      : super(
+          taskTitle: taskTitle,
+          timerValue: timerValue,
+          taskDescription: taskDescription,
+          taskTimeDeadline: taskTimeDeadline,
+          taskDoneTime: taskDoneTime,
+          taskDateDeadline: taskDateDeadline,
+          taskDoneDate: taskDoneDate,
+          taskDone: taskDone,
+        );
 
   factory TaskModel.fromJson(Map item) => TaskModel(
         item["taskTitle"],
