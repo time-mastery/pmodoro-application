@@ -28,12 +28,12 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
-              child: Text(
-                localization.welcomeTitle,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ),
+            // Center(
+            //   child: Text(
+            //     localization.welcomeTitle,
+            //     style: Theme.of(context).textTheme.headlineMedium,
+            //   ),
+            // ),
             SizedBox(height: SizeConfig.heightMultiplier * 2),
             Container(
               width: SizeConfig.widthMultiplier * 100,

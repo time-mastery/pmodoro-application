@@ -65,8 +65,11 @@ class _TimerPageState extends State<TimerPage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(
+              height: 30,
+            ),
             const TimerTask(
               count: 2,
               targetCount: 5,
@@ -74,7 +77,7 @@ class _TimerPageState extends State<TimerPage> {
               totalTime: 29,
             ),
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * .6,
