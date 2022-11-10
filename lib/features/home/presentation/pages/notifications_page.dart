@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodore/core/widgets/base_app_bar.dart';
+import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/features/home/presentation/widgets/notificaiton_item.dart';
 
 import '../../../../exports.dart';
