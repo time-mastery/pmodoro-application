@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
+import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/utils/size_config.dart';
-import 'package:pomodore/core/widgets/base_app_bar.dart';
-import 'package:pomodore/features/home/presentation/pages/all_today_tasks_page.dart';
-import 'package:pomodore/features/home/presentation/widgets/home_task_item.dart';
+import 'package:pomodore/features/task_management/presentation/pages/all_today_tasks_page.dart';
 
 import '../../../../exports.dart';
-import 'notifications_page.dart';
+import '../../../notification_management/presentation/pages/notifications_page.dart';
+import '../widgets/home_task_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,12 +28,12 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
-              child: Text(
-                localization.welcomeTitle,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ),
+            // Center(
+            //   child: Text(
+            //     localization.welcomeTitle,
+            //     style: Theme.of(context).textTheme.headlineMedium,
+            //   ),
+            // ),
             SizedBox(height: SizeConfig.heightMultiplier * 2),
             Container(
               width: SizeConfig.widthMultiplier * 100,

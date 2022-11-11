@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/utils/size_config.dart';
-import 'package:pomodore/features/base/presentation/pages/base_page.dart';
+
+import 'base_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

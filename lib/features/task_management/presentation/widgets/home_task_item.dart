@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/widgets/my_button.dart';
+import 'package:pomodore/core/shared_widgets/my_button.dart';
 
 import '../../../../core/constant/constant.dart';
 import '../../../../core/utils/size_config.dart';

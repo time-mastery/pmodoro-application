@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pomodore/features/analyze/presentation/pages/analyze_page.dart';
-import 'package:pomodore/features/base/presentation/pages/base_page.dart';
-import 'package:pomodore/features/home/presentation/pages/all_today_tasks_page.dart';
-import 'package:pomodore/features/home/presentation/pages/notifications_page.dart';
-import 'package:pomodore/features/tasks/presentation/pages/add_task_page.dart';
+import 'package:pomodore/features/notification_management/presentation/pages/notifications_page.dart';
+import 'package:pomodore/features/task_management/presentation/pages/add_task_page.dart';
+import 'package:pomodore/features/task_management/presentation/pages/all_today_tasks_page.dart';
+import 'package:pomodore/features/task_management/presentation/pages/analyze_page.dart';
 
-import '../../features/splash/presentation/pages/splash_page.dart';
+import '../../features/configuration/presentation/pages/base_page.dart';
+import '../../features/configuration/presentation/pages/splash_page.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerationRouter(RouteSettings routeSettings) {

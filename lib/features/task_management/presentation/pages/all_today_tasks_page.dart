@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodore/core/widgets/base_app_bar.dart';
+import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 
 import '../../../../exports.dart';
 import '../widgets/home_task_item.dart';

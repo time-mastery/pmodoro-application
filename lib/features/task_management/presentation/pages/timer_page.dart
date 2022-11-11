@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
+import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
+import 'package:pomodore/core/shared_widgets/my_button.dart';
 import 'package:pomodore/core/utils/datetime_converter.dart';
-import 'package:pomodore/core/widgets/base_app_bar.dart';
-import 'package:pomodore/core/widgets/my_button.dart';
-import 'package:pomodore/features/analyze/presentation/pages/analyze_page.dart';
-import 'package:pomodore/features/timer/presentation/widgets/timer_task.dart';
+import 'package:pomodore/features/task_management/presentation/pages/analyze_page.dart';
 
 import '../../../../exports.dart';
+import '../widgets/timer_task.dart';
 
 class TimerPage extends StatefulWidget {
   const TimerPage({Key? key}) : super(key: key);
@@ -65,8 +65,11 @@ class _TimerPageState extends State<TimerPage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(
+              height: 30,
+            ),
             const TimerTask(
               count: 2,
               targetCount: 5,
@@ -74,7 +77,7 @@ class _TimerPageState extends State<TimerPage> {
               totalTime: 29,
             ),
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * .6,

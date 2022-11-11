@@ -11,12 +11,12 @@ class AppConstant {
   static const splashIconHeroTag = "__splash-appbar__";
 
   // colors
-  static const textColor = Color(0xffF7F7F7);
-  static const secondaryColor = Color(0xffFFDAB9);
-  static const primaryColor = Color(0xffFA8072);
-  static const scaffoldColor = Color(0xff002366);
-  static const funColor = Color(0xffFF1E00);
-  static const swatchColor = Color(0xff0F52BA);
+  static const textColor = Color(0xff121212);
+  static const secondaryColor = Color(0xff161853);
+  static const primaryColor = Color(0xffEC255A);
+  static const scaffoldColor = Color(0xffFAEDF0);
+  static const funColor = Color(0xff292C6D);
+  static const swatchColor = Color(0xff292C6D);
 
   // app theme
   static getTheme(BuildContext context) => ThemeData(
