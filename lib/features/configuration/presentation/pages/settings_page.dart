@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
+import 'package:pomodore/core/utils/size_config.dart';
 
 import '../../../../exports.dart';
 
@@ -24,7 +24,7 @@ class SettingsPage extends StatelessWidget {
       appBar: BaseAppBar(title: localization.settingsTitle),
       body: Column(
         children: [
-          const SizedBox(height: 10),
+          SizedBox(height: SizeConfig.heightMultiplier * 3),
           SwitchListTile.adaptive(
             title: Row(
               children: [
@@ -36,7 +36,7 @@ class SettingsPage extends StatelessWidget {
             value: true,
             onChanged: (value) {},
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: SizeConfig.heightMultiplier * .5),
           SwitchListTile.adaptive(
             title: Row(
               children: [
@@ -48,7 +48,7 @@ class SettingsPage extends StatelessWidget {
             value: true,
             onChanged: (value) {},
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: SizeConfig.heightMultiplier * .5),
           if (Platform.isAndroid || Platform.isIOS)
             Column(
               children: [
@@ -63,7 +63,7 @@ class SettingsPage extends StatelessWidget {
                   value: true,
                   onChanged: (value) {},
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: SizeConfig.heightMultiplier * .5),
               ],
             ),
           SwitchListTile.adaptive(
@@ -77,7 +77,7 @@ class SettingsPage extends StatelessWidget {
             value: true,
             onChanged: (value) {},
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: SizeConfig.heightMultiplier * .5),
           SwitchListTile.adaptive(
             title: Row(
               children: [
@@ -89,19 +89,19 @@ class SettingsPage extends StatelessWidget {
             value: true,
             onChanged: (value) {},
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: SizeConfig.heightMultiplier * .5),
           SwitchListTile.adaptive(
             title: Row(
               children: [
                 const Icon(Icons.celebration),
-                const SizedBox(width: 10),
+                SizedBox(width: SizeConfig.widthMultiplier * 2),
                 Text(localization.showAdsTitle),
               ],
             ),
             value: true,
             onChanged: (value) {},
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: SizeConfig.heightMultiplier * 1),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Row(
@@ -109,7 +109,7 @@ class SettingsPage extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(Icons.color_lens),
-                    const SizedBox(width: 10),
+                    SizedBox(width: SizeConfig.widthMultiplier * 2),
                     Text(
                       localization.changeThemeTitle,
                       style: Theme.of(context).textTheme.titleMedium,
@@ -162,7 +162,7 @@ class SettingsPage extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: SizeConfig.heightMultiplier * 1),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Row(
@@ -170,7 +170,7 @@ class SettingsPage extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(Ionicons.language),
-                    const SizedBox(width: 10),
+                    SizedBox(width: SizeConfig.widthMultiplier * 2),
                     Text(
                       localization.changeLanguageTitle,
                       style: Theme.of(context).textTheme.titleMedium,

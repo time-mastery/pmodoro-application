@@ -38,7 +38,7 @@ class NotificationItem extends StatelessWidget {
               ),
               child: Icon(icon),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: SizeConfig.widthMultiplier * 5),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
