@@ -20,24 +20,28 @@ class AddTaskPage extends StatelessWidget {
         title: localization.addNewTaskTitle,
         hasBackBtn: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            CustomFormField(hint: localization.taskTitle),
-            const SizedBox(height: 20),
-            CustomFormField(
-              hint: localization.dateTitle,
-            ),
-            const SizedBox(height: 20),
-            CustomFormField(hint: localization.categoryTitle),
-            const Expanded(child: SizedBox(height: 1)),
-            MyButton(
-              onPressed: () {},
-              title: localization.submitTask,
-              backgroundColor: AppConstant.secondaryColor,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              CustomFormField(
+                hint: localization.taskTitle,
+              ),
+              const SizedBox(height: 20),
+              CustomFormField(
+                hint: localization.dateTitle,
+              ),
+              const SizedBox(height: 20),
+              CustomFormField(hint: localization.categoryTitle),
+              const SizedBox(height: 20),
+              MyButton(
+                onPressed: () {},
+                title: localization.submitTask,
+                backgroundColor: AppConstant.secondaryColor,
+              ),
+            ],
+          ),
         ),
       ),
     );

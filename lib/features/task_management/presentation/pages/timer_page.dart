@@ -82,15 +82,15 @@ class _TimerPageState extends State<TimerPage> {
                 height: SizeConfig.heightMultiplier * 3,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * .6,
-                height: MediaQuery.of(context).size.width * .6,
+                width: MediaQuery.of(context).size.width * .5,
+                height: MediaQuery.of(context).size.width * .5,
                 child: Stack(
                   children: [
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        width: MediaQuery.of(context).size.width * .6,
-                        height: MediaQuery.of(context).size.width * .6,
+                        width: MediaQuery.of(context).size.width * .5,
+                        height: MediaQuery.of(context).size.width * .5,
                         child: CircularProgressIndicator(
                           value: _sec / _max,
                           color: AppConstant.primaryColor,
@@ -117,22 +117,22 @@ class _TimerPageState extends State<TimerPage> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: SizeConfig.heightMultiplier * 3,
               ),
               Text(localization.stayFocus.replaceAll(
                   "#",
                   DateTimeConverter.formatSecToMinSec(
                       timeInSecond: (30 * 60) - _sec))),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: SizeConfig.heightMultiplier * 3,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyButton(
-                    width: 55,
-                    height: 55,
+                    width: SizeConfig.heightMultiplier * 8,
+                    height: SizeConfig.heightMultiplier * 8,
                     backgroundColor: AppConstant.primaryColor,
                     onPressed: () => reset(),
                     shape: RoundedRectangleBorder(
@@ -145,8 +145,8 @@ class _TimerPageState extends State<TimerPage> {
                     width: 10,
                   ),
                   MyButton(
-                    width: 80,
-                    height: 80,
+                    width: SizeConfig.heightMultiplier * 13,
+                    height: SizeConfig.heightMultiplier * 13,
                     backgroundColor: AppConstant.secondaryColor,
                     onPressed: () => start(),
                     shape: RoundedRectangleBorder(
@@ -160,8 +160,8 @@ class _TimerPageState extends State<TimerPage> {
                     width: 10,
                   ),
                   MyButton(
-                    width: 55,
-                    height: 55,
+                    width: SizeConfig.heightMultiplier * 8,
+                    height: SizeConfig.heightMultiplier * 8,
                     backgroundColor: AppConstant.primaryColor,
                     onPressed: () => stopAndDelete(),
                     shape: RoundedRectangleBorder(
