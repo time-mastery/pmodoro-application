@@ -139,14 +139,15 @@ class _TimerPageState extends State<TimerPage> {
                         borderRadius: BorderRadius.circular(100)),
                     child: const Icon(
                       Ionicons.repeat,
+                      color: AppConstant.scaffoldColor,
                     ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   MyButton(
-                    width: SizeConfig.heightMultiplier * 13,
-                    height: SizeConfig.heightMultiplier * 13,
+                    width: SizeConfig.heightMultiplier * 10,
+                    height: SizeConfig.heightMultiplier * 10,
                     backgroundColor: AppConstant.secondaryColor,
                     onPressed: () => start(),
                     shape: RoundedRectangleBorder(
@@ -168,7 +169,7 @@ class _TimerPageState extends State<TimerPage> {
                         borderRadius: BorderRadius.circular(100)),
                     child: const Icon(
                       Ionicons.square,
-                      size: 18,
+                      color: AppConstant.scaffoldColor,
                     ),
                   ),
                 ],
