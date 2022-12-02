@@ -9,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/router/router.dart';
 import 'package:pomodore/core/utils/bloc_observer.dart';
+import 'package:pomodore/di.dart';
 
 import 'core/utils/size_config.dart';
 
@@ -17,6 +18,7 @@ void main() async {
       .copyWith(statusBarIconBrightness: Brightness.light));
 
   // Dependency injection
+  await inject();
 
   Bloc.observer = GlobalBlocObserver();
   runApp(const MyApp());

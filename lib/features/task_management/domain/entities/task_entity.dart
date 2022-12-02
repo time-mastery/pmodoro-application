@@ -1,30 +1,27 @@
 import 'package:equatable/equatable.dart';
 
 class TaskEntity extends Equatable {
-  final String taskTitle, taskDescription, timerValue;
-  final double taskTimeDeadline, taskDoneTime;
-  final DateTime taskDateDeadline, taskDoneDate;
-  final bool taskDone;
+  final String id;
+  final String title, description;
+  final DateTime deadLineTime;
+  final DateTime? doneTime;
+  final bool done;
 
   const TaskEntity(
-      {required this.taskTitle,
-      required this.taskDescription,
-      required this.timerValue,
-      required this.taskTimeDeadline,
-      required this.taskDoneTime,
-      required this.taskDateDeadline,
-      required this.taskDoneDate,
-      required this.taskDone});
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.deadLineTime,
+      this.doneTime,
+      required this.done});
 
   @override
   List<Object?> get props => [
-        taskTitle,
-        taskDescription,
-        timerValue,
-        taskTimeDeadline,
-        taskDoneTime,
-        taskDateDeadline,
-        taskDoneDate,
-        taskDone,
+        id,
+        title,
+        description,
+        deadLineTime,
+        doneTime,
+        done,
       ];
 }
