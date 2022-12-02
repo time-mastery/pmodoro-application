@@ -38,8 +38,8 @@ class DatabaseHelper {
             description TEXT NOT NULL,
             deadLineTime TEXT NOT NULL,
             doneTime TEXT NOT NULL,
-            done INTEGER NOT NULL,
-          )
+            done INTEGER NOT NULL
+            )
           ''');
   }
 }
