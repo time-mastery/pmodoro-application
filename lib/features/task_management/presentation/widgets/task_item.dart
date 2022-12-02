@@ -22,7 +22,7 @@ class TaskItem extends StatelessWidget {
       child: Row(
         children: [
           const Text("09:00 AM"),
-          const SizedBox(width: 20),
+          SizedBox(width: SizeConfig.widthMultiplier * 2),
           Expanded(
             child: Container(
               height: SizeConfig.heightMultiplier * 11,
@@ -43,7 +43,7 @@ class TaskItem extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 6),
+                  SizedBox(height: SizeConfig.heightMultiplier * 1),
                   Text(
                     time,
                     style: Theme.of(context).textTheme.labelSmall,

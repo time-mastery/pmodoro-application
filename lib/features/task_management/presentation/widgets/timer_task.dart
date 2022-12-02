@@ -43,8 +43,8 @@ class TimerTask extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            width: 10,
+          SizedBox(
+            width: SizeConfig.widthMultiplier * 2,
           ),
           Expanded(
             child: Column(

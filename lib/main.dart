@@ -2,17 +2,23 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/router/router.dart';
 import 'package:pomodore/core/utils/bloc_observer.dart';
+import 'package:pomodore/di.dart';
 
 import 'core/utils/size_config.dart';
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+      .copyWith(statusBarIconBrightness: Brightness.light));
+
   // Dependency injection
+  await inject();
 
   Bloc.observer = GlobalBlocObserver();
   runApp(const MyApp());

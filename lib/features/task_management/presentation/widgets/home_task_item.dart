@@ -39,8 +39,8 @@ class HomeTaskItem extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              width: SizeConfig.widthMultiplier * 3,
             ),
             Expanded(
               child: Column(

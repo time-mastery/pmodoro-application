@@ -75,8 +75,8 @@ class AnalyzePage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: SizeConfig.heightMultiplier * 1.5,
               ),
               Center(
                 child: Container(
@@ -101,8 +101,8 @@ class AnalyzePage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: SizeConfig.heightMultiplier * 1.5,
               ),
               Center(
                 child: Container(
@@ -135,8 +135,8 @@ class AnalyzePage extends StatelessWidget {
                       ]),
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: SizeConfig.heightMultiplier * 1.5,
               ),
               Container(
                 decoration: BoxDecoration(
