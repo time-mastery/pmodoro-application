@@ -1,5 +1,6 @@
-import 'package:pomodore/core/resources/params.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
+
+import '../../../../core/resources/params/task_params.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
   @override

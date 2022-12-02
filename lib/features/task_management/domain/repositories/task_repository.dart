@@ -1,4 +1,4 @@
-import 'package:pomodore/core/resources/params.dart';
+import '../../../../core/resources/params/task_params.dart';
 
 abstract class TaskRepository {
   Future addTask(TaskParams task);
