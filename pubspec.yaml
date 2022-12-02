@@ -28,7 +28,12 @@ dependencies:
   get_it: ^7.2.0
 
   # database
-  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  sqflite: ^2.2.1
+  path_provider: ^2.0.11
+
+  # generators
+  uuid: ^3.0.7
 
   # calenders
   calendar_timeline: ^1.0.5
