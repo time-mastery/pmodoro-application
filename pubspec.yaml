@@ -48,11 +48,14 @@ dependencies:
 
 
 dev_dependencies:
+  test: ^1.16.0
+  bloc_test: ^9.0.0
+  flutter_lints: ^2.0.0
+
   flutter_test:
     sdk: flutter
 
 
-  flutter_lints: ^2.0.0
 
 flutter:
   generate: true

@@ -20,7 +20,7 @@ void main() async {
   // Dependency injection
   await inject();
 
-  Bloc.observer = GlobalBlocObserver();
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 
   // some setting to config Desktop version
