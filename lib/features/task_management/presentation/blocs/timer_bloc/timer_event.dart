@@ -34,5 +34,5 @@ class _TickTimer extends TimerEvent {
   const _TickTimer(this.duration);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [duration];
 }

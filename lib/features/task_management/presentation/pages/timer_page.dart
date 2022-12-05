@@ -32,116 +32,111 @@ class TimerView extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    return BlocBuilder<TimerBloc, TimerState>(
-      buildWhen: (prev, state) => prev.runtimeType != state.runtimeType,
-      builder: (context, state) => Scaffold(
-        appBar: BaseAppBar(
-          title: localization.timerTitle,
-          action: const Icon(
-            Icons.bar_chart,
-          ),
-          onPressed: () {
-            Navigator.pushNamed(context, AnalyzePage.routeName);
-          },
+    return Scaffold(
+      appBar: BaseAppBar(
+        title: localization.timerTitle,
+        action: const Icon(
+          Icons.bar_chart,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(
-                height: SizeConfig.heightMultiplier * 5,
-              ),
-              const TimerTask(
-                count: 2,
-                targetCount: 5,
-                title: "Deutsch lernen",
-                totalTime: 29,
-              ),
-              SizedBox(
-                height: SizeConfig.heightMultiplier * 3,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * .5,
-                height: MediaQuery.of(context).size.width * .5,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * .5,
-                        height: MediaQuery.of(context).size.width * .5,
-                        child: CircularProgressIndicator(
-                          value: 20,
-                          color: AppConstant.primaryColor,
-                          backgroundColor:
-                              AppConstant.primaryColor.withOpacity(.2),
-                          strokeWidth: 7,
-                        ),
+        onPressed: () {
+          Navigator.pushNamed(context, AnalyzePage.routeName);
+        },
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              height: SizeConfig.heightMultiplier * 5,
+            ),
+            const TimerTask(
+              count: 2,
+              targetCount: 5,
+              title: "Deutsch lernen",
+              totalTime: 29,
+            ),
+            SizedBox(
+              height: SizeConfig.heightMultiplier * 3,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .5,
+              height: MediaQuery.of(context).size.width * .5,
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * .5,
+                      height: MediaQuery.of(context).size.width * .5,
+                      child: CircularProgressIndicator(
+                        value: 20,
+                        color: AppConstant.primaryColor,
+                        backgroundColor:
+                            AppConstant.primaryColor.withOpacity(.2),
+                        strokeWidth: 7,
                       ),
                     ),
-                    const TimerText(),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: SizeConfig.heightMultiplier * 3,
-              ),
-              const FocusTimeText(),
-              SizedBox(
-                height: SizeConfig.heightMultiplier * 3,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MyButton(
-                    width: SizeConfig.heightMultiplier * 8,
-                    height: SizeConfig.heightMultiplier * 8,
-                    backgroundColor: AppConstant.primaryColor,
-                    onPressed: () =>
-                        context.read<TimerBloc>().add(ResetTimer()),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                    child: const Icon(
-                      Ionicons.repeat,
-                      color: AppConstant.scaffoldColor,
-                    ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  MyButton(
-                    width: SizeConfig.heightMultiplier * 10,
-                    height: SizeConfig.heightMultiplier * 10,
-                    backgroundColor: AppConstant.secondaryColor,
-                    onPressed: () =>
-                        context.read<TimerBloc>().add(const StartTimer(60)),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                    child: const Icon(
-                      Ionicons.play,
-                      size: 30,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  MyButton(
-                    width: SizeConfig.heightMultiplier * 8,
-                    height: SizeConfig.heightMultiplier * 8,
-                    backgroundColor: AppConstant.primaryColor,
-                    onPressed: () =>
-                        context.read<TimerBloc>().add(ResetTimer()),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                    child: const Icon(
-                      Ionicons.square,
-                      color: AppConstant.scaffoldColor,
-                    ),
-                  ),
+                  const TimerText(),
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+            SizedBox(
+              height: SizeConfig.heightMultiplier * 3,
+            ),
+            const FocusTimeText(),
+            SizedBox(
+              height: SizeConfig.heightMultiplier * 3,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MyButton(
+                  width: SizeConfig.heightMultiplier * 8,
+                  height: SizeConfig.heightMultiplier * 8,
+                  backgroundColor: AppConstant.primaryColor,
+                  onPressed: () => context.read<TimerBloc>().add(ResetTimer()),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100)),
+                  child: const Icon(
+                    Ionicons.repeat,
+                    color: AppConstant.scaffoldColor,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                MyButton(
+                  width: SizeConfig.heightMultiplier * 10,
+                  height: SizeConfig.heightMultiplier * 10,
+                  backgroundColor: AppConstant.secondaryColor,
+                  onPressed: () =>
+                      context.read<TimerBloc>().add(const StartTimer(60)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100)),
+                  child: const Icon(
+                    Ionicons.play,
+                    size: 30,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                MyButton(
+                  width: SizeConfig.heightMultiplier * 8,
+                  height: SizeConfig.heightMultiplier * 8,
+                  backgroundColor: AppConstant.primaryColor,
+                  onPressed: () => context.read<TimerBloc>().add(ResetTimer()),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100)),
+                  child: const Icon(
+                    Ionicons.square,
+                    color: AppConstant.scaffoldColor,
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
@@ -153,17 +148,20 @@ class TimerText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final duration = context.select((TimerBloc bloc) => bloc.state.duration);
-    return Align(
-      alignment: Alignment.center,
-      child: Text(
-        Utils.formatSecToMinSec(timeInSecond: duration),
-        style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-              color: AppConstant.primaryColor,
-              fontWeight: FontWeight.bold,
-            ),
-      ),
-    );
+    return Builder(builder: (context) {
+      final duration = context.select((TimerBloc bloc) => bloc.state.duration);
+
+      return Align(
+        alignment: Alignment.center,
+        child: Text(
+          Utils.formatSecToMinSec(timeInSecond: duration),
+          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                color: AppConstant.primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+      );
+    });
   }
 }
 
@@ -173,9 +171,12 @@ class FocusTimeText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
-    final duration = context.select((TimerBloc bloc) => bloc.state.duration);
 
-    return Text(localization.stayFocus
-        .replaceAll("#", Utils.formatSecToMinSec(timeInSecond: 60 - duration)));
+    return Builder(builder: (context) {
+      final duration = context.select((TimerBloc bloc) => bloc.state.duration);
+
+      return Text(localization.stayFocus.replaceAll(
+          "#", Utils.formatSecToMinSec(timeInSecond: 60 - duration)));
+    });
   }
 }
