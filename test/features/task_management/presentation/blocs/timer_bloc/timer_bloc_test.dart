@@ -13,8 +13,8 @@ void main() {
     blocTest(
       "emit [TimerInProcess] when start timer",
       build: () => timerBloc,
-      act: (bloc) => bloc.add(StartTimer(duration)),
-      expect: () => [TimerRunInProgress(duration)],
+      act: (bloc) => bloc.add(TimerStarted(duration)),
+      expect: () => [TimerInProgress(duration)],
     );
   });
 }

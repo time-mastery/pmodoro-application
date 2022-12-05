@@ -16,22 +16,22 @@ class TimerInitial extends TimerState {
   List<Object> get props => [duration];
 }
 
-class TimerRunPause extends TimerState {
-  const TimerRunPause(super.duration);
+class TimerPause extends TimerState {
+  const TimerPause(super.duration);
 
   @override
   List<Object?> get props => [duration];
 }
 
-class TimerRunInProgress extends TimerState {
-  const TimerRunInProgress(super.duration);
+class TimerInProgress extends TimerState {
+  const TimerInProgress(super.duration);
 
   @override
   List<Object?> get props => [duration];
 }
 
-class TimerRunCompleted extends TimerState {
-  const TimerRunCompleted() : super(0);
+class TimerCompleted extends TimerState {
+  const TimerCompleted() : super(0);
 
   @override
   List<Object?> get props => [];

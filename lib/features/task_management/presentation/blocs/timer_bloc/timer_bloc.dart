@@ -14,11 +14,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   TimerBloc({required Ticker ticker})
       : _ticker = ticker,
         super(const TimerInitial(_duration)) {
-    on<StartTimer>(_onStarted);
-    on<PauseTimer>(_onPaused);
-    on<ResetTimer>(_onReset);
-    on<ResumeTimer>(_onResumed);
-    on<_TickTimer>(_onTicked);
+    on<TimerStarted>(_onStarted);
+    on<TimerPaused>(_onPaused);
+    on<TimerReset>(_onReset);
+    on<TimerResumed>(_onResumed);
+    on<_TimerTicked>(_onTicked);
   }
 
   static const int _duration = 60;
@@ -31,38 +31,38 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     return super.close();
   }
 
-  void _onStarted(StartTimer event, Emitter<TimerState> emit) {
-    emit(TimerRunInProgress(event.duration));
+  void _onStarted(TimerStarted event, Emitter<TimerState> emit) {
+    emit(TimerInProgress(event.duration));
     _tickerSubscription?.cancel();
     _tickerSubscription = _ticker
         .tick(ticks: event.duration)
-        .listen((duration) => add(_TickTimer(duration)));
+        .listen((duration) => add(_TimerTicked(duration)));
   }
 
-  void _onPaused(PauseTimer event, Emitter<TimerState> emit) {
-    if (state is TimerRunInProgress) {
+  void _onPaused(TimerPaused event, Emitter<TimerState> emit) {
+    if (state is TimerInProgress) {
       _tickerSubscription?.pause();
-      emit(TimerRunPause(state.duration));
+      emit(TimerPause(state.duration));
     }
   }
 
-  void _onResumed(ResumeTimer resume, Emitter<TimerState> emit) {
-    if (state is TimerRunPause) {
+  void _onResumed(TimerResumed resume, Emitter<TimerState> emit) {
+    if (state is TimerPause) {
       _tickerSubscription?.resume();
-      emit(TimerRunInProgress(state.duration));
+      emit(TimerInProgress(state.duration));
     }
   }
 
-  void _onReset(ResetTimer event, Emitter<TimerState> emit) {
+  void _onReset(TimerReset event, Emitter<TimerState> emit) {
     _tickerSubscription?.cancel();
     emit(const TimerInitial(_duration));
   }
 
-  void _onTicked(_TickTimer event, Emitter<TimerState> emit) {
+  void _onTicked(_TimerTicked event, Emitter<TimerState> emit) {
     emit(
       event.duration > 0
-          ? TimerRunInProgress(event.duration)
-          : const TimerRunCompleted(),
+          ? TimerInProgress(event.duration)
+          : const TimerCompleted(),
     );
   }
 }

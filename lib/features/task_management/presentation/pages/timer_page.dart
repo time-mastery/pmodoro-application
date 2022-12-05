@@ -95,7 +95,7 @@ class TimerView extends StatelessWidget {
                   width: SizeConfig.heightMultiplier * 8,
                   height: SizeConfig.heightMultiplier * 8,
                   backgroundColor: AppConstant.primaryColor,
-                  onPressed: () => context.read<TimerBloc>().add(ResetTimer()),
+                  onPressed: () => context.read<TimerBloc>().add(TimerReset()),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
                   child: const Icon(
@@ -111,7 +111,7 @@ class TimerView extends StatelessWidget {
                   height: SizeConfig.heightMultiplier * 10,
                   backgroundColor: AppConstant.secondaryColor,
                   onPressed: () =>
-                      context.read<TimerBloc>().add(const StartTimer(60)),
+                      context.read<TimerBloc>().add(const TimerStarted(60)),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
                   child: const Icon(
@@ -126,7 +126,7 @@ class TimerView extends StatelessWidget {
                   width: SizeConfig.heightMultiplier * 8,
                   height: SizeConfig.heightMultiplier * 8,
                   backgroundColor: AppConstant.primaryColor,
-                  onPressed: () => context.read<TimerBloc>().add(ResetTimer()),
+                  onPressed: () => context.read<TimerBloc>().add(TimerReset()),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
                   child: const Icon(
