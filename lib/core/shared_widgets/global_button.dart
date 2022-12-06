@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyButton extends StatelessWidget {
-  const MyButton({
+class GlobalButton extends StatelessWidget {
+  const GlobalButton({
     Key? key,
     this.child,
     required this.onPressed,
