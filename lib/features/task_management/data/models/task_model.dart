@@ -26,12 +26,21 @@ class TaskModel extends TaskEntity {
         item["done"],
       );
 
-  static toJson(TaskModel item) => {
-        "id": item.id,
+  static toDbQuery(TaskEntity item) => {
+        "uid": item.id,
         "title": item.title,
         "description": item.description,
-        "deadLineTime": item.deadLineTime,
-        "doneTime": item.doneTime,
-        "done": item.done
+        "deadLineTime": item.deadLineTime.toString(),
+        "doneTime": item.doneTime.toString(),
+        "done": item.done ? 1 : 0,
       };
+
+  static fromQueryToTaskModel(Map<String, dynamic> item) => TaskModel(
+        item["uid"],
+        item["title"],
+        item["description"],
+        DateTime.parse(item["deadLineTime"]),
+        DateTime.parse(item["doneTime"]),
+        item["done"] == 1 ? true : false,
+      );
 }

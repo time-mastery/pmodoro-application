@@ -1,12 +1,26 @@
+import 'package:pomodore/features/task_management/data/data_sources/local_data_source.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 
-import '../../../../core/resources/params/task_params.dart';
+import '../../../../core/resources/data_state.dart';
+import '../../domain/entities/task_entity.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
+  final LocalDataSource localDataSource;
+
+  TaskRepositoryImpl(this.localDataSource);
+
   @override
-  Future addTask(TaskParams task) {
-    // TODO: implement addTask
-    throw UnimplementedError();
+  Future<DataState<bool>> addTask(TaskEntity task) async {
+    late DataState<bool> result;
+
+    bool state = await localDataSource.addTask(task);
+    if (state) {
+      result = const DataSuccess(true);
+    } else {
+      // todo : generate suitable error here
+      result = const DataFailed("error");
+    }
+    return result;
   }
 
   @override

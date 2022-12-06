@@ -42,4 +42,7 @@ class DatabaseHelper {
             )
           ''');
   }
+
+  static Future showTable() async =>
+      await _database?.rawQuery('SELECT * FROM "tasks"');
 }

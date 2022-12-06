@@ -58,29 +58,7 @@ class TimerView extends StatelessWidget {
             SizedBox(
               height: SizeConfig.heightMultiplier * 3,
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .5,
-              height: MediaQuery.of(context).size.width * .5,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * .5,
-                      height: MediaQuery.of(context).size.width * .5,
-                      child: CircularProgressIndicator(
-                        value: 20,
-                        color: AppConstant.primaryColor,
-                        backgroundColor:
-                            AppConstant.primaryColor.withOpacity(.2),
-                        strokeWidth: 7,
-                      ),
-                    ),
-                  ),
-                  const TimerText(),
-                ],
-              ),
-            ),
+            const TimerBar(),
             SizedBox(
               height: SizeConfig.heightMultiplier * 3,
             ),
@@ -88,57 +66,95 @@ class TimerView extends StatelessWidget {
             SizedBox(
               height: SizeConfig.heightMultiplier * 3,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MyButton(
-                  width: SizeConfig.heightMultiplier * 8,
-                  height: SizeConfig.heightMultiplier * 8,
-                  backgroundColor: AppConstant.primaryColor,
-                  onPressed: () => context.read<TimerBloc>().add(TimerReset()),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  child: const Icon(
-                    Ionicons.repeat,
-                    color: AppConstant.scaffoldColor,
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                MyButton(
-                  width: SizeConfig.heightMultiplier * 10,
-                  height: SizeConfig.heightMultiplier * 10,
-                  backgroundColor: AppConstant.secondaryColor,
-                  onPressed: () =>
-                      context.read<TimerBloc>().add(const TimerStarted(60)),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  child: const Icon(
-                    Ionicons.play,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                MyButton(
-                  width: SizeConfig.heightMultiplier * 8,
-                  height: SizeConfig.heightMultiplier * 8,
-                  backgroundColor: AppConstant.primaryColor,
-                  onPressed: () => context.read<TimerBloc>().add(TimerReset()),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  child: const Icon(
-                    Ionicons.square,
-                    color: AppConstant.scaffoldColor,
-                  ),
-                ),
-              ],
-            )
+            const TimerButtons(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class TimerBar extends StatelessWidget {
+  const TimerBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * .5,
+      height: MediaQuery.of(context).size.width * .5,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * .5,
+              height: MediaQuery.of(context).size.width * .5,
+              child: CircularProgressIndicator(
+                value: context.select((TimerBloc bloc) => bloc.state.duration) /
+                    60,
+                color: AppConstant.primaryColor,
+                backgroundColor: AppConstant.primaryColor.withOpacity(.2),
+                strokeWidth: 7,
+              ),
+            ),
+          ),
+          const TimerText(),
+        ],
+      ),
+    );
+  }
+}
+
+class TimerButtons extends StatelessWidget {
+  const TimerButtons({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TimerBloc, TimerState>(
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyButton(
+              width: SizeConfig.heightMultiplier * 10,
+              height: SizeConfig.heightMultiplier * 10,
+              backgroundColor: AppConstant.secondaryColor,
+              onPressed: () {
+                if (state is TimerInProgress) {
+                  context.read<TimerBloc>().add(TimerPaused());
+                } else {
+                  if (state.duration == 60) {
+                    context.read<TimerBloc>().add(const TimerStarted(60));
+                  } else {
+                    context.read<TimerBloc>().add(TimerResumed());
+                  }
+                }
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100)),
+              child: Icon(
+                (state is TimerInProgress) ? Ionicons.pause : Ionicons.play,
+                size: 30,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            MyButton(
+              width: SizeConfig.heightMultiplier * 10,
+              height: SizeConfig.heightMultiplier * 10,
+              backgroundColor: AppConstant.primaryColor,
+              onPressed: () => context.read<TimerBloc>().add(TimerReset()),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100)),
+              child: const Icon(
+                Ionicons.square,
+                color: AppConstant.scaffoldColor,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
