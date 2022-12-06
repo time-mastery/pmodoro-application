@@ -35,12 +35,12 @@ class TaskModel extends TaskEntity {
         "done": item.done ? 1 : 0,
       };
 
-  static fromQueryToTaskModel(Map<String, dynamic> item) => TaskModel(
-        item["uid"],
-        item["title"],
-        item["description"],
-        DateTime.parse(item["deadLineTime"]),
-        DateTime.parse(item["doneTime"]),
-        item["done"] == 1 ? true : false,
+  static fromQueryToTaskModel(Map<String, dynamic> item) => TaskEntity(
+        id: item["uid"],
+        title: item["title"],
+        description: item["description"],
+        deadLineTime: DateTime.parse(item["deadLineTime"]),
+        doneTime: DateTime.parse(item["doneTime"]),
+        done: item["done"] == 1 ? true : false,
       );
 }

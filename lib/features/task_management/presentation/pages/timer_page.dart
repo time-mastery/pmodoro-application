@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/shared_widgets/my_button.dart';
+import 'package:pomodore/core/shared_widgets/global_button.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/utils/utils.dart';
 import 'package:pomodore/di.dart';
@@ -115,7 +115,7 @@ class TimerButtons extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MyButton(
+            GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
               backgroundColor: AppConstant.secondaryColor,
@@ -140,7 +140,7 @@ class TimerButtons extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            MyButton(
+            GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
               backgroundColor: AppConstant.primaryColor,

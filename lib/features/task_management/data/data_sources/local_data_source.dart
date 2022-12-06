@@ -1,7 +1,8 @@
 import 'package:pomodore/core/utils/database_helper.dart';
-import 'package:pomodore/features/task_management/data/models/task_model.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../models/task_model.dart';
 
 class LocalDataSource {
   final Database db;

@@ -19,6 +19,7 @@ dependencies:
   bitsdojo_window: ^0.1.5
   google_fonts: ^3.0.1
   ionicons: ^0.2.1
+  flutter_spinkit: ^5.1.0
 
   # state management
   flutter_bloc: ^8.1.1

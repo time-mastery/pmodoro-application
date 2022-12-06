@@ -24,4 +24,11 @@ class TaskEntity extends Equatable {
         doneTime,
         done,
       ];
+
+  @override
+  String toString() {
+    return """id: $id , title: $title , description: $description ,
+     deadLineTime: $deadLineTime , doneTime: $doneTime ,
+     done: $done""";
+  }
 }
