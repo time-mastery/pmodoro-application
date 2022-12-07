@@ -38,5 +38,11 @@
     "fromYesterdayTitle":"x from yesterday",
     "taskDetailTitle":"Today Tasks Details",
     "yearAnalysisTitle":"Pmodore Yearly Analysis",
-    "dailyActivityTitle":"Pmodore Daily Activity Counter"
+    "dailyActivityTitle":"Pmodore Daily Activity Counter",
+    "successTitle":"Successful",
+    "taskDescription":"Description",
+    "addCategoryTitle":"Add Category",
+    "submitCategory":"Submit Category",
+    "nullValueValidatorMessage":"Please enter some text",
+    "failureTitle":"Failure"
 }

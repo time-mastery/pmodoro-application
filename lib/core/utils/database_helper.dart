@@ -10,6 +10,7 @@ class DatabaseHelper {
   static const _databaseVersion = 1;
 
   static const taskTable = 'tasks';
+  static const categoryTable = 'categories';
 
   static Database? _database;
 
@@ -30,19 +31,31 @@ class DatabaseHelper {
   }
 
   static Future _onCreate(Database db, int version) async {
-    await db.execute('''
+    Batch batch = db.batch();
+    batch.execute('''
           CREATE TABLE $taskTable (
             _id INTEGER PRIMARY KEY,
             uid TEXT NOT NULL,
             title TEXT NOT NULL,
             description TEXT NOT NULL,
             deadLineTime TEXT NOT NULL,
+            category TEXT NOT NULL,
             doneTime TEXT NOT NULL,
             done INTEGER NOT NULL
             )
           ''');
+    batch.execute('''
+          CREATE TABLE $categoryTable (
+            _id INTEGER PRIMARY KEY,
+            title TEXT NOT NULL
+            )
+          ''');
+    await batch.commit();
   }
 
-  static Future showTable() async =>
-      await _database?.rawQuery('SELECT * FROM "tasks"');
+  static Future showTaskTable() async =>
+      await _database?.rawQuery('SELECT * FROM "$taskTable"');
+
+  static Future showCategoryTable() async =>
+      await _database?.rawQuery('SELECT * FROM "$categoryTable"');
 }

@@ -7,10 +7,12 @@ class TaskModel extends TaskEntity {
     String description,
     DateTime deadLineTime,
     DateTime doneTime,
+    String category,
     bool done,
   ) : super(
           id: id,
           title: title,
+          category: category,
           description: description,
           deadLineTime: deadLineTime,
           doneTime: doneTime,
@@ -23,6 +25,7 @@ class TaskModel extends TaskEntity {
         item["description"],
         item["deadLineTime"],
         item["doneTime"],
+        item["category"],
         item["done"],
       );
 
@@ -30,6 +33,7 @@ class TaskModel extends TaskEntity {
         "uid": item.id,
         "title": item.title,
         "description": item.description,
+        "category": item.category,
         "deadLineTime": item.deadLineTime.toString(),
         "doneTime": item.doneTime.toString(),
         "done": item.done ? 1 : 0,
@@ -39,6 +43,7 @@ class TaskModel extends TaskEntity {
         id: item["uid"],
         title: item["title"],
         description: item["description"],
+        category: item["category"],
         deadLineTime: DateTime.parse(item["deadLineTime"]),
         doneTime: DateTime.parse(item["doneTime"]),
         done: item["done"] == 1 ? true : false,

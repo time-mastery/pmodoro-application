@@ -46,6 +46,7 @@ dependencies:
 
   # utility
   intl: ^0.17.0
+  flutter_datetime_picker: ^1.5.1
 
 
 dev_dependencies:

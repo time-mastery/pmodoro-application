@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/shared_widgets/custom_form_field.dart';
 import 'package:pomodore/core/shared_widgets/global_button.dart';
+import 'package:pomodore/core/shared_widgets/global_datetime_picker.dart';
 import 'package:pomodore/core/shared_widgets/global_snack.dart';
 import 'package:pomodore/di.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
+import 'package:pomodore/features/task_management/presentation/pages/add_category_page.dart';
 
 import '../../../../core/constant/constant.dart';
 import '../../../../core/shared_widgets/global_indicator.dart';
@@ -24,13 +27,41 @@ class AddTaskPage extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => getIt.get<TasksBloc>(),
-      child: AddTaskView(),
+      child: const AddTaskView(),
     );
   }
 }
 
-class AddTaskView extends StatelessWidget {
+class AddTaskView extends StatefulWidget {
   const AddTaskView({Key? key}) : super(key: key);
+
+  @override
+  State<AddTaskView> createState() => _AddTaskViewState();
+}
+
+class _AddTaskViewState extends State<AddTaskView> {
+  late TextEditingController titleController;
+  late TextEditingController descriptionController;
+  DateTime? dateTime;
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    titleController = TextEditingController();
+    descriptionController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controllersDisposer();
+    super.dispose();
+  }
+
+  void controllersDisposer() {
+    titleController.dispose();
+    descriptionController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +71,10 @@ class AddTaskView extends StatelessWidget {
       bloc: context.read<TasksBloc>(),
       listener: (context, state) {
         if (state is TaskAddSuccess || state is TaskAddFail) {
-          showSnackbar(context,
-              title: (state is TaskAddSuccess) ? "Successful" : "Failure",
+          showSnackBar(context,
+              title: (state is TaskAddSuccess)
+                  ? localization.successTitle
+                  : localization.failureTitle,
               color: AppConstant.primaryColor);
         }
       },
@@ -51,39 +84,79 @@ class AddTaskView extends StatelessWidget {
             title: localization.addNewTaskTitle,
             hasBackBtn: true,
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  CustomFormField(
-                    hint: localization.taskTitle,
-                  ),
-                  const SizedBox(height: 20),
-                  CustomFormField(
-                    hint: localization.dateTitle,
-                  ),
-                  const SizedBox(height: 20),
-                  CustomFormField(hint: localization.categoryTitle),
-                  const SizedBox(height: 20),
-                  GlobalButton(
-                    onPressed: () {
-                      // todo : create a real item with data
-                      context.read<TasksBloc>().add(TaskAdded(TaskEntity(
-                            id: Utils.createUniqueId(),
-                            title: 'Test',
-                            description: 'This is a test',
-                            deadLineTime: DateTime.now(),
-                            doneTime: DateTime.now(),
-                            done: false,
-                          )));
-                    },
-                    child: (state is TaskAddLoading)
-                        ? GlobalIndicator()
-                        : Text(localization.submitTask),
-                    backgroundColor: AppConstant.secondaryColor,
-                  ),
-                ],
+          body: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    CustomFormField(
+                      validatorsType: "length",
+                      editController: titleController,
+                      hint: localization.taskTitle,
+                    ),
+                    const SizedBox(height: 20),
+                    CustomFormField(
+                      validatorsType: "length",
+                      editController: descriptionController,
+                      hint: localization.taskDescription,
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Flexible(
+                          child:
+                              CustomFormField(hint: localization.categoryTitle),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, AddCategoryPage.routeName);
+                            },
+                            icon: const Icon(
+                              Ionicons.add_circle_outline,
+                              size: 30,
+                            )),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    GlobalDateTimePicker(
+                      buttonTitle: "Select Deadline DateTime",
+                      onChanged: (time) {
+                        dateTime = time;
+                      },
+                      onConfirm: (time) {
+                        dateTime = time;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    GlobalButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          if (dateTime == null) {
+                            showSnackBar(context,
+                                title: "Please select a datetime");
+                          } else {
+                            context.read<TasksBloc>().add(TaskAdded(TaskEntity(
+                                  id: Utils.createUniqueId(),
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  deadLineTime: dateTime!,
+                                  doneTime: DateTime.now(),
+                                  done: false,
+                                  category: "cate",
+                                )));
+                          }
+                        }
+                      },
+                      backgroundColor: AppConstant.secondaryColor,
+                      child: (state is TaskAddLoading)
+                          ? const GlobalIndicator()
+                          : Text(localization.submitTask),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -23,7 +23,8 @@ Future inject() async {
 
   Database db = await DatabaseHelper.database;
   getIt.registerSingleton<Database>(db);
-  print(await DatabaseHelper.showTable());
+  print(await DatabaseHelper.showTaskTable());
+  print(await DatabaseHelper.showCategoryTable());
 
   // inject blocs
   getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: const Ticker()));
