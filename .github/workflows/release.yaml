@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v1
+
+      - name: Setup java to compile android project
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+
+      - name: Install and set flutter version
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.3.8"
+          channel: 'stable'
+
+      - name: Check dir
+        run: ls /home/runner/work
+
+      - name: Create the keystore
+        run: echo "${{ secrets.KEY }}" | base64 -d > /home/runner/work/pmodore-application/pmodore-application/android/key.jks
+
+      - name: Create the properties
+        run: echo "${{ secrets.PROPERTIES }}" | base64 -d > /home/runner/work/pmodore-application/pmodore-application/android/key.properties
+
+      - name: Get packages
+        run: flutter pub get
+
+      - name: Build android app
+        run: flutter build apk --release
+
+      - name: Rename app
+        run: cd build/app/outputs/apk/release/ && mv app-release.apk pmodore.apk
+
+      - name: Publish apk artefacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
