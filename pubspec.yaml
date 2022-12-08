@@ -19,6 +19,7 @@ dependencies:
   bitsdojo_window: ^0.1.5
   google_fonts: ^3.0.1
   ionicons: ^0.2.1
+  flutter_spinkit: ^5.1.0
 
   # state management
   flutter_bloc: ^8.1.1
@@ -45,6 +46,8 @@ dependencies:
 
   # utility
   intl: ^0.17.0
+  flutter_datetime_picker: ^1.5.1
+  dartz: ^0.10.1
 
 
 dev_dependencies:
