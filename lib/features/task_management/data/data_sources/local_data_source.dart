@@ -25,7 +25,9 @@ class LocalDataSource {
     try {
       Map<String, Object?> data = CategoryModel.toDbQuery(category);
       await db.insert(DatabaseHelper.categoryTable, data);
-    } catch (e) {
+    } catch (e, s) {
+      print(e);
+      print(s);
       return false;
     }
     return true;

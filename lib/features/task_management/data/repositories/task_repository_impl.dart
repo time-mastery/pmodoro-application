@@ -10,15 +10,16 @@ class TaskRepositoryImpl implements TaskRepository {
   TaskRepositoryImpl(this.localDataSource);
 
   @override
-  Future<Either<bool, String>> addTask(TaskEntity task) async {
-    late Either<bool, String> result;
+  Future<Either<String, bool>> addTask(TaskEntity task) async {
+    late Either<String, bool> result;
 
     bool state = await localDataSource.addTask(task);
+
     if (state) {
-      result = const Left(true);
+      result = const Left("error");
     } else {
       // todo : generate suitable error here
-      result = const Right("error");
+      result = const Right(true);
     }
     return result;
   }

@@ -23,3 +23,18 @@ class TaskAddLoading extends TasksState {
   @override
   List<Object?> get props => [];
 }
+
+class CategoryAddSuccess extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CategoryAddLoading extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CategoryAddFail extends TasksState {
+  @override
+  List<Object?> get props => [];
+}

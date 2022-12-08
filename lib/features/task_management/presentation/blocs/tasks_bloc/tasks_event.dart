@@ -15,3 +15,12 @@ class TaskAdded extends TasksEvent {
   @override
   String toString() => "Task Added : $data";
 }
+
+class CategoryAdded extends TasksEvent {
+  final CategoryEntity data;
+
+  const CategoryAdded(this.data);
+
+  @override
+  List<Object?> get props => [data];
+}

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
 abstract class TaskRepository {
-  Future<Either<bool, String>> addTask(TaskEntity task);
+  Future<Either<String, bool>> addTask(TaskEntity task);
 
   Future getTaskByDate(DateTime date);
 
