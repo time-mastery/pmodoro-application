@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:pomodore/core/resources/data_state.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
 import '../../../domain/usecases/add_task_usecase.dart';
@@ -16,12 +16,8 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<TaskAdded>((event, emit) async {
       emit(TaskAddLoading());
 
-      DataState result = await addTaskUsecase.call(event.data);
-      if (result.error == null) {
-        emit(TaskAddSuccess());
-      } else {
-        emit(TaskAddFail());
-      }
+      Either<bool, String> result = await addTaskUsecase.call(event.data);
+      result.fold((l) => emit(TaskAddSuccess()), (r) => emit(TaskAddFail()));
     });
   }
 }

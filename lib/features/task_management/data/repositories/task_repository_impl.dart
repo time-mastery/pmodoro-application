@@ -1,7 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:pomodore/features/task_management/data/data_sources/local_data_source.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 
-import '../../../../core/resources/data_state.dart';
 import '../../domain/entities/task_entity.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
@@ -10,15 +10,15 @@ class TaskRepositoryImpl implements TaskRepository {
   TaskRepositoryImpl(this.localDataSource);
 
   @override
-  Future<DataState<bool>> addTask(TaskEntity task) async {
-    late DataState<bool> result;
+  Future<Either<bool, String>> addTask(TaskEntity task) async {
+    late Either<bool, String> result;
 
     bool state = await localDataSource.addTask(task);
     if (state) {
-      result = const DataSuccess(true);
+      result = const Left(true);
     } else {
       // todo : generate suitable error here
-      result = const DataFailed("error");
+      result = const Right("error");
     }
     return result;
   }
