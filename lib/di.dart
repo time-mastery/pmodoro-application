@@ -3,18 +3,22 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pomodore/core/utils/database_helper.dart';
 import 'package:pomodore/features/task_management/data/repositories/category_repository_impl.dart';
 import 'package:pomodore/features/task_management/data/repositories/task_repository_impl.dart';
+import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'core/utils/ticker.dart';
 import 'features/task_management/data/data_sources/local_data_source.dart';
+import 'features/task_management/domain/repositories/category_repository.dart';
 
 final getIt = GetIt.instance;
 
 Future inject() async {
+  // inject databases
   await Hive.initFlutter();
   Box appBox = await Hive.openBox('app_box');
 
@@ -25,15 +29,28 @@ Future inject() async {
 
   Database db = await DatabaseHelper.database;
   getIt.registerSingleton<Database>(db);
-  print(await DatabaseHelper.showTaskTable());
-  print(await DatabaseHelper.showCategoryTable());
+
+  // inject ticker
+  Ticker ticker = const Ticker();
+  getIt.registerSingleton<Ticker>(ticker);
+
+  // inject datasource
+  getIt.registerSingleton<TasksLocalDataSource>(TasksLocalDataSource(getIt()));
+
+  // inject repositories
+  getIt.registerSingleton<TaskRepository>(TaskRepositoryImpl(getIt()));
+  getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImpl(getIt()));
+
+  // inject usecases
+  getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
+  getIt.registerSingleton<AddCategoryUsecase>(AddCategoryUsecase(getIt()));
+  getIt.registerSingleton<GetSpecificDateTasks>(GetSpecificDateTasks(getIt()));
 
   // inject blocs
-  getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: const Ticker()));
-  // todo : check and fix dependencies
-  getIt.registerSingleton<TasksBloc>(TasksBloc(
-    addTaskUsecase: AddTaskUsecase(TaskRepositoryImpl(LocalDataSource(db))),
-    addCategoryUsecase:
-        AddCategoryUsecase(CategoryRepositoryImpl(LocalDataSource(db))),
-  ));
+  getIt.registerLazySingleton<TimerBloc>(() => TimerBloc(ticker: getIt()));
+  getIt.registerLazySingleton<TasksBloc>(() => TasksBloc(
+        getSpecificDateTasks: getIt(),
+        addCategoryUsecase: getIt(),
+        addTaskUsecase: getIt(),
+      ));
 }
