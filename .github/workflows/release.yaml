@@ -37,9 +37,6 @@ jobs:
       - name: Build android app
         run: flutter build apk --release
 
-      - name: Rename app
-        run: cd build/app/outputs/apk/release/ && mv app-release.apk pmodore.apk
-
       - name: Publish apk artefacts
         uses: actions/upload-artifact@v1
         with:

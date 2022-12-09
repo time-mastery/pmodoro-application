@@ -4,7 +4,7 @@ import 'package:pomodore/features/task_management/domain/entities/category_entit
 import 'package:pomodore/features/task_management/domain/repositories/category_repository.dart';
 
 class CategoryRepositoryImpl implements CategoryRepository {
-  final LocalDataSource localDataSource;
+  final TasksLocalDataSource localDataSource;
 
   CategoryRepositoryImpl(this.localDataSource);
 

@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:pomodore/features/task_management/data/data_sources/local_data_source.dart';
+import 'package:pomodore/features/task_management/data/models/task_model.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 
 import '../../domain/entities/task_entity.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
-  final LocalDataSource localDataSource;
+  final TasksLocalDataSource localDataSource;
 
   TaskRepositoryImpl(this.localDataSource);
 
@@ -18,9 +19,25 @@ class TaskRepositoryImpl implements TaskRepository {
     if (state) {
       result = const Left("error");
     } else {
-      // todo : generate suitable error here
       result = const Right(true);
     }
+    return result;
+  }
+
+  @override
+  Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date) async {
+    late Either<String, List<TaskEntity>> result;
+
+    List<Map<String, dynamic>>? rawList =
+        await localDataSource.getTaskByDate(date);
+
+    if (rawList != null) {
+      List<TaskEntity> list = TaskModel.parseRawList(rawList);
+      result = Right(list);
+    } else {
+      result = const Left("error");
+    }
+
     return result;
   }
 
@@ -33,12 +50,6 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future getCompletedTask() {
     // TODO: implement getCompletedTask
-    throw UnimplementedError();
-  }
-
-  @override
-  Future getTaskByDate(DateTime date) {
-    // TODO: implement getTaskByDate
     throw UnimplementedError();
   }
 

@@ -38,3 +38,22 @@ class CategoryAddFail extends TasksState {
   @override
   List<Object?> get props => [];
 }
+
+class SpecificDateTasksReceivedSuccess extends TasksState {
+  final List<TaskEntity> list;
+
+  const SpecificDateTasksReceivedSuccess(this.list);
+
+  @override
+  List<Object?> get props => [list];
+}
+
+class SpecificDateTasksReceivedFailure extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class SpecificDateTasksReceivedLoading extends TasksState {
+  @override
+  List<Object?> get props => [];
+}

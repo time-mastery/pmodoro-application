@@ -6,10 +6,10 @@ import 'package:sqflite/sqflite.dart';
 
 import '../models/task_model.dart';
 
-class LocalDataSource {
+class TasksLocalDataSource {
   final Database db;
 
-  LocalDataSource(this.db);
+  TasksLocalDataSource(this.db);
 
   Future<bool> addTask(TaskEntity task) async {
     try {
@@ -26,18 +26,30 @@ class LocalDataSource {
       Map<String, Object?> data = CategoryModel.toDbQuery(category);
       await db.insert(DatabaseHelper.categoryTable, data);
     } catch (e, s) {
-      print(e);
-      print(s);
       return false;
     }
     return true;
   }
 
+  Future<List<Map<String, dynamic>>>? getTaskByDate(DateTime date) async {
+    List<Map<String, dynamic>>? list;
+    try {
+      List<Map<String, Object?>> records = await db.rawQuery(
+        'SELECT * FROM ${DatabaseHelper.taskTable} WHERE doneTime = ?',
+        [DateTime.now().toString()],
+      );
+
+      list = records;
+    } catch (e, s) {
+      rethrow;
+    }
+
+    return list;
+  }
+
   getTaskById(String id) {}
 
   deleteTask(String id) {}
-
-  getTaskByDate(DateTime date) {}
 
   getCompletedTask() {}
 }

@@ -8,7 +8,7 @@ class CategoryModel extends CategoryEntity {
       };
 
   static fromQueryToTaskModel(Map<String, dynamic> item) => CategoryEntity(
-        id: item["id"],
+        id: item["_id"],
         title: item["title"],
       );
 }
