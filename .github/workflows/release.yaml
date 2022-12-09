@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ main,development ]
+    branches: [ main ]
 
 jobs:
   build_android:
@@ -36,9 +36,6 @@ jobs:
 
       - name: Build android app
         run: flutter build apk --release
-
-      - name: Rename app
-        run: cd build/app/outputs/apk/release/ && mv app-release.apk pmodore.apk
 
       - name: Publish apk artefacts
         uses: actions/upload-artifact@v1

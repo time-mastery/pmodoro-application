@@ -4,7 +4,7 @@ import 'package:pomodore/features/task_management/domain/entities/task_entity.da
 abstract class TaskRepository {
   Future<Either<String, bool>> addTask(TaskEntity task);
 
-  Future getTaskByDate(DateTime date);
+  Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date);
 
   Future getTaskById(String id);
 

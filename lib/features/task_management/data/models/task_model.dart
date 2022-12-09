@@ -48,4 +48,10 @@ class TaskModel extends TaskEntity {
         doneTime: DateTime.parse(item["doneTime"]),
         done: item["done"] == 1 ? true : false,
       );
+
+  static List<TaskEntity> parseRawList(List<Map<String, dynamic>> items) {
+    late List<TaskEntity> list;
+    list = items.map<TaskEntity>((e) => fromQueryToTaskModel(e)).toList();
+    return list;
+  }
 }

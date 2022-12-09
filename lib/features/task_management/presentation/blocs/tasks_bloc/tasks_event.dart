@@ -24,3 +24,12 @@ class CategoryAdded extends TasksEvent {
   @override
   List<Object?> get props => [data];
 }
+
+class SpecificDateTasksReceived extends TasksEvent {
+  final DateTime data;
+
+  const SpecificDateTasksReceived(this.data);
+
+  @override
+  List<Object?> get props => [data];
+}
