@@ -23,32 +23,28 @@ class BaseAppBar extends StatefulWidget with PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(90);
 }
 
-class _BaseAppBarState extends State<BaseAppBar> with TickerProviderStateMixin {
+class _BaseAppBarState extends State<BaseAppBar>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
 
   @override
   void initState() {
     super.initState();
 
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800));
+        vsync: this, duration: const Duration(milliseconds: 800))
+      ..forward();
 
     _fadeAnimation =
         Tween<double>(begin: 0, end: 1).animate(_animationController);
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _animationController.forward();
-  }
-
-  @override
   void dispose() {
-    super.dispose();
     _animationController.dispose();
+
+    super.dispose();
   }
 
   @override
