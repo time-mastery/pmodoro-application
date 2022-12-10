@@ -32,4 +32,14 @@ class SpecificDateTasksReceived extends TasksEvent {
 
   @override
   List<Object?> get props => [data];
+
+  @override
+  String toString() {
+    return "SpecificDateTasksReceived => {date: $data}";
+  }
+}
+
+class CategoriesFetched extends TasksEvent {
+  @override
+  List<Object?> get props => [];
 }

@@ -28,9 +28,11 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   void initState() {
     super.initState();
     _tasksBloc = TasksBloc(
-        addTaskUsecase: getIt(),
-        addCategoryUsecase: getIt(),
-        getSpecificDateTasks: getIt());
+      addTaskUsecase: getIt(),
+      addCategoryUsecase: getIt(),
+      getSpecificDateTasks: getIt(),
+      getAllCategories: getIt(),
+    );
   }
 
   @override

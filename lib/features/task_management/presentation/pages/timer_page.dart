@@ -40,7 +40,6 @@ class TimerView extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(
               height: SizeConfig.heightMultiplier * 5,
@@ -52,15 +51,11 @@ class TimerView extends StatelessWidget {
               totalTime: 29,
             ),
             SizedBox(
-              height: SizeConfig.heightMultiplier * 3,
+              height: SizeConfig.heightMultiplier * 5,
             ),
             const TimerBar(),
             SizedBox(
-              height: SizeConfig.heightMultiplier * 3,
-            ),
-            const FocusTimeText(),
-            SizedBox(
-              height: SizeConfig.heightMultiplier * 3,
+              height: SizeConfig.heightMultiplier * 5,
             ),
             const TimerButtons(),
           ],
@@ -87,7 +82,7 @@ class TimerBar extends StatelessWidget {
               height: MediaQuery.of(context).size.width * .5,
               child: CircularProgressIndicator(
                 value: context.select((TimerBloc bloc) => bloc.state.duration) /
-                    60,
+                    TimerBloc.getDuration,
                 color: AppConstant.primaryColor,
                 backgroundColor: AppConstant.primaryColor.withOpacity(.2),
                 strokeWidth: 7,
@@ -119,8 +114,10 @@ class TimerButtons extends StatelessWidget {
                 if (state is TimerInProgress) {
                   context.read<TimerBloc>().add(TimerPaused());
                 } else {
-                  if (state.duration == 60) {
-                    context.read<TimerBloc>().add(const TimerStarted(60));
+                  if (state.duration == TimerBloc.getDuration) {
+                    context
+                        .read<TimerBloc>()
+                        .add(TimerStarted(TimerBloc.getDuration));
                   } else {
                     context.read<TimerBloc>().add(TimerResumed());
                   }
@@ -173,22 +170,6 @@ class TimerText extends StatelessWidget {
               ),
         ),
       );
-    });
-  }
-}
-
-class FocusTimeText extends StatelessWidget {
-  const FocusTimeText({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
-
-    return Builder(builder: (context) {
-      final duration = context.select((TimerBloc bloc) => bloc.state.duration);
-
-      return Text(localization.stayFocus.replaceAll(
-          "#", Utils.formatSecToMinSec(timeInSecond: 60 - duration)));
     });
   }
 }

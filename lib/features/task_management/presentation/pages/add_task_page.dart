@@ -32,9 +32,11 @@ class _AddTaskPageState extends State<AddTaskPage> {
   void initState() {
     super.initState();
     _tasksBloc = TasksBloc(
-        addTaskUsecase: getIt(),
-        addCategoryUsecase: getIt(),
-        getSpecificDateTasks: getIt());
+      addTaskUsecase: getIt(),
+      addCategoryUsecase: getIt(),
+      getSpecificDateTasks: getIt(),
+      getAllCategories: getIt(),
+    );
   }
 
   @override
@@ -46,7 +48,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => _tasksBloc,
+        create: (BuildContext context) => _tasksBloc..add(CategoriesFetched()),
         child: const AddTaskView());
   }
 }

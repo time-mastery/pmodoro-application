@@ -28,9 +28,11 @@ class _TasksPageState extends State<TasksPage> {
   void initState() {
     super.initState();
     _tasksBloc = TasksBloc(
-        addTaskUsecase: getIt(),
-        addCategoryUsecase: getIt(),
-        getSpecificDateTasks: getIt());
+      addTaskUsecase: getIt(),
+      addCategoryUsecase: getIt(),
+      getSpecificDateTasks: getIt(),
+      getAllCategories: getIt(),
+    );
   }
 
   @override
@@ -81,7 +83,11 @@ class TaskView extends StatelessWidget {
                         DateTime.now().month, DateTime.now().day),
                     firstDate: DateTime(2022, 1, 15),
                     lastDate: DateTime(2030, 11, 20),
-                    onDateSelected: (date) {},
+                    onDateSelected: (date) {
+                      // context
+                      //     .read<TasksBloc>()
+                      //     .add(SpecificDateTasksReceived(date));
+                    },
                     leftMargin: 20,
                     monthColor: AppConstant.secondaryColor,
                     dayColor: AppConstant.secondaryColor,
@@ -99,11 +105,8 @@ class TaskView extends StatelessWidget {
                   child: ListView.separated(
                     padding: const EdgeInsets.only(top: 20),
                     itemCount: state.list.length,
-                    itemBuilder: (context, index) => TaskItem(
-                      color: Colors.primaries[index % 17],
-                      title: "title",
-                      time: '10:00 - 20:00',
-                    ),
+                    itemBuilder: (context, index) =>
+                        TaskItem(task: state.list[index]),
                     separatorBuilder: (BuildContext context, int index) {
                       if (index == 2) {
                         return Column(
@@ -125,7 +128,9 @@ class TaskView extends StatelessWidget {
                     },
                   ),
                 ),
-              if (state is SpecificDateTasksReceivedFailure) Text("error"),
+              if (state is SpecificDateTasksReceivedFailure)
+                // todo: create a error widget
+                Center(child: Text("error")),
               if (state is SpecificDateTasksReceivedLoading)
                 const GlobalIndicator(),
               Container(),
@@ -178,3 +183,14 @@ class DayWithoutTask extends StatelessWidget {
     );
   }
 }
+
+// class TaskItem extends StatelessWidget {
+//   const TaskItem({Key? key,required this.task}) : super(key: key);
+//
+//   final TaskEntity task;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }

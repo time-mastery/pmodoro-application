@@ -9,7 +9,7 @@ class AddTaskUsecase extends UseCase<Either<String, bool>, TaskEntity> {
   AddTaskUsecase(this._repository);
 
   @override
-  Future<Either<String, bool>> call(TaskEntity? params) {
+  Future<Either<String, bool>> call({TaskEntity? params}) {
     return _repository.addTask(params!);
   }
 }

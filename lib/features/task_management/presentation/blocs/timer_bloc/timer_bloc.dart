@@ -21,7 +21,9 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<_TimerTicked>(_onTicked);
   }
 
-  static const int _duration = 60;
+  static const int _duration = 60 * 25;
+
+  static get getDuration => _duration;
 
   StreamSubscription<int>? _tickerSubscription;
 

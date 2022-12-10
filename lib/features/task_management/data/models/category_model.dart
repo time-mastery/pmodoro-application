@@ -11,4 +11,10 @@ class CategoryModel extends CategoryEntity {
         id: item["_id"],
         title: item["title"],
       );
+
+  static List<CategoryEntity> parseRawList(List<Map<String, dynamic>> items) {
+    late List<CategoryEntity> list;
+    list = items.map<CategoryEntity>((e) => fromQueryToTaskModel(e)).toList();
+    return list;
+  }
 }

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/constant/constant.dart';
+import 'package:pomodore/core/extensions/datetime_extensions.dart';
+import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
 import '../../../../core/utils/size_config.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem({
     Key? key,
-    required this.title,
-    required this.time,
-    this.color,
+    required this.task,
   }) : super(key: key);
 
-  final String title;
-  final String time;
-  final Color? color;
+  final TaskEntity task;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +19,13 @@ class TaskItem extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       child: Row(
         children: [
-          const Text("09:00 AM"),
+          Text(task.deadLineTime.taskTimeFormat()),
           SizedBox(width: SizeConfig.widthMultiplier * 2),
           Expanded(
             child: Container(
               height: SizeConfig.heightMultiplier * 11,
               decoration: BoxDecoration(
-                color: color != null
-                    ? color?.withOpacity(.2)
-                    : AppConstant.secondaryColor.withOpacity(.07),
+                color: AppConstant.primaryColor.withOpacity(.1),
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -38,14 +34,22 @@ class TaskItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
-                    style: Theme.of(context).textTheme.headlineSmall,
+                    task.title,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    task.description,
+                    style: Theme.of(context).textTheme.titleMedium,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(height: SizeConfig.heightMultiplier * 1),
                   Text(
-                    time,
+                    task.deadLineTime.taskDateFormat(),
                     style: Theme.of(context).textTheme.labelSmall,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
