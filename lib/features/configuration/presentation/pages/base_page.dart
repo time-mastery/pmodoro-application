@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
+import 'package:pomodore/di.dart';
 import 'package:pomodore/features/configuration/presentation/pages/settings_page.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/pages/home_page.dart';
 import 'package:pomodore/features/task_management/presentation/pages/tasks_page.dart';
 import 'package:pomodore/features/task_management/presentation/pages/timer_page.dart';
@@ -32,46 +35,53 @@ class _BasePageState extends State<BasePage> {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppConstant.secondaryColor,
-        currentIndex: _bottomNavIndex,
-        onTap: (value) {
-          _bottomNavIndex = value;
-          setState(() {});
-        },
-        selectedItemColor: AppConstant.primaryColor,
-        unselectedItemColor: AppConstant.scaffoldColor,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-              icon: const Icon(Ionicons.home), label: localization.homeTab),
-          BottomNavigationBarItem(
-              icon: const Icon(Ionicons.book), label: localization.tasksTab),
-          BottomNavigationBarItem(
-              icon: const Icon(Ionicons.settings_outline),
-              label: localization.settingTab),
-          BottomNavigationBarItem(
-              icon: Container(
-                width: 30,
-                height: 30,
-                decoration: const BoxDecoration(
-                  color: AppConstant.primaryColor,
-                  shape: BoxShape.circle,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TimerBloc>(
+          create: (context) => getIt.get<TimerBloc>(),
+        ),
+      ],
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: AppConstant.secondaryColor,
+          currentIndex: _bottomNavIndex,
+          onTap: (value) {
+            _bottomNavIndex = value;
+            setState(() {});
+          },
+          selectedItemColor: AppConstant.primaryColor,
+          unselectedItemColor: AppConstant.scaffoldColor,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+                icon: const Icon(Ionicons.home), label: localization.homeTab),
+            BottomNavigationBarItem(
+                icon: const Icon(Ionicons.book), label: localization.tasksTab),
+            BottomNavigationBarItem(
+                icon: const Icon(Ionicons.settings_outline),
+                label: localization.settingTab),
+            BottomNavigationBarItem(
+                icon: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: const BoxDecoration(
+                    color: AppConstant.primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Ionicons.timer_outline,
+                    color: Colors.white,
+                  ),
                 ),
-                child: const Icon(
-                  Ionicons.timer_outline,
-                  color: Colors.white,
-                ),
-              ),
-              label: localization.timerTab),
-          // const BottomNavigationBarItem(
-          //     icon: Icon(Ionicons.people), label: AppConstant.profileTab),
-        ],
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
+                label: localization.timerTab),
+            // const BottomNavigationBarItem(
+            //     icon: Icon(Ionicons.people), label: AppConstant.profileTab),
+          ],
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+        ),
+        body: _pages[_bottomNavIndex],
       ),
-      body: _pages[_bottomNavIndex],
     );
   }
 }

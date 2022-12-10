@@ -6,7 +6,6 @@ import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/shared_widgets/global_button.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/utils/utils.dart';
-import 'package:pomodore/di.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/pages/analyze_page.dart';
 
@@ -18,10 +17,7 @@ class TimerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<TimerBloc>(),
-      child: const TimerView(),
-    );
+    return const TimerView();
   }
 }
 
