@@ -7,21 +7,45 @@ import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/core/utils/size_config.dart';
-import 'package:pomodore/di.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/pages/add_task_page.dart';
 
+import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../widgets/task_item.dart';
 
-class TasksPage extends StatelessWidget {
+class TasksPage extends StatefulWidget {
   const TasksPage({Key? key}) : super(key: key);
 
   @override
+  State<TasksPage> createState() => _TasksPageState();
+}
+
+class _TasksPageState extends State<TasksPage> {
+  late TasksBloc _tasksBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _tasksBloc = TasksBloc(
+      addTaskUsecase: getIt(),
+      addCategoryUsecase: getIt(),
+      getSpecificDateTasks: getIt(),
+      getAllCategories: getIt(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _tasksBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<TasksBloc>()
-        ..add(SpecificDateTasksReceived(DateTime.now())),
+    return BlocProvider<TasksBloc>(
+      create: (context) =>
+          _tasksBloc..add(SpecificDateTasksReceived(DateTime.now())),
       child: const TaskView(),
     );
   }
@@ -59,7 +83,11 @@ class TaskView extends StatelessWidget {
                         DateTime.now().month, DateTime.now().day),
                     firstDate: DateTime(2022, 1, 15),
                     lastDate: DateTime(2030, 11, 20),
-                    onDateSelected: (date) {},
+                    onDateSelected: (date) {
+                      // context
+                      //     .read<TasksBloc>()
+                      //     .add(SpecificDateTasksReceived(date));
+                    },
                     leftMargin: 20,
                     monthColor: AppConstant.secondaryColor,
                     dayColor: AppConstant.secondaryColor,
@@ -77,11 +105,8 @@ class TaskView extends StatelessWidget {
                   child: ListView.separated(
                     padding: const EdgeInsets.only(top: 20),
                     itemCount: state.list.length,
-                    itemBuilder: (context, index) => TaskItem(
-                      color: Colors.primaries[index % 17],
-                      title: "title",
-                      time: '10:00 - 20:00',
-                    ),
+                    itemBuilder: (context, index) =>
+                        TaskItem(task: state.list[index]),
                     separatorBuilder: (BuildContext context, int index) {
                       if (index == 2) {
                         return Column(
@@ -103,7 +128,9 @@ class TaskView extends StatelessWidget {
                     },
                   ),
                 ),
-              if (state is SpecificDateTasksReceivedFailure) Text("error"),
+              if (state is SpecificDateTasksReceivedFailure)
+                // todo: create a error widget
+                Center(child: Text("error")),
               if (state is SpecificDateTasksReceivedLoading)
                 const GlobalIndicator(),
               Container(),
@@ -156,3 +183,14 @@ class DayWithoutTask extends StatelessWidget {
     );
   }
 }
+
+// class TaskItem extends StatelessWidget {
+//   const TaskItem({Key? key,required this.task}) : super(key: key);
+//
+//   final TaskEntity task;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }

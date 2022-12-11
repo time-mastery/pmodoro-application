@@ -31,13 +31,26 @@ class TasksLocalDataSource {
     return true;
   }
 
-  Future<List<Map<String, dynamic>>>? getTaskByDate(DateTime date) async {
+  Future<List<Map<String, dynamic>>>? getAllTasks() async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records = await db.rawQuery(
-        'SELECT * FROM ${DatabaseHelper.taskTable} WHERE doneTime = ?',
-        [DateTime.now().toString()],
-      );
+      // todo : check here to optimize query we can change it to [getSpecificDate]
+      List<Map<String, Object?>> records =
+          await db.rawQuery('SELECT * FROM ${DatabaseHelper.taskTable}');
+
+      list = records;
+    } catch (e, s) {
+      rethrow;
+    }
+
+    return list;
+  }
+
+  Future<List<Map<String, dynamic>>>? getAllCategories() async {
+    List<Map<String, dynamic>>? list;
+    try {
+      List<Map<String, Object?>> records =
+          await db.rawQuery('SELECT * FROM ${DatabaseHelper.categoryTable}');
 
       list = records;
     } catch (e, s) {

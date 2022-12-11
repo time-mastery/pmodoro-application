@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:pomodore/features/task_management/data/data_sources/local_data_source.dart';
+import 'package:pomodore/features/task_management/data/data_sources/tasks_local_data_source.dart';
 import 'package:pomodore/features/task_management/data/models/task_model.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 
@@ -28,12 +28,11 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date) async {
     late Either<String, List<TaskEntity>> result;
 
-    List<Map<String, dynamic>>? rawList =
-        await localDataSource.getTaskByDate(date);
+    List<Map<String, dynamic>>? rawList = await localDataSource.getAllTasks();
 
     if (rawList != null) {
       List<TaskEntity> list = TaskModel.parseRawList(rawList);
-      result = Right(list);
+      result = Right(TaskModel.filterTodayTasksList(list, date));
     } else {
       result = const Left("error");
     }

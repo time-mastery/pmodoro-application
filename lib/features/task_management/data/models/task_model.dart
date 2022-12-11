@@ -1,5 +1,7 @@
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
+import '../../../../core/utils/utils.dart';
+
 class TaskModel extends TaskEntity {
   const TaskModel(
     String id,
@@ -52,6 +54,15 @@ class TaskModel extends TaskEntity {
   static List<TaskEntity> parseRawList(List<Map<String, dynamic>> items) {
     late List<TaskEntity> list;
     list = items.map<TaskEntity>((e) => fromQueryToTaskModel(e)).toList();
+    return list;
+  }
+
+  static List<TaskEntity> filterTodayTasksList(
+      List<TaskEntity> items, DateTime date) {
+    List<TaskEntity> list = [];
+    for (var element in items) {
+      if (Utils.checkDateIsToday(element.deadLineTime)) list.add(element);
+    }
     return list;
   }
 }

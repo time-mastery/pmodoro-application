@@ -57,3 +57,22 @@ class SpecificDateTasksReceivedLoading extends TasksState {
   @override
   List<Object?> get props => [];
 }
+
+class CategoriesFetchSuccess extends TasksState {
+  final List<CategoryEntity> list;
+
+  const CategoriesFetchSuccess(this.list);
+
+  @override
+  List<Object?> get props => [list];
+}
+
+class CategoriesFetchFail extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CategoriesFetchLoading extends TasksState {
+  @override
+  List<Object?> get props => [];
+}

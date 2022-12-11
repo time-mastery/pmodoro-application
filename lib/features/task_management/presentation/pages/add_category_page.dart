@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/di.dart';
 import 'package:pomodore/features/task_management/domain/entities/category_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 
@@ -10,17 +9,42 @@ import '../../../../core/shared_widgets/custom_form_field.dart';
 import '../../../../core/shared_widgets/global_button.dart';
 import '../../../../core/shared_widgets/global_indicator.dart';
 import '../../../../core/shared_widgets/global_snack.dart';
+import '../../../../di.dart';
 import '../../../../exports.dart';
 
-class AddCategoryPage extends StatelessWidget {
+class AddCategoryPage extends StatefulWidget {
   const AddCategoryPage({Key? key}) : super(key: key);
 
   static const routeName = "/addCategory";
 
   @override
+  State<AddCategoryPage> createState() => _AddCategoryPageState();
+}
+
+class _AddCategoryPageState extends State<AddCategoryPage> {
+  late TasksBloc _tasksBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _tasksBloc = TasksBloc(
+      addTaskUsecase: getIt(),
+      addCategoryUsecase: getIt(),
+      getSpecificDateTasks: getIt(),
+      getAllCategories: getIt(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _tasksBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<TasksBloc>(),
+      create: (context) => _tasksBloc,
       child: const AddCategoryView(),
     );
   }

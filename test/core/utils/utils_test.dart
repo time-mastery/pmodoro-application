@@ -14,5 +14,11 @@ void main() {
 
       expect(firstId != secondId, true);
     });
+
+    test("Test check date is today method", () {
+      bool today = Utils.checkDateIsToday(DateTime.now());
+
+      expect(today, true);
+    });
   });
 }

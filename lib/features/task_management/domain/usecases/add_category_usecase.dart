@@ -9,7 +9,7 @@ class AddCategoryUsecase extends UseCase<Either<String, bool>, CategoryEntity> {
   AddCategoryUsecase(this._categoryRepository);
 
   @override
-  Future<Either<String, bool>> call(CategoryEntity? params) {
+  Future<Either<String, bool>> call({CategoryEntity? params}) {
     return _categoryRepository.addCategory(params!);
   }
 }

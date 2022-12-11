@@ -6,13 +6,13 @@ import 'package:pomodore/features/task_management/data/repositories/task_reposit
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/get_all_categories.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'core/utils/ticker.dart';
-import 'features/task_management/data/data_sources/local_data_source.dart';
+import 'features/task_management/data/data_sources/tasks_local_data_source.dart';
 import 'features/task_management/domain/repositories/category_repository.dart';
 
 final getIt = GetIt.instance;
@@ -45,12 +45,8 @@ Future inject() async {
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
   getIt.registerSingleton<AddCategoryUsecase>(AddCategoryUsecase(getIt()));
   getIt.registerSingleton<GetSpecificDateTasks>(GetSpecificDateTasks(getIt()));
+  getIt.registerSingleton<GetAllCategories>(GetAllCategories(getIt()));
 
-  // inject blocs
-  getIt.registerLazySingleton<TimerBloc>(() => TimerBloc(ticker: getIt()));
-  getIt.registerLazySingleton<TasksBloc>(() => TasksBloc(
-        getSpecificDateTasks: getIt(),
-        addCategoryUsecase: getIt(),
-        addTaskUsecase: getIt(),
-      ));
+  // inject global blocs
+  getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: getIt()));
 }

@@ -10,7 +10,7 @@ class GetSpecificDateTasks
   GetSpecificDateTasks(this.taskRepository);
 
   @override
-  Future<Either<String, List<TaskEntity>>> call(DateTime? params) {
+  Future<Either<String, List<TaskEntity>>> call({DateTime? params}) {
     return taskRepository.getTaskByDate(params!);
   }
 }

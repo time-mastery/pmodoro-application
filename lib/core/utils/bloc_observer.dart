@@ -2,6 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override
+  void onEvent(Bloc bloc, Object? event) {
+    super.onEvent(bloc, event);
+
+    print('onEvent -- ${bloc.runtimeType}, $event');
+  }
+
+  @override
   void onCreate(BlocBase bloc) {
     super.onCreate(bloc);
     print('onCreate -- ${bloc.runtimeType}');

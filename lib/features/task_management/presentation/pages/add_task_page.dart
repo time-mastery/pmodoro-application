@@ -6,7 +6,6 @@ import 'package:pomodore/core/shared_widgets/custom_form_field.dart';
 import 'package:pomodore/core/shared_widgets/global_button.dart';
 import 'package:pomodore/core/shared_widgets/global_datetime_picker.dart';
 import 'package:pomodore/core/shared_widgets/global_snack.dart';
-import 'package:pomodore/di.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/pages/add_category_page.dart';
@@ -14,21 +13,43 @@ import 'package:pomodore/features/task_management/presentation/pages/add_categor
 import '../../../../core/constant/constant.dart';
 import '../../../../core/shared_widgets/global_indicator.dart';
 import '../../../../core/utils/utils.dart';
+import '../../../../di.dart';
 import '../../../../exports.dart';
 
-class AddTaskPage extends StatelessWidget {
+class AddTaskPage extends StatefulWidget {
   const AddTaskPage({Key? key}) : super(key: key);
 
   static const routeName = "/addTask";
 
   @override
-  Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+  State<AddTaskPage> createState() => _AddTaskPageState();
+}
 
-    return BlocProvider(
-      create: (context) => getIt.get<TasksBloc>(),
-      child: const AddTaskView(),
+class _AddTaskPageState extends State<AddTaskPage> {
+  late TasksBloc _tasksBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _tasksBloc = TasksBloc(
+      addTaskUsecase: getIt(),
+      addCategoryUsecase: getIt(),
+      getSpecificDateTasks: getIt(),
+      getAllCategories: getIt(),
     );
+  }
+
+  @override
+  void dispose() {
+    _tasksBloc.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (BuildContext context) => _tasksBloc..add(CategoriesFetched()),
+        child: const AddTaskView());
   }
 }
 
