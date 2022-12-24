@@ -41,7 +41,7 @@ Future inject() async {
   getIt.registerSingleton<TaskRepository>(TaskRepositoryImpl(getIt()));
   getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImpl(getIt()));
 
-  // inject usecases
+  // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
   getIt.registerSingleton<AddCategoryUsecase>(AddCategoryUsecase(getIt()));
   getIt.registerSingleton<GetSpecificDateTasks>(GetSpecificDateTasks(getIt()));

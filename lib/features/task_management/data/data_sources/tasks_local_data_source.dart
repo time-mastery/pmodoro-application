@@ -25,7 +25,7 @@ class TasksLocalDataSource {
     try {
       Map<String, Object?> data = CategoryModel.toDbQuery(category);
       await db.insert(DatabaseHelper.categoryTable, data);
-    } catch (e, s) {
+    } catch (e) {
       return false;
     }
     return true;
@@ -39,7 +39,7 @@ class TasksLocalDataSource {
           await db.rawQuery('SELECT * FROM ${DatabaseHelper.taskTable}');
 
       list = records;
-    } catch (e, s) {
+    } catch (e) {
       rethrow;
     }
 
@@ -53,7 +53,7 @@ class TasksLocalDataSource {
           await db.rawQuery('SELECT * FROM ${DatabaseHelper.categoryTable}');
 
       list = records;
-    } catch (e, s) {
+    } catch (e) {
       rethrow;
     }
 
