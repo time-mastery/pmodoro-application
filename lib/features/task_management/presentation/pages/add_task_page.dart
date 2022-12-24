@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/shared_widgets/custom_form_field.dart';
 import 'package:pomodore/core/shared_widgets/global_button.dart';
@@ -8,7 +7,6 @@ import 'package:pomodore/core/shared_widgets/global_datetime_picker.dart';
 import 'package:pomodore/core/shared_widgets/global_snack.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/pages/add_category_page.dart';
 
 import '../../../../core/constant/constant.dart';
 import '../../../../core/shared_widgets/global_indicator.dart';
@@ -124,23 +122,23 @@ class _AddTaskViewState extends State<AddTaskView> {
                       hint: localization.taskDescription,
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Flexible(
-                          child:
-                              CustomFormField(hint: localization.categoryTitle),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, AddCategoryPage.routeName);
-                            },
-                            icon: const Icon(
-                              Ionicons.add_circle_outline,
-                              size: 30,
-                            )),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Flexible(
+                    //       child:
+                    //           CustomFormField(hint: localization.categoryTitle),
+                    //     ),
+                    //     IconButton(
+                    //         onPressed: () {
+                    //           Navigator.pushNamed(
+                    //               context, AddCategoryPage.routeName);
+                    //         },
+                    //         icon: const Icon(
+                    //           Ionicons.add_circle_outline,
+                    //           size: 30,
+                    //         )),
+                    //   ],
+                    // ),
                     const SizedBox(height: 20),
                     GlobalDateTimePicker(
                       buttonTitle: "Select Deadline DateTime",

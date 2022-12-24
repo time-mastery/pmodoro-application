@@ -148,6 +148,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.1"
+  date_time_line:
+    dependency: "direct main"
+    description:
+      name: date_time_line
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   diff_match_patch:
     dependency: transitive
     description:

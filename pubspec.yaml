@@ -39,6 +39,7 @@ dependencies:
   # calenders
   calendar_timeline: ^1.0.5
   timeline_tile: ^2.0.0
+  date_time_line: ^0.0.3
 
   # charts
   flutter_heatmap_calendar: ^1.0.5

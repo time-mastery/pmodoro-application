@@ -15,11 +15,6 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    List flags = [
-      '🇩🇪       German',
-      '🇺🇸       English',
-      '🇮🇷       Farsi',
-    ];
     return Scaffold(
       appBar: BaseAppBar(title: localization.settingsTitle),
       body: SingleChildScrollView(
@@ -102,146 +97,15 @@ class SettingsPage extends StatelessWidget {
               value: true,
               onChanged: (value) {},
             ),
-            SizedBox(height: SizeConfig.heightMultiplier * 1),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.color_lens),
-                      SizedBox(width: SizeConfig.widthMultiplier * 2),
-                      Text(
-                        localization.changeThemeTitle,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ],
-                  ),
-                  const Expanded(child: SizedBox(width: 1)),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_drop_down_circle),
-                    onPressed: () {
-                      bottomSheet(
-                          context,
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20,
-                                  horizontal: 10,
-                                ),
-                                child: Text(
-                                  localization.changeThemeTitle,
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
-                              ),
-                              Expanded(
-                                child: GridView.count(
-                                  crossAxisCount: 3,
-                                  children: List.generate(
-                                    Colors.primaries.length,
-                                    (index) => Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.primaries[index]
-                                              .withOpacity(index == 1 ? .2 : 1),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: index == 1
-                                            ? const Icon(Icons.check)
-                                            : null,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ));
-                    },
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: SizeConfig.heightMultiplier * 1),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Ionicons.language),
-                      SizedBox(width: SizeConfig.widthMultiplier * 2),
-                      Text(
-                        localization.changeLanguageTitle,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ],
-                  ),
-                  const Expanded(child: SizedBox(width: 1)),
-                  IconButton(
-                    onPressed: () {
-                      bottomSheet(
-                          context,
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20,
-                                  horizontal: 10,
-                                ),
-                                child: Text(
-                                  localization.changeLanguageTitle,
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
-                              ),
-                              Expanded(
-                                child: ListView.builder(
-                                  itemCount: flags.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0, vertical: 10),
-                                      child: InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          padding: const EdgeInsets.all(20),
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color:
-                                                    AppConstant.secondaryColor),
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                          ),
-                                          child: Text(
-                                            flags[index],
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineSmall,
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ));
-                    },
-                    icon: const Icon(Icons.arrow_drop_down_circle),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
     );
   }
+}
+
+class ChangeLanguageBottomSheet extends StatelessWidget {
+  const ChangeLanguageBottomSheet({Key? key}) : super(key: key);
 
   bottomSheet(BuildContext context, Widget? child) =>
       showModalBottomSheet<void>(
@@ -255,4 +119,170 @@ class SettingsPage extends StatelessWidget {
               child: child ?? Container());
         },
       );
+
+  @override
+  Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
+    List flags = [
+      '🇩🇪       German',
+      '🇺🇸       English',
+      '🇮🇷       Farsi',
+    ];
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Row(
+        children: [
+          Row(
+            children: [
+              const Icon(Ionicons.language),
+              SizedBox(width: SizeConfig.widthMultiplier * 2),
+              Text(
+                localization.changeLanguageTitle,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
+          const Expanded(child: SizedBox(width: 1)),
+          IconButton(
+            onPressed: () {
+              bottomSheet(
+                  context,
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 10,
+                        ),
+                        child: Text(
+                          localization.changeLanguageTitle,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: flags.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 10),
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppConstant.secondaryColor),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: Text(
+                                    flags[index],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ));
+            },
+            icon: const Icon(Icons.arrow_drop_down_circle),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ChangeThemeBottomSheet extends StatelessWidget {
+  const ChangeThemeBottomSheet({Key? key}) : super(key: key);
+
+  bottomSheet(BuildContext context, Widget? child) =>
+      showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              height: SizeConfig.heightMultiplier * 90,
+              decoration: const BoxDecoration(
+                color: AppConstant.scaffoldColor,
+              ),
+              child: child ?? Container());
+        },
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
+    List flags = [
+      '🇩🇪       German',
+      '🇺🇸       English',
+      '🇮🇷       Farsi',
+    ];
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Row(
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.color_lens),
+              SizedBox(width: SizeConfig.widthMultiplier * 2),
+              Text(
+                localization.changeThemeTitle,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
+          const Expanded(child: SizedBox(width: 1)),
+          IconButton(
+            icon: const Icon(Icons.arrow_drop_down_circle),
+            onPressed: () {
+              bottomSheet(
+                  context,
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 10,
+                        ),
+                        child: Text(
+                          localization.changeThemeTitle,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                      Expanded(
+                        child: GridView.count(
+                          crossAxisCount: 3,
+                          children: List.generate(
+                            Colors.primaries.length,
+                            (index) => Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.primaries[index]
+                                      .withOpacity(index == 1 ? .2 : 1),
+                                  shape: BoxShape.circle,
+                                ),
+                                child:
+                                    index == 1 ? const Icon(Icons.check) : null,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ));
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
