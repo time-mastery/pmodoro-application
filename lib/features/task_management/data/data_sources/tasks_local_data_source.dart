@@ -60,6 +60,22 @@ class TasksLocalDataSource {
     return list;
   }
 
+  Future<int?> completeTask(TaskEntity task) async {
+    int? result;
+    try {
+      result = await db.update(
+        DatabaseHelper.taskTable,
+        TaskModel.toDbQuery(task),
+        where: "uid = ?",
+        whereArgs: [task.id],
+      );
+    } catch (e) {
+      rethrow;
+    }
+
+    return result;
+  }
+
   getTaskById(String id) {}
 
   deleteTask(String id) {}

@@ -31,6 +31,7 @@ class _TasksPageState extends State<TasksPage> {
       addCategoryUsecase: getIt(),
       getSpecificDateTasks: getIt(),
       getAllCategories: getIt(),
+      completeTaskUseCase: getIt(),
     );
   }
 

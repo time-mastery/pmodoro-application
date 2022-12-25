@@ -3,11 +3,11 @@ import 'package:pomodore/core/resources/usecase.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 
-class GetSpecificDateTasks
+class GetSpecificDateTasksUseCase
     extends UseCase<Either<String, List<TaskEntity>>, DateTime> {
   final TaskRepository taskRepository;
 
-  GetSpecificDateTasks(this.taskRepository);
+  GetSpecificDateTasksUseCase(this.taskRepository);
 
   @override
   Future<Either<String, List<TaskEntity>>> call({DateTime? params}) {

@@ -35,11 +35,25 @@ class SpecificDateTasksReceived extends TasksEvent {
 
   @override
   String toString() {
-    return "SpecificDateTasksReceived => {date: $data}";
+    return 'SpecificDateTasksReceived{data: $data}';
   }
 }
 
 class CategoriesFetched extends TasksEvent {
   @override
   List<Object?> get props => [];
+}
+
+class TaskCompleted extends TasksEvent {
+  final TaskEntity taskEntity;
+
+  const TaskCompleted(this.taskEntity);
+
+  @override
+  List<Object?> get props => [taskEntity];
+
+  @override
+  String toString() {
+    return 'TaskCompleted{taskEntity: $taskEntity}';
+  }
 }

@@ -41,6 +41,21 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
+  Future<Either<String, int?>> completeTask(TaskEntity taskEntity) async {
+    late Either<String, int?> result;
+
+    int? status = await localDataSource.completeTask(taskEntity);
+
+    if (status != null) {
+      result = Right(status);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
+  }
+
+  @override
   Future deleteTask(String id) {
     // TODO: implement deleteTask
     throw UnimplementedError();

@@ -76,3 +76,18 @@ class CategoriesFetchLoading extends TasksState {
   @override
   List<Object?> get props => [];
 }
+
+class TaskCompleteSuccess extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class TaskCompleteFail extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class TaskCompleteLoading extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
