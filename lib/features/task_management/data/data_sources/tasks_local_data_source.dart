@@ -76,9 +76,22 @@ class TasksLocalDataSource {
     return result;
   }
 
-  getTaskById(String id) {}
+  Future<int?> deleteTask(String id) async {
+    int? result;
+    try {
+      result = await db.delete(
+        DatabaseHelper.taskTable,
+        where: "uid = ?",
+        whereArgs: [id],
+      );
+    } catch (e) {
+      rethrow;
+    }
 
-  deleteTask(String id) {}
+    return result;
+  }
+
+  getTaskById(String id) {}
 
   getCompletedTask() {}
 }

@@ -57,3 +57,12 @@ class TaskCompleted extends TasksEvent {
     return 'TaskCompleted{taskEntity: $taskEntity}';
   }
 }
+
+class TaskDeleted extends TasksEvent {
+  final String id;
+
+  const TaskDeleted(this.id);
+
+  @override
+  List<Object?> get props => [id];
+}

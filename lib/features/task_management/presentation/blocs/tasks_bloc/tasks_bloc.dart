@@ -8,6 +8,7 @@ import '../../../domain/entities/category_entity.dart';
 import '../../../domain/usecases/add_category_usecase.dart';
 import '../../../domain/usecases/add_task_usecase.dart';
 import '../../../domain/usecases/complete_task_usecase.dart';
+import '../../../domain/usecases/delete_task_usecase.dart';
 import '../../../domain/usecases/get_specific_date_tasks_usecase.dart';
 
 part 'tasks_event.dart';
@@ -19,6 +20,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final GetSpecificDateTasksUseCase getSpecificDateTasks;
   final GetAllCategoriesUseCase getAllCategories;
   final CompleteTaskUseCase completeTaskUseCase;
+  final DeleteTaskUseCase deleteTaskUseCase;
 
   TasksBloc({
     required this.addTaskUsecase,
@@ -26,6 +28,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     required this.getSpecificDateTasks,
     required this.getAllCategories,
     required this.completeTaskUseCase,
+    required this.deleteTaskUseCase,
   }) : super(TasksInitial()) {
     on<TasksEvent>((event, emit) {});
     on<TaskAdded>(_taskAdded);
@@ -33,6 +36,18 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<SpecificDateTasksReceived>(_todayTasksReceived);
     on<CategoriesFetched>(_categoriesFetched);
     on<TaskCompleted>(_taskCompleted);
+    on<TaskDeleted>(_taskDeleted);
+  }
+
+  _taskDeleted(TaskDeleted event, Emitter<TasksState> emit) async {
+    emit(TaskDeleteLoading());
+
+    Either<String, int?> result =
+        await deleteTaskUseCase.call(params: event.id);
+    result.fold(
+      (l) => emit(TaskDeleteFail()),
+      (r) => emit(TaskDeleteSuccess()),
+    );
   }
 
   _taskCompleted(TaskCompleted event, Emitter<TasksState> emit) async {

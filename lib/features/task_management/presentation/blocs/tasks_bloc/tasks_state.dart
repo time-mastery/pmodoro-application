@@ -91,3 +91,18 @@ class TaskCompleteLoading extends TasksState {
   @override
   List<Object?> get props => [];
 }
+
+class TaskDeleteSuccess extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class TaskDeleteFail extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class TaskDeleteLoading extends TasksState {
+  @override
+  List<Object?> get props => [];
+}

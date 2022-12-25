@@ -33,6 +33,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
       getSpecificDateTasks: getIt(),
       getAllCategories: getIt(),
       completeTaskUseCase: getIt(),
+      deleteTaskUseCase: getIt(),
     );
   }
 

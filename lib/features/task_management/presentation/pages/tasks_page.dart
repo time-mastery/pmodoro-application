@@ -32,6 +32,7 @@ class _TasksPageState extends State<TasksPage> {
       getSpecificDateTasks: getIt(),
       getAllCategories: getIt(),
       completeTaskUseCase: getIt(),
+      deleteTaskUseCase: getIt(),
     );
   }
 

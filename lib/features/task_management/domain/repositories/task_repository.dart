@@ -8,9 +8,9 @@ abstract class TaskRepository {
 
   Future<Either<String, int?>> completeTask(TaskEntity taskEntity);
 
-  Future getTaskById(String id);
+  Future<Either<String, int?>> deleteTask(String id);
 
-  Future deleteTask(String id);
+  Future getTaskById(String id);
 
   Future getCompletedTask();
 }

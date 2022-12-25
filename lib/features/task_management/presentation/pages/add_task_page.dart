@@ -35,6 +35,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       getSpecificDateTasks: getIt(),
       getAllCategories: getIt(),
       completeTaskUseCase: getIt(),
+      deleteTaskUseCase: getIt(),
     );
   }
 
