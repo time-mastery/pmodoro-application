@@ -8,6 +8,7 @@ import 'package:pomodore/features/task_management/domain/repositories/task_repos
 import 'package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
@@ -51,6 +52,7 @@ Future inject() async {
   getIt.registerSingleton<GetAllCategoriesUseCase>(
       GetAllCategoriesUseCase(getIt()));
   getIt.registerSingleton<CompleteTaskUseCase>(CompleteTaskUseCase(getIt()));
+  getIt.registerSingleton<DeleteTaskUseCase>(DeleteTaskUseCase(getIt()));
 
   // inject global blocs
   getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: getIt()));
