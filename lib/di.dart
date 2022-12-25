@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pomodore/core/utils/database_helper.dart';
+import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/task_management/data/repositories/category_repository_impl.dart';
 import 'package:pomodore/features/task_management/data/repositories/task_repository_impl.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
@@ -49,4 +50,5 @@ Future inject() async {
 
   // inject global blocs
   getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: getIt()));
+  getIt.registerSingleton<BaseBloc>(BaseBloc());
 }

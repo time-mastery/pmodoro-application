@@ -38,27 +38,26 @@ class TimerView extends StatelessWidget {
           Navigator.pushNamed(context, AnalyzePage.routeName);
         },
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: SizeConfig.heightMultiplier * 5,
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraint) =>
+            SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraint.maxHeight),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SelectATaskToStart(),
+                SizedBox(
+                  height: SizeConfig.heightMultiplier * 5,
+                ),
+                const TimerBar(),
+                SizedBox(
+                  height: SizeConfig.heightMultiplier * 5,
+                ),
+                const TimerButtons(),
+              ],
             ),
-            const TimerTask(
-              count: 2,
-              targetCount: 5,
-              title: "Deutsch lernen",
-              totalTime: 29,
-            ),
-            SizedBox(
-              height: SizeConfig.heightMultiplier * 5,
-            ),
-            const TimerBar(),
-            SizedBox(
-              height: SizeConfig.heightMultiplier * 5,
-            ),
-            const TimerButtons(),
-          ],
+          ),
         ),
       ),
     );

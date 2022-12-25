@@ -220,11 +220,6 @@ class ChangeThemeBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    List flags = [
-      '🇩🇪       German',
-      '🇺🇸       English',
-      '🇮🇷       Farsi',
-    ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Row(
