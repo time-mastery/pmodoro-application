@@ -7,7 +7,7 @@ abstract class BaseState extends Equatable {
 class PageChangeSuccess extends BaseState {
   final int index;
 
-  PageChangeSuccess(this.index);
+  const PageChangeSuccess(this.index);
 
   @override
   List<Object?> get props => [index];

@@ -46,7 +46,7 @@ class TimerView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SelectATaskToStart(),
+                const SelectATaskToStart(),
                 SizedBox(
                   height: SizeConfig.heightMultiplier * 5,
                 ),

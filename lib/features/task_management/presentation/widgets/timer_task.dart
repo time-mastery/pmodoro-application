@@ -89,7 +89,7 @@ class SelectATaskToStart extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        context.read<BaseBloc>().add(PageIndexChanged(0));
+        context.read<BaseBloc>().add(const PageIndexChanged(0));
       },
       child: Container(
         width: SizeConfig.widthMultiplier * 60,

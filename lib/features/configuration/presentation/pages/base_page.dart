@@ -71,7 +71,7 @@ class _BasePageState extends State<BasePage> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
       ),
-      body: _pages[(state as PageChangeSuccess).index],
+      body: _pages[(state).index],
     );
   }
 }

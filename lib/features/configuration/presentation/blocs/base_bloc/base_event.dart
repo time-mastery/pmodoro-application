@@ -7,7 +7,7 @@ abstract class BaseEvent extends Equatable {
 class PageIndexChanged extends BaseEvent {
   final int index;
 
-  PageIndexChanged(this.index);
+  const PageIndexChanged(this.index);
 
   @override
   List<Object?> get props => [index];

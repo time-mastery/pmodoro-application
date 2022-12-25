@@ -5,7 +5,7 @@ part 'base_event.dart';
 part 'base_state.dart';
 
 class BaseBloc extends Bloc<BaseEvent, BaseState> {
-  BaseBloc() : super(PageChangeSuccess(3)) {
+  BaseBloc() : super(const PageChangeSuccess(3)) {
     on<BaseEvent>(_baseEvent);
     on<PageIndexChanged>(_pageIndexChanged);
   }
