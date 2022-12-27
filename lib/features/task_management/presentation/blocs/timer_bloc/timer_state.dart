@@ -36,3 +36,12 @@ class TimerCompleted extends TimerState {
   @override
   List<Object?> get props => [];
 }
+
+class SaveCurrentTimeStateDialog extends TimerState {
+  const SaveCurrentTimeStateDialog(super.duration);
+
+  @override
+  String toString() {
+    return 'SaveCurrentTimeStateDialog{}';
+  }
+}

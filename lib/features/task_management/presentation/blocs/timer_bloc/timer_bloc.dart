@@ -1,5 +1,6 @@
 import 'dart:async';
 
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -19,6 +20,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<TimerReset>(_onReset);
     on<TimerResumed>(_onResumed);
     on<_TimerTicked>(_onTicked);
+    on<SaveCurrentTimeStateDialogShowed>(_onSaveCurrentTimeStateDialogShowed);
   }
 
   static const int _duration = 60 * 25;
@@ -31,6 +33,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   Future<void> close() {
     _tickerSubscription?.cancel();
     return super.close();
+  }
+
+  void _onSaveCurrentTimeStateDialogShowed(
+      SaveCurrentTimeStateDialogShowed event, Emitter<TimerState> emit) {
+    emit(SaveCurrentTimeStateDialog(event.duration));
   }
 
   void _onStarted(TimerStarted event, Emitter<TimerState> emit) {

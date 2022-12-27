@@ -24,38 +24,85 @@ class TimerPage extends StatelessWidget {
 class TimerView extends StatelessWidget {
   const TimerView({Key? key}) : super(key: key);
 
+  MaterialBanner _showMaterialBanner(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
+    return MaterialBanner(
+        content: Text(
+          localization.saveProcessTitle,
+          style: const TextStyle(
+            color: AppConstant.scaffoldColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        leading: const Icon(
+          Ionicons.save_outline,
+          color: AppConstant.scaffoldColor,
+        ),
+        backgroundColor: AppConstant.primaryColor.withOpacity(.7),
+        actions: [
+          TextButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+            },
+            child: Text(
+              localization.yesTitle,
+              style: const TextStyle(color: AppConstant.scaffoldColor),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+            },
+            child: Text(
+              localization.noTitle,
+              style: const TextStyle(color: AppConstant.scaffoldColor),
+            ),
+          ),
+        ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      appBar: BaseAppBar(
-        title: localization.timerTitle,
-        action: const Icon(
-          Icons.bar_chart,
+    return BlocListener<TimerBloc, TimerState>(
+      listener: (context, state) {
+        if (state is SaveCurrentTimeStateDialog) {
+          ScaffoldMessenger.of(context)
+            ..removeCurrentMaterialBanner()
+            ..showMaterialBanner(_showMaterialBanner(context));
+        }
+      },
+      child: Scaffold(
+        appBar: BaseAppBar(
+          title: localization.timerTitle,
+          action: const Icon(
+            Icons.bar_chart,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, AnalyzePage.routeName);
+          },
         ),
-        onPressed: () {
-          Navigator.pushNamed(context, AnalyzePage.routeName);
-        },
-      ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraint) =>
-            SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraint.maxHeight),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SelectATaskToStart(),
-                SizedBox(
-                  height: SizeConfig.heightMultiplier * 5,
-                ),
-                const TimerBar(),
-                SizedBox(
-                  height: SizeConfig.heightMultiplier * 5,
-                ),
-                const TimerButtons(),
-              ],
+        body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraint) =>
+              SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SelectATaskToStart(),
+                  SizedBox(
+                    height: SizeConfig.heightMultiplier * 5,
+                  ),
+                  const TimerBar(),
+                  SizedBox(
+                    height: SizeConfig.heightMultiplier * 5,
+                  ),
+                  const TimerButtons(),
+                ],
+              ),
             ),
           ),
         ),
@@ -136,7 +183,12 @@ class TimerButtons extends StatelessWidget {
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
               backgroundColor: AppConstant.primaryColor,
-              onPressed: () => context.read<TimerBloc>().add(TimerReset()),
+              onPressed: () => context.read<TimerBloc>()
+                ..add(TimerReset())
+                ..add(SaveCurrentTimeStateDialogShowed(
+                  duration: TimerBloc.getDuration,
+                  taskUid: "",
+                )),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
               child: const Icon(
