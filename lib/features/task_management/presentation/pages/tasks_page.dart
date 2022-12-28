@@ -1,4 +1,3 @@
-import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +31,8 @@ class _TasksPageState extends State<TasksPage> {
       addCategoryUsecase: getIt(),
       getSpecificDateTasks: getIt(),
       getAllCategories: getIt(),
+      completeTaskUseCase: getIt(),
+      deleteTaskUseCase: getIt(),
     );
   }
 
@@ -74,29 +75,6 @@ class TaskView extends StatelessWidget {
           ),
           body: Column(
             children: [
-              SizedBox(
-                width: SizeConfig.widthMultiplier * 100,
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: CalendarTimeline(
-                    initialDate: DateTime(DateTime.now().year,
-                        DateTime.now().month, DateTime.now().day),
-                    firstDate: DateTime(2022, 1, 15),
-                    lastDate: DateTime(2030, 11, 20),
-                    onDateSelected: (date) {
-                      // context
-                      //     .read<TasksBloc>()
-                      //     .add(SpecificDateTasksReceived(date));
-                    },
-                    leftMargin: 20,
-                    monthColor: AppConstant.secondaryColor,
-                    dayColor: AppConstant.secondaryColor,
-                    activeDayColor: AppConstant.scaffoldColor,
-                    activeBackgroundDayColor: AppConstant.swatchColor,
-                    dotsColor: AppConstant.scaffoldColor,
-                  ),
-                ),
-              ),
               if (state is SpecificDateTasksReceivedSuccess &&
                   state.list.isEmpty)
                 const DayWithoutTask(),
@@ -130,7 +108,7 @@ class TaskView extends StatelessWidget {
                 ),
               if (state is SpecificDateTasksReceivedFailure)
                 // todo: create a error widget
-                Center(child: Text("error")),
+                const Center(child: Text("error")),
               if (state is SpecificDateTasksReceivedLoading)
                 const GlobalIndicator(),
               Container(),

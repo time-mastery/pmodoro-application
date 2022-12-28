@@ -36,3 +36,21 @@ class _TimerTicked extends TimerEvent {
   @override
   List<Object?> get props => [duration];
 }
+
+class SaveCurrentTimeStateDialogShowed extends TimerEvent {
+  final String taskUid;
+  final int duration;
+
+  const SaveCurrentTimeStateDialogShowed({
+    required this.taskUid,
+    required this.duration,
+  });
+
+  @override
+  List<Object?> get props => [taskUid, duration];
+
+  @override
+  String toString() {
+    return 'SaveCurrentTimeStateDialogShowed{taskUid: $taskUid, duration: $duration}';
+  }
+}

@@ -16,7 +16,7 @@ class TaskRepositoryImpl implements TaskRepository {
 
     bool state = await localDataSource.addTask(task);
 
-    if (state) {
+    if (!state) {
       result = const Left("error");
     } else {
       result = const Right(true);
@@ -41,9 +41,33 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future deleteTask(String id) {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
+  Future<Either<String, int?>> completeTask(TaskEntity taskEntity) async {
+    late Either<String, int?> result;
+
+    int? status = await localDataSource.completeTask(taskEntity);
+
+    if (status != null) {
+      result = Right(status);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
+  }
+
+  @override
+  Future<Either<String, int?>> deleteTask(String id) async {
+    late Either<String, int?> result;
+
+    int? status = await localDataSource.deleteTask(id);
+
+    if (status != null) {
+      result = Right(status);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
   }
 
   @override

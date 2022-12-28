@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
+import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 
 import '../../../../core/utils/size_config.dart';
+import '../../../../exports.dart';
 
 class TimerTask extends StatelessWidget {
   const TimerTask(
@@ -72,6 +75,30 @@ class TimerTask extends StatelessWidget {
                 ?.copyWith(fontWeight: FontWeight.w300),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SelectATaskToStart extends StatelessWidget {
+  const SelectATaskToStart({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
+    return InkWell(
+      onTap: () {
+        context.read<BaseBloc>().add(const PageIndexChanged(0));
+      },
+      child: Container(
+        width: SizeConfig.widthMultiplier * 60,
+        height: SizeConfig.heightMultiplier * 5,
+        decoration: BoxDecoration(
+          color: AppConstant.secondaryColor.withOpacity(.2),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Center(child: Text(localization.selectTaskTitle)),
       ),
     );
   }

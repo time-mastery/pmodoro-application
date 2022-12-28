@@ -25,7 +25,7 @@ class TasksLocalDataSource {
     try {
       Map<String, Object?> data = CategoryModel.toDbQuery(category);
       await db.insert(DatabaseHelper.categoryTable, data);
-    } catch (e, s) {
+    } catch (e) {
       return false;
     }
     return true;
@@ -39,7 +39,7 @@ class TasksLocalDataSource {
           await db.rawQuery('SELECT * FROM ${DatabaseHelper.taskTable}');
 
       list = records;
-    } catch (e, s) {
+    } catch (e) {
       rethrow;
     }
 
@@ -53,16 +53,45 @@ class TasksLocalDataSource {
           await db.rawQuery('SELECT * FROM ${DatabaseHelper.categoryTable}');
 
       list = records;
-    } catch (e, s) {
+    } catch (e) {
       rethrow;
     }
 
     return list;
   }
 
-  getTaskById(String id) {}
+  Future<int?> completeTask(TaskEntity task) async {
+    int? result;
+    try {
+      result = await db.update(
+        DatabaseHelper.taskTable,
+        TaskModel.toDbQuery(task),
+        where: "uid = ?",
+        whereArgs: [task.id],
+      );
+    } catch (e) {
+      rethrow;
+    }
 
-  deleteTask(String id) {}
+    return result;
+  }
+
+  Future<int?> deleteTask(String id) async {
+    int? result;
+    try {
+      result = await db.delete(
+        DatabaseHelper.taskTable,
+        where: "uid = ?",
+        whereArgs: [id],
+      );
+    } catch (e) {
+      rethrow;
+    }
+
+    return result;
+  }
+
+  getTaskById(String id) {}
 
   getCompletedTask() {}
 }

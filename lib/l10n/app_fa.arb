@@ -44,5 +44,10 @@
     "addCategoryTitle":"Add Category",
     "submitCategory":"Submit Category",
     "nullValueValidatorMessage":"Please enter some text",
-    "failureTitle":"Failure"
+    "failureTitle":"Failure",
+    "noNotificationTitle":"There is no new notification",
+    "selectTaskTitle":"Tap to select Task",
+    "saveProcessTitle":"Do you want to save process",
+    "yesTitle":"Yes",
+    "noTitle":"No"
 }

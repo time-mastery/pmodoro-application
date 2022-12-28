@@ -4,11 +4,11 @@ import 'package:pomodore/features/task_management/domain/repositories/category_r
 
 import '../../../../core/resources/usecase.dart';
 
-class GetAllCategories
+class GetAllCategoriesUseCase
     extends UseCase<Either<String, List<CategoryEntity>>, DateTime> {
   final CategoryRepository categoryRepository;
 
-  GetAllCategories(this.categoryRepository);
+  GetAllCategoriesUseCase(this.categoryRepository);
 
   @override
   Future<Either<String, List<CategoryEntity>>> call({DateTime? params}) {

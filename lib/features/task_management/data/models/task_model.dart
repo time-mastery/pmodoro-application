@@ -21,16 +21,6 @@ class TaskModel extends TaskEntity {
           done: done,
         );
 
-  factory TaskModel.fromJson(Map item) => TaskModel(
-        item["id"],
-        item["title"],
-        item["description"],
-        item["deadLineTime"],
-        item["doneTime"],
-        item["category"],
-        item["done"],
-      );
-
   static toDbQuery(TaskEntity item) => {
         "uid": item.id,
         "title": item.title,

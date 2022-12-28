@@ -11,6 +11,7 @@ class DatabaseHelper {
 
   static const taskTable = 'tasks';
   static const categoryTable = 'categories';
+  static const pomodoroTable = 'pomodoros';
 
   static Database? _database;
 
@@ -48,6 +49,13 @@ class DatabaseHelper {
           CREATE TABLE $categoryTable (
             _id INTEGER PRIMARY KEY,
             title TEXT NOT NULL
+            )
+          ''');
+    batch.execute('''
+          CREATE TABLE $pomodoroTable (
+            _id INTEGER PRIMARY KEY,
+            taskUid TEXT NOT NULL
+            secDuration INTEGER NOT NULL
             )
           ''');
     await batch.commit();
