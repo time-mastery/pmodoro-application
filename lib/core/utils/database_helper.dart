@@ -54,7 +54,7 @@ class DatabaseHelper {
     batch.execute('''
           CREATE TABLE $pomodoroTable (
             _id INTEGER PRIMARY KEY,
-            taskUid TEXT NOT NULL
+            taskUid TEXT NOT NULL,
             secDuration INTEGER NOT NULL
             )
           ''');
