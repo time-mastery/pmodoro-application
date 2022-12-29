@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:pomodore/features/task_management/data/data_sources/tasks_local_data_source.dart';
 import 'package:pomodore/features/task_management/data/models/task_model.dart';
+import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 
 import '../../domain/entities/task_entity.dart';
@@ -68,6 +69,18 @@ class TaskRepositoryImpl implements TaskRepository {
     }
 
     return result;
+  }
+
+  @override
+  Future<Either<String, List<PomodoroEntity>>> getAllPomodoros() {
+    // TODO: implement getAllPomodoros
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<String, bool>> savePomodoroInDb() {
+    // TODO: implement savePomodoroInDb
+    throw UnimplementedError();
   }
 
   @override
