@@ -1,6 +1,8 @@
 import 'package:pomodore/core/utils/database_helper.dart';
 import 'package:pomodore/features/task_management/data/models/category_model.dart';
+import 'package:pomodore/features/task_management/data/models/pomodoro_model.dart';
 import 'package:pomodore/features/task_management/domain/entities/category_entity.dart';
+import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -89,6 +91,30 @@ class TasksLocalDataSource {
     }
 
     return result;
+  }
+
+  Future<bool> saveAPomodoroOnDb(PomodoroEntity item) async {
+    try {
+      Map<String, Object?> data = PomodoroModel.toDbQuery(item);
+      await db.insert(DatabaseHelper.pomodoroTable, data);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<List<Map<String, dynamic>>>? getAllPomodoroFromDb() async {
+    List<Map<String, dynamic>>? list;
+    try {
+      List<Map<String, Object?>> records =
+          await db.rawQuery('SELECT * FROM ${DatabaseHelper.pomodoroTable}');
+
+      list = records;
+    } catch (e) {
+      rethrow;
+    }
+
+    return list;
   }
 
   getTaskById(String id) {}
