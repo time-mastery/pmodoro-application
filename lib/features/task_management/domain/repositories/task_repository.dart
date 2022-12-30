@@ -11,7 +11,7 @@ abstract class TaskRepository {
 
   Future<Either<String, int?>> deleteTask(String id);
 
-  Future<Either<String, bool>> savePomodoroInDb();
+  Future<Either<String, bool>> savePomodoroInDb(PomodoroEntity item);
 
   Future<Either<String, List<PomodoroEntity>>> getAllPomodoros();
 
