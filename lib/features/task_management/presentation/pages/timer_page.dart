@@ -6,9 +6,12 @@ import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/shared_widgets/global_button.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/core/utils/utils.dart';
+import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/pages/analyze_page.dart';
 
+import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../widgets/timer_task.dart';
 
@@ -17,14 +20,18 @@ class TimerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TimerView();
+    return BlocProvider(
+      create: (context) => getIt.get<TasksBloc>(),
+      child: const TimerView(),
+    );
   }
 }
 
 class TimerView extends StatelessWidget {
   const TimerView({Key? key}) : super(key: key);
 
-  MaterialBanner _showMaterialBanner(BuildContext context) {
+  MaterialBanner _showMaterialBanner(BuildContext context,
+      {required int duration, String? taskUid}) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
     return MaterialBanner(
@@ -43,6 +50,13 @@ class TimerView extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
+              context
+                  .read<TasksBloc>()
+                  .add(CurrentPomodoroToDatabaseSaved(PomodoroEntity(
+                    duration: Utils.calculatePomodoroTime(
+                        TimerBloc.getDuration, duration),
+                    dateTime: DateTime.now().toString(),
+                  )));
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             },
             child: Text(
@@ -67,11 +81,19 @@ class TimerView extends StatelessWidget {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
     return BlocListener<TimerBloc, TimerState>(
+      listenWhen: (previous, current) {
+        return (current is! TimerInitial && previous is! TimerInitial);
+      },
       listener: (context, state) {
         if (state is SaveCurrentTimeStateDialog) {
+          // fixme[mahmoud]: pass me the current task UID
           ScaffoldMessenger.of(context)
             ..removeCurrentMaterialBanner()
-            ..showMaterialBanner(_showMaterialBanner(context));
+            ..showMaterialBanner(_showMaterialBanner(
+              context,
+              duration: state.duration,
+              taskUid: "",
+            ));
         }
       },
       child: Scaffold(
@@ -184,11 +206,11 @@ class TimerButtons extends StatelessWidget {
               height: SizeConfig.heightMultiplier * 10,
               backgroundColor: AppConstant.primaryColor,
               onPressed: () => context.read<TimerBloc>()
-                ..add(TimerReset())
-                ..add(SaveCurrentTimeStateDialogShowed(
-                  duration: TimerBloc.getDuration,
+                ..add(SaveCurrentTimerStateDialogShowed(
+                  duration: state.duration,
                   taskUid: "",
-                )),
+                ))
+                ..add(TimerReset()),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
               child: const Icon(

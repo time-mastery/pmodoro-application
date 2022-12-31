@@ -12,41 +12,15 @@ import '../../../../core/shared_widgets/global_snack.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
 
-class AddCategoryPage extends StatefulWidget {
+class AddCategoryPage extends StatelessWidget {
   const AddCategoryPage({Key? key}) : super(key: key);
 
   static const routeName = "/addCategory";
 
   @override
-  State<AddCategoryPage> createState() => _AddCategoryPageState();
-}
-
-class _AddCategoryPageState extends State<AddCategoryPage> {
-  late TasksBloc _tasksBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _tasksBloc = TasksBloc(
-      addTaskUsecase: getIt(),
-      addCategoryUsecase: getIt(),
-      getSpecificDateTasks: getIt(),
-      getAllCategories: getIt(),
-      completeTaskUseCase: getIt(),
-      deleteTaskUseCase: getIt(),
-    );
-  }
-
-  @override
-  void dispose() {
-    _tasksBloc.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => _tasksBloc,
+      create: (context) => getIt.get<TasksBloc>(),
       child: const AddCategoryView(),
     );
   }

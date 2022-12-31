@@ -5,7 +5,9 @@ import 'package:pomodore/features/task_management/domain/entities/task_entity.da
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
 
 import '../../../domain/entities/category_entity.dart';
+import '../../../domain/entities/pomodoro_entity.dart';
 import '../../../domain/usecases/add_category_usecase.dart';
+import '../../../domain/usecases/add_pomodoro_to_db_usecase.dart';
 import '../../../domain/usecases/add_task_usecase.dart';
 import '../../../domain/usecases/complete_task_usecase.dart';
 import '../../../domain/usecases/delete_task_usecase.dart';
@@ -21,6 +23,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final GetAllCategoriesUseCase getAllCategories;
   final CompleteTaskUseCase completeTaskUseCase;
   final DeleteTaskUseCase deleteTaskUseCase;
+  final AddPomodoroToDbUseCase addPomodoroToDbUseCase;
 
   TasksBloc({
     required this.addTaskUsecase,
@@ -29,6 +32,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     required this.getAllCategories,
     required this.completeTaskUseCase,
     required this.deleteTaskUseCase,
+    required this.addPomodoroToDbUseCase,
   }) : super(TasksInitial()) {
     on<TasksEvent>((event, emit) {});
     on<TaskAdded>(_taskAdded);
@@ -37,6 +41,22 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<CategoriesFetched>(_categoriesFetched);
     on<TaskCompleted>(_taskCompleted);
     on<TaskDeleted>(_taskDeleted);
+    on<CurrentPomodoroToDatabaseSaved>(_onCurrentPomodoroOnDatabaseSaved);
+  }
+
+  void saveCurrentPomodoroOnDatabase(PomodoroEntity item) =>
+      addPomodoroToDbUseCase.call(params: item);
+
+  void _onCurrentPomodoroOnDatabaseSaved(
+      CurrentPomodoroToDatabaseSaved event, Emitter<TasksState> emit) async {
+    emit(const SaveCurrentPomodoroLoading());
+
+    Either<String, bool> result =
+        await addPomodoroToDbUseCase.call(params: event.item);
+    result.fold(
+      (l) => const SaveCurrentPomodoroFail(),
+      (r) => const SaveCurrentPomodoroSuccess(),
+    );
   }
 
   _taskDeleted(TaskDeleted event, Emitter<TasksState> emit) async {

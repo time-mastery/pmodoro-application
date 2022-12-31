@@ -1,7 +1,7 @@
 import 'package:pomodore/features/task_management/domain/entities/category_entity.dart';
 
 class CategoryModel extends CategoryEntity {
-  const CategoryModel(id, title) : super(id: id, title: title);
+  const CategoryModel(int? id, String title) : super(id: id, title: title);
 
   static toDbQuery(CategoryEntity item) => {
         "title": item.title,

@@ -6,11 +6,14 @@ import 'package:pomodore/features/task_management/data/repositories/category_rep
 import 'package:pomodore/features/task_management/data/repositories/task_repository_impl.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/get_today_pomodoros_usecase.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -32,6 +35,7 @@ Future inject() async {
 
   Database db = await DatabaseHelper.database;
   getIt.registerSingleton<Database>(db);
+  print(await DatabaseHelper.showPomodorosTable());
 
   // inject ticker
   Ticker ticker = const Ticker();
@@ -53,8 +57,23 @@ Future inject() async {
       GetAllCategoriesUseCase(getIt()));
   getIt.registerSingleton<CompleteTaskUseCase>(CompleteTaskUseCase(getIt()));
   getIt.registerSingleton<DeleteTaskUseCase>(DeleteTaskUseCase(getIt()));
+  getIt.registerSingleton<AddPomodoroToDbUseCase>(
+      AddPomodoroToDbUseCase(getIt()));
+  getIt.registerSingleton<GetTodayPomodorosUseCase>(
+      GetTodayPomodorosUseCase(getIt()));
 
-  // inject global blocs
+  // inject blocs
+  // global bloc
   getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: getIt()));
   getIt.registerSingleton<BaseBloc>(BaseBloc());
+  // local bloc
+  getIt.registerFactory<TasksBloc>(() => TasksBloc(
+        addTaskUsecase: getIt(),
+        addCategoryUsecase: getIt(),
+        getSpecificDateTasks: getIt(),
+        getAllCategories: getIt(),
+        completeTaskUseCase: getIt(),
+        deleteTaskUseCase: getIt(),
+        addPomodoroToDbUseCase: getIt(),
+      ));
 }

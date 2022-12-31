@@ -14,41 +14,16 @@ import '../../../../core/utils/utils.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
 
-class AddTaskPage extends StatefulWidget {
+class AddTaskPage extends StatelessWidget {
   const AddTaskPage({Key? key}) : super(key: key);
 
   static const routeName = "/addTask";
 
   @override
-  State<AddTaskPage> createState() => _AddTaskPageState();
-}
-
-class _AddTaskPageState extends State<AddTaskPage> {
-  late TasksBloc _tasksBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _tasksBloc = TasksBloc(
-      addTaskUsecase: getIt(),
-      addCategoryUsecase: getIt(),
-      getSpecificDateTasks: getIt(),
-      getAllCategories: getIt(),
-      completeTaskUseCase: getIt(),
-      deleteTaskUseCase: getIt(),
-    );
-  }
-
-  @override
-  void dispose() {
-    _tasksBloc.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => _tasksBloc..add(CategoriesFetched()),
+        create: (BuildContext context) =>
+            getIt.get<TasksBloc>()..add(CategoriesFetched()),
         child: const AddTaskView());
   }
 }

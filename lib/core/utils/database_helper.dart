@@ -54,8 +54,9 @@ class DatabaseHelper {
     batch.execute('''
           CREATE TABLE $pomodoroTable (
             _id INTEGER PRIMARY KEY,
-            taskUid TEXT NOT NULL
-            secDuration INTEGER NOT NULL
+            taskUid TEXT NULL,
+            duration INTEGER NOT NULL,
+            dateTime TEXT NOT NULL
             )
           ''');
     await batch.commit();
@@ -66,4 +67,7 @@ class DatabaseHelper {
 
   static Future showCategoryTable() async =>
       await _database?.rawQuery('SELECT * FROM "$categoryTable"');
+
+  static Future showPomodorosTable() async =>
+      await _database?.rawQuery('SELECT * FROM "$pomodoroTable"');
 }
