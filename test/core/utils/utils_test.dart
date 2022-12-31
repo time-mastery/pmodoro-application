@@ -20,5 +20,11 @@ void main() {
 
       expect(today, true);
     });
+
+    test("Test pomodoro timer calculator", () {
+      int time = Utils.calculatePomodoroTime(120, 20);
+
+      expect(time, 100);
+    });
   });
 }

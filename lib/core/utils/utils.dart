@@ -21,4 +21,7 @@ class Utils {
             .inDays ==
         0);
   }
+
+  static int calculatePomodoroTime(int defaultDuration, int timerDuration) =>
+      defaultDuration - timerDuration;
 }
