@@ -53,7 +53,8 @@ class TimerView extends StatelessWidget {
               context
                   .read<TasksBloc>()
                   .add(CurrentPomodoroToDatabaseSaved(PomodoroEntity(
-                    duration: duration,
+                    duration: Utils.calculatePomodoroTime(
+                        TimerBloc.getDuration, duration),
                     dateTime: DateTime.now().toString(),
                   )));
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
