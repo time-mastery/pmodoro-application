@@ -13,40 +13,14 @@ import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../widgets/task_item.dart';
 
-class TasksPage extends StatefulWidget {
+class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
-
-  @override
-  State<TasksPage> createState() => _TasksPageState();
-}
-
-class _TasksPageState extends State<TasksPage> {
-  late TasksBloc _tasksBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _tasksBloc = TasksBloc(
-      addTaskUsecase: getIt(),
-      addCategoryUsecase: getIt(),
-      getSpecificDateTasks: getIt(),
-      getAllCategories: getIt(),
-      completeTaskUseCase: getIt(),
-      deleteTaskUseCase: getIt(),
-    );
-  }
-
-  @override
-  void dispose() {
-    _tasksBloc.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TasksBloc>(
-      create: (context) =>
-          _tasksBloc..add(SpecificDateTasksReceived(DateTime.now())),
+      create: (context) => getIt.get<TasksBloc>()
+        ..add(SpecificDateTasksReceived(DateTime.now())),
       child: const TaskView(),
     );
   }
@@ -161,14 +135,3 @@ class DayWithoutTask extends StatelessWidget {
     );
   }
 }
-
-// class TaskItem extends StatelessWidget {
-//   const TaskItem({Key? key,required this.task}) : super(key: key);
-//
-//   final TaskEntity task;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
