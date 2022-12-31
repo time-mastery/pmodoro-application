@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 void main() {
   group("Timer Bloc", () {
     late TimerBloc timerBloc;
-    int duration = 60;
+    int duration = 60 * 25;
 
     setUp(() => timerBloc = TimerBloc(ticker: const Ticker()));
 
@@ -15,6 +15,13 @@ void main() {
       build: () => timerBloc,
       act: (bloc) => bloc.add(TimerStarted(duration)),
       expect: () => [TimerInProgress(duration)],
+    );
+
+    blocTest(
+      "emit [TimerInitial] when reset timer",
+      build: () => timerBloc,
+      act: (bloc) => bloc.add(TimerReset()),
+      expect: () => [TimerInitial(duration)],
     );
   });
 }

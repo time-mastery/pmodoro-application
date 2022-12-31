@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../../core/utils/ticker.dart';
 
 part 'timer_event.dart';
+
 part 'timer_state.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
@@ -20,7 +21,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<TimerReset>(_onReset);
     on<TimerResumed>(_onResumed);
     on<_TimerTicked>(_onTicked);
-    on<SaveCurrentTimeStateDialogShowed>(_onSaveCurrentTimeStateDialogShowed);
+    on<SaveCurrentTimerStateDialogShowed>(_onSaveCurrentTimeStateDialogShowed);
   }
 
   static const int _duration = 60 * 25;
@@ -36,7 +37,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   }
 
   void _onSaveCurrentTimeStateDialogShowed(
-      SaveCurrentTimeStateDialogShowed event, Emitter<TimerState> emit) {
+      SaveCurrentTimerStateDialogShowed event, Emitter<TimerState> emit) {
     emit(SaveCurrentTimeStateDialog(event.duration));
   }
 
