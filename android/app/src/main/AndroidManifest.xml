@@ -1,13 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="im.mahmoud.pomodoro">
-    
+
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:label="pomodoro"
             android:name="${applicationName}"
-            android:icon="@mipmap/ic_launcher">
+            android:icon="@mipmap/ic_launcher"
+            android:usesCleartextTraffic="true">
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
