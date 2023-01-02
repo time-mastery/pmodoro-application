@@ -50,8 +50,8 @@ dependencies:
   flutter_datetime_picker: ^1.5.1
   dartz: ^0.10.1
 
-
-
+  # sensors
+  vibration: ^1.7.6
 
 dev_dependencies:
   test: ^1.16.0

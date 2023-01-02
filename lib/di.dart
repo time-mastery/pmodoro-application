@@ -35,7 +35,6 @@ Future inject() async {
 
   Database db = await DatabaseHelper.database;
   getIt.registerSingleton<Database>(db);
-  print(await DatabaseHelper.showPomodorosTable());
 
   // inject ticker
   Ticker ticker = const Ticker();
