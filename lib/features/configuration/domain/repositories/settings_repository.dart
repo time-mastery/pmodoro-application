@@ -3,4 +3,6 @@ import 'package:pomodore/features/configuration/domain/entities/settings_entity.
 
 abstract class SettingsRepository {
   Future<Either<String, SettingsEntity>> getSettings();
+
+  Future<Either<String, bool>> changeSettings(String settingKey, bool value);
 }
