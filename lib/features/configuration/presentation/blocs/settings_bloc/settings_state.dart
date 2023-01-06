@@ -10,8 +10,12 @@ class SettingsInitial extends SettingsState {
 }
 
 class SettingFetchingSuccess extends SettingsState {
+  final SettingsEntity item;
+
+  const SettingFetchingSuccess(this.item);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [item];
 }
 
 class SettingFetchingLoading extends SettingsState {

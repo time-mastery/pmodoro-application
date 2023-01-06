@@ -24,4 +24,7 @@ class Utils {
 
   static int calculatePomodoroTime(int defaultDuration, int timerDuration) =>
       defaultDuration - timerDuration;
+
+  static bool convertStringFromStorageToBool(String item) =>
+      item == "1" ? true : false;
 }

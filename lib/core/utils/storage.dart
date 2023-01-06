@@ -20,5 +20,6 @@ class FStorage {
   static delete(String key) async =>
       await flutterSecureStorage.delete(key: key);
 
-  static read(String key) async => await flutterSecureStorage.read(key: key);
+  static Future<String?> read(String key) async =>
+      await flutterSecureStorage.read(key: key);
 }

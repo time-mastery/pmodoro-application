@@ -3,27 +3,29 @@ import 'package:pomodore/core/utils/storage.dart';
 import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
 import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart';
 
+import '../../../../core/utils/utils.dart';
+
 class SettingsRepositoryImpl implements SettingsRepository {
   @override
   Future<Either<String, SettingsEntity>> getSettings() async {
     late Either<String, SettingsEntity> result;
 
     try {
-      bool? notification = FStorage.read(FStorage.notificationKey);
-      bool? sound = FStorage.read(FStorage.notificationKey);
-      bool? vibration = FStorage.read(FStorage.notificationKey);
-      bool? appUpdates = FStorage.read(FStorage.notificationKey);
-      bool? newTip = FStorage.read(FStorage.notificationKey);
-      bool? showAds = FStorage.read(FStorage.notificationKey);
+      String? notification = await FStorage.read(FStorage.notificationKey);
+      String? sound = await FStorage.read(FStorage.notificationKey);
+      String? vibration = await FStorage.read(FStorage.notificationKey);
+      String? appUpdates = await FStorage.read(FStorage.notificationKey);
+      String? newTip = await FStorage.read(FStorage.notificationKey);
+      String? showAds = await FStorage.read(FStorage.notificationKey);
       result = Right(SettingsEntity(
-        notification: notification ?? true,
-        sound: sound ?? true,
-        vibration: vibration ?? true,
-        appUpdates: appUpdates ?? true,
-        newTips: newTip ?? true,
-        ads: showAds ?? false,
+        notification: Utils.convertStringFromStorageToBool(notification ?? "1"),
+        sound: Utils.convertStringFromStorageToBool(sound ?? "1"),
+        vibration: Utils.convertStringFromStorageToBool(vibration ?? "1"),
+        appUpdates: Utils.convertStringFromStorageToBool(appUpdates ?? "1"),
+        newTips: Utils.convertStringFromStorageToBool(newTip ?? "1"),
+        ads: Utils.convertStringFromStorageToBool(showAds ?? "0"),
       ));
-    } catch (e) {
+    } catch (e, s) {
       result = const Left("error");
     }
 

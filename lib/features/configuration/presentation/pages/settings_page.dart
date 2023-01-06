@@ -1,15 +1,32 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
+import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 
+import '../../../../di.dart';
 import '../../../../exports.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          getIt.get<SettingsBloc>()..add(SettingsFromDeviceFetched()),
+      child: const SettingsView(),
+    );
+  }
+}
+
+class SettingsView extends StatelessWidget {
+  const SettingsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,86 +35,100 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: BaseAppBar(title: localization.settingsTitle),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: SizeConfig.heightMultiplier * 3),
-            SwitchListTile.adaptive(
-              title: Row(
+        child: BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            if (state is SettingFetchingSuccess) {
+              return Column(
                 children: [
-                  const Icon(Icons.notifications_off),
-                  const SizedBox(width: 10),
-                  Text(localization.generalNotificationTitle),
-                ],
-              ),
-              value: true,
-              onChanged: (value) {},
-            ),
-            SizedBox(height: SizeConfig.heightMultiplier * .5),
-            SwitchListTile.adaptive(
-              title: Row(
-                children: [
-                  const Icon(Icons.keyboard_voice),
-                  const SizedBox(width: 10),
-                  Text(localization.soundTitle),
-                ],
-              ),
-              value: true,
-              onChanged: (value) {},
-            ),
-            SizedBox(height: SizeConfig.heightMultiplier * .5),
-            if (Platform.isAndroid || Platform.isIOS)
-              Column(
-                children: [
+                  SizedBox(height: SizeConfig.heightMultiplier * 3),
                   SwitchListTile.adaptive(
                     title: Row(
                       children: [
-                        const Icon(Icons.vibration),
+                        const Icon(Icons.notifications_off),
                         const SizedBox(width: 10),
-                        Text(localization.vibrationTitle),
+                        Text(localization.generalNotificationTitle),
                       ],
                     ),
-                    value: true,
+                    value: state.item.notification,
                     onChanged: (value) {},
                   ),
                   SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  SwitchListTile.adaptive(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.keyboard_voice),
+                        const SizedBox(width: 10),
+                        Text(localization.soundTitle),
+                      ],
+                    ),
+                    value: state.item.sound,
+                    onChanged: (value) {},
+                  ),
+                  SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  if (Platform.isAndroid || Platform.isIOS)
+                    Column(
+                      children: [
+                        SwitchListTile.adaptive(
+                          title: Row(
+                            children: [
+                              const Icon(Icons.vibration),
+                              const SizedBox(width: 10),
+                              Text(localization.vibrationTitle),
+                            ],
+                          ),
+                          value: state.item.vibration,
+                          onChanged: (value) {},
+                        ),
+                        SizedBox(height: SizeConfig.heightMultiplier * .5),
+                      ],
+                    ),
+                  SwitchListTile.adaptive(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.update),
+                        const SizedBox(width: 10),
+                        Text(localization.appUpdatesTitle),
+                      ],
+                    ),
+                    value: state.item.appUpdates,
+                    onChanged: (value) {},
+                  ),
+                  SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  SwitchListTile.adaptive(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.tips_and_updates),
+                        const SizedBox(width: 10),
+                        Text(localization.newTipTitle),
+                      ],
+                    ),
+                    value: state.item.newTips,
+                    onChanged: (value) {},
+                  ),
+                  SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  SwitchListTile.adaptive(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.celebration),
+                        SizedBox(width: SizeConfig.widthMultiplier * 2),
+                        Text(localization.showAdsTitle),
+                      ],
+                    ),
+                    value: state.item.ads,
+                    onChanged: (value) {},
+                  ),
                 ],
+              );
+            }
+
+            return SizedBox(
+              width: SizeConfig.widthMultiplier * 100,
+              height: SizeConfig.heightMultiplier * 40,
+              child: const Center(
+                child: GlobalIndicator(),
               ),
-            SwitchListTile.adaptive(
-              title: Row(
-                children: [
-                  const Icon(Icons.update),
-                  const SizedBox(width: 10),
-                  Text(localization.appUpdatesTitle),
-                ],
-              ),
-              value: true,
-              onChanged: (value) {},
-            ),
-            SizedBox(height: SizeConfig.heightMultiplier * .5),
-            SwitchListTile.adaptive(
-              title: Row(
-                children: [
-                  const Icon(Icons.tips_and_updates),
-                  const SizedBox(width: 10),
-                  Text(localization.newTipTitle),
-                ],
-              ),
-              value: true,
-              onChanged: (value) {},
-            ),
-            SizedBox(height: SizeConfig.heightMultiplier * .5),
-            SwitchListTile.adaptive(
-              title: Row(
-                children: [
-                  const Icon(Icons.celebration),
-                  SizedBox(width: SizeConfig.widthMultiplier * 2),
-                  Text(localization.showAdsTitle),
-                ],
-              ),
-              value: true,
-              onChanged: (value) {},
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

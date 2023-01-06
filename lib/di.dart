@@ -2,7 +2,11 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pomodore/core/utils/database_helper.dart';
 import 'package:pomodore/core/utils/storage.dart';
+import 'package:pomodore/features/configuration/data/repositories/settings_repository_impl.dart';
+import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart';
+import 'package:pomodore/features/configuration/domain/usecases/get_settings_usecase.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
+import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 import 'package:pomodore/features/task_management/data/repositories/category_repository_impl.dart';
 import 'package:pomodore/features/task_management/data/repositories/task_repository_impl.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
@@ -49,6 +53,7 @@ Future inject() async {
   // inject repositories
   getIt.registerSingleton<TaskRepository>(TaskRepositoryImpl(getIt()));
   getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImpl(getIt()));
+  getIt.registerSingleton<SettingsRepository>(SettingsRepositoryImpl());
 
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
@@ -63,6 +68,7 @@ Future inject() async {
       AddPomodoroToDbUseCase(getIt()));
   getIt.registerSingleton<GetTodayPomodorosUseCase>(
       GetTodayPomodorosUseCase(getIt()));
+  getIt.registerSingleton<GetSettingsUseCase>(GetSettingsUseCase(getIt()));
 
   // inject blocs
   // global bloc
@@ -78,4 +84,7 @@ Future inject() async {
         deleteTaskUseCase: getIt(),
         addPomodoroToDbUseCase: getIt(),
       ));
+
+  getIt.registerFactory<SettingsBloc>(
+      () => SettingsBloc(getSettingUseCase: getIt()));
 }
