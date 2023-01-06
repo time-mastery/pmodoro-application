@@ -5,12 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 
+import '../../../../core/resources/params/settings_params.dart';
+import '../../../../core/utils/storage.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
+import '../../domain/entities/settings_entity.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -37,96 +39,143 @@ class SettingsView extends StatelessWidget {
       body: SingleChildScrollView(
         child: BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
+            SettingsEntity entity = SettingsEntity(
+              vibration: true,
+              ads: false,
+              appUpdates: true,
+              newTips: true,
+              notification: true,
+              sound: true,
+            );
+            if (state is SettingsChangeSuccess) {
+              entity = state.item;
+            }
             if (state is SettingFetchingSuccess) {
-              return Column(
-                children: [
-                  SizedBox(height: SizeConfig.heightMultiplier * 3),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.notifications_off),
-                        const SizedBox(width: 10),
-                        Text(localization.generalNotificationTitle),
-                      ],
-                    ),
-                    value: state.item.notification,
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: SizeConfig.heightMultiplier * .5),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.keyboard_voice),
-                        const SizedBox(width: 10),
-                        Text(localization.soundTitle),
-                      ],
-                    ),
-                    value: state.item.sound,
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: SizeConfig.heightMultiplier * .5),
-                  if (Platform.isAndroid || Platform.isIOS)
-                    Column(
-                      children: [
-                        SwitchListTile.adaptive(
-                          title: Row(
-                            children: [
-                              const Icon(Icons.vibration),
-                              const SizedBox(width: 10),
-                              Text(localization.vibrationTitle),
-                            ],
-                          ),
-                          value: state.item.vibration,
-                          onChanged: (value) {},
-                        ),
-                        SizedBox(height: SizeConfig.heightMultiplier * .5),
-                      ],
-                    ),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.update),
-                        const SizedBox(width: 10),
-                        Text(localization.appUpdatesTitle),
-                      ],
-                    ),
-                    value: state.item.appUpdates,
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: SizeConfig.heightMultiplier * .5),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.tips_and_updates),
-                        const SizedBox(width: 10),
-                        Text(localization.newTipTitle),
-                      ],
-                    ),
-                    value: state.item.newTips,
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: SizeConfig.heightMultiplier * .5),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.celebration),
-                        SizedBox(width: SizeConfig.widthMultiplier * 2),
-                        Text(localization.showAdsTitle),
-                      ],
-                    ),
-                    value: state.item.ads,
-                    onChanged: (value) {},
-                  ),
-                ],
-              );
+              entity = state.item;
             }
 
-            return SizedBox(
-              width: SizeConfig.widthMultiplier * 100,
-              height: SizeConfig.heightMultiplier * 40,
-              child: const Center(
-                child: GlobalIndicator(),
-              ),
+            return Column(
+              children: [
+                SizedBox(height: SizeConfig.heightMultiplier * 3),
+                SwitchListTile.adaptive(
+                  title: Row(
+                    children: [
+                      const Icon(Icons.notifications_off),
+                      const SizedBox(width: 10),
+                      Text(localization.generalNotificationTitle),
+                    ],
+                  ),
+                  value: entity.notification,
+                  onChanged: (value) {
+                    context
+                        .read<SettingsBloc>()
+                        .add(SettingsChanged(ChangeSettingsParams(
+                          key: FStorage.notificationKey,
+                          value: value,
+                        )));
+                  },
+                ),
+                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                SwitchListTile.adaptive(
+                  title: Row(
+                    children: [
+                      const Icon(Icons.keyboard_voice),
+                      const SizedBox(width: 10),
+                      Text(localization.soundTitle),
+                    ],
+                  ),
+                  value: entity.sound,
+                  onChanged: (value) {
+                    context
+                        .read<SettingsBloc>()
+                        .add(SettingsChanged(ChangeSettingsParams(
+                          key: FStorage.soundKey,
+                          value: value,
+                        )));
+                  },
+                ),
+                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                if (Platform.isAndroid || Platform.isIOS)
+                  Column(
+                    children: [
+                      SwitchListTile.adaptive(
+                        title: Row(
+                          children: [
+                            const Icon(Icons.vibration),
+                            const SizedBox(width: 10),
+                            Text(localization.vibrationTitle),
+                          ],
+                        ),
+                        value: entity.vibration,
+                        onChanged: (value) {
+                          context
+                              .read<SettingsBloc>()
+                              .add(SettingsChanged(ChangeSettingsParams(
+                                key: FStorage.vibrationKey,
+                                value: value,
+                              )));
+                        },
+                      ),
+                      SizedBox(height: SizeConfig.heightMultiplier * .5),
+                    ],
+                  ),
+                SwitchListTile.adaptive(
+                  title: Row(
+                    children: [
+                      const Icon(Icons.update),
+                      const SizedBox(width: 10),
+                      Text(localization.appUpdatesTitle),
+                    ],
+                  ),
+                  value: entity.appUpdates,
+                  onChanged: (value) {
+                    context
+                        .read<SettingsBloc>()
+                        .add(SettingsChanged(ChangeSettingsParams(
+                          key: FStorage.appUpdateKey,
+                          value: value,
+                        )));
+                  },
+                ),
+                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                SwitchListTile.adaptive(
+                  title: Row(
+                    children: [
+                      const Icon(Icons.tips_and_updates),
+                      const SizedBox(width: 10),
+                      Text(localization.newTipTitle),
+                    ],
+                  ),
+                  value: entity.newTips,
+                  onChanged: (value) {
+                    context
+                        .read<SettingsBloc>()
+                        .add(SettingsChanged(ChangeSettingsParams(
+                          key: FStorage.newTipKey,
+                          value: value,
+                        )));
+                  },
+                ),
+                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                SwitchListTile.adaptive(
+                  title: Row(
+                    children: [
+                      const Icon(Icons.celebration),
+                      SizedBox(width: SizeConfig.widthMultiplier * 2),
+                      Text(localization.showAdsTitle),
+                    ],
+                  ),
+                  value: entity.ads,
+                  onChanged: (value) {
+                    context
+                        .read<SettingsBloc>()
+                        .add(SettingsChanged(ChangeSettingsParams(
+                          key: FStorage.newTipKey,
+                          value: value,
+                        )));
+                  },
+                ),
+              ],
             );
           },
         ),

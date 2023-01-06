@@ -2,8 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pomodore/core/utils/database_helper.dart';
 import 'package:pomodore/core/utils/storage.dart';
+import 'package:pomodore/features/configuration/data/data_sources/settings_local_data_source.dart';
 import 'package:pomodore/features/configuration/data/repositories/settings_repository_impl.dart';
 import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart';
+import 'package:pomodore/features/configuration/domain/usecases/change_settings_usecase.dart';
 import 'package:pomodore/features/configuration/domain/usecases/get_settings_usecase.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
@@ -49,11 +51,12 @@ Future inject() async {
 
   // inject datasource
   getIt.registerSingleton<TasksLocalDataSource>(TasksLocalDataSource(getIt()));
+  getIt.registerSingleton<SettingsLocalDataSources>(SettingsLocalDataSources());
 
   // inject repositories
   getIt.registerSingleton<TaskRepository>(TaskRepositoryImpl(getIt()));
   getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImpl(getIt()));
-  getIt.registerSingleton<SettingsRepository>(SettingsRepositoryImpl());
+  getIt.registerSingleton<SettingsRepository>(SettingsRepositoryImpl(getIt()));
 
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
@@ -69,6 +72,8 @@ Future inject() async {
   getIt.registerSingleton<GetTodayPomodorosUseCase>(
       GetTodayPomodorosUseCase(getIt()));
   getIt.registerSingleton<GetSettingsUseCase>(GetSettingsUseCase(getIt()));
+  getIt
+      .registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
 
   // inject blocs
   // global bloc
@@ -85,6 +90,8 @@ Future inject() async {
         addPomodoroToDbUseCase: getIt(),
       ));
 
-  getIt.registerFactory<SettingsBloc>(
-      () => SettingsBloc(getSettingUseCase: getIt()));
+  getIt.registerFactory<SettingsBloc>(() => SettingsBloc(
+        getSettingUseCase: getIt(),
+        changeSettingsUseCase: getIt(),
+      ));
 }

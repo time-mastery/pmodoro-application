@@ -8,3 +8,12 @@ class SettingsFromDeviceFetched extends SettingsEvent {
   @override
   List<Object?> get props => [];
 }
+
+class SettingsChanged extends SettingsEvent {
+  final ChangeSettingsParams params;
+
+  const SettingsChanged(this.params);
+
+  @override
+  List<Object?> get props => [params];
+}

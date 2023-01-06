@@ -7,11 +7,23 @@ class FStorage {
   static const appUpdateKey = "_update_";
   static const newTipKey = "_tip_";
   static const showAdsKey = "_ads_";
+  static const initialized = "_init_";
 
   static late FlutterSecureStorage flutterSecureStorage;
 
-  static initialize() {
+  static initialize() async {
     flutterSecureStorage = const FlutterSecureStorage();
+
+    String? init = await read(initialized);
+    if (init != "1") {
+      write(initialized, "1");
+      write(notificationKey, "1");
+      write(soundKey, "1");
+      write(vibrationKey, "1");
+      write(appUpdateKey, "1");
+      write(newTipKey, "1");
+      write(showAdsKey, "0");
+    }
   }
 
   static write(String key, dynamic value) async =>
