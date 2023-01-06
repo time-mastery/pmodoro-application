@@ -39,7 +39,7 @@ class SettingsView extends StatelessWidget {
       body: SingleChildScrollView(
         child: BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
-            SettingsEntity entity = SettingsEntity(
+            SettingsEntity entity = const SettingsEntity(
               vibration: true,
               ads: false,
               appUpdates: true,
