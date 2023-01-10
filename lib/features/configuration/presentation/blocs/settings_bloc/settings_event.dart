@@ -16,4 +16,9 @@ class SettingsChanged extends SettingsEvent {
 
   @override
   List<Object?> get props => [params];
+
+  @override
+  String toString() {
+    return 'SettingsChanged{params: $params}';
+  }
 }

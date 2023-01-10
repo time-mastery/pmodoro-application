@@ -24,12 +24,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   _settingsChanged(SettingsChanged event, Emitter emit) async {
-    emit(SettingsChangeLoading());
+    emit(SettingFetchingLoading());
     Either<String, SettingsEntity> result =
         await changeSettingsUseCase.call(params: event.params);
     result.fold(
-      (l) => emit(SettingsChangeFail()),
-      (r) => emit(SettingsChangeSuccess(r)),
+      (l) => emit(SettingFetchingFail()),
+      (r) => emit(SettingFetchingSuccess(r)),
     );
   }
 

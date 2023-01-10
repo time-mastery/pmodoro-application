@@ -27,22 +27,3 @@ class SettingFetchingFail extends SettingsState {
   @override
   List<Object?> get props => [];
 }
-
-class SettingsChangeSuccess extends SettingsState {
-  final SettingsEntity item;
-
-  const SettingsChangeSuccess(this.item);
-
-  @override
-  List<Object?> get props => [item];
-}
-
-class SettingsChangeLoading extends SettingsState {
-  @override
-  List<Object?> get props => [];
-}
-
-class SettingsChangeFail extends SettingsState {
-  @override
-  List<Object?> get props => [];
-}

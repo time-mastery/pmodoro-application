@@ -39,144 +39,134 @@ class SettingsView extends StatelessWidget {
       body: SingleChildScrollView(
         child: BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
-            SettingsEntity entity = const SettingsEntity(
-              vibration: true,
-              ads: false,
-              appUpdates: true,
-              newTips: true,
-              notification: true,
-              sound: true,
-            );
-            if (state is SettingsChangeSuccess) {
-              entity = state.item;
-            }
             if (state is SettingFetchingSuccess) {
-              entity = state.item;
+              SettingsEntity entity = state.item;
+              return Column(
+                children: [
+                  SizedBox(height: SizeConfig.heightMultiplier * 3),
+                  SwitchListTile.adaptive(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.notifications_off),
+                        const SizedBox(width: 10),
+                        Text(localization.generalNotificationTitle),
+                      ],
+                    ),
+                    value: entity.notification,
+                    onChanged: (value) {
+                      context
+                          .read<SettingsBloc>()
+                          .add(SettingsChanged(ChangeSettingsParams(
+                            key: FStorage.notificationKey,
+                            value: value,
+                          )));
+                    },
+                  ),
+                  SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  SwitchListTile.adaptive(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.keyboard_voice),
+                        const SizedBox(width: 10),
+                        Text(localization.soundTitle),
+                      ],
+                    ),
+                    value: entity.sound,
+                    onChanged: (value) {
+                      context
+                          .read<SettingsBloc>()
+                          .add(SettingsChanged(ChangeSettingsParams(
+                            key: FStorage.soundKey,
+                            value: value,
+                          )));
+                    },
+                  ),
+                  SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  if (Platform.isAndroid || Platform.isIOS)
+                    Column(
+                      children: [
+                        SwitchListTile.adaptive(
+                          title: Row(
+                            children: [
+                              const Icon(Icons.vibration),
+                              const SizedBox(width: 10),
+                              Text(localization.vibrationTitle),
+                            ],
+                          ),
+                          value: entity.vibration,
+                          onChanged: (value) {
+                            context
+                                .read<SettingsBloc>()
+                                .add(SettingsChanged(ChangeSettingsParams(
+                                  key: FStorage.vibrationKey,
+                                  value: value,
+                                )));
+                          },
+                        ),
+                        SizedBox(height: SizeConfig.heightMultiplier * .5),
+                      ],
+                    ),
+                  SwitchListTile.adaptive(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.update),
+                        const SizedBox(width: 10),
+                        Text(localization.appUpdatesTitle),
+                      ],
+                    ),
+                    value: entity.appUpdates,
+                    onChanged: (value) {
+                      context
+                          .read<SettingsBloc>()
+                          .add(SettingsChanged(ChangeSettingsParams(
+                            key: FStorage.appUpdateKey,
+                            value: value,
+                          )));
+                    },
+                  ),
+                  SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  SwitchListTile.adaptive(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.tips_and_updates),
+                        const SizedBox(width: 10),
+                        Text(localization.newTipTitle),
+                      ],
+                    ),
+                    value: entity.newTips,
+                    onChanged: (value) {
+                      context
+                          .read<SettingsBloc>()
+                          .add(SettingsChanged(ChangeSettingsParams(
+                            key: FStorage.newTipKey,
+                            value: value,
+                          )));
+                    },
+                  ),
+                  SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  SwitchListTile.adaptive(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.celebration),
+                        SizedBox(width: SizeConfig.widthMultiplier * 2),
+                        Text(localization.showAdsTitle),
+                      ],
+                    ),
+                    value: entity.ads,
+                    onChanged: (value) {
+                      context
+                          .read<SettingsBloc>()
+                          .add(SettingsChanged(ChangeSettingsParams(
+                            key: FStorage.showAdsKey,
+                            value: value,
+                          )));
+                    },
+                  ),
+                ],
+              );
             }
 
-            return Column(
-              children: [
-                SizedBox(height: SizeConfig.heightMultiplier * 3),
-                SwitchListTile.adaptive(
-                  title: Row(
-                    children: [
-                      const Icon(Icons.notifications_off),
-                      const SizedBox(width: 10),
-                      Text(localization.generalNotificationTitle),
-                    ],
-                  ),
-                  value: entity.notification,
-                  onChanged: (value) {
-                    context
-                        .read<SettingsBloc>()
-                        .add(SettingsChanged(ChangeSettingsParams(
-                          key: FStorage.notificationKey,
-                          value: value,
-                        )));
-                  },
-                ),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
-                SwitchListTile.adaptive(
-                  title: Row(
-                    children: [
-                      const Icon(Icons.keyboard_voice),
-                      const SizedBox(width: 10),
-                      Text(localization.soundTitle),
-                    ],
-                  ),
-                  value: entity.sound,
-                  onChanged: (value) {
-                    context
-                        .read<SettingsBloc>()
-                        .add(SettingsChanged(ChangeSettingsParams(
-                          key: FStorage.soundKey,
-                          value: value,
-                        )));
-                  },
-                ),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
-                if (Platform.isAndroid || Platform.isIOS)
-                  Column(
-                    children: [
-                      SwitchListTile.adaptive(
-                        title: Row(
-                          children: [
-                            const Icon(Icons.vibration),
-                            const SizedBox(width: 10),
-                            Text(localization.vibrationTitle),
-                          ],
-                        ),
-                        value: entity.vibration,
-                        onChanged: (value) {
-                          context
-                              .read<SettingsBloc>()
-                              .add(SettingsChanged(ChangeSettingsParams(
-                                key: FStorage.vibrationKey,
-                                value: value,
-                              )));
-                        },
-                      ),
-                      SizedBox(height: SizeConfig.heightMultiplier * .5),
-                    ],
-                  ),
-                SwitchListTile.adaptive(
-                  title: Row(
-                    children: [
-                      const Icon(Icons.update),
-                      const SizedBox(width: 10),
-                      Text(localization.appUpdatesTitle),
-                    ],
-                  ),
-                  value: entity.appUpdates,
-                  onChanged: (value) {
-                    context
-                        .read<SettingsBloc>()
-                        .add(SettingsChanged(ChangeSettingsParams(
-                          key: FStorage.appUpdateKey,
-                          value: value,
-                        )));
-                  },
-                ),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
-                SwitchListTile.adaptive(
-                  title: Row(
-                    children: [
-                      const Icon(Icons.tips_and_updates),
-                      const SizedBox(width: 10),
-                      Text(localization.newTipTitle),
-                    ],
-                  ),
-                  value: entity.newTips,
-                  onChanged: (value) {
-                    context
-                        .read<SettingsBloc>()
-                        .add(SettingsChanged(ChangeSettingsParams(
-                          key: FStorage.newTipKey,
-                          value: value,
-                        )));
-                  },
-                ),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
-                SwitchListTile.adaptive(
-                  title: Row(
-                    children: [
-                      const Icon(Icons.celebration),
-                      SizedBox(width: SizeConfig.widthMultiplier * 2),
-                      Text(localization.showAdsTitle),
-                    ],
-                  ),
-                  value: entity.ads,
-                  onChanged: (value) {
-                    context
-                        .read<SettingsBloc>()
-                        .add(SettingsChanged(ChangeSettingsParams(
-                          key: FStorage.newTipKey,
-                          value: value,
-                        )));
-                  },
-                ),
-              ],
-            );
+            return Container();
           },
         ),
       ),
