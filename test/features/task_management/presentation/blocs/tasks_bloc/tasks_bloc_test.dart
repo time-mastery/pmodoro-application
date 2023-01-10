@@ -53,7 +53,7 @@ void main() {
       );
 
   group("TaskAdded Event", () {
-    group("TaskAdded  Success Test", () {
+    group("TaskAdded Success Test", () {
       blocTest(
         "emit TaskLoading and TaskAddSuccess state",
         build: () {
