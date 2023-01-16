@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:pomodore/features/task_management/data/data_sources/tasks_local_data_source.dart';
 import 'package:pomodore/features/task_management/data/models/pomodoro_model.dart';
 import 'package:pomodore/features/task_management/data/models/task_model.dart';
+import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 
@@ -76,8 +77,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<PomodoroEntity>>> getAllPomodoros() async {
     late Either<String, List<PomodoroEntity>> result;
 
-    List<Map<String, dynamic>>? rawList =
-        await localDataSource.getAllPomodoroFromDb();
+    List<Map<String, dynamic>>? rawList = await localDataSource.getAllPomodoroFromDb();
 
     if (rawList != null) {
       List<PomodoroEntity> convertedList = PomodoroModel.parseRawList(rawList);
@@ -102,6 +102,26 @@ class TaskRepositoryImpl implements TaskRepository {
       result = Right(status);
     } else {
       result = const Left("error");
+    }
+
+    return result;
+  }
+
+  @override
+  Future<Either<String, DailyInformationEntity>> getDailyInformation() async {
+    late Either<String, DailyInformationEntity> result;
+
+    int completedTasksQuantity = await localDataSource.getCompletedTaskQuantity();
+    int tasksQuantity = await localDataSource.getAllTaskQuantity();
+    DailyInformationEntity item = DailyInformationEntity(
+        taskQuantity: tasksQuantity,
+        completedTaskQuantity: completedTasksQuantity,
+        processPercentage: (completedTasksQuantity * 100) / tasksQuantity);
+
+    if (tasksQuantity == 0 && completedTasksQuantity != 0) {
+      result = const Left("error");
+    } else {
+      result = Right(item);
     }
 
     return result;

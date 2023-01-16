@@ -117,6 +117,36 @@ class TasksLocalDataSource {
     return list;
   }
 
+  Future<int> getAllTaskQuantity() async {
+    late int quantity;
+
+    try {
+      List<Map<String, dynamic>>? tasks = await getAllTasks();
+      quantity = tasks != null ? tasks.length : 0;
+    } catch (e) {
+      rethrow;
+    }
+    return quantity;
+  }
+
+  Future<int> getCompletedTaskQuantity() async {
+    late int quantity;
+
+    try {
+      List<Map<String, Object?>> records = await db.query(
+        DatabaseHelper.taskTable,
+        columns: ["_id"],
+        where: "done = ?",
+        whereArgs: [1],
+      );
+
+      quantity = records.length;
+    } catch (e) {
+      rethrow;
+    }
+    return quantity;
+  }
+
   getTaskById(String id) {}
 
   getCompletedTask() {}
