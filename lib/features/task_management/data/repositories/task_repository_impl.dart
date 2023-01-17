@@ -128,6 +128,11 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
+  Future<Either<String, List<TaskEntity>>> getTodayTasks() {
+    throw UnimplementedError();
+  }
+
+  @override
   Future getCompletedTask() {
     // TODO: implement getCompletedTask
     throw UnimplementedError();
