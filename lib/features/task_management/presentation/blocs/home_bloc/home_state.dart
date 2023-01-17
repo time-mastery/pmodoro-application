@@ -15,8 +15,12 @@ class FetchTodayTasksLoading extends HomeState {
 }
 
 class FetchTodayTasksSuccess extends HomeState {
+  final List<TaskEntity> list;
+
+  const FetchTodayTasksSuccess(this.list);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [list];
 }
 
 class FetchTodayTasksFail extends HomeState {
@@ -30,8 +34,12 @@ class FetchDailyInformationLoading extends HomeState {
 }
 
 class FetchDailyInformationSuccess extends HomeState {
+  final DailyInformationEntity item;
+
+  const FetchDailyInformationSuccess(this.item);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [item];
 }
 
 class FetchDailyInformationFail extends HomeState {

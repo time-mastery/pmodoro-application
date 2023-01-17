@@ -5,8 +5,12 @@ abstract class HomeEvent extends Equatable {
 }
 
 class TodayTasksFetched extends HomeEvent {
+  final DateTime date;
+
+  const TodayTasksFetched(this.date);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [date];
 }
 
 class DailyInformationFetched extends HomeEvent {
