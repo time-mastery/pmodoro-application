@@ -75,9 +75,16 @@ flutter:
 
 
   fonts:
-    - family: SourceSansPro
+    - family: sspro
       fonts:
-        - asset: assets/fonts/SourceSansPro-Regular.ttf
+        - asset: fonts/SourceSansPro-Regular.ttf
+    - family: inter
+      fonts:
+        - asset: fonts/Inter-Regular.ttf
+    - family: oswald
+      fonts:
+        - asset: fonts/Oswald-Regular.ttf
+
     #       - asset: fonts/Schyler-Italic.ttf
     #         style: italic
     #   - family: Trajan Pro

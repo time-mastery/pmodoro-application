@@ -6,6 +6,7 @@ class AppConstant {
 
   // strings
   static const appName = "Pomodore";
+  static const fontFamily = "inter";
 
   // Hero tags
   static const splashIconHeroTag = "__splash-appbar__";
@@ -20,9 +21,9 @@ class AppConstant {
 
   // app theme
   static getTheme(BuildContext context) => ThemeData(
-        fontFamily: "SourceSansPro",
         primaryColor: primaryColor,
         scaffoldBackgroundColor: scaffoldColor,
+        fontFamily: fontFamily,
         brightness: Brightness.dark,
         appBarTheme: const AppBarTheme(
           elevation: 0,
