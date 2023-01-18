@@ -20,6 +20,7 @@ class AppConstant {
 
   // app theme
   static getTheme(BuildContext context) => ThemeData(
+        fontFamily: "SourceSansPro",
         primaryColor: primaryColor,
         scaffoldBackgroundColor: scaffoldColor,
         brightness: Brightness.dark,
@@ -38,12 +39,10 @@ class AppConstant {
         buttonTheme: const ButtonThemeData(
           textTheme: ButtonTextTheme.normal,
         ),
-        textTheme: Theme.of(context)
-            .textTheme
-            .copyWith(button: const TextStyle(color: textColor))
-            .apply(
-              bodyColor: textColor,
-              displayColor: textColor,
-            ),
+        textTheme:
+            Theme.of(context).textTheme.copyWith(button: const TextStyle(color: textColor)).apply(
+                  bodyColor: textColor,
+                  displayColor: textColor,
+                ),
       );
 }
