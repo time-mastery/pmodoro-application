@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ main, develop, hotfix/worker-issue ]
+    branches: [ main, develop ]
 
 jobs:
   build_android:
@@ -26,10 +26,10 @@ jobs:
         run: ls /home/runner/work
 
       - name: Create the keystore
-        run: echo "${{ secrets.KEY }}" | base64 -d > /home/runner/work/pmodore-application/pmodore-application/android/key.jks
+        run: echo "${{ secrets.KEY }}" | base64 -d > ./android/key.jks
 
       - name: Create the properties
-        run: echo "${{ secrets.PROPERTIES }}" | base64 -d > /home/runner/work/pmodore-application/pmodore-application/android/key.properties
+        run: echo "${{ secrets.PROPERTIES }}" | base64 -d > ./android/key.properties
 
       - name: Get packages
         run: flutter pub get
