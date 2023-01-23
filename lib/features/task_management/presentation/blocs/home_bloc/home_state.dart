@@ -9,40 +9,22 @@ class HomeInitial extends HomeState {
   List<Object> get props => [];
 }
 
-class FetchTodayTasksLoading extends HomeState {
-  @override
-  List<Object?> get props => [];
-}
-
-class FetchTodayTasksSuccess extends HomeState {
+class FetchHomeDataSuccess extends HomeState {
   final List<TaskEntity> list;
-
-  const FetchTodayTasksSuccess(this.list);
-
-  @override
-  List<Object?> get props => [list];
-}
-
-class FetchTodayTasksFail extends HomeState {
-  @override
-  List<Object?> get props => [];
-}
-
-class FetchDailyInformationLoading extends HomeState {
-  @override
-  List<Object?> get props => [];
-}
-
-class FetchDailyInformationSuccess extends HomeState {
   final DailyInformationEntity item;
 
-  const FetchDailyInformationSuccess(this.item);
+  const FetchHomeDataSuccess(this.list, this.item);
 
   @override
-  List<Object?> get props => [item];
+  List<Object?> get props => [list, item];
 }
 
-class FetchDailyInformationFail extends HomeState {
+class FetchHomeDataLoading extends HomeState {
+  @override
+  List<Object?> get props => [];
+}
+
+class FetchHomeDataFail extends HomeState {
   @override
   List<Object?> get props => [];
 }

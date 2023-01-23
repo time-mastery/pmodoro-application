@@ -19,30 +19,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.getTodayTasksUseCase,
   }) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) {});
-    on<TodayTasksFetched>(_onFetchTodayTasks);
-    on<DailyInformationFetched>(_onFetchDailyInformation);
+    on<HomeDataFetched>(_onFetchHomeData);
     on<TaskTimerStarted>(_onStartTimerTask);
   }
 
-  _onFetchTodayTasks(TodayTasksFetched event, Emitter emit) async {
-    emit(FetchTodayTasksLoading());
+  _onFetchHomeData(HomeDataFetched event, Emitter emit) async {
+    emit(FetchHomeDataLoading());
 
-    Either<String, List<TaskEntity>> result = await getTodayTasksUseCase.call(params: event.date);
+    Either<String, List<TaskEntity>> tasks = await getTodayTasksUseCase.call(params: event.date);
+    Either<String, DailyInformationEntity> dailyInfo = await getDailyInformationUseCase.call();
 
-    result.fold(
-      (l) => emit(FetchTodayTasksFail()),
-      (r) => emit(FetchTodayTasksSuccess(r)),
-    );
-  }
-
-  _onFetchDailyInformation(DailyInformationFetched event, Emitter emit) async {
-    emit(FetchDailyInformationLoading());
-
-    Either<String, DailyInformationEntity> result = await getDailyInformationUseCase.call();
-
-    result.fold(
-      (l) => emit(FetchDailyInformationFail()),
-      (r) => emit(FetchDailyInformationSuccess(r)),
+    tasks.fold(
+      (l) => emit(FetchHomeDataFail()),
+      (list) {
+        dailyInfo.fold(
+          (l) => emit(FetchHomeDataFail()),
+          (item) => emit(FetchHomeDataSuccess(list, item)),
+        );
+      },
     );
   }
 

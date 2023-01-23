@@ -24,7 +24,7 @@ class AllTodayTasksPage extends StatelessWidget {
             itemCount: 10,
             itemBuilder: (context, index) => HomeTaskItem(
               title: "Task $index",
-              time: index,
+              description: "index",
             ),
           ),
         ));
