@@ -9,7 +9,6 @@ import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/pages/all_today_tasks_page.dart';
 
 import '../../../../di.dart';
 import '../../../../exports.dart';
@@ -127,30 +126,15 @@ class HomeView extends StatelessWidget {
               ),
             ),
             SizedBox(height: SizeConfig.heightMultiplier * 2),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                BlocBuilder(
-                  bloc: context.read<HomeBloc>(),
-                  builder: (context, state) {
-                    return Text(
-                      localization.todayTasks.replaceAll("#",
-                          ((state is FetchHomeDataSuccess) ? state.list.length.toString() : "-")),
-                      style: Theme.of(context).textTheme.titleLarge,
-                    );
-                  },
-                ),
-                InkWell(
-                  onTap: () => Navigator.pushNamed(context, AllTodayTasksPage.routeName),
-                  child: Text(
-                    localization.seeAllTitle,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: AppConstant.swatchColor),
-                  ),
-                ),
-              ],
+            BlocBuilder(
+              bloc: context.read<HomeBloc>(),
+              builder: (context, state) {
+                return Text(
+                  localization.todayTasks.replaceAll(
+                      "#", ((state is FetchHomeDataSuccess) ? state.list.length.toString() : "-")),
+                  style: Theme.of(context).textTheme.titleLarge,
+                );
+              },
             ),
             SizedBox(height: SizeConfig.heightMultiplier * 2),
             BlocBuilder(
