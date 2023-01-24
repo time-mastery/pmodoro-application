@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:pomodore/features/task_management/data/data_sources/tasks_local_data_source.dart';
 import 'package:pomodore/features/task_management/data/models/pomodoro_model.dart';
 import 'package:pomodore/features/task_management/data/models/task_model.dart';
+import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 
@@ -105,6 +106,34 @@ class TaskRepositoryImpl implements TaskRepository {
     }
 
     return result;
+  }
+
+  @override
+  Future<Either<String, DailyInformationEntity>> getDailyInformation() async {
+    late Either<String, DailyInformationEntity> result;
+
+    int completedTasksQuantity =
+        await localDataSource.getCompletedTaskQuantity();
+    int tasksQuantity = await localDataSource.getAllTodayTaskQuantity();
+    DailyInformationEntity item = DailyInformationEntity(
+        taskQuantity: tasksQuantity,
+        completedTaskQuantity: completedTasksQuantity,
+        processPercentage: tasksQuantity == 0
+            ? 0
+            : (completedTasksQuantity * 100) / tasksQuantity);
+
+    if (tasksQuantity == 0 && completedTasksQuantity != 0) {
+      result = const Left("error");
+    } else {
+      result = Right(item);
+    }
+
+    return result;
+  }
+
+  @override
+  Future<Either<String, List<TaskEntity>>> getTodayTasks() {
+    throw UnimplementedError();
   }
 
   @override

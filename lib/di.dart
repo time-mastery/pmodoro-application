@@ -18,8 +18,10 @@ import 'package:pomodore/features/task_management/domain/usecases/add_task_useca
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_today_pomodoros_usecase.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 import 'package:sqflite/sqflite.dart';
@@ -27,6 +29,7 @@ import 'package:sqflite/sqflite.dart';
 import 'core/utils/ticker.dart';
 import 'features/task_management/data/data_sources/tasks_local_data_source.dart';
 import 'features/task_management/domain/repositories/category_repository.dart';
+import 'features/task_management/domain/usecases/get_today_tasks_usecase.dart';
 
 final getIt = GetIt.instance;
 
@@ -61,19 +64,16 @@ Future inject() async {
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
   getIt.registerSingleton<AddCategoryUsecase>(AddCategoryUsecase(getIt()));
-  getIt.registerSingleton<GetSpecificDateTasksUseCase>(
-      GetSpecificDateTasksUseCase(getIt()));
-  getIt.registerSingleton<GetAllCategoriesUseCase>(
-      GetAllCategoriesUseCase(getIt()));
+  getIt.registerSingleton<GetSpecificDateTasksUseCase>(GetSpecificDateTasksUseCase(getIt()));
+  getIt.registerSingleton<GetAllCategoriesUseCase>(GetAllCategoriesUseCase(getIt()));
   getIt.registerSingleton<CompleteTaskUseCase>(CompleteTaskUseCase(getIt()));
   getIt.registerSingleton<DeleteTaskUseCase>(DeleteTaskUseCase(getIt()));
-  getIt.registerSingleton<AddPomodoroToDbUseCase>(
-      AddPomodoroToDbUseCase(getIt()));
-  getIt.registerSingleton<GetTodayPomodorosUseCase>(
-      GetTodayPomodorosUseCase(getIt()));
+  getIt.registerSingleton<AddPomodoroToDbUseCase>(AddPomodoroToDbUseCase(getIt()));
+  getIt.registerSingleton<GetTodayPomodorosUseCase>(GetTodayPomodorosUseCase(getIt()));
   getIt.registerSingleton<GetSettingsUseCase>(GetSettingsUseCase(getIt()));
-  getIt
-      .registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
+  getIt.registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
+  getIt.registerSingleton<GetDailyInformationUseCase>(GetDailyInformationUseCase(getIt()));
+  getIt.registerSingleton<GetTodayTasksUseCase>(GetTodayTasksUseCase(getIt()));
 
   // inject blocs
   // global bloc
@@ -93,5 +93,10 @@ Future inject() async {
   getIt.registerFactory<SettingsBloc>(() => SettingsBloc(
         getSettingUseCase: getIt(),
         changeSettingsUseCase: getIt(),
+      ));
+
+  getIt.registerFactory<HomeBloc>(() => HomeBloc(
+        getDailyInformationUseCase: getIt(),
+        getTodayTasksUseCase: getIt(),
       ));
 }

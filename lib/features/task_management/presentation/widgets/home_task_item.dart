@@ -6,11 +6,10 @@ import '../../../../core/constant/constant.dart';
 import '../../../../core/utils/size_config.dart';
 
 class HomeTaskItem extends StatelessWidget {
-  const HomeTaskItem({Key? key, required this.title, required this.time})
-      : super(key: key);
+  const HomeTaskItem({Key? key, required this.title, required this.description}) : super(key: key);
 
   final String title;
-  final int time;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +28,7 @@ class HomeTaskItem extends StatelessWidget {
           children: [
             Material(
               color: AppConstant.swatchColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               child: const Padding(
                 padding: EdgeInsets.all(11.0),
                 child: Icon(
@@ -54,7 +52,7 @@ class HomeTaskItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "$time Minutes",
+                    "$description Minutes",
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
