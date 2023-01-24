@@ -6,6 +6,7 @@ import 'package:pomodore/features/task_management/domain/entities/pomodoro_entit
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../../core/utils/utils.dart';
 import '../models/task_model.dart';
 
 class TasksLocalDataSource {
@@ -117,12 +118,20 @@ class TasksLocalDataSource {
     return list;
   }
 
-  Future<int> getAllTaskQuantity() async {
+  Future<int> getAllTodayTaskQuantity() async {
     late int quantity;
 
     try {
       List<Map<String, dynamic>>? tasks = await getAllTasks();
-      quantity = tasks != null ? tasks.length : 0;
+      List list = [];
+      if (tasks != null) {
+        for (var element in tasks) {
+          if (Utils.checkDateIsToday(DateTime.parse(element["deadLineTime"]))) {
+            list.add(element);
+          }
+        }
+      }
+      quantity = list.length;
     } catch (e) {
       rethrow;
     }

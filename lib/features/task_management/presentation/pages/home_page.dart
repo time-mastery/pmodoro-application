@@ -22,7 +22,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<HomeBloc>()..add(HomeDataFetched(DateTime.now())),
+      create: (context) =>
+          getIt.get<HomeBloc>()..add(HomeDataFetched(DateTime.now())),
       child: const HomeView(),
     );
   }
@@ -40,7 +41,8 @@ class HomeView extends StatelessWidget {
       appBar: BaseAppBar(
         title: localization.homeTitle,
         action: const Icon(Ionicons.notifications),
-        onPressed: () => Navigator.pushNamed(context, NotificationsPage.routeName),
+        onPressed: () =>
+            Navigator.pushNamed(context, NotificationsPage.routeName),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -57,11 +59,13 @@ class HomeView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: BlocBuilder(
                   bloc: context.read<HomeBloc>(),
                   builder: (context, state) {
                     if (state is FetchHomeDataSuccess) dailyItem = state.item;
+                    print(dailyItem?.processPercentage);
                     return Row(
                       children: [
                         SizedBox(
@@ -75,9 +79,10 @@ class HomeView extends StatelessWidget {
                                   width: SizeConfig.widthMultiplier * 20,
                                   height: SizeConfig.widthMultiplier * 20,
                                   child: CircularProgressIndicator(
-                                    value: dailyItem == null ? 0 : dailyItem!.processPercentage,
+                                    value: dailyItem?.processPercentage ?? 0,
                                     strokeWidth: 10,
-                                    backgroundColor: AppConstant.swatchColor.withOpacity(.2),
+                                    backgroundColor:
+                                        AppConstant.swatchColor.withOpacity(.2),
                                     color: AppConstant.swatchColor,
                                   ),
                                 ),
@@ -110,8 +115,11 @@ class HomeView extends StatelessWidget {
                                     ? "- - - - - -"
                                     : localization.completedTasks
                                         .replaceFirst(
-                                            "{d}", dailyItem!.completedTaskQuantity.toString())
-                                        .replaceFirst("{a}", dailyItem!.taskQuantity.toString()),
+                                            "{d}",
+                                            dailyItem!.completedTaskQuantity
+                                                .toString())
+                                        .replaceFirst("{a}",
+                                            dailyItem!.taskQuantity.toString()),
                                 style: Theme.of(context).textTheme.bodySmall,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -131,7 +139,10 @@ class HomeView extends StatelessWidget {
               builder: (context, state) {
                 return Text(
                   localization.todayTasks.replaceAll(
-                      "#", ((state is FetchHomeDataSuccess) ? state.list.length.toString() : "-")),
+                      "#",
+                      ((state is FetchHomeDataSuccess)
+                          ? state.list.length.toString()
+                          : "-")),
                   style: Theme.of(context).textTheme.titleLarge,
                 );
               },
@@ -168,7 +179,9 @@ class HomeView extends StatelessWidget {
                           height: SizeConfig.heightMultiplier * 2,
                         ),
                         IconButton(
-                          onPressed: () => getIt.get<BaseBloc>().add(const PageIndexChanged(1)),
+                          onPressed: () => getIt
+                              .get<BaseBloc>()
+                              .add(const PageIndexChanged(1)),
                           icon: const Icon(CupertinoIcons.add_circled_solid),
                         ),
                       ],

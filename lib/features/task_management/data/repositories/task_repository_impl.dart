@@ -77,7 +77,8 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<PomodoroEntity>>> getAllPomodoros() async {
     late Either<String, List<PomodoroEntity>> result;
 
-    List<Map<String, dynamic>>? rawList = await localDataSource.getAllPomodoroFromDb();
+    List<Map<String, dynamic>>? rawList =
+        await localDataSource.getAllPomodoroFromDb();
 
     if (rawList != null) {
       List<PomodoroEntity> convertedList = PomodoroModel.parseRawList(rawList);
@@ -111,12 +112,15 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, DailyInformationEntity>> getDailyInformation() async {
     late Either<String, DailyInformationEntity> result;
 
-    int completedTasksQuantity = await localDataSource.getCompletedTaskQuantity();
-    int tasksQuantity = await localDataSource.getAllTaskQuantity();
+    int completedTasksQuantity =
+        await localDataSource.getCompletedTaskQuantity();
+    int tasksQuantity = await localDataSource.getAllTodayTaskQuantity();
     DailyInformationEntity item = DailyInformationEntity(
         taskQuantity: tasksQuantity,
         completedTaskQuantity: completedTasksQuantity,
-        processPercentage: (completedTasksQuantity * 100) / tasksQuantity);
+        processPercentage: tasksQuantity == 0
+            ? 0
+            : (completedTasksQuantity * 100) / tasksQuantity);
 
     if (tasksQuantity == 0 && completedTasksQuantity != 0) {
       result = const Left("error");
