@@ -113,13 +113,10 @@ class HomeView extends StatelessWidget {
                               Text(
                                 dailyItem == null
                                     ? "- - - - - -"
-                                    : localization.completedTasks
-                                        .replaceFirst(
-                                            "{d}",
-                                            dailyItem!.completedTaskQuantity
-                                                .toString())
-                                        .replaceFirst("{a}",
-                                            dailyItem!.taskQuantity.toString()),
+                                    : localization.completedTasks(
+                                        dailyItem!.taskQuantity.toString(),
+                                        dailyItem!.completedTaskQuantity
+                                            .toString()),
                                 style: Theme.of(context).textTheme.bodySmall,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
