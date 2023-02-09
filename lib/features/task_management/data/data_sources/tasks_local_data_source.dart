@@ -132,6 +132,21 @@ class TasksLocalDataSource {
     return list;
   }
 
+  Future<List<Map<String, dynamic>>>? getAllTodayPomodoroFromDb(
+      DateTime time) async {
+    List<Map<String, dynamic>>? list;
+    try {
+      List<Map<String, Object?>> records = await db.rawQuery(
+          'SELECT * FROM ${DatabaseHelper.pomodoroTable} where datetime >= ${Utils.formatDateToYYYYMMDD(time)}');
+
+      list = records;
+    } catch (e) {
+      rethrow;
+    }
+
+    return list;
+  }
+
   Future<int> getAllTodayTaskQuantity() async {
     late int quantity;
 

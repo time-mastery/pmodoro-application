@@ -75,18 +75,15 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, List<PomodoroEntity>>> getAllPomodoros() async {
+  Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoros() async {
     late Either<String, List<PomodoroEntity>> result;
 
     List<Map<String, dynamic>>? rawList =
-        await localDataSource.getAllPomodoroFromDb();
+        await localDataSource.getSpecificDateTasks(DateTime.now());
 
     if (rawList != null) {
       List<PomodoroEntity> convertedList = PomodoroModel.parseRawList(rawList);
-      result = Right(PomodoroModel.filterTodayPomodoroList(
-        convertedList,
-        DateTime.now(),
-      ));
+      result = Right(convertedList);
     } else {
       result = const Left("error");
     }
