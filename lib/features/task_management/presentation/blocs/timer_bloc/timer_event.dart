@@ -6,11 +6,12 @@ abstract class TimerEvent extends Equatable {
 
 class TimerStarted extends TimerEvent {
   final int duration;
+  final String? taskId;
 
-  const TimerStarted(this.duration);
+  const TimerStarted(this.duration, this.taskId);
 
   @override
-  List<Object?> get props => [duration];
+  List<Object?> get props => [duration, taskId];
 }
 
 class TimerPaused extends TimerEvent {

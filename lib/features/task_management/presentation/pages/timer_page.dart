@@ -82,11 +82,14 @@ class TimerView extends StatelessWidget {
 
     return BlocListener<TimerBloc, TimerState>(
       listenWhen: (previous, current) {
-        return (current is! TimerInitial && previous is! TimerInitial);
+        if (previous is TimerInitial && current is StartTimerWithoutTask) {
+          return true;
+        } else {
+          return (current is! TimerInitial && previous is! TimerInitial);
+        }
       },
       listener: (context, state) {
         if (state is SaveCurrentTimeStateDialog) {
-          // fixme[mahmoud]: pass me the current task UID
           ScaffoldMessenger.of(context)
             ..removeCurrentMaterialBanner()
             ..showMaterialBanner(_showMaterialBanner(
@@ -94,6 +97,10 @@ class TimerView extends StatelessWidget {
               duration: state.duration,
               taskUid: "",
             ));
+        }
+        if (state is StartTimerWithoutTask) {
+          var snack = const SnackBar(content: Text("Please select task"));
+          ScaffoldMessenger.of(context).showSnackBar(snack);
         }
       },
       child: Scaffold(
@@ -185,7 +192,7 @@ class TimerButtons extends StatelessWidget {
                   if (state.duration == TimerBloc.getDuration) {
                     context
                         .read<TimerBloc>()
-                        .add(TimerStarted(TimerBloc.getDuration));
+                        .add(TimerStarted(TimerBloc.getDuration, null));
                   } else {
                     context.read<TimerBloc>().add(TimerResumed());
                   }

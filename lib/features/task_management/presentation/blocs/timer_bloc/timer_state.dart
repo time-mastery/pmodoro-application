@@ -32,14 +32,22 @@ class TimerInProgress extends TimerState {
 
 class TimerCompleted extends TimerState {
   const TimerCompleted() : super(0);
-
-  @override
-  List<Object?> get props => [];
 }
 
 class SaveCurrentTimeStateDialog extends TimerState {
   const SaveCurrentTimeStateDialog(super.duration);
+}
+
+class StartTimerWithoutTask extends TimerState {
+  const StartTimerWithoutTask(super.duration);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [duration];
+}
+
+class StartTimerLoading extends TimerState {
+  const StartTimerLoading(super.duration);
+
+  @override
+  List<Object?> get props => [duration];
 }

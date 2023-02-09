@@ -42,11 +42,16 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   }
 
   void _onStarted(TimerStarted event, Emitter<TimerState> emit) {
-    emit(TimerInProgress(event.duration));
-    _tickerSubscription?.cancel();
-    _tickerSubscription = _ticker
-        .tick(ticks: event.duration)
-        .listen((duration) => add(_TimerTicked(duration)));
+    emit(StartTimerLoading(event.duration));
+    if (event.taskId == "" || event.taskId == null) {
+      emit(StartTimerWithoutTask(event.duration));
+    } else {
+      emit(TimerInProgress(event.duration));
+      _tickerSubscription?.cancel();
+      _tickerSubscription = _ticker
+          .tick(ticks: event.duration)
+          .listen((duration) => add(_TimerTicked(duration)));
+    }
   }
 
   void _onPaused(TimerPaused event, Emitter<TimerState> emit) {
