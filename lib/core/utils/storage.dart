@@ -8,6 +8,7 @@ class FStorage {
   static const newTipKey = "_tip_";
   static const showAdsKey = "_ads_";
   static const initialized = "_init_";
+  static const localeKey = "_locale_";
 
   static late FlutterSecureStorage flutterSecureStorage;
 
@@ -23,6 +24,7 @@ class FStorage {
       write(appUpdateKey, "1");
       write(newTipKey, "1");
       write(showAdsKey, "0");
+      write(localeKey, "en");
     }
   }
 

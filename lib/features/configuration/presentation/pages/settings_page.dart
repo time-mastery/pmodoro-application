@@ -6,6 +6,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/features/configuration/domain/entities/language_entity.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 
 import '../../../../core/resources/params/settings_params.dart';
@@ -162,6 +163,8 @@ class SettingsView extends StatelessWidget {
                           )));
                     },
                   ),
+                  SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  ChangeLanguageBottomSheet(),
                 ],
               );
             }
@@ -194,10 +197,10 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    List flags = [
-      '🇩🇪       German',
-      '🇺🇸       English',
-      '🇮🇷       Farsi',
+    List<LanguageEntity> flags = [
+      LanguageEntity('English', 'en'),
+      LanguageEntity('German', 'de'),
+      LanguageEntity('Persian', 'fa'),
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -236,22 +239,27 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 10),
-                              child: InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppConstant.secondaryColor),
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Text(
-                                    flags[index],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.start,
+                                  horizontal: 20, vertical: 2),
+                              child: Card(
+                                child: InkWell(
+                                  onTap: () {
+                                    context.read<SettingsBloc>().add(
+                                        LocaleChanged(
+                                            flags[index].languageCode));
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Text(
+                                      flags[index].title,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                            fontStyle: FontStyle.italic,
+                                            color: AppConstant.darkTextColor,
+                                          ),
+                                      textAlign: TextAlign.start,
+                                    ),
                                   ),
                                 ),
                               ),

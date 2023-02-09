@@ -26,6 +26,16 @@ class SettingsLocalDataSources {
     }
   }
 
+  Future<String> getLocale() async {
+    String? locale = await FStorage.read(FStorage.localeKey);
+    return locale ?? "en";
+  }
+
+  Future<String> changeLocale(String langCode) async {
+    String locale = await FStorage.write(FStorage.localeKey, langCode);
+    return locale;
+  }
+
   Future<SettingsEntity> changeSettings(ChangeSettingsParams params) async {
     try {
       await FStorage.write(params.key, params.value ? "1" : "0");
