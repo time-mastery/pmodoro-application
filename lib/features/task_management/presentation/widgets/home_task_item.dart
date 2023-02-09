@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/shared_widgets/global_button.dart';
+import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
+import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 
 import '../../../../core/constant/constant.dart';
 import '../../../../core/utils/size_config.dart';
 
 class HomeTaskItem extends StatelessWidget {
-  const HomeTaskItem({Key? key, required this.title, required this.description}) : super(key: key);
+  const HomeTaskItem({Key? key, required this.item}) : super(key: key);
 
-  final String title;
-  final String description;
+  final TaskEntity item;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,8 @@ class HomeTaskItem extends StatelessWidget {
           children: [
             Material(
               color: AppConstant.swatchColor,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               child: const Padding(
                 padding: EdgeInsets.all(11.0),
                 child: Icon(
@@ -46,14 +50,20 @@ class HomeTaskItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleLarge,
+                    item.title,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleLarge,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "$description Minutes",
-                    style: Theme.of(context).textTheme.bodySmall,
+                    "${item.description} Minutes",
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodySmall,
                   ),
                 ],
               ),
@@ -61,7 +71,13 @@ class HomeTaskItem extends StatelessWidget {
             GlobalButton(
               width: SizeConfig.widthMultiplier * 14,
               height: SizeConfig.widthMultiplier * 14,
-              onPressed: () {},
+              onPressed: () {
+                context.read<TimerBloc>().add(TimerTaskSelected(item));
+                /* todo : list to bloc inside base bloc to change index
+                    depend of different scenarios
+                *   */
+                context.read<BaseBloc>().add(const PageIndexChanged(3));
+              },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(1000),
               ),

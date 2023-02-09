@@ -65,7 +65,6 @@ class HomeView extends StatelessWidget {
                   bloc: context.read<HomeBloc>(),
                   builder: (context, state) {
                     if (state is FetchHomeDataSuccess) dailyItem = state.item;
-                    print(dailyItem?.processPercentage);
                     return Row(
                       children: [
                         SizedBox(
@@ -189,10 +188,8 @@ class HomeView extends StatelessWidget {
                 return Expanded(
                   child: ListView.builder(
                     itemCount: list.length,
-                    itemBuilder: (context, index) => HomeTaskItem(
-                      title: list[index].title,
-                      description: list[index].description,
-                    ),
+                    itemBuilder: (context, index) =>
+                        HomeTaskItem(item: list[index]),
                   ),
                 );
               },
