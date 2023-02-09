@@ -31,11 +31,12 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date) async {
     late Either<String, List<TaskEntity>> result;
 
-    List<Map<String, dynamic>>? rawList = await localDataSource.getAllTasks();
+    List<Map<String, dynamic>>? rawList =
+        await localDataSource.getSpecificDateTasks(date);
 
     if (rawList != null) {
       List<TaskEntity> list = TaskModel.parseRawList(rawList);
-      result = Right(TaskModel.filterTodayTasksList(list, date));
+      result = Right(list);
     } else {
       result = const Left("error");
     }
@@ -74,18 +75,15 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, List<PomodoroEntity>>> getAllPomodoros() async {
+  Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoros() async {
     late Either<String, List<PomodoroEntity>> result;
 
     List<Map<String, dynamic>>? rawList =
-        await localDataSource.getAllPomodoroFromDb();
+        await localDataSource.getSpecificDateTasks(DateTime.now());
 
     if (rawList != null) {
       List<PomodoroEntity> convertedList = PomodoroModel.parseRawList(rawList);
-      result = Right(PomodoroModel.filterTodayPomodoroList(
-        convertedList,
-        DateTime.now(),
-      ));
+      result = Right(convertedList);
     } else {
       result = const Left("error");
     }

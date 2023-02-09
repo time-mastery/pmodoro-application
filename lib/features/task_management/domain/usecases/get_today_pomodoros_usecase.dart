@@ -11,6 +11,6 @@ class GetTodayPomodorosUseCase
 
   @override
   Future<Either<String, List<PomodoroEntity>>> call({DateTime? params}) {
-    return _taskRepository.getAllPomodoros();
+    return _taskRepository.getAllTodayPomodoros();
   }
 }

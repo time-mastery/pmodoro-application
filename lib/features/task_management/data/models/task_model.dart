@@ -46,13 +46,4 @@ class TaskModel extends TaskEntity {
     list = items.map<TaskEntity>((e) => fromQueryToTaskModel(e)).toList();
     return list;
   }
-
-  static List<TaskEntity> filterTodayTasksList(
-      List<TaskEntity> items, DateTime date) {
-    List<TaskEntity> list = [];
-    for (var element in items) {
-      if (Utils.checkDateIsToday(element.deadLineTime)) list.add(element);
-    }
-    return list;
-  }
 }

@@ -1,6 +1,12 @@
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class Utils {
+  static String formatDateToYYYYMMDD(DateTime time) {
+    String formattedDate = DateFormat('yyyy-MM-dd').format(time);
+    return formattedDate;
+  }
+
   static String formatSecToMinSec({required int timeInSecond}) {
     int sec = timeInSecond % 60;
     int min = (timeInSecond / 60).floor();
