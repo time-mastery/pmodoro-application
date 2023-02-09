@@ -12,3 +12,8 @@ class PageChangeSuccess extends BaseState {
   @override
   List<Object?> get props => [index];
 }
+
+class ChangeLanguageSuccess extends BaseState {
+  @override
+  List<Object?> get props => [];
+}

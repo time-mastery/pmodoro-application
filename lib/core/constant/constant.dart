@@ -13,6 +13,7 @@ class AppConstant {
 
   // colors
   static const textColor = Color(0xffC3AED6);
+  static const darkTextColor = Color(0xff333456);
   static const secondaryColor = Color(0xffA084CA);
   static const primaryColor = Color(0xffF4ABC4);
   static const scaffoldColor = Color(0xff333456);
@@ -33,6 +34,7 @@ class AppConstant {
             color: secondaryColor,
           ),
         ),
+        cardColor: funColor,
         hintColor: secondaryColor,
         iconTheme: const IconThemeData(
           color: secondaryColor,
@@ -40,10 +42,12 @@ class AppConstant {
         buttonTheme: const ButtonThemeData(
           textTheme: ButtonTextTheme.normal,
         ),
-        textTheme:
-            Theme.of(context).textTheme.copyWith(button: const TextStyle(color: textColor)).apply(
-                  bodyColor: textColor,
-                  displayColor: textColor,
-                ),
+        textTheme: Theme.of(context)
+            .textTheme
+            .copyWith(button: const TextStyle(color: textColor))
+            .apply(
+              bodyColor: textColor,
+              displayColor: textColor,
+            ),
       );
 }

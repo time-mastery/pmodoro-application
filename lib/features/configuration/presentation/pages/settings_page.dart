@@ -162,6 +162,8 @@ class SettingsView extends StatelessWidget {
                           )));
                     },
                   ),
+                  SizedBox(height: SizeConfig.heightMultiplier * .5),
+                  ChangeLanguageBottomSheet(),
                 ],
               );
             }
@@ -195,9 +197,9 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
     List flags = [
-      '🇩🇪       German',
-      '🇺🇸       English',
-      '🇮🇷       Farsi',
+      'English',
+      'German',
+      'Persian',
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -236,22 +238,23 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 10),
-                              child: InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppConstant.secondaryColor),
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Text(
-                                    flags[index],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.start,
+                                  horizontal: 20, vertical: 2),
+                              child: Card(
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Text(
+                                      flags[index],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                            fontStyle: FontStyle.italic,
+                                            color: AppConstant.darkTextColor,
+                                          ),
+                                      textAlign: TextAlign.start,
+                                    ),
                                   ),
                                 ),
                               ),
