@@ -27,3 +27,8 @@ class SettingFetchingFail extends SettingsState {
   @override
   List<Object?> get props => [];
 }
+
+class ChangeLanguageSuccess extends SettingsState {
+  @override
+  List<Object?> get props => [];
+}

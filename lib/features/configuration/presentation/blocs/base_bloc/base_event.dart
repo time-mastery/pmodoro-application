@@ -12,8 +12,3 @@ class PageIndexChanged extends BaseEvent {
   @override
   List<Object?> get props => [index];
 }
-
-class LanguageChanged extends BaseEvent {
-  @override
-  List<Object?> get props => throw UnimplementedError();
-}

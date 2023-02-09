@@ -8,6 +8,7 @@ import '../../../domain/usecases/change_settings_usecase.dart';
 import '../../../domain/usecases/get_settings_usecase.dart';
 
 part 'settings_event.dart';
+
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
@@ -21,6 +22,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsEvent>((event, emit) {});
     on<SettingsFromDeviceFetched>(_settingsFromDeviceFetched);
     on<SettingsChanged>(_settingsChanged);
+    on<LanguageChanged>(_languageChanged);
   }
 
   _settingsChanged(SettingsChanged event, Emitter emit) async {
@@ -44,4 +46,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       (r) => emit(SettingFetchingSuccess(r)),
     );
   }
+
+  _languageChanged(LanguageChanged event, Emitter emit) {}
 }

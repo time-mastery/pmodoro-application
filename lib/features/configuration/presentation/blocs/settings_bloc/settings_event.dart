@@ -22,3 +22,8 @@ class SettingsChanged extends SettingsEvent {
     return 'SettingsChanged{params: $params}';
   }
 }
+
+class LanguageChanged extends SettingsEvent {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}

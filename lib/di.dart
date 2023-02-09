@@ -64,21 +64,29 @@ Future inject() async {
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
   getIt.registerSingleton<AddCategoryUsecase>(AddCategoryUsecase(getIt()));
-  getIt.registerSingleton<GetSpecificDateTasksUseCase>(GetSpecificDateTasksUseCase(getIt()));
-  getIt.registerSingleton<GetAllCategoriesUseCase>(GetAllCategoriesUseCase(getIt()));
+  getIt.registerSingleton<GetSpecificDateTasksUseCase>(
+      GetSpecificDateTasksUseCase(getIt()));
+  getIt.registerSingleton<GetAllCategoriesUseCase>(
+      GetAllCategoriesUseCase(getIt()));
   getIt.registerSingleton<CompleteTaskUseCase>(CompleteTaskUseCase(getIt()));
   getIt.registerSingleton<DeleteTaskUseCase>(DeleteTaskUseCase(getIt()));
-  getIt.registerSingleton<AddPomodoroToDbUseCase>(AddPomodoroToDbUseCase(getIt()));
-  getIt.registerSingleton<GetTodayPomodorosUseCase>(GetTodayPomodorosUseCase(getIt()));
+  getIt.registerSingleton<AddPomodoroToDbUseCase>(
+      AddPomodoroToDbUseCase(getIt()));
+  getIt.registerSingleton<GetTodayPomodorosUseCase>(
+      GetTodayPomodorosUseCase(getIt()));
   getIt.registerSingleton<GetSettingsUseCase>(GetSettingsUseCase(getIt()));
-  getIt.registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
-  getIt.registerSingleton<GetDailyInformationUseCase>(GetDailyInformationUseCase(getIt()));
+  getIt
+      .registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
+  getIt.registerSingleton<GetDailyInformationUseCase>(
+      GetDailyInformationUseCase(getIt()));
   getIt.registerSingleton<GetTodayTasksUseCase>(GetTodayTasksUseCase(getIt()));
 
   // inject blocs
   // global bloc
   getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: getIt()));
   getIt.registerSingleton<BaseBloc>(BaseBloc());
+  getIt.registerSingleton<SettingsBloc>(
+      SettingsBloc(getSettingUseCase: getIt(), changeSettingsUseCase: getIt()));
   // local bloc
   getIt.registerFactory<TasksBloc>(() => TasksBloc(
         addTaskUsecase: getIt(),
