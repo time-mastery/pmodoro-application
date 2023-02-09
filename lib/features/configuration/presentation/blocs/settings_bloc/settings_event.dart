@@ -9,6 +9,11 @@ class SettingsFromDeviceFetched extends SettingsEvent {
   List<Object?> get props => [];
 }
 
+class LocaleFetched extends SettingsEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class SettingsChanged extends SettingsEvent {
   final ChangeSettingsParams params;
 
@@ -23,10 +28,10 @@ class SettingsChanged extends SettingsEvent {
   }
 }
 
-class LanguageChanged extends SettingsEvent {
+class LocaleChanged extends SettingsEvent {
   final String local;
 
-  const LanguageChanged(this.local);
+  const LocaleChanged(this.local);
 
   @override
   List<Object?> get props => [local];

@@ -30,7 +30,8 @@ void main() async {
         BlocProvider<TimerBloc>(create: (context) => getIt.get<TimerBloc>()),
         BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
         BlocProvider<SettingsBloc>(
-            create: (context) => getIt.get<SettingsBloc>()),
+            create: (context) =>
+                getIt.get<SettingsBloc>()..add(LocaleFetched())),
       ],
       child: const MyApp(),
     ),
@@ -60,6 +61,10 @@ class MyApp extends StatelessWidget {
         return OrientationBuilder(
           builder: (context, orientation) {
             Locale locale = Locale("en");
+
+            if (state is FetchLocaleSuccess) {
+              locale = state.locale;
+            }
 
             if (state is ChangeLanguageSuccess) {
               locale = state.locale;

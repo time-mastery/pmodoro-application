@@ -37,4 +37,32 @@ class SettingsRepositoryImpl implements SettingsRepository {
 
     return result;
   }
+
+  @override
+  Future<Either<String, String>> changeLocale(String langCode) async {
+    late Either<String, String> result;
+
+    try {
+      String locale = await localDataSources.changeLocale(langCode);
+      result = Right(locale);
+    } catch (e) {
+      result = const Left("error");
+    }
+
+    return result;
+  }
+
+  @override
+  Future<Either<String, String>> getLocale() async {
+    late Either<String, String> result;
+
+    try {
+      String locale = await localDataSources.getLocale();
+      result = Right(locale);
+    } catch (e) {
+      result = const Left("error");
+    }
+
+    return result;
+  }
 }

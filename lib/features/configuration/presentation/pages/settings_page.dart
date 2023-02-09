@@ -244,7 +244,7 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                                 child: InkWell(
                                   onTap: () {
                                     context.read<SettingsBloc>().add(
-                                        LanguageChanged(
+                                        LocaleChanged(
                                             flags[index].languageCode));
                                   },
                                   child: Padding(

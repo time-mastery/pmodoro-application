@@ -29,11 +29,24 @@ class SettingFetchingFail extends SettingsState {
 }
 
 class ChangeLanguageSuccess extends SettingsState {
-
   final Locale locale;
 
   const ChangeLanguageSuccess(this.locale);
 
   @override
   List<Object?> get props => [locale];
+}
+
+class FetchLocaleSuccess extends SettingsState {
+  final Locale locale;
+
+  const FetchLocaleSuccess(this.locale);
+
+  @override
+  List<Object?> get props => [locale];
+}
+
+class FetchLocaleFailure extends SettingsState {
+  @override
+  List<Object?> get props => [];
 }

@@ -7,4 +7,8 @@ abstract class SettingsRepository {
 
   Future<Either<String, SettingsEntity>> changeSettings(
       ChangeSettingsParams params);
+
+  Future<Either<String, String>> changeLocale(String langCode);
+
+  Future<Either<String, String>> getLocale();
 }
