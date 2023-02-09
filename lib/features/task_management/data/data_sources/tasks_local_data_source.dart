@@ -37,9 +37,23 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllTasks() async {
     List<Map<String, dynamic>>? list;
     try {
-      // todo : check here to optimize query we can change it to [getSpecificDate]
       List<Map<String, Object?>> records =
           await db.rawQuery('SELECT * FROM ${DatabaseHelper.taskTable}');
+
+      list = records;
+    } catch (e) {
+      rethrow;
+    }
+
+    return list;
+  }
+
+  Future<List<Map<String, dynamic>>>? getSpecificDateTasks(
+      DateTime time) async {
+    List<Map<String, dynamic>>? list;
+    try {
+      List<Map<String, Object?>> records = await db.rawQuery(
+          'SELECT * FROM ${DatabaseHelper.taskTable} where deadLineTime >= ${Utils.formatDateToYYYYMMDD(time)}');
 
       list = records;
     } catch (e) {
@@ -122,16 +136,10 @@ class TasksLocalDataSource {
     late int quantity;
 
     try {
-      List<Map<String, dynamic>>? tasks = await getAllTasks();
-      List list = [];
-      if (tasks != null) {
-        for (var element in tasks) {
-          if (Utils.checkDateIsToday(DateTime.parse(element["deadLineTime"]))) {
-            list.add(element);
-          }
-        }
-      }
-      quantity = list.length;
+      List<Map<String, dynamic>>? tasks =
+          await getSpecificDateTasks(DateTime.now());
+
+      quantity = tasks == null ? 0 : tasks.length;
     } catch (e) {
       rethrow;
     }

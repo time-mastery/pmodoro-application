@@ -31,11 +31,12 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date) async {
     late Either<String, List<TaskEntity>> result;
 
-    List<Map<String, dynamic>>? rawList = await localDataSource.getAllTasks();
+    List<Map<String, dynamic>>? rawList =
+        await localDataSource.getSpecificDateTasks(date);
 
     if (rawList != null) {
       List<TaskEntity> list = TaskModel.parseRawList(rawList);
-      result = Right(TaskModel.filterTodayTasksList(list, date));
+      result = Right(list);
     } else {
       result = const Left("error");
     }
