@@ -22,10 +22,7 @@ class AllTodayTasksPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: ListView.builder(
             itemCount: 10,
-            itemBuilder: (context, index) => HomeTaskItem(
-              title: "Task $index",
-              description: "index",
-            ),
+            itemBuilder: (context, index) => Container(),
           ),
         ));
   }

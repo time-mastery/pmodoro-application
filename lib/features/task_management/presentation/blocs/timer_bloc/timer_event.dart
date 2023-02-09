@@ -38,19 +38,33 @@ class _TimerTicked extends TimerEvent {
 }
 
 class SaveCurrentTimerStateDialogShowed extends TimerEvent {
-  final String taskUid;
+  final TaskEntity taskItem;
   final int duration;
 
   const SaveCurrentTimerStateDialogShowed({
-    required this.taskUid,
+    required this.taskItem,
     required this.duration,
   });
 
   @override
-  List<Object?> get props => [taskUid, duration];
+  List<Object?> get props => [taskItem, duration];
 
   @override
   String toString() {
-    return 'SaveCurrentTimerStateDialogShowed{taskUid: $taskUid, duration: $duration}';
+    return 'SaveCurrentTimerStateDialogShowed{taskUid: $taskItem, duration: $duration}';
   }
+}
+
+class TimerTaskSelected extends TimerEvent {
+  final TaskEntity taskItem;
+
+  const TimerTaskSelected(this.taskItem);
+
+  @override
+  List<Object?> get props => [taskItem];
+}
+
+class TimerTaskDeSelected extends TimerEvent {
+  @override
+  List<Object?> get props => [];
 }

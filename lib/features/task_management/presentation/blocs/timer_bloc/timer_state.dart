@@ -32,14 +32,38 @@ class TimerInProgress extends TimerState {
 
 class TimerCompleted extends TimerState {
   const TimerCompleted() : super(0);
-
-  @override
-  List<Object?> get props => [];
 }
 
 class SaveCurrentTimeStateDialog extends TimerState {
   const SaveCurrentTimeStateDialog(super.duration);
+}
+
+class StartTimerWithoutTaskFailure extends TimerState {
+  const StartTimerWithoutTaskFailure(super.duration);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [duration];
+}
+
+class StartTimerLoading extends TimerState {
+  const StartTimerLoading(super.duration);
+
+  @override
+  List<Object?> get props => [duration];
+}
+
+class SelectTaskSuccess extends TimerState {
+  final TaskEntity taskItem;
+
+  const SelectTaskSuccess(super.duration, this.taskItem);
+
+  @override
+  List<Object?> get props => [duration, taskItem];
+}
+
+class DeSelectTaskSuccess extends TimerState {
+  const DeSelectTaskSuccess(super.duration);
+
+  @override
+  List<Object?> get props => [duration];
 }
