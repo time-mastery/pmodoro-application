@@ -3,17 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
+import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
+import 'package:pomodore/features/task_management/presentation/pages/timer_page.dart';
 
 import '../../../../core/utils/size_config.dart';
 import '../../../../exports.dart';
 
 class TimerTask extends StatelessWidget {
-  const TimerTask(
-      {Key? key,
-      required this.title,
-      required this.count,
-      required this.targetCount,
-      required this.totalTime})
+  const TimerTask({Key? key,
+    required this.title,
+    required this.count,
+    required this.targetCount,
+    required this.totalTime})
       : super(key: key);
 
   final String title;
@@ -37,7 +39,7 @@ class TimerTask extends StatelessWidget {
           Material(
             color: AppConstant.swatchColor,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: const Padding(
               padding: EdgeInsets.all(11.0),
               child: Icon(
@@ -56,20 +58,27 @@ class TimerTask extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .titleLarge,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   "$totalTime Minutes",
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodySmall,
                 ),
               ],
             ),
           ),
           Text(
             "$count / $targetCount",
-            style: Theme.of(context)
+            style: Theme
+                .of(context)
                 .textTheme
                 .headlineSmall
                 ?.copyWith(fontWeight: FontWeight.w300),
@@ -87,19 +96,35 @@ class SelectATaskToStart extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    return InkWell(
-      onTap: () {
-        context.read<BaseBloc>().add(const PageIndexChanged(0));
+    return BlocBuilder<TimerBloc, TimerState>(
+      buildWhen: (previous, current) {
+        return (current is SelectTaskSuccess);
       },
-      child: Container(
-        width: SizeConfig.widthMultiplier * 60,
-        height: SizeConfig.heightMultiplier * 5,
-        decoration: BoxDecoration(
-          color: AppConstant.secondaryColor.withOpacity(.2),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(child: Text(localization.selectTaskTitle)),
-      ),
+      builder: (context, state) {
+        TaskEntity? taskItem;
+        if (state is SelectTaskSuccess) {
+          taskItem = state.taskItem;
+        }
+
+        if (taskItem != null) {
+          return Container();
+        }
+
+        return InkWell(
+          onTap: () {
+            context.read<BaseBloc>().add(const PageIndexChanged(0));
+          },
+          child: Container(
+            width: SizeConfig.widthMultiplier * 60,
+            height: SizeConfig.heightMultiplier * 5,
+            decoration: BoxDecoration(
+              color: AppConstant.secondaryColor.withOpacity(.2),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Center(child: Text(localization.selectTaskTitle)),
+          ),
+        );
+      },
     );
   }
 }

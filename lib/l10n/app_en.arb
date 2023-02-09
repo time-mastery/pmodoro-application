@@ -49,5 +49,6 @@
     "selectTaskTitle":"Tap to select Task",
     "saveProcessTitle":"Do you want to save process",
     "yesTitle":"Yes",
-    "noTitle":"No"
+    "noTitle":"No",
+    "startTimerWithoutTaskWarning":"Please select a task !"
 }

@@ -6,12 +6,11 @@ abstract class TimerEvent extends Equatable {
 
 class TimerStarted extends TimerEvent {
   final int duration;
-  final String? taskId;
 
-  const TimerStarted(this.duration, this.taskId);
+  const TimerStarted(this.duration);
 
   @override
-  List<Object?> get props => [duration, taskId];
+  List<Object?> get props => [duration];
 }
 
 class TimerPaused extends TimerEvent {
@@ -54,4 +53,13 @@ class SaveCurrentTimerStateDialogShowed extends TimerEvent {
   String toString() {
     return 'SaveCurrentTimerStateDialogShowed{taskUid: $taskUid, duration: $duration}';
   }
+}
+
+class TimerTaskSelected extends TimerEvent {
+  final TaskEntity taskItem;
+
+  const TimerTaskSelected(this.taskItem);
+
+  @override
+  List<Object?> get props => [taskItem];
 }

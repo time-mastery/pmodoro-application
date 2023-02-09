@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../core/utils/ticker.dart';
+import '../../../domain/entities/task_entity.dart';
 
 part 'timer_event.dart';
 
@@ -12,6 +13,7 @@ part 'timer_state.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final Ticker _ticker;
+  TaskEntity? taskItem;
 
   TimerBloc({required Ticker ticker})
       : _ticker = ticker,
@@ -22,11 +24,16 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<TimerResumed>(_onResumed);
     on<_TimerTicked>(_onTicked);
     on<SaveCurrentTimerStateDialogShowed>(_onSaveCurrentTimeStateDialogShowed);
+    on<TimerTaskSelected>(_timerTaskSelected);
   }
 
   static const int _duration = 60 * 25;
 
   static get getDuration => _duration;
+
+  void selectTask(TaskEntity? item) => taskItem = item;
+
+  void finishTask() => taskItem = null;
 
   StreamSubscription<int>? _tickerSubscription;
 
@@ -36,6 +43,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     return super.close();
   }
 
+  void _timerTaskSelected(TimerTaskSelected event, Emitter emit) {
+    selectTask(event.taskItem);
+    emit(SelectTaskSuccess(state.duration, taskItem!));
+  }
+
   void _onSaveCurrentTimeStateDialogShowed(
       SaveCurrentTimerStateDialogShowed event, Emitter<TimerState> emit) {
     emit(SaveCurrentTimeStateDialog(event.duration));
@@ -43,8 +55,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _onStarted(TimerStarted event, Emitter<TimerState> emit) {
     emit(StartTimerLoading(event.duration));
-    if (event.taskId == "" || event.taskId == null) {
-      emit(StartTimerWithoutTask(event.duration));
+    if (taskItem == null) {
+      emit(StartTimerWithoutTaskFailure(event.duration));
     } else {
       emit(TimerInProgress(event.duration));
       _tickerSubscription?.cancel();

@@ -82,7 +82,8 @@ class TimerView extends StatelessWidget {
 
     return BlocListener<TimerBloc, TimerState>(
       listenWhen: (previous, current) {
-        if (previous is TimerInitial && current is StartTimerWithoutTask) {
+        if (previous is TimerInitial &&
+            current is StartTimerWithoutTaskFailure) {
           return true;
         } else {
           return (current is! TimerInitial && previous is! TimerInitial);
@@ -98,8 +99,9 @@ class TimerView extends StatelessWidget {
               taskUid: "",
             ));
         }
-        if (state is StartTimerWithoutTask) {
-          var snack = const SnackBar(content: Text("Please select task"));
+        if (state is StartTimerWithoutTaskFailure) {
+          var snack = SnackBar(
+              content: Text(localization.startTimerWithoutTaskWarning));
           ScaffoldMessenger.of(context).showSnackBar(snack);
         }
       },
@@ -192,7 +194,7 @@ class TimerButtons extends StatelessWidget {
                   if (state.duration == TimerBloc.getDuration) {
                     context
                         .read<TimerBloc>()
-                        .add(TimerStarted(TimerBloc.getDuration, null));
+                        .add(TimerStarted(TimerBloc.getDuration));
                   } else {
                     context.read<TimerBloc>().add(TimerResumed());
                   }
