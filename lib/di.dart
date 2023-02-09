@@ -85,7 +85,7 @@ Future inject() async {
   // global bloc
   getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: getIt()));
   getIt.registerSingleton<BaseBloc>(BaseBloc());
-  getIt.registerSingleton<SettingsBloc>(
+  getIt.registerFactory<SettingsBloc>(() =>
       SettingsBloc(getSettingUseCase: getIt(), changeSettingsUseCase: getIt()));
   // local bloc
   getIt.registerFactory<TasksBloc>(() => TasksBloc(
@@ -96,11 +96,6 @@ Future inject() async {
         completeTaskUseCase: getIt(),
         deleteTaskUseCase: getIt(),
         addPomodoroToDbUseCase: getIt(),
-      ));
-
-  getIt.registerFactory<SettingsBloc>(() => SettingsBloc(
-        getSettingUseCase: getIt(),
-        changeSettingsUseCase: getIt(),
       ));
 
   getIt.registerFactory<HomeBloc>(() => HomeBloc(

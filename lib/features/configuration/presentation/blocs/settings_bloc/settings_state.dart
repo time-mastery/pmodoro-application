@@ -29,6 +29,11 @@ class SettingFetchingFail extends SettingsState {
 }
 
 class ChangeLanguageSuccess extends SettingsState {
+
+  final Locale locale;
+
+  const ChangeLanguageSuccess(this.locale);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [locale];
 }

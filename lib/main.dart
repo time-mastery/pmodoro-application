@@ -23,7 +23,18 @@ void main() async {
   await inject();
 
   Bloc.observer = MyBlocObserver();
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        // provide all global blocs
+        BlocProvider<TimerBloc>(create: (context) => getIt.get<TimerBloc>()),
+        BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
+        BlocProvider<SettingsBloc>(
+            create: (context) => getIt.get<SettingsBloc>()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 
   // some setting to config Desktop version
   if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
@@ -44,37 +55,40 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<TimerBloc>(create: (context) => getIt.get<TimerBloc>()),
-        BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
-        BlocProvider<SettingsBloc>(
-            create: (context) => getIt.get<SettingsBloc>()),
-      ],
-      child: OrientationBuilder(
-        builder: (context, orientation) =>
-            LayoutBuilder(builder: (context, constraints) {
-          SizeConfig().init(constraints, orientation);
-          return MaterialApp(
-            title: AppConstant.appName,
-            onGenerateRoute: AppRouter.onGenerationRouter,
-            theme: AppConstant.getTheme(context),
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en'),
-              Locale('fa'),
-              Locale('de'),
-            ],
-            locale: const Locale('en'),
-          );
-        }),
-      ),
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, state) {
+        return OrientationBuilder(
+          builder: (context, orientation) {
+            Locale locale = Locale("en");
+
+            if (state is ChangeLanguageSuccess) {
+              locale = state.locale;
+            }
+
+            return LayoutBuilder(builder: (context, constraints) {
+              SizeConfig().init(constraints, orientation);
+              return MaterialApp(
+                title: AppConstant.appName,
+                onGenerateRoute: AppRouter.onGenerationRouter,
+                theme: AppConstant.getTheme(context),
+                debugShowCheckedModeBanner: false,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('en'),
+                  Locale('fa'),
+                  Locale('de'),
+                ],
+                locale: locale,
+              );
+            });
+          },
+        );
+      },
     );
   }
 }

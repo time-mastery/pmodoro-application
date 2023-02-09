@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -47,5 +49,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     );
   }
 
-  _languageChanged(LanguageChanged event, Emitter emit) {}
+  _languageChanged(LanguageChanged event, Emitter emit) {
+    emit(ChangeLanguageSuccess(Locale(event.local)));
+  }
 }

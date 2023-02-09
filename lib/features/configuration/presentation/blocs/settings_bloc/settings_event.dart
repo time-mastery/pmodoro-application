@@ -24,6 +24,10 @@ class SettingsChanged extends SettingsEvent {
 }
 
 class LanguageChanged extends SettingsEvent {
+  final String local;
+
+  const LanguageChanged(this.local);
+
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [local];
 }

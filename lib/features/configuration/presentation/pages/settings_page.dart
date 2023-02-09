@@ -6,6 +6,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/features/configuration/domain/entities/language_entity.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 
 import '../../../../core/resources/params/settings_params.dart';
@@ -196,10 +197,10 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    List flags = [
-      'English',
-      'German',
-      'Persian',
+    List<LanguageEntity> flags = [
+      LanguageEntity('English', 'en'),
+      LanguageEntity('German', 'de'),
+      LanguageEntity('Persian', 'fa'),
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -241,11 +242,15 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                                   horizontal: 20, vertical: 2),
                               child: Card(
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    context.read<SettingsBloc>().add(
+                                        LanguageChanged(
+                                            flags[index].languageCode));
+                                  },
                                   child: Padding(
                                     padding: const EdgeInsets.all(20.0),
                                     child: Text(
-                                      flags[index],
+                                      flags[index].title,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge
