@@ -3,6 +3,7 @@ import 'dart:async';
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pomodore/features/task_management/presentation/widgets/task_item.dart';
 
 import '../../../../../core/utils/ticker.dart';
 import '../../../domain/entities/task_entity.dart';
@@ -25,6 +26,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<_TimerTicked>(_onTicked);
     on<SaveCurrentTimerStateDialogShowed>(_onSaveCurrentTimeStateDialogShowed);
     on<TimerTaskSelected>(_timerTaskSelected);
+    on<TimerTaskDeSelected>(_timerTaskDeSelected);
   }
 
   static const int _duration = 60 * 25;
@@ -46,6 +48,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   void _timerTaskSelected(TimerTaskSelected event, Emitter emit) {
     selectTask(event.taskItem);
     emit(SelectTaskSuccess(state.duration, taskItem!));
+  }
+
+  void _timerTaskDeSelected(TimerTaskDeSelected event, Emitter emit) {
+    finishTask();
+    emit(DeSelectTaskSuccess(state.duration));
   }
 
   void _onSaveCurrentTimeStateDialogShowed(

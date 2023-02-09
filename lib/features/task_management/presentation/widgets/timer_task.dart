@@ -11,11 +11,12 @@ import '../../../../core/utils/size_config.dart';
 import '../../../../exports.dart';
 
 class TimerTask extends StatelessWidget {
-  const TimerTask({Key? key,
-    required this.title,
-    required this.count,
-    required this.targetCount,
-    required this.totalTime})
+  const TimerTask(
+      {Key? key,
+      required this.title,
+      required this.count,
+      required this.targetCount,
+      required this.totalTime})
       : super(key: key);
 
   final String title;
@@ -39,7 +40,7 @@ class TimerTask extends StatelessWidget {
           Material(
             color: AppConstant.swatchColor,
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: const Padding(
               padding: EdgeInsets.all(11.0),
               child: Icon(
@@ -58,27 +59,20 @@ class TimerTask extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleLarge,
+                  style: Theme.of(context).textTheme.titleLarge,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   "$totalTime Minutes",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
           ),
           Text(
             "$count / $targetCount",
-            style: Theme
-                .of(context)
+            style: Theme.of(context)
                 .textTheme
                 .headlineSmall
                 ?.copyWith(fontWeight: FontWeight.w300),
@@ -95,19 +89,37 @@ class SelectATaskToStart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
-
+    var theme = Theme.of(context).textTheme;
     return BlocBuilder<TimerBloc, TimerState>(
       buildWhen: (previous, current) {
-        return (current is SelectTaskSuccess);
+        return (current is SelectTaskSuccess || current is DeSelectTaskSuccess);
       },
       builder: (context, state) {
         TaskEntity? taskItem;
+
         if (state is SelectTaskSuccess) {
           taskItem = state.taskItem;
         }
 
+        if (state is DeSelectTaskSuccess) {
+          taskItem = null;
+        }
+
         if (taskItem != null) {
-          return Container();
+          return Container(
+            width: SizeConfig.widthMultiplier * 60,
+            height: SizeConfig.heightMultiplier * 5,
+            decoration: BoxDecoration(
+              color: AppConstant.secondaryColor.withOpacity(.2),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Center(
+              child: Text(
+                taskItem.title,
+                style: theme.titleLarge,
+              ),
+            ),
+          );
         }
 
         return InkWell(

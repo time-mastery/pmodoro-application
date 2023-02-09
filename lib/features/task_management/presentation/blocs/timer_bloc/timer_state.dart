@@ -53,12 +53,17 @@ class StartTimerLoading extends TimerState {
 }
 
 class SelectTaskSuccess extends TimerState {
-
   final TaskEntity taskItem;
 
   const SelectTaskSuccess(super.duration, this.taskItem);
 
-
   @override
   List<Object?> get props => [duration, taskItem];
+}
+
+class DeSelectTaskSuccess extends TimerState {
+  const DeSelectTaskSuccess(super.duration);
+
+  @override
+  List<Object?> get props => [duration];
 }
