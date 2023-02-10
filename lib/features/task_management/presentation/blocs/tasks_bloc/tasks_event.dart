@@ -25,17 +25,17 @@ class CategoryAdded extends TasksEvent {
   List<Object?> get props => [data];
 }
 
-class SpecificDateTasksReceived extends TasksEvent {
+class SpecificDateTasksFetched extends TasksEvent {
   final DateTime data;
 
-  const SpecificDateTasksReceived(this.data);
+  const SpecificDateTasksFetched(this.data);
 
   @override
   List<Object?> get props => [data];
 
   @override
   String toString() {
-    return 'SpecificDateTasksReceived{data: $data}';
+    return 'SpecificDateTasksFetched{data: $data}';
   }
 }
 

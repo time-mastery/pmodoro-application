@@ -91,6 +91,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
                     ]
                   : null,
       validator: (value) {
+        // todo : use i10n
         if (widget.validatorsType == "email") {
           return null;
         } else if (widget.validatorsType == "length") {

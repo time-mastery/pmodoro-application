@@ -1,6 +1,5 @@
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 
-import '../../../../core/utils/utils.dart';
 
 class PomodoroModel extends PomodoroEntity {
   const PomodoroModel(int id, int duration, String? taskUid, String datetime)
