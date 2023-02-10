@@ -5,7 +5,6 @@ import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/pages/timer_page.dart';
 
 import '../../../../core/utils/size_config.dart';
 import '../../../../exports.dart';

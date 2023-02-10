@@ -66,12 +66,13 @@ class _AddTaskViewState extends State<AddTaskView> {
     return BlocConsumer(
       bloc: context.read<TasksBloc>(),
       listener: (context, state) {
-        if (state is TaskAddSuccess || state is TaskAddFail) {
+        if (state is TaskAddFailure) {
           showSnackBar(context,
-              title: (state is TaskAddSuccess)
-                  ? localization.successTitle
-                  : localization.failureTitle,
+              title: localization.failureTitle,
               color: AppConstant.primaryColor);
+        }
+        if (state is TaskAddSuccess) {
+          Navigator.pop(context);
         }
       },
       builder: (context, state) {

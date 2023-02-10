@@ -59,7 +59,7 @@ class _AddCategoryViewState extends State<AddCategoryView> {
 
     return BlocConsumer<TasksBloc, TasksState>(
       listener: (context, state) {
-        if (state is CategoryAddSuccess || state is CategoryAddFail) {
+        if (state is CategoryAddSuccess || state is CategoryAddFailure) {
           showSnackBar(context,
               title: (state is CategoryAddSuccess)
                   ? localization.successTitle

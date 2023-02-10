@@ -19,8 +19,8 @@ class TasksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TasksBloc>(
-      create: (context) => getIt.get<TasksBloc>()
-        ..add(SpecificDateTasksReceived(DateTime.now())),
+      create: (context) =>
+          getIt.get<TasksBloc>()..add(SpecificDateTasksFetched(DateTime.now())),
       child: const TaskView(),
     );
   }
@@ -45,6 +45,9 @@ class TaskView extends StatelessWidget {
             onPressed: (state is SpecificDateTasksReceivedSuccess &&
                     state.list.isNotEmpty)
                 ? () => Navigator.pushNamed(context, AddTaskPage.routeName)
+                    .then((_) => context
+                        .read<TasksBloc>()
+                        .add(SpecificDateTasksFetched(DateTime.now())))
                 : null,
           ),
           body: Column(

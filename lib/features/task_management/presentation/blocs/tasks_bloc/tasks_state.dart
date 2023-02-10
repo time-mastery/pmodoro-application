@@ -14,7 +14,7 @@ class TaskAddSuccess extends TasksState {
   List<Object?> get props => [];
 }
 
-class TaskAddFail extends TasksState {
+class TaskAddFailure extends TasksState {
   @override
   List<Object?> get props => [];
 }
@@ -34,7 +34,7 @@ class CategoryAddLoading extends TasksState {
   List<Object?> get props => [];
 }
 
-class CategoryAddFail extends TasksState {
+class CategoryAddFailure extends TasksState {
   @override
   List<Object?> get props => [];
 }
@@ -67,7 +67,7 @@ class CategoriesFetchSuccess extends TasksState {
   List<Object?> get props => [list];
 }
 
-class CategoriesFetchFail extends TasksState {
+class CategoriesFetchFailure extends TasksState {
   @override
   List<Object?> get props => [];
 }
@@ -82,7 +82,7 @@ class TaskCompleteSuccess extends TasksState {
   List<Object?> get props => [];
 }
 
-class TaskCompleteFail extends TasksState {
+class TaskCompleteFailure extends TasksState {
   @override
   List<Object?> get props => [];
 }
@@ -97,7 +97,7 @@ class TaskDeleteSuccess extends TasksState {
   List<Object?> get props => [];
 }
 
-class TaskDeleteFail extends TasksState {
+class TaskDeleteFailure extends TasksState {
   @override
   List<Object?> get props => [];
 }
@@ -121,8 +121,8 @@ class SaveCurrentPomodoroLoading extends TasksState {
   List<Object?> get props => [];
 }
 
-class SaveCurrentPomodoroFail extends TasksState {
-  const SaveCurrentPomodoroFail();
+class SaveCurrentPomodoroFailure extends TasksState {
+  const SaveCurrentPomodoroFailure();
 
   @override
   List<Object?> get props => [];

@@ -81,7 +81,7 @@ void main() {
         act: (bloc) => bloc.add(TaskAdded(taskEntity)),
         expect: () => [
           TaskAddLoading(),
-          TaskAddFail(),
+          TaskAddFailure(),
         ],
       );
     });
@@ -114,7 +114,7 @@ void main() {
         act: (bloc) => bloc.add(TaskCompleted(taskEntity)),
         expect: () => [
           TaskCompleteLoading(),
-          TaskCompleteFail(),
+          TaskCompleteFailure(),
         ],
       );
     });
@@ -146,7 +146,7 @@ void main() {
         act: (bloc) => bloc.add(const TaskDeleted("xx2")),
         expect: () => [
           TaskDeleteLoading(),
-          TaskDeleteFail(),
+          TaskDeleteFailure(),
         ],
       );
     });
@@ -178,7 +178,7 @@ void main() {
         act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
         expect: () => [
           const SaveCurrentPomodoroLoading(),
-          const SaveCurrentPomodoroFail(),
+          const SaveCurrentPomodoroFailure(),
         ],
       );
     });

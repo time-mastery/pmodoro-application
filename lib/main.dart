@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return OrientationBuilder(
           builder: (context, orientation) {
-            Locale locale = Locale("en");
+            Locale locale = const Locale("en");
 
             if (state is FetchLocaleSuccess) {
               locale = state.locale;

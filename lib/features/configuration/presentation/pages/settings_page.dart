@@ -170,7 +170,7 @@ class SettingsView extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: SizeConfig.heightMultiplier * .5),
-                  ChangeLanguageBottomSheet(),
+                  const ChangeLanguageBottomSheet(),
                 ],
               );
             }
