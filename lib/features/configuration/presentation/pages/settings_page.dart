@@ -150,7 +150,13 @@ class SettingsView extends StatelessWidget {
                       children: [
                         const Icon(Icons.celebration),
                         SizedBox(width: SizeConfig.widthMultiplier * 2),
-                        Text(localization.showAdsTitle),
+                        Expanded(
+                          child: Text(
+                            localization.showAdsTitle,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                       ],
                     ),
                     value: entity.ads,
