@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class AnalyzeEntity extends Equatable {
+class AnalysisEntity extends Equatable {
   final List<ActivityOverviewCountItemEntity> overviews;
 
   final List<YearlyAnalyzeItemEntity> yearlyAnalyze;
 
   final int todayPomodoroCount;
 
-  const AnalyzeEntity({
+  const AnalysisEntity({
     required this.overviews,
     required this.yearlyAnalyze,
     required this.todayPomodoroCount,

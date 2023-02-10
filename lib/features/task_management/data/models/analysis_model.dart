@@ -1,7 +1,7 @@
-import 'package:pomodore/features/task_management/domain/entities/analyze_entity.dart';
+import 'package:pomodore/features/task_management/domain/entities/analysis_entity.dart';
 
-class AnalyzeModel extends AnalyzeEntity {
-  const AnalyzeModel({
+class AnalysisModel extends AnalysisEntity {
+  const AnalysisModel({
     required List<ActivityOverviewCountItemEntity> overviews,
     required List<YearlyAnalyzeItemEntity> yearlyAnalyze,
     required int todayPomodoroCount,
@@ -11,7 +11,7 @@ class AnalyzeModel extends AnalyzeEntity {
           overviews: overviews,
         );
 
-  factory AnalyzeModel.fromJson(Map<String, dynamic> item) {
+  factory AnalysisModel.fromJson(Map<String, dynamic> item) {
     List<ActivityOverviewCountItemEntity> overviews = [];
     List<YearlyAnalyzeItemEntity> yearlyAnalyze = [];
 
@@ -23,7 +23,7 @@ class AnalyzeModel extends AnalyzeEntity {
       yearlyAnalyze.add(YearlyAnalyzeItemModel.fromJson(element));
     }
 
-    return AnalyzeModel(
+    return AnalysisModel(
       overviews: overviews,
       yearlyAnalyze: yearlyAnalyze,
       todayPomodoroCount: item["todayPomodoroCount"],
