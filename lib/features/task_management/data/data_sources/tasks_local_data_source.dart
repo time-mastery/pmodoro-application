@@ -183,8 +183,8 @@ class TasksLocalDataSource {
     return quantity;
   }
 
-  Future<Map<String, dynamic>> getAnalysisPageData() async {
-    late Map<String, dynamic> item;
+  Future<Map<String, dynamic>?> getAnalysisPageData() async {
+    late Map<String, dynamic>? item;
     try {
       int todayCompletedTask = await getCompletedTaskQuantity();
       List<Map<String, dynamic>>? todayPomodoroList =
@@ -199,6 +199,7 @@ class TasksLocalDataSource {
       };
     } catch (e, s) {
       dPrint("$e $s");
+      rethrow;
     }
 
     return item;
