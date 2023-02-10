@@ -1,52 +1,70 @@
 import 'package:pomodore/features/task_management/domain/entities/analysis_entity.dart';
 
+import '../../../../core/utils/utils.dart';
+
 class AnalysisModel extends AnalysisEntity {
   const AnalysisModel({
-    required List<ActivityOverviewCountItemEntity> overviews,
+    required Map<DateTime, int> overviews,
     required List<YearlyAnalyzeItemEntity> yearlyAnalyze,
     required int todayPomodoroCount,
+    required int todayCompletedTask,
   }) : super(
           yearlyAnalyze: yearlyAnalyze,
-          todayPomodoroCount: todayPomodoroCount,
+          todayCompletedPomodoroCount: todayPomodoroCount,
           overviews: overviews,
+          todayCompletedTask: todayCompletedTask,
         );
 
   factory AnalysisModel.fromJson(Map<String, dynamic> item) {
-    List<ActivityOverviewCountItemEntity> overviews = [];
-    List<YearlyAnalyzeItemEntity> yearlyAnalyze = [];
-
-    for (var element in (item["overviews"] as List)) {
-      overviews.add(ActivityOverviewCountItemModel.fromJson(element));
-    }
-
-    for (var element in (item["yearlyAnalyze"] as List)) {
-      yearlyAnalyze.add(YearlyAnalyzeItemModel.fromJson(element));
-    }
+    List<YearlyAnalyzeItemModel> yearlyAnalyze =
+        createYearlyAnalysis(item["yearlyAnalyze"]);
+    Map<DateTime, int> overviews = createOverview(item["overviews"]);
 
     return AnalysisModel(
       overviews: overviews,
       yearlyAnalyze: yearlyAnalyze,
       todayPomodoroCount: item["todayPomodoroCount"],
+      todayCompletedTask: item["todayCompletedTask"],
     );
   }
-}
 
-class ActivityOverviewCountItemModel extends ActivityOverviewCountItemEntity {
-  const ActivityOverviewCountItemModel({
-    required DateTime date,
-    required int count,
-  }) : super(count: count, date: date);
+  static Map<DateTime, int> createOverview(List<Map<String, dynamic>> mapList) {
+    Map<DateTime, int> overviews = {};
+    for (var element in mapList) {
+      DateTime dateTime = Utils.createOverviewItemDateTime(element["datetime"]);
+      if (overviews.containsKey(dateTime)) {
+        overviews.update(dateTime, (value) => value + 1);
+      } else {
+        overviews[dateTime] = 0;
+      }
+    }
 
-  factory ActivityOverviewCountItemModel.fromJson(Map<String, dynamic> item) =>
-      ActivityOverviewCountItemModel(
-        date: item["date"],
-        count: item["count"],
-      );
+    return overviews;
+  }
+
+  static List<YearlyAnalyzeItemModel> createYearlyAnalysis(
+      List<Map<String, dynamic>> mapList) {
+    Map<String, int> yearMap = {};
+    for (var element in mapList) {
+      String monthName = Utils.monthNameOfDateTime(element["datetime"]);
+      if (yearMap.containsKey(monthName)) {
+        yearMap.update(monthName, (value) => value + 1);
+      } else {
+        yearMap[monthName] = 0;
+      }
+    }
+
+    List<YearlyAnalyzeItemModel> yearlyAnalyze = yearMap.entries
+        .map((e) => YearlyAnalyzeItemModel(month: e.key, count: e.value))
+        .toList();
+
+    return yearlyAnalyze;
+  }
 }
 
 class YearlyAnalyzeItemModel extends YearlyAnalyzeItemEntity {
   const YearlyAnalyzeItemModel({
-    required DateTime month,
+    required String month,
     required int count,
   }) : super(
           count: count,
@@ -55,7 +73,7 @@ class YearlyAnalyzeItemModel extends YearlyAnalyzeItemEntity {
 
   factory YearlyAnalyzeItemModel.fromJson(Map<String, dynamic> item) =>
       YearlyAnalyzeItemModel(
-        month: item["month"],
+        month: item["dateTime"],
         count: item["count"],
       );
 }
