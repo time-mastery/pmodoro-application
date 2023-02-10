@@ -48,7 +48,7 @@ class NotificationsPage extends StatelessWidget {
           Center(
             child: Text(
               AppLocalizations.of(context)!.noNotificationTitle,
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
           ),

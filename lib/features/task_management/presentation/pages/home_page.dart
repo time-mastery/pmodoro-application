@@ -170,7 +170,10 @@ class HomeView extends StatelessWidget {
                         SizedBox(
                           height: SizeConfig.heightMultiplier * 2,
                         ),
-                        Text(localization.emptyTaskListHint),
+                        Text(
+                          localization.emptyTaskListHint,
+                          textAlign: TextAlign.center,
+                        ),
                         SizedBox(
                           height: SizeConfig.heightMultiplier * 2,
                         ),
