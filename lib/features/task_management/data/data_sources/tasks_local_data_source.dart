@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:pomodore/core/utils/database_helper.dart';
+import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/features/task_management/data/models/category_model.dart';
 import 'package:pomodore/features/task_management/data/models/pomodoro_model.dart';
 import 'package:pomodore/features/task_management/domain/entities/category_entity.dart';
@@ -53,7 +55,8 @@ class TasksLocalDataSource {
     List<Map<String, dynamic>>? list;
     try {
       List<Map<String, Object?>> records = await db.rawQuery(
-          'SELECT * FROM ${DatabaseHelper.taskTable} where deadLineTime >= ${Utils.formatDateToYYYYMMDD(time)}');
+          'SELECT * FROM ${DatabaseHelper.taskTable} WHERE deadLineTime >= '
+          '${Utils.formatDateToYYYYMMDD(time)} ');
 
       list = records;
     } catch (e) {
@@ -136,6 +139,7 @@ class TasksLocalDataSource {
       DateTime time) async {
     List<Map<String, dynamic>>? list;
     try {
+      // todo : fix query
       List<Map<String, Object?>> records = await db.rawQuery(
           'SELECT * FROM ${DatabaseHelper.pomodoroTable} where datetime >= ${Utils.formatDateToYYYYMMDD(time)}');
 
@@ -177,6 +181,27 @@ class TasksLocalDataSource {
       rethrow;
     }
     return quantity;
+  }
+
+  Future<Map<String, dynamic>> getAnalysisPageData() async {
+    late Map<String, dynamic> item;
+    try {
+      int todayCompletedTask = await getCompletedTaskQuantity();
+      List<Map<String, dynamic>>? todayPomodoroList =
+          await getAllTodayPomodoroFromDb(DateTime.now());
+      int todayPomodoroCount = todayPomodoroList?.length ?? 0;
+
+      item = {
+        "overviews": todayPomodoroList,
+        "yearlyAnalyze": todayPomodoroList,
+        "todayPomodoroCount": todayPomodoroCount,
+        "todayCompletedTask": todayCompletedTask,
+      };
+    } catch (e, s) {
+      dPrint("$e $s");
+    }
+
+    return item;
   }
 
   getTaskById(String id) {}

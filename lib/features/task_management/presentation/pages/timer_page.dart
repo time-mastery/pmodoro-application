@@ -96,7 +96,7 @@ class TimerView extends StatelessWidget {
             ..showMaterialBanner(_showMaterialBanner(
               context,
               duration: state.duration,
-              taskUid: "",
+              taskUid: context.read<TimerBloc>().taskItem?.id,
             ));
         }
         if (state is StartTimerWithoutTaskFailure) {
