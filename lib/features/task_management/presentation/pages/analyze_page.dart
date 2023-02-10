@@ -31,13 +31,6 @@ class AnalyzePage extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    List<_ChartData> data = [
-      _ChartData('David', 25),
-      _ChartData('Steve', 38),
-      _ChartData('Jack', 34),
-      _ChartData('Others', 52)
-    ];
-
     return Scaffold(
       appBar: BaseAppBar(
         title: localization.analysisPageTitle,
@@ -66,37 +59,6 @@ class AnalyzePage extends StatelessWidget {
                         count: "2",
                         title: localization.todayPmodoreTitle,
                       ),
-                      DetailRichTextWidget(
-                        changes: "2",
-                        count: "10",
-                        title: localization.todayFocusTitle,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: SizeConfig.heightMultiplier * 1.5,
-              ),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppConstant.primaryColor.withOpacity(.1),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: SfCircularChart(
-                    title: ChartTitle(
-                      text: localization.taskDetailTitle,
-                      textStyle: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    enableMultiSelection: true,
-                    tooltipBehavior: TooltipBehavior(enable: true),
-                    series: <CircularSeries<_ChartData, String>>[
-                      DoughnutSeries<_ChartData, String>(
-                          dataSource: data,
-                          xValueMapper: (_ChartData data, _) => data.x,
-                          yValueMapper: (_ChartData data, _) => data.y,
-                          name: 'Gold')
                     ],
                   ),
                 ),

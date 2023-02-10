@@ -1,6 +1,5 @@
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
-import '../../../../core/utils/utils.dart';
 
 class TaskModel extends TaskEntity {
   const TaskModel(

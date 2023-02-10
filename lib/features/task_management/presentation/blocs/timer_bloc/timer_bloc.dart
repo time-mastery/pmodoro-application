@@ -3,7 +3,6 @@ import 'dart:async';
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:pomodore/features/task_management/presentation/widgets/task_item.dart';
 
 import '../../../../../core/utils/ticker.dart';
 import '../../../domain/entities/task_entity.dart';
