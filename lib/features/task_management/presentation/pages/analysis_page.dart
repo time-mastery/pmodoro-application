@@ -66,7 +66,6 @@ class AnalysisView extends StatelessWidget {
                       width: SizeConfig.widthMultiplier * 90,
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: AppConstant.primaryColor.withOpacity(.1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
@@ -91,7 +90,6 @@ class AnalysisView extends StatelessWidget {
                   Center(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppConstant.primaryColor.withOpacity(.1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Directionality(
@@ -126,7 +124,6 @@ class AnalysisView extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: AppConstant.primaryColor.withOpacity(.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
@@ -144,17 +141,14 @@ class AnalysisView extends StatelessWidget {
                           child: Directionality(
                             textDirection: TextDirection.ltr,
                             child: HeatMap(
-                              textColor: AppConstant.textColor,
                               size: 22,
                               scrollable: true,
                               fontSize: 9,
                               showText: false,
-                              defaultColor:
-                                  AppConstant.textColor.withOpacity(.1),
                               colorMode: ColorMode.opacity,
                               datasets: item?.overviews,
                               showColorTip: true,
-                              colorsets: const {1: AppConstant.primaryColor},
+                              colorsets: {1: Theme.of(context).primaryColor},
                               colorTipCount: 10,
                               colorTipHelper: [
                                 Padding(

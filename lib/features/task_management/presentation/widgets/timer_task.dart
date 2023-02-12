@@ -29,7 +29,6 @@ class TimerTask extends StatelessWidget {
       width: SizeConfig.widthMultiplier * 85,
       height: SizeConfig.heightMultiplier * 11,
       decoration: BoxDecoration(
-        color: AppConstant.secondaryColor.withOpacity(.07),
         borderRadius: BorderRadius.circular(20),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -37,14 +36,12 @@ class TimerTask extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Material(
-            color: AppConstant.swatchColor,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: const Padding(
               padding: EdgeInsets.all(11.0),
               child: Icon(
                 Ionicons.ice_cream,
-                color: AppConstant.scaffoldColor,
               ),
             ),
           ),
@@ -109,7 +106,6 @@ class SelectATaskToStart extends StatelessWidget {
             width: SizeConfig.widthMultiplier * 60,
             height: SizeConfig.heightMultiplier * 5,
             decoration: BoxDecoration(
-              color: AppConstant.secondaryColor.withOpacity(.2),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Center(
@@ -129,7 +125,6 @@ class SelectATaskToStart extends StatelessWidget {
             width: SizeConfig.widthMultiplier * 60,
             height: SizeConfig.heightMultiplier * 5,
             decoration: BoxDecoration(
-              color: AppConstant.secondaryColor.withOpacity(.2),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Center(child: Text(localization.selectTaskTitle)),

@@ -12,42 +12,69 @@ class AppConstant {
   static const splashIconHeroTag = "__splash-appbar__";
 
   // colors
-  static const textColor = Color(0xffC3AED6);
-  static const darkTextColor = Color(0xff333456);
-  static const secondaryColor = Color(0xffA084CA);
-  static const primaryColor = Color(0xffF4ABC4);
-  static const scaffoldColor = Color(0xff333456);
-  static const funColor = Color(0xffC3AED6);
-  static const swatchColor = Color(0xffD3DBFF);
+  static const defaultLightColors = {
+    "lightTextColor": Color(0xffC3AED6),
+    "darkTextColor": Color(0xff333456),
+    "primaryColor": Color(0xffF4ABC4),
+    "secondaryColor": Color(0xffA084CA),
+    "scaffoldBgColor": Color(0xff333456),
+    "funColor": Color(0xffC3AED6),
+    "swatchColor": Color(0xffD3DBFF),
+  };
+  static const defaultDarkColors = {
+    "lightTextColor": Color(0xffC3AED6),
+    "darkTextColor": Color(0xff333456),
+    "primaryColor": Color(0xffF4ABC4),
+    "secondaryColor": Color(0xffA084CA),
+    "scaffoldBgColor": Color(0xff333456),
+    "funColor": Color(0xffC3AED6),
+    "swatchColor": Color(0xffD3DBFF),
+  };
 
   // app theme
-  static getTheme(BuildContext context) => ThemeData(
-        primaryColor: primaryColor,
-        scaffoldBackgroundColor: scaffoldColor,
+  static lightDefaultTheme() => ThemeData(
+        primaryColor: defaultLightColors["primaryColor"],
+        scaffoldBackgroundColor: defaultLightColors["scaffoldBgColor"],
         fontFamily: fontFamily,
-        brightness: Brightness.dark,
-        appBarTheme: const AppBarTheme(
+        brightness: Brightness.light,
+        appBarTheme: AppBarTheme(
           elevation: 0,
           backgroundColor: Colors.transparent,
           centerTitle: false,
           iconTheme: IconThemeData(
-            color: secondaryColor,
+            color: defaultLightColors["primaryColor"],
           ),
         ),
-        cardColor: funColor,
-        hintColor: secondaryColor,
-        iconTheme: const IconThemeData(
-          color: secondaryColor,
+        cardColor: defaultLightColors["primaryColor"],
+        hintColor: defaultLightColors["primaryColor"],
+        iconTheme: IconThemeData(
+          color: defaultLightColors["primaryColor"],
         ),
         buttonTheme: const ButtonThemeData(
           textTheme: ButtonTextTheme.normal,
         ),
-        textTheme: Theme.of(context)
-            .textTheme
-            .copyWith(button: const TextStyle(color: textColor))
-            .apply(
-              bodyColor: textColor,
-              displayColor: textColor,
-            ),
+      );
+
+  static darkDefaultTheme() => ThemeData(
+        primaryColor: defaultLightColors["primaryColor"],
+        scaffoldBackgroundColor: defaultLightColors["scaffoldBgColor"],
+        fontFamily: fontFamily,
+        brightness: Brightness.light,
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          centerTitle: false,
+          iconTheme: IconThemeData(
+            color: defaultLightColors["primaryColor"],
+          ),
+        ),
+        cardColor: defaultLightColors["primaryColor"],
+        hintColor: defaultLightColors["primaryColor"],
+        iconTheme: IconThemeData(
+          color: defaultLightColors["primaryColor"],
+        ),
+        buttonTheme: const ButtonThemeData(
+          textTheme: ButtonTextTheme.normal,
+        ),
       );
 }

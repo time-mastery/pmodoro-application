@@ -50,26 +50,9 @@ class _CustomFormFieldState extends State<CustomFormField> {
                   },
                   child: Icon(
                     obscure ? Icons.visibility_off : Icons.visibility,
-                    color: AppConstant.swatchColor,
                   ),
                 )
               : null,
-          focusedBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
           label: Text(
             widget.hint ?? "",
             textAlign: TextAlign.left,
@@ -103,7 +86,6 @@ class _CustomFormFieldState extends State<CustomFormField> {
         }
         return null;
       },
-      cursorColor: AppConstant.swatchColor,
       keyboardType: widget.textInputType,
     );
   }

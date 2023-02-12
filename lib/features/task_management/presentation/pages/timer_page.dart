@@ -38,15 +38,12 @@ class TimerView extends StatelessWidget {
         content: Text(
           localization.saveProcessTitle,
           style: const TextStyle(
-            color: AppConstant.scaffoldColor,
             fontWeight: FontWeight.bold,
           ),
         ),
         leading: const Icon(
           Ionicons.save_outline,
-          color: AppConstant.scaffoldColor,
         ),
-        backgroundColor: AppConstant.primaryColor.withOpacity(.7),
         actions: [
           TextButton(
             onPressed: () {
@@ -63,7 +60,6 @@ class TimerView extends StatelessWidget {
             },
             child: Text(
               localization.yesTitle,
-              style: const TextStyle(color: AppConstant.scaffoldColor),
             ),
           ),
           TextButton(
@@ -72,7 +68,6 @@ class TimerView extends StatelessWidget {
             },
             child: Text(
               localization.noTitle,
-              style: const TextStyle(color: AppConstant.scaffoldColor),
             ),
           ),
         ]);
@@ -165,8 +160,6 @@ class TimerBar extends StatelessWidget {
                   value:
                       context.select((TimerBloc bloc) => bloc.state.duration) /
                           TimerBloc.getDuration,
-                  color: AppConstant.primaryColor,
-                  backgroundColor: AppConstant.primaryColor.withOpacity(.2),
                   strokeWidth: 7,
                 ),
               ),
@@ -192,7 +185,7 @@ class TimerButtons extends StatelessWidget {
             GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: AppConstant.secondaryColor,
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
               onPressed: () {
                 if (state is TimerInProgress) {
                   context.read<TimerBloc>().add(TimerPaused());
@@ -219,7 +212,7 @@ class TimerButtons extends StatelessWidget {
             GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: AppConstant.primaryColor,
+              backgroundColor: Theme.of(context).primaryColor,
               onPressed: () => context.read<TimerBloc>()
                 ..add(SaveCurrentTimerStateDialogShowed(
                   duration: state.duration,
@@ -229,9 +222,9 @@ class TimerButtons extends StatelessWidget {
                 ..add(TimerReset()),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
-              child: const Icon(
+              child: Icon(
                 Ionicons.square,
-                color: AppConstant.scaffoldColor,
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
             ),
           ],
@@ -254,7 +247,6 @@ class TimerText extends StatelessWidget {
         child: Text(
           Utils.formatSecToMinSec(timeInSecond: duration),
           style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                color: AppConstant.primaryColor,
                 fontWeight: FontWeight.bold,
               ),
         ),

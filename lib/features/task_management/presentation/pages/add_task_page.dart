@@ -69,7 +69,7 @@ class _AddTaskViewState extends State<AddTaskView> {
         if (state is TaskAddFailure) {
           showSnackBar(context,
               title: localization.failureTitle,
-              color: AppConstant.primaryColor);
+              color: Theme.of(context).primaryColor);
         }
         if (state is TaskAddSuccess) {
           Navigator.pop(context);
@@ -147,7 +147,6 @@ class _AddTaskViewState extends State<AddTaskView> {
                           }
                         }
                       },
-                      backgroundColor: AppConstant.secondaryColor,
                       child: (state is TaskAddLoading)
                           ? const GlobalIndicator()
                           : Text(localization.submitTask),

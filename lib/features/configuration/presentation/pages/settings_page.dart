@@ -192,9 +192,7 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
         builder: (BuildContext context) {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
-              decoration: const BoxDecoration(
-                color: AppConstant.scaffoldColor,
-              ),
+              decoration: const BoxDecoration(),
               child: child ?? Container());
         },
       );
@@ -262,7 +260,6 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                                           .bodyLarge
                                           ?.copyWith(
                                             fontStyle: FontStyle.italic,
-                                            color: AppConstant.darkTextColor,
                                           ),
                                       textAlign: TextAlign.start,
                                     ),
@@ -293,9 +290,7 @@ class ChangeThemeBottomSheet extends StatelessWidget {
         builder: (BuildContext context) {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
-              decoration: const BoxDecoration(
-                color: AppConstant.scaffoldColor,
-              ),
+              decoration: const BoxDecoration(),
               child: child ?? Container());
         },
       );

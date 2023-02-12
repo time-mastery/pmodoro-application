@@ -76,10 +76,7 @@ class _BaseAppBarState extends State<BaseAppBar>
                 )),
             title: Text(
               widget.title,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: AppConstant.secondaryColor),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             actions: [
               IconButton(

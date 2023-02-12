@@ -12,7 +12,7 @@ class GlobalIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpinKitRing(
-      color: color ?? AppConstant.primaryColor,
+      color: color ?? Theme.of(context).primaryColor,
       size: size ?? 35,
       lineWidth: width ?? 1.7,
     );

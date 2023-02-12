@@ -67,7 +67,6 @@ class TaskView extends StatelessWidget {
                         return Column(
                           children: const [
                             Divider(
-                              color: AppConstant.secondaryColor,
                               thickness: 8,
                               endIndent: 20,
                               indent: 20,

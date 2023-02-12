@@ -64,7 +64,7 @@ class _AddCategoryViewState extends State<AddCategoryView> {
               title: (state is CategoryAddSuccess)
                   ? localization.successTitle
                   : localization.failureTitle,
-              color: AppConstant.primaryColor);
+              color: Theme.of(context).primaryColor);
         }
       },
       builder: (context, state) {
@@ -93,7 +93,7 @@ class _AddCategoryViewState extends State<AddCategoryView> {
                               CategoryEntity(title: titleController.text)));
                         }
                       },
-                      backgroundColor: AppConstant.secondaryColor,
+                      backgroundColor: Theme.of(context).secondaryHeaderColor,
                       child: (state is CategoryAddLoading)
                           ? const GlobalIndicator()
                           : Text(localization.submitCategory),

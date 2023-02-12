@@ -55,7 +55,6 @@ class HomeView extends StatelessWidget {
               width: SizeConfig.widthMultiplier * 100,
               height: SizeConfig.heightMultiplier * 20,
               decoration: BoxDecoration(
-                color: AppConstant.swatchColor.withOpacity(.09),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
@@ -80,9 +79,6 @@ class HomeView extends StatelessWidget {
                                   child: CircularProgressIndicator(
                                     value: dailyItem?.processPercentage ?? 0,
                                     strokeWidth: 10,
-                                    backgroundColor:
-                                        AppConstant.swatchColor.withOpacity(.2),
-                                    color: AppConstant.swatchColor,
                                   ),
                                 ),
                               ),

@@ -25,7 +25,6 @@ class TaskItem extends StatelessWidget {
             child: Container(
               height: SizeConfig.heightMultiplier * 11,
               decoration: BoxDecoration(
-                color: AppConstant.primaryColor.withOpacity(.1),
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20),

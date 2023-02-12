@@ -37,13 +37,13 @@ class _BasePageState extends State<BasePage> {
       bottomNavigationBar: Directionality(
         textDirection: TextDirection.ltr,
         child: BottomNavigationBar(
-          backgroundColor: AppConstant.secondaryColor,
+          backgroundColor: Theme.of(context).secondaryHeaderColor,
           currentIndex: (state as PageChangeSuccess).index,
           onTap: (value) {
             context.read<BaseBloc>().add(PageIndexChanged(value));
           },
-          selectedItemColor: AppConstant.primaryColor,
-          unselectedItemColor: AppConstant.scaffoldColor,
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Theme.of(context).scaffoldBackgroundColor,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -57,8 +57,8 @@ class _BasePageState extends State<BasePage> {
                 icon: Container(
                   width: 30,
                   height: 30,
-                  decoration: const BoxDecoration(
-                    color: AppConstant.primaryColor,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
