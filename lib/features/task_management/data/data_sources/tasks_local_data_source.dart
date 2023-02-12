@@ -1,11 +1,11 @@
 import 'package:pomodore/core/utils/database_helper.dart';
+import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/features/task_management/data/models/category_model.dart';
 import 'package:pomodore/features/task_management/data/models/pomodoro_model.dart';
 import 'package:pomodore/features/task_management/domain/entities/category_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../../../../core/utils/utils.dart';
 import '../models/task_model.dart';
 
@@ -37,8 +37,8 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllTasks() async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records =
-          await db.rawQuery('SELECT * FROM ${DatabaseHelper.taskTable}');
+      const query = 'SELECT * FROM ${DatabaseHelper.taskTable}';
+      List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
     } catch (e) {
@@ -52,8 +52,15 @@ class TasksLocalDataSource {
       DateTime time) async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records = await db.rawQuery(
-          'SELECT * FROM ${DatabaseHelper.taskTable} where deadLineTime >= ${Utils.formatDateToYYYYMMDD(time)}');
+      const query = '''
+      SELECT * FROM ${DatabaseHelper.taskTable}
+      WHERE deadLineTime >= ? AND deadLineTime < ?
+      ''';
+
+      List<Map<String, Object?>> records = await db.rawQuery(query, [
+        Utils.formatDateToYYYYMMDD(time),
+        Utils.formatDateToYYYYMMDD(time.add(const Duration(days: 1))),
+      ]);
 
       list = records;
     } catch (e) {
@@ -66,8 +73,8 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllCategories() async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records =
-          await db.rawQuery('SELECT * FROM ${DatabaseHelper.categoryTable}');
+      const query = 'SELECT * FROM ${DatabaseHelper.categoryTable}';
+      List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
     } catch (e) {
@@ -121,8 +128,8 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllPomodoroFromDb() async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records =
-          await db.rawQuery('SELECT * FROM ${DatabaseHelper.pomodoroTable}');
+      const query = 'SELECT * FROM ${DatabaseHelper.pomodoroTable}';
+      List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
     } catch (e) {
@@ -136,8 +143,15 @@ class TasksLocalDataSource {
       DateTime time) async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records = await db.rawQuery(
-          'SELECT * FROM ${DatabaseHelper.pomodoroTable} where datetime >= ${Utils.formatDateToYYYYMMDD(time)}');
+      const query = '''
+      SELECT * FROM ${DatabaseHelper.pomodoroTable}
+      WHERE dateTime >= ? AND dateTime < ?
+      ''';
+
+      List<Map<String, Object?>> records = await db.rawQuery(query, [
+        Utils.formatDateToYYYYMMDD(time),
+        Utils.formatDateToYYYYMMDD(time.add(const Duration(days: 1))),
+      ]);
 
       list = records;
     } catch (e) {
@@ -177,6 +191,30 @@ class TasksLocalDataSource {
       rethrow;
     }
     return quantity;
+  }
+
+  Future<Map<String, dynamic>?> getAnalysisPageData() async {
+    late Map<String, dynamic>? item;
+    try {
+      int todayCompletedTask = await getCompletedTaskQuantity();
+      List<Map<String, dynamic>>? allPomodoroList =
+          await getAllPomodoroFromDb();
+      List<Map<String, dynamic>>? todayPomodoroList =
+          await getAllTodayPomodoroFromDb(DateTime.now());
+      int todayPomodoroCount = todayPomodoroList?.length ?? 0;
+
+      item = {
+        "overviews": allPomodoroList,
+        "yearlyAnalyze": allPomodoroList,
+        "todayPomodoroCount": todayPomodoroCount,
+        "todayCompletedTask": todayCompletedTask,
+      };
+    } catch (e, s) {
+      dPrint("$e $s");
+      rethrow;
+    }
+
+    return item;
   }
 
   getTaskById(String id) {}

@@ -61,13 +61,4 @@ class DatabaseHelper {
           ''');
     await batch.commit();
   }
-
-  static Future showTaskTable() async =>
-      await _database?.rawQuery('SELECT * FROM "$taskTable"');
-
-  static Future showCategoryTable() async =>
-      await _database?.rawQuery('SELECT * FROM "$categoryTable"');
-
-  static Future showPomodorosTable() async =>
-      await _database?.rawQuery('SELECT * FROM "$pomodoroTable"');
 }

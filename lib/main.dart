@@ -20,6 +20,7 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
       .copyWith(statusBarIconBrightness: Brightness.light));
 
+  // Dependency injection
   await inject();
 
   Bloc.observer = MyBlocObserver();

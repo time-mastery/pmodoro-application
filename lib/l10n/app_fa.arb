@@ -50,5 +50,8 @@
     "saveProcessTitle":"آیا می خواهید فرآیند را ذخیره کنید؟",
     "yesTitle":"بله",
     "noTitle":"خیر",
-    "startTimerWithoutTaskWarning":"لطفا یک وظیفه انتخاب کنید!"
+    "startTimerWithoutTaskWarning":"لطفا یک وظیفه انتخاب کنید!",
+    "todayCompletedTask":"Today's Completed Task :",
+    "lessTitle":"less",
+    "moreTitle":"more"
 }

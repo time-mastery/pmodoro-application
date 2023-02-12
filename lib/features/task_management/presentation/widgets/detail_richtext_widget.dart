@@ -6,12 +6,11 @@ import '../../../../exports.dart';
 class DetailRichTextWidget extends StatelessWidget {
   const DetailRichTextWidget({
     Key? key,
-    required this.changes,
     required this.count,
     required this.title,
   }) : super(key: key);
 
-  final String title, count, changes;
+  final String title, count;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +29,6 @@ class DetailRichTextWidget extends StatelessWidget {
                   color: AppConstant.swatchColor,
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.bold,
-                ),
-          ),
-          TextSpan(
-            text: localization.fromYesterdayTitle.replaceAll("x", changes),
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppConstant.textColor.withOpacity(.2),
-                  fontStyle: FontStyle.italic,
                 ),
           ),
         ],

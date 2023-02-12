@@ -2,11 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:pomodore/features/task_management/data/data_sources/tasks_local_data_source.dart';
 import 'package:pomodore/features/task_management/data/models/pomodoro_model.dart';
 import 'package:pomodore/features/task_management/data/models/task_model.dart';
+import 'package:pomodore/features/task_management/domain/entities/analysis_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
 
 import '../../domain/entities/task_entity.dart';
+import '../models/analysis_model.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
   final TasksLocalDataSource localDataSource;
@@ -32,7 +34,7 @@ class TaskRepositoryImpl implements TaskRepository {
     late Either<String, List<TaskEntity>> result;
 
     List<Map<String, dynamic>>? rawList =
-        await localDataSource.getSpecificDateTasks(date);
+    await localDataSource.getSpecificDateTasks(date);
 
     if (rawList != null) {
       List<TaskEntity> list = TaskModel.parseRawList(rawList);
@@ -79,7 +81,7 @@ class TaskRepositoryImpl implements TaskRepository {
     late Either<String, List<PomodoroEntity>> result;
 
     List<Map<String, dynamic>>? rawList =
-        await localDataSource.getSpecificDateTasks(DateTime.now());
+    await localDataSource.getSpecificDateTasks(DateTime.now());
 
     if (rawList != null) {
       List<PomodoroEntity> convertedList = PomodoroModel.parseRawList(rawList);
@@ -111,7 +113,7 @@ class TaskRepositoryImpl implements TaskRepository {
     late Either<String, DailyInformationEntity> result;
 
     int completedTasksQuantity =
-        await localDataSource.getCompletedTaskQuantity();
+    await localDataSource.getCompletedTaskQuantity();
     int tasksQuantity = await localDataSource.getAllTodayTaskQuantity();
     DailyInformationEntity item = DailyInformationEntity(
         taskQuantity: tasksQuantity,
@@ -124,6 +126,22 @@ class TaskRepositoryImpl implements TaskRepository {
       result = const Left("error");
     } else {
       result = Right(item);
+    }
+
+    return result;
+  }
+
+  @override
+  Future<Either<String, AnalysisEntity>> getAnalysis() async {
+    late Either<String, AnalysisEntity> result;
+
+    Map<String, dynamic>? rawData = await localDataSource.getAnalysisPageData();
+
+    if (rawData != null) {
+      AnalysisEntity analysis = AnalysisModel.fromJson(rawData);
+      result = Right(analysis);
+    } else {
+      result = const Left("error");
     }
 
     return result;

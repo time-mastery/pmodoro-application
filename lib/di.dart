@@ -20,9 +20,11 @@ import 'package:pomodore/features/task_management/domain/usecases/add_task_useca
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/get_analysis_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_today_pomodoros_usecase.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/analysis_bloc/analysis_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
@@ -66,22 +68,17 @@ Future inject() async {
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
   getIt.registerSingleton<AddCategoryUsecase>(AddCategoryUsecase(getIt()));
-  getIt.registerSingleton<GetSpecificDateTasksUseCase>(
-      GetSpecificDateTasksUseCase(getIt()));
-  getIt.registerSingleton<GetAllCategoriesUseCase>(
-      GetAllCategoriesUseCase(getIt()));
+  getIt.registerSingleton<GetSpecificDateTasksUseCase>(GetSpecificDateTasksUseCase(getIt()));
+  getIt.registerSingleton<GetAllCategoriesUseCase>(GetAllCategoriesUseCase(getIt()));
   getIt.registerSingleton<CompleteTaskUseCase>(CompleteTaskUseCase(getIt()));
   getIt.registerSingleton<DeleteTaskUseCase>(DeleteTaskUseCase(getIt()));
-  getIt.registerSingleton<AddPomodoroToDbUseCase>(
-      AddPomodoroToDbUseCase(getIt()));
-  getIt.registerSingleton<GetTodayPomodorosUseCase>(
-      GetTodayPomodorosUseCase(getIt()));
+  getIt.registerSingleton<AddPomodoroToDbUseCase>(AddPomodoroToDbUseCase(getIt()));
+  getIt.registerSingleton<GetTodayPomodorosUseCase>(GetTodayPomodorosUseCase(getIt()));
   getIt.registerSingleton<GetSettingsUseCase>(GetSettingsUseCase(getIt()));
-  getIt
-      .registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
-  getIt.registerSingleton<GetDailyInformationUseCase>(
-      GetDailyInformationUseCase(getIt()));
+  getIt.registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
+  getIt.registerSingleton<GetDailyInformationUseCase>(GetDailyInformationUseCase(getIt()));
   getIt.registerSingleton<GetTodayTasksUseCase>(GetTodayTasksUseCase(getIt()));
+  getIt.registerSingleton<GetAnalysisUseCase>(GetAnalysisUseCase(getIt()));
   getIt.registerSingleton<ChangeLocaleUseCase>(ChangeLocaleUseCase(getIt()));
   getIt.registerSingleton<GetLocaleUseCase>(GetLocaleUseCase(getIt()));
 
@@ -104,7 +101,7 @@ Future inject() async {
         deleteTaskUseCase: getIt(),
         addPomodoroToDbUseCase: getIt(),
       ));
-
+  getIt.registerFactory<AnalysisBloc>(() => AnalysisBloc(getIt()));
   getIt.registerFactory<HomeBloc>(() => HomeBloc(
         getDailyInformationUseCase: getIt(),
         getTodayTasksUseCase: getIt(),
