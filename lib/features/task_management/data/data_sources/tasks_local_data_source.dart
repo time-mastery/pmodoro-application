@@ -197,13 +197,15 @@ class TasksLocalDataSource {
     late Map<String, dynamic>? item;
     try {
       int todayCompletedTask = await getCompletedTaskQuantity();
+      List<Map<String, dynamic>>? allPomodoroList =
+          await getAllPomodoroFromDb();
       List<Map<String, dynamic>>? todayPomodoroList =
           await getAllTodayPomodoroFromDb(DateTime.now());
       int todayPomodoroCount = todayPomodoroList?.length ?? 0;
 
       item = {
-        "overviews": todayPomodoroList,
-        "yearlyAnalyze": todayPomodoroList,
+        "overviews": allPomodoroList,
+        "yearlyAnalyze": allPomodoroList,
         "todayPomodoroCount": todayPomodoroCount,
         "todayCompletedTask": todayCompletedTask,
       };

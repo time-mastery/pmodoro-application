@@ -19,6 +19,11 @@ class AnalysisEntity extends Equatable {
         todayCompletedPomodoroCount,
         todayCompletedTask,
       ];
+
+  @override
+  String toString() {
+    return 'AnalysisEntity{overviews: $overviews, yearlyAnalyze: $yearlyAnalyze, todayCompletedPomodoroCount: $todayCompletedPomodoroCount, todayCompletedTask: $todayCompletedTask}';
+  }
 }
 
 class YearlyAnalyzeItemEntity extends Equatable {
@@ -29,4 +34,9 @@ class YearlyAnalyzeItemEntity extends Equatable {
 
   @override
   List<Object?> get props => [month, count];
+
+  @override
+  String toString() {
+    return 'YearlyAnalyzeItemEntity{month: $month, count: $count}';
+  }
 }

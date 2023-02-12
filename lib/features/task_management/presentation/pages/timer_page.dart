@@ -9,7 +9,7 @@ import 'package:pomodore/core/utils/utils.dart';
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/pages/analyze_page.dart';
+import 'package:pomodore/features/task_management/presentation/pages/analysis_page.dart';
 
 import '../../../../di.dart';
 import '../../../../exports.dart';
@@ -50,13 +50,15 @@ class TimerView extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              context
-                  .read<TasksBloc>()
-                  .add(CurrentPomodoroToDatabaseSaved(PomodoroEntity(
-                    duration: Utils.calculatePomodoroTime(
-                        TimerBloc.getDuration, duration),
-                    dateTime: DateTime.now().toString(),
-                  )));
+              context.read<TasksBloc>().add(
+                    CurrentPomodoroToDatabaseSaved(
+                      PomodoroEntity(
+                        duration: Utils.calculatePomodoroTime(
+                            TimerBloc.getDuration, duration),
+                        dateTime: DateTime.now().toString(),
+                      ),
+                    ),
+                  );
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             },
             child: Text(
@@ -112,7 +114,7 @@ class TimerView extends StatelessWidget {
             Icons.bar_chart,
           ),
           onPressed: () {
-            Navigator.pushNamed(context, AnalyzePage.routeName);
+            Navigator.pushNamed(context, AnalysisPage.routeName);
           },
         ),
         body: LayoutBuilder(

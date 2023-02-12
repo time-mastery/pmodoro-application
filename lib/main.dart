@@ -11,13 +11,14 @@ import 'package:pomodore/core/router/router.dart';
 import 'package:pomodore/core/utils/bloc_observer.dart';
 import 'package:pomodore/di.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/analysis_bloc/analysis_bloc.dart';
 
 import 'core/utils/size_config.dart';
 import 'features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle.light.copyWith(statusBarIconBrightness: Brightness.light));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+      .copyWith(statusBarIconBrightness: Brightness.light));
 
   // Dependency injection
   await inject();
@@ -50,7 +51,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
       ],
       child: OrientationBuilder(
-        builder: (context, orientation) => LayoutBuilder(builder: (context, constraints) {
+        builder: (context, orientation) =>
+            LayoutBuilder(builder: (context, constraints) {
           SizeConfig().init(constraints, orientation);
           return MaterialApp(
             title: AppConstant.appName,

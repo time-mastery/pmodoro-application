@@ -31,11 +31,11 @@ class AnalysisModel extends AnalysisEntity {
   static Map<DateTime, int> createOverview(List<Map<String, dynamic>> mapList) {
     Map<DateTime, int> overviews = {};
     for (var element in mapList) {
-      DateTime dateTime = Utils.createOverviewItemDateTime(element["datetime"]);
+      DateTime dateTime = Utils.createOverviewItemDateTime(element["dateTime"]);
       if (overviews.containsKey(dateTime)) {
         overviews.update(dateTime, (value) => value + 1);
       } else {
-        overviews[dateTime] = 0;
+        overviews[dateTime] = 1;
       }
     }
 
@@ -43,14 +43,15 @@ class AnalysisModel extends AnalysisEntity {
   }
 
   static List<YearlyAnalyzeItemModel> createYearlyAnalysis(
-      List<Map<String, dynamic>> mapList) {
+      List<Map<String, dynamic>>? mapList) {
     Map<String, int> yearMap = {};
+    if (mapList == null) return [];
     for (var element in mapList) {
-      String monthName = Utils.monthNameOfDateTime(element["datetime"]);
+      String monthName = Utils.monthNameOfDateTime(element["dateTime"]);
       if (yearMap.containsKey(monthName)) {
         yearMap.update(monthName, (value) => value + 1);
       } else {
-        yearMap[monthName] = 0;
+        yearMap[monthName] = 1;
       }
     }
 

@@ -50,5 +50,8 @@
     "saveProcessTitle":"Do you want to save process",
     "yesTitle":"Yes",
     "noTitle":"No",
-    "startTimerWithoutTaskWarning":"Please select a task !"
+    "startTimerWithoutTaskWarning":"Please select a task !",
+    "todayCompletedTask":"Today's Completed Task :",
+    "lessTitle":"less",
+    "moreTitle":"more"
 }

@@ -5,13 +5,12 @@ import 'package:pomodore/features/task_management/domain/repositories/task_repos
 
 class GetAnalysisUseCase
     extends UseCase<Either<String, AnalysisEntity>, DateTime> {
-
   final TaskRepository taskRepository;
 
   GetAnalysisUseCase(this.taskRepository);
 
   @override
   Future<Either<String, AnalysisEntity>> call({DateTime? params}) {
-    throw UnimplementedError();
+    return taskRepository.getAnalysis();
   }
 }
