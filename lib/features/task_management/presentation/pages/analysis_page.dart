@@ -94,27 +94,31 @@ class AnalysisView extends StatelessWidget {
                         color: AppConstant.primaryColor.withOpacity(.1),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: SfCartesianChart(
-                          primaryXAxis: CategoryAxis(),
-                          title: ChartTitle(
-                            text: localization.yearAnalysisTitle,
-                            textStyle: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          tooltipBehavior: TooltipBehavior(enable: true),
-                          enableAxisAnimation: true,
-                          series: <LineSeries<YearlyAnalyzeItemEntity, String>>[
-                            LineSeries<YearlyAnalyzeItemEntity, String>(
-                              dataSource: item?.yearlyAnalyze ?? [],
-                              xValueMapper:
-                                  (YearlyAnalyzeItemEntity sales, _) =>
-                                      sales.month,
-                              yValueMapper:
-                                  (YearlyAnalyzeItemEntity sales, _) =>
-                                      sales.count,
-                              dataLabelSettings:
-                                  const DataLabelSettings(isVisible: true),
-                            )
-                          ]),
+                      child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: SfCartesianChart(
+                            primaryXAxis: CategoryAxis(),
+                            title: ChartTitle(
+                              text: localization.yearAnalysisTitle,
+                              textStyle: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            tooltipBehavior: TooltipBehavior(enable: true),
+                            enableAxisAnimation: true,
+                            series: <
+                                LineSeries<YearlyAnalyzeItemEntity, String>>[
+                              LineSeries<YearlyAnalyzeItemEntity, String>(
+                                dataSource: item?.yearlyAnalyze ?? [],
+                                xValueMapper:
+                                    (YearlyAnalyzeItemEntity sales, _) =>
+                                        sales.month,
+                                yValueMapper:
+                                    (YearlyAnalyzeItemEntity sales, _) =>
+                                        sales.count,
+                                dataLabelSettings:
+                                    const DataLabelSettings(isVisible: true),
+                              )
+                            ]),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -132,41 +136,48 @@ class AnalysisView extends StatelessWidget {
                           child: Text(
                             localization.dailyActivityTitle,
                             style: Theme.of(context).textTheme.titleLarge,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
-                          child: HeatMap(
-                            textColor: AppConstant.textColor,
-                            size: 22,
-                            scrollable: true,
-                            fontSize: 9,
-                            showText: false,
-                            defaultColor: AppConstant.textColor.withOpacity(.1),
-                            colorMode: ColorMode.opacity,
-                            datasets: item?.overviews,
-                            showColorTip: true,
-                            colorsets: const {1: AppConstant.primaryColor},
-                            colorTipCount: 10,
-                            colorTipHelper: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
-                                  localization.lessTitle,
-                                  style: Theme.of(context).textTheme.bodySmall,
+                          child: Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: HeatMap(
+                              textColor: AppConstant.textColor,
+                              size: 22,
+                              scrollable: true,
+                              fontSize: 9,
+                              showText: false,
+                              defaultColor:
+                                  AppConstant.textColor.withOpacity(.1),
+                              colorMode: ColorMode.opacity,
+                              datasets: item?.overviews,
+                              showColorTip: true,
+                              colorsets: const {1: AppConstant.primaryColor},
+                              colorTipCount: 10,
+                              colorTipHelper: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                    localization.lessTitle,
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
-                                  localization.moreTitle,
-                                  style: Theme.of(context).textTheme.bodySmall,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                    localization.moreTitle,
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
                                 ),
-                              ),
-                            ],
-                            onClick: (value) {},
+                              ],
+                              onClick: (value) {},
+                            ),
                           ),
                         ),
                       ],
