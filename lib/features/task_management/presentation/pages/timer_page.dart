@@ -149,27 +149,31 @@ class TimerBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * .5,
-      height: MediaQuery.of(context).size.width * .5,
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * .5,
-              height: MediaQuery.of(context).size.width * .5,
-              child: CircularProgressIndicator(
-                value: context.select((TimerBloc bloc) => bloc.state.duration) /
-                    TimerBloc.getDuration,
-                color: AppConstant.primaryColor,
-                backgroundColor: AppConstant.primaryColor.withOpacity(.2),
-                strokeWidth: 7,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * .5,
+        height: MediaQuery.of(context).size.width * .5,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * .5,
+                height: MediaQuery.of(context).size.width * .5,
+                child: CircularProgressIndicator(
+                  value:
+                      context.select((TimerBloc bloc) => bloc.state.duration) /
+                          TimerBloc.getDuration,
+                  color: AppConstant.primaryColor,
+                  backgroundColor: AppConstant.primaryColor.withOpacity(.2),
+                  strokeWidth: 7,
+                ),
               ),
             ),
-          ),
-          const TimerText(),
-        ],
+            const TimerText(),
+          ],
+        ),
       ),
     );
   }
