@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/features/configuration/domain/entities/language_entity.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/shared_widgets/global_button.dart';
 import 'package:pomodore/core/utils/size_config.dart';
@@ -185,7 +184,7 @@ class TimerButtons extends StatelessWidget {
             GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: Theme.of(context).secondaryHeaderColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               onPressed: () {
                 if (state is TimerInProgress) {
                   context.read<TimerBloc>().add(TimerPaused());
@@ -204,6 +203,7 @@ class TimerButtons extends StatelessWidget {
               child: Icon(
                 (state is TimerInProgress) ? Ionicons.pause : Ionicons.play,
                 size: 30,
+                color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),
             const SizedBox(
@@ -212,7 +212,7 @@ class TimerButtons extends StatelessWidget {
             GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () => context.read<TimerBloc>()
                 ..add(SaveCurrentTimerStateDialogShowed(
                   duration: state.duration,
@@ -222,9 +222,8 @@ class TimerButtons extends StatelessWidget {
                 ..add(TimerReset()),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
-              child: Icon(
+              child: const Icon(
                 Ionicons.square,
-                color: Theme.of(context).scaffoldBackgroundColor,
               ),
             ),
           ],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/core/utils/size_config.dart';
@@ -105,6 +104,8 @@ class AnalysisView extends StatelessWidget {
                             series: <
                                 LineSeries<YearlyAnalyzeItemEntity, String>>[
                               LineSeries<YearlyAnalyzeItemEntity, String>(
+                                color: Theme.of(context).colorScheme.secondary,
+                                width: 5,
                                 dataSource: item?.yearlyAnalyze ?? [],
                                 xValueMapper:
                                     (YearlyAnalyzeItemEntity sales, _) =>
@@ -144,11 +145,13 @@ class AnalysisView extends StatelessWidget {
                               size: 22,
                               scrollable: true,
                               fontSize: 9,
-                              showText: false,
+                              showText: true,
                               colorMode: ColorMode.opacity,
                               datasets: item?.overviews,
                               showColorTip: true,
-                              colorsets: {1: Theme.of(context).primaryColor},
+                              colorsets: {
+                                1: Theme.of(context).colorScheme.secondary
+                              },
                               colorTipCount: 10,
                               colorTipHelper: [
                                 Padding(

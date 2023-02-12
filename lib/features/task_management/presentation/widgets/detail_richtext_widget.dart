@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constant/constant.dart';
 import '../../../../exports.dart';
 
 class DetailRichTextWidget extends StatelessWidget {

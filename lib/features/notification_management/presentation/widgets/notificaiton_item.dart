@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 
-import '../../../../core/constant/constant.dart';
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem({

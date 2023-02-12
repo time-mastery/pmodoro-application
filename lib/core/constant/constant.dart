@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppConstant {
   /// dimens
@@ -11,70 +12,67 @@ class AppConstant {
   // Hero tags
   static const splashIconHeroTag = "__splash-appbar__";
 
-  // colors
-  static const defaultLightColors = {
-    "lightTextColor": Color(0xffC3AED6),
-    "darkTextColor": Color(0xff333456),
-    "primaryColor": Color(0xffF4ABC4),
-    "secondaryColor": Color(0xffA084CA),
-    "scaffoldBgColor": Color(0xff333456),
-    "funColor": Color(0xffC3AED6),
-    "swatchColor": Color(0xffD3DBFF),
-  };
-  static const defaultDarkColors = {
-    "lightTextColor": Color(0xffC3AED6),
-    "darkTextColor": Color(0xff333456),
-    "primaryColor": Color(0xffF4ABC4),
-    "secondaryColor": Color(0xffA084CA),
-    "scaffoldBgColor": Color(0xff333456),
-    "funColor": Color(0xffC3AED6),
-    "swatchColor": Color(0xffD3DBFF),
-  };
+  static TextStyle getTextStyle({double? fontSize}) => GoogleFonts.archivo();
 
-  // app theme
-  static lightDefaultTheme() => ThemeData(
-        primaryColor: defaultLightColors["primaryColor"],
-        scaffoldBackgroundColor: defaultLightColors["scaffoldBgColor"],
-        fontFamily: fontFamily,
-        brightness: Brightness.light,
-        appBarTheme: AppBarTheme(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          centerTitle: false,
-          iconTheme: IconThemeData(
-            color: defaultLightColors["primaryColor"],
-          ),
-        ),
-        cardColor: defaultLightColors["primaryColor"],
-        hintColor: defaultLightColors["primaryColor"],
-        iconTheme: IconThemeData(
-          color: defaultLightColors["primaryColor"],
-        ),
-        buttonTheme: const ButtonThemeData(
-          textTheme: ButtonTextTheme.normal,
-        ),
-      );
+  static final defaultLightTheme = ThemeData(
+    scaffoldBackgroundColor: Colors.white,
+    cardColor: Colors.white,
+    cardTheme: const CardTheme(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+    ),
+    textTheme: TextTheme(
+      bodyLarge: getTextStyle(),
+      bodyMedium: getTextStyle(),
+      bodySmall: getTextStyle(),
+      displayLarge: getTextStyle(),
+      displayMedium: getTextStyle(),
+      displaySmall: getTextStyle(),
+      headlineLarge: getTextStyle(),
+      headlineMedium: getTextStyle(),
+      headlineSmall: getTextStyle(),
+      labelLarge: getTextStyle(),
+      labelMedium: getTextStyle(),
+      labelSmall: getTextStyle(),
+      titleLarge: getTextStyle(),
+      titleMedium: getTextStyle(),
+      titleSmall: getTextStyle(),
+    ),
+    colorScheme: ColorScheme(
+      brightness: Brightness.light,
+      primary: Colors.black,
+      onPrimary: Colors.white,
+      secondary: const Color(0xff01ED64),
+      onSecondary: Colors.black,
+      error: Colors.red,
+      onError: Colors.white,
+      background: Colors.white,
+      onBackground: Colors.black,
+      surface: Colors.black.withOpacity(.001),
+      onSurface: Colors.white,
+    ),
+    buttonTheme: const ButtonThemeData(),
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: Colors.black,
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      iconTheme: IconThemeData(
+        color: Colors.black,
+      ),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+      elevation: 10,
+    ),
+    switchTheme: SwitchThemeData(
 
-  static darkDefaultTheme() => ThemeData(
-        primaryColor: defaultLightColors["primaryColor"],
-        scaffoldBackgroundColor: defaultLightColors["scaffoldBgColor"],
-        fontFamily: fontFamily,
-        brightness: Brightness.light,
-        appBarTheme: AppBarTheme(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          centerTitle: false,
-          iconTheme: IconThemeData(
-            color: defaultLightColors["primaryColor"],
-          ),
-        ),
-        cardColor: defaultLightColors["primaryColor"],
-        hintColor: defaultLightColors["primaryColor"],
-        iconTheme: IconThemeData(
-          color: defaultLightColors["primaryColor"],
-        ),
-        buttonTheme: const ButtonThemeData(
-          textTheme: ButtonTextTheme.normal,
-        ),
-      );
+    ),
+    iconTheme: const IconThemeData(
+      color: Colors.black,
+    ),
+  );
 }

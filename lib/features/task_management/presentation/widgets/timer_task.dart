@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
@@ -121,13 +120,14 @@ class SelectATaskToStart extends StatelessWidget {
           onTap: () {
             context.read<BaseBloc>().add(const PageIndexChanged(0));
           },
-          child: Container(
+          child: SizedBox(
             width: SizeConfig.widthMultiplier * 60,
-            height: SizeConfig.heightMultiplier * 5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+            height: SizeConfig.heightMultiplier * 6,
+            child: Card(
+              child: Center(
+                child: Text(localization.selectTaskTitle),
+              ),
             ),
-            child: Center(child: Text(localization.selectTaskTitle)),
           ),
         );
       },

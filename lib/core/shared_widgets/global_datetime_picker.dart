@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-import '../constant/constant.dart';
 
 class GlobalDateTimePicker extends StatelessWidget {
   const GlobalDateTimePicker({

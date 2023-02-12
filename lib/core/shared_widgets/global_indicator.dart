@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../constant/constant.dart';
 
 class GlobalIndicator extends StatelessWidget {
   const GlobalIndicator({Key? key, this.color, this.size, this.width})

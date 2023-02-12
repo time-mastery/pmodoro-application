@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/router/router.dart';
 import 'package:pomodore/core/utils/bloc_observer.dart';
@@ -17,8 +18,8 @@ import 'core/utils/size_config.dart';
 import 'features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
-      .copyWith(statusBarIconBrightness: Brightness.light));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
+      .copyWith(statusBarIconBrightness: Brightness.dark));
 
   // Dependency injection
   await inject();
@@ -77,8 +78,7 @@ class MyApp extends StatelessWidget {
                 title: AppConstant.appName,
                 onGenerateRoute: AppRouter.onGenerationRouter,
                 themeMode: ThemeMode.light,
-                theme: AppConstant.lightDefaultTheme(),
-                darkTheme: AppConstant.darkDefaultTheme(),
+                theme: AppConstant.defaultLightTheme,
                 debugShowCheckedModeBanner: false,
                 localizationsDelegates: const [
                   AppLocalizations.delegate,
