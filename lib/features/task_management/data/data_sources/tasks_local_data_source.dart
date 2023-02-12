@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:pomodore/core/utils/database_helper.dart';
 import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/features/task_management/data/models/category_model.dart';
@@ -7,7 +6,6 @@ import 'package:pomodore/features/task_management/domain/entities/category_entit
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../../../../core/utils/utils.dart';
 import '../models/task_model.dart';
 
@@ -39,8 +37,8 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllTasks() async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records =
-          await db.rawQuery('SELECT * FROM ${DatabaseHelper.taskTable}');
+      const query = 'SELECT * FROM ${DatabaseHelper.taskTable}';
+      List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
     } catch (e) {
@@ -54,9 +52,15 @@ class TasksLocalDataSource {
       DateTime time) async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records = await db.rawQuery(
-          'SELECT * FROM ${DatabaseHelper.taskTable} WHERE deadLineTime >= '
-          '${Utils.formatDateToYYYYMMDD(time)} ');
+      const query = '''
+      SELECT * FROM ${DatabaseHelper.taskTable}
+      WHERE deadLineTime >= ? AND deadLineTime < ?
+      ''';
+
+      List<Map<String, Object?>> records = await db.rawQuery(query, [
+        Utils.formatDateToYYYYMMDD(time),
+        Utils.formatDateToYYYYMMDD(time.add(const Duration(days: 1))),
+      ]);
 
       list = records;
     } catch (e) {
@@ -69,8 +73,8 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllCategories() async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records =
-          await db.rawQuery('SELECT * FROM ${DatabaseHelper.categoryTable}');
+      const query = 'SELECT * FROM ${DatabaseHelper.categoryTable}';
+      List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
     } catch (e) {
@@ -124,8 +128,8 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllPomodoroFromDb() async {
     List<Map<String, dynamic>>? list;
     try {
-      List<Map<String, Object?>> records =
-          await db.rawQuery('SELECT * FROM ${DatabaseHelper.pomodoroTable}');
+      const query = 'SELECT * FROM ${DatabaseHelper.pomodoroTable}';
+      List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
     } catch (e) {
@@ -139,9 +143,15 @@ class TasksLocalDataSource {
       DateTime time) async {
     List<Map<String, dynamic>>? list;
     try {
-      // todo : fix query
-      List<Map<String, Object?>> records = await db.rawQuery(
-          'SELECT * FROM ${DatabaseHelper.pomodoroTable} where datetime >= ${Utils.formatDateToYYYYMMDD(time)}');
+      const query = '''
+      SELECT * FROM ${DatabaseHelper.pomodoroTable}
+      WHERE dateTime >= ? AND dateTime < ?
+      ''';
+
+      List<Map<String, Object?>> records = await db.rawQuery(query, [
+        Utils.formatDateToYYYYMMDD(time),
+        Utils.formatDateToYYYYMMDD(time.add(const Duration(days: 1))),
+      ]);
 
       list = records;
     } catch (e) {
