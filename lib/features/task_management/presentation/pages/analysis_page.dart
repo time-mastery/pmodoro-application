@@ -146,6 +146,14 @@ class AnalysisView extends StatelessWidget {
                               scrollable: true,
                               fontSize: 9,
                               showText: true,
+                              defaultColor:
+                                  Theme.of(context).colorScheme.brightness ==
+                                          Brightness.dark
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .onBackground
+                                          .withOpacity(.1)
+                                      : null,
                               colorMode: ColorMode.opacity,
                               datasets: item?.overviews,
                               showColorTip: true,

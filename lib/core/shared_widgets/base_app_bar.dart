@@ -67,7 +67,7 @@ class _BaseAppBarState extends State<BaseAppBar>
                             color: Colors.transparent,
                             clipBehavior: Clip.antiAlias,
                             child: Image.asset(
-                              "assets/images/logov2.png",
+                              AppConstant.getLogoPath(context),
                             ),
                           ),
                     onPressed:

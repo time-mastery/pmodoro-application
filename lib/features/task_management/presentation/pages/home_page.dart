@@ -60,64 +60,74 @@ class HomeView extends StatelessWidget {
                     bloc: context.read<HomeBloc>(),
                     builder: (context, state) {
                       if (state is FetchHomeDataSuccess) dailyItem = state.item;
-                      return Row(
-                        children: [
-                          SizedBox(
-                            width: SizeConfig.widthMultiplier * 20,
-                            height: SizeConfig.widthMultiplier * 20,
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: SizedBox(
-                                    width: SizeConfig.widthMultiplier * 20,
-                                    height: SizeConfig.widthMultiplier * 20,
-                                    child: CircularProgressIndicator(
-                                      value: dailyItem?.processPercentage ?? 0,
-                                      strokeWidth: 10,
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: SizeConfig.widthMultiplier * 20,
+                              height: SizeConfig.widthMultiplier * 20,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: SizedBox(
+                                      width: SizeConfig.widthMultiplier * 20,
+                                      height: SizeConfig.widthMultiplier * 20,
+                                      child: CircularProgressIndicator(
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withOpacity(.2),
+                                        value:
+                                            dailyItem?.processPercentage ?? 0,
+                                        strokeWidth: 10,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${dailyItem?.processPercentage.toString() ?? "0.0"} %",
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "${dailyItem?.processPercentage.toString() ?? "0.0"} %",
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(width: SizeConfig.widthMultiplier * 4),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  localization.dailyTasksDoneTitle,
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),
-                                Text(
-                                  dailyItem == null
-                                      ? "- - - - - -"
-                                      : localization.completedTasks(
-                                          dailyItem!.taskQuantity.toString(),
-                                          dailyItem!.completedTaskQuantity
-                                              .toString()),
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                            SizedBox(width: SizeConfig.widthMultiplier * 4),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    localization.dailyTasksDoneTitle,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(
+                                      height: SizeConfig.heightMultiplier * 2),
+                                  Text(
+                                    dailyItem == null
+                                        ? "- - - - - -"
+                                        : localization.completedTasks(
+                                            dailyItem!.taskQuantity.toString(),
+                                            dailyItem!.completedTaskQuantity
+                                                .toString()),
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     },
                   ),

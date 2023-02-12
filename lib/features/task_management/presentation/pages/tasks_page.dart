@@ -127,7 +127,10 @@ class DayWithoutTask extends StatelessWidget {
           height: SizeConfig.heightMultiplier * 2,
         ),
         IconButton(
-          onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName),
+          onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName)
+              .then((value) => context
+                  .read<TasksBloc>()
+                  .add(SpecificDateTasksFetched(DateTime.now()))),
           icon: const Icon(CupertinoIcons.add_circled_solid),
         ),
       ],

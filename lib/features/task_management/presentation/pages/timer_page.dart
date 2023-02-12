@@ -47,14 +47,14 @@ class TimerView extends StatelessWidget {
           TextButton(
             onPressed: () {
               context.read<TasksBloc>().add(
-                    CurrentPomodoroToDatabaseSaved(
-                      PomodoroEntity(
-                        duration: Utils.calculatePomodoroTime(
-                            TimerBloc.getDuration, duration),
-                        dateTime: DateTime.now().toString(),
-                      ),
-                    ),
-                  );
+                CurrentPomodoroToDatabaseSaved(
+                  PomodoroEntity(
+                    duration: Utils.calculatePomodoroTime(
+                        TimerBloc.getDuration, duration),
+                    dateTime: DateTime.now().toString(),
+                  ),
+                ),
+              );
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             },
             child: Text(
@@ -92,7 +92,10 @@ class TimerView extends StatelessWidget {
             ..showMaterialBanner(_showMaterialBanner(
               context,
               duration: state.duration,
-              taskUid: context.read<TimerBloc>().taskItem?.id,
+              taskUid: context
+                  .read<TimerBloc>()
+                  .taskItem
+                  ?.id,
             ));
         }
         if (state is StartTimerWithoutTaskFailure) {
@@ -114,24 +117,24 @@ class TimerView extends StatelessWidget {
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraint) =>
               SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraint.maxHeight),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SelectATaskToStart(),
-                  SizedBox(
-                    height: SizeConfig.heightMultiplier * 5,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SelectATaskToStart(),
+                      SizedBox(
+                        height: SizeConfig.heightMultiplier * 5,
+                      ),
+                      const TimerBar(),
+                      SizedBox(
+                        height: SizeConfig.heightMultiplier * 5,
+                      ),
+                      const TimerButtons(),
+                    ],
                   ),
-                  const TimerBar(),
-                  SizedBox(
-                    height: SizeConfig.heightMultiplier * 5,
-                  ),
-                  const TimerButtons(),
-                ],
+                ),
               ),
-            ),
-          ),
         ),
       ),
     );
@@ -146,19 +149,31 @@ class TimerBar extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * .5,
-        height: MediaQuery.of(context).size.width * .5,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width * .5,
+        height: MediaQuery
+            .of(context)
+            .size
+            .width * .5,
         child: Stack(
           children: [
             Align(
               alignment: Alignment.center,
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * .5,
-                height: MediaQuery.of(context).size.width * .5,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * .5,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .width * .5,
                 child: CircularProgressIndicator(
                   value:
-                      context.select((TimerBloc bloc) => bloc.state.duration) /
-                          TimerBloc.getDuration,
+                  context.select((TimerBloc bloc) => bloc.state.duration) /
+                      TimerBloc.getDuration,
                   strokeWidth: 7,
                 ),
               ),
@@ -184,7 +199,10 @@ class TimerButtons extends StatelessWidget {
             GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
+              backgroundColor: Theme
+                  .of(context)
+                  .colorScheme
+                  .secondary,
               onPressed: () {
                 if (state is TimerInProgress) {
                   context.read<TimerBloc>().add(TimerPaused());
@@ -203,7 +221,10 @@ class TimerButtons extends StatelessWidget {
               child: Icon(
                 (state is TimerInProgress) ? Ionicons.pause : Ionicons.play,
                 size: 30,
-                color: Theme.of(context).colorScheme.onSecondary,
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .onSecondary,
               ),
             ),
             const SizedBox(
@@ -212,14 +233,18 @@ class TimerButtons extends StatelessWidget {
             GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              onPressed: () => context.read<TimerBloc>()
+              backgroundColor: Theme
+                  .of(context)
+                  .colorScheme
+                  .primary,
+              onPressed: () =>
+              context.read<TimerBloc>()
                 ..add(SaveCurrentTimerStateDialogShowed(
                   duration: state.duration,
-                  taskItem: context.read<TimerBloc>().taskItem!,
-                ))
-                ..add(TimerTaskDeSelected())
-                ..add(TimerReset()),
+                  taskItem: context
+                      .read<TimerBloc>()
+                      .taskItem!,
+                ))..add(TimerTaskDeSelected())..add(TimerReset()),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
               child: const Icon(
@@ -245,9 +270,14 @@ class TimerText extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           Utils.formatSecToMinSec(timeInSecond: duration),
-          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme
+              .of(context)
+              .textTheme
+              .displaySmall
+              ?.copyWith(
+            fontWeight: FontWeight.bold,
+
+          ),
         ),
       );
     });

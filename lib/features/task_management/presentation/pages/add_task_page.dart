@@ -66,9 +66,10 @@ class _AddTaskViewState extends State<AddTaskView> {
       bloc: context.read<TasksBloc>(),
       listener: (context, state) {
         if (state is TaskAddFailure) {
-          showSnackBar(context,
-              title: localization.failureTitle,
-              color: Theme.of(context).primaryColor);
+          showSnackBar(
+            context,
+            title: localization.failureTitle,
+          );
         }
         if (state is TaskAddSuccess) {
           Navigator.pop(context);
@@ -99,23 +100,6 @@ class _AddTaskViewState extends State<AddTaskView> {
                       hint: localization.taskDescription,
                     ),
                     const SizedBox(height: 20),
-                    // Row(
-                    //   children: [
-                    //     Flexible(
-                    //       child:
-                    //           CustomFormField(hint: localization.categoryTitle),
-                    //     ),
-                    //     IconButton(
-                    //         onPressed: () {
-                    //           Navigator.pushNamed(
-                    //               context, AddCategoryPage.routeName);
-                    //         },
-                    //         icon: const Icon(
-                    //           Ionicons.add_circle_outline,
-                    //           size: 30,
-                    //         )),
-                    //   ],
-                    // ),
                     const SizedBox(height: 20),
                     GlobalDateTimePicker(
                       buttonTitle: "Select Deadline DateTime",

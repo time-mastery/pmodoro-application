@@ -41,21 +41,22 @@ class _CustomFormFieldState extends State<CustomFormField> {
       obscureText: obscure && widget.isPasswordField,
       maxLength: widget.maxLength,
       decoration: InputDecoration(
-          suffixIcon: widget.isPasswordField
-              ? GestureDetector(
-                  onTap: () {
-                    obscure = !obscure;
-                    setState(() {});
-                  },
-                  child: Icon(
-                    obscure ? Icons.visibility_off : Icons.visibility,
-                  ),
-                )
-              : null,
-          label: Text(
-            widget.hint ?? "",
-            textAlign: TextAlign.left,
-          )),
+        suffixIcon: widget.isPasswordField
+            ? GestureDetector(
+                onTap: () {
+                  obscure = !obscure;
+                  setState(() {});
+                },
+                child: Icon(
+                  obscure ? Icons.visibility_off : Icons.visibility,
+                ),
+              )
+            : null,
+        label: Text(
+          widget.hint ?? "",
+          textAlign: TextAlign.left,
+        ),
+      ),
       onChanged: (value) {
         if (widget.onChanged != null) {
           widget.onChanged!(value);
