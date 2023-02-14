@@ -38,10 +38,10 @@ class LocaleChanged extends SettingsEvent {
 }
 
 class ThemeChanged extends SettingsEvent {
-  final ThemeEntity themeEntity;
+  final ThemeParams themeParams;
 
-  const ThemeChanged(this.themeEntity);
+  const ThemeChanged(this.themeParams);
 
   @override
-  List<Object?> get props => [themeEntity];
+  List<Object?> get props => [themeParams];
 }

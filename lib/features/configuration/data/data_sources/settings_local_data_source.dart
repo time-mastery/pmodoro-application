@@ -40,7 +40,7 @@ class SettingsLocalDataSources {
     return await FStorage.read(FStorage.themeKey) ?? "light";
   }
 
-  Future<String> changeTheme(String title) async {
+  Future changeTheme(String title) async {
     return await FStorage.write(FStorage.themeKey, title) ?? title;
   }
 

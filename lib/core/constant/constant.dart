@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pomodore/core/resources/params/theme_params.dart';
 
 class AppConstant {
   /// dimens
@@ -87,6 +88,7 @@ class AppConstant {
       color: Colors.black,
     ),
   );
+
   static final defaultDarkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,
     cardColor: Colors.white.withOpacity(.1),
@@ -137,4 +139,9 @@ class AppConstant {
       color: Colors.white,
     ),
   );
+
+  static final List<ThemeParams> themes = [
+    ThemeParams("light", defaultLightTheme, "Light    ☀️"),
+    ThemeParams("dark", defaultDarkTheme, "Dark   🌑"),
+  ];
 }

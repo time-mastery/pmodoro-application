@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/src/material/theme_data.dart';
 import 'package:pomodore/core/resources/params/settings_params.dart';
+import 'package:pomodore/core/resources/params/theme_params.dart';
+import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/features/configuration/data/data_sources/settings_local_data_source.dart';
-import 'package:pomodore/features/configuration/data/models/theme_model.dart';
 import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
-import 'package:pomodore/features/configuration/domain/entities/theme_entity.dart';
 import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {
@@ -70,13 +70,15 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<Either<String, ThemeData>> changeTheme(ThemeEntity theme) async {
+  Future<Either<String, ThemeData>> changeTheme(ThemeParams theme) async {
     late Either<String, ThemeData> result;
 
     try {
-      await localDataSources.changeTheme(theme.title);
+      await localDataSources.changeTheme(theme.key);
       result = Right(theme.theme);
-    } catch (e) {
+    } catch (e, s) {
+      dPrint(e.toString());
+      dPrint(s.toString());
       result = const Left("error");
     }
 
@@ -89,7 +91,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
 
     try {
       var themeName = await localDataSources.getTheme();
-      result = Right(ThemeModel.titleToTheme(themeName));
+      result = Right(ThemeParams.titleToTheme(themeName));
     } catch (e) {
       result = const Left("error");
     }

@@ -9,10 +9,9 @@ import 'package:dartz/dartz.dart' as _i3;
 import 'package:flutter/material.dart' as _i12;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:pomodore/core/resources/params/settings_params.dart' as _i8;
+import 'package:pomodore/core/resources/params/theme_params.dart' as _i13;
 import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart'
     as _i6;
-import 'package:pomodore/features/configuration/domain/entities/theme_entity.dart'
-    as _i13;
 import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart'
     as _i2;
 import 'package:pomodore/features/configuration/domain/usecases/change_locale_usecase.dart'
@@ -226,24 +225,16 @@ class MockChangeThemeUseCase extends _i1.Mock
         ),
       ) as _i2.SettingsRepository);
   @override
-  _i5.Future<_i3.Either<String, _i12.ThemeData>> call(
-          {_i13.ThemeEntity? params}) =>
+  _i5.Future<_i3.Either<String, _i12.ThemeData>?> call(
+          {_i13.ThemeParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
           {#params: params},
         ),
-        returnValue: _i5.Future<_i3.Either<String, _i12.ThemeData>>.value(
-            _FakeEither_1<String, _i12.ThemeData>(
-          this,
-          Invocation.method(
-            #call,
-            [],
-            {#params: params},
-          ),
-        )),
-      ) as _i5.Future<_i3.Either<String, _i12.ThemeData>>);
+        returnValue: _i5.Future<_i3.Either<String, _i12.ThemeData>?>.value(),
+      ) as _i5.Future<_i3.Either<String, _i12.ThemeData>?>);
 }
 
 /// A class which mocks [GetThemeUseCase].

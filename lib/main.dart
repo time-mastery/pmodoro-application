@@ -52,8 +52,24 @@ void main() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Locale locale;
+  late ThemeData themeData;
+
+  @override
+  void initState() {
+    super.initState();
+
+    locale = const Locale("en");
+    themeData = AppConstant.defaultLightTheme;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +77,6 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return OrientationBuilder(
           builder: (context, orientation) {
-            Locale locale = const Locale("en");
-            ThemeData themeData = AppConstant.defaultLightTheme;
-
             if (state is InitDataFetchSuccess) {
               locale = state.locale;
               themeData = state.themeData;
