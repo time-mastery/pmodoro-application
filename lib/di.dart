@@ -7,8 +7,10 @@ import 'package:pomodore/features/configuration/data/repositories/settings_repos
 import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart';
 import 'package:pomodore/features/configuration/domain/usecases/change_locale_usecase.dart';
 import 'package:pomodore/features/configuration/domain/usecases/change_settings_usecase.dart';
+import 'package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart';
 import 'package:pomodore/features/configuration/domain/usecases/get_locale_usecase.dart';
 import 'package:pomodore/features/configuration/domain/usecases/get_settings_usecase.dart';
+import 'package:pomodore/features/configuration/domain/usecases/get_theme_usecase.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 import 'package:pomodore/features/task_management/data/repositories/category_repository_impl.dart';
@@ -68,29 +70,40 @@ Future inject() async {
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
   getIt.registerSingleton<AddCategoryUsecase>(AddCategoryUsecase(getIt()));
-  getIt.registerSingleton<GetSpecificDateTasksUseCase>(GetSpecificDateTasksUseCase(getIt()));
-  getIt.registerSingleton<GetAllCategoriesUseCase>(GetAllCategoriesUseCase(getIt()));
+  getIt.registerSingleton<GetSpecificDateTasksUseCase>(
+      GetSpecificDateTasksUseCase(getIt()));
+  getIt.registerSingleton<GetAllCategoriesUseCase>(
+      GetAllCategoriesUseCase(getIt()));
   getIt.registerSingleton<CompleteTaskUseCase>(CompleteTaskUseCase(getIt()));
   getIt.registerSingleton<DeleteTaskUseCase>(DeleteTaskUseCase(getIt()));
-  getIt.registerSingleton<AddPomodoroToDbUseCase>(AddPomodoroToDbUseCase(getIt()));
-  getIt.registerSingleton<GetTodayPomodorosUseCase>(GetTodayPomodorosUseCase(getIt()));
+  getIt.registerSingleton<AddPomodoroToDbUseCase>(
+      AddPomodoroToDbUseCase(getIt()));
+  getIt.registerSingleton<GetTodayPomodorosUseCase>(
+      GetTodayPomodorosUseCase(getIt()));
   getIt.registerSingleton<GetSettingsUseCase>(GetSettingsUseCase(getIt()));
-  getIt.registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
-  getIt.registerSingleton<GetDailyInformationUseCase>(GetDailyInformationUseCase(getIt()));
+  getIt
+      .registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
+  getIt.registerSingleton<GetDailyInformationUseCase>(
+      GetDailyInformationUseCase(getIt()));
   getIt.registerSingleton<GetTodayTasksUseCase>(GetTodayTasksUseCase(getIt()));
   getIt.registerSingleton<GetAnalysisUseCase>(GetAnalysisUseCase(getIt()));
   getIt.registerSingleton<ChangeLocaleUseCase>(ChangeLocaleUseCase(getIt()));
   getIt.registerSingleton<GetLocaleUseCase>(GetLocaleUseCase(getIt()));
+  getIt.registerSingleton<GetThemeUseCase>(GetThemeUseCase(getIt()));
+  getIt.registerSingleton<ChangeThemeUseCase>(ChangeThemeUseCase(getIt()));
 
   // inject blocs
   // global bloc
   getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: getIt()));
   getIt.registerSingleton<BaseBloc>(BaseBloc());
   getIt.registerFactory<SettingsBloc>(() => SettingsBloc(
-      getSettingUseCase: getIt(),
-      changeSettingsUseCase: getIt(),
-      changeLocaleUseCase: getIt(),
-      getLocaleUseCase: getIt()));
+        getSettingUseCase: getIt(),
+        changeSettingsUseCase: getIt(),
+        changeLocaleUseCase: getIt(),
+        getLocaleUseCase: getIt(),
+        changeThemeUseCase: getIt(),
+        getThemeUseCase: getIt(),
+      ));
   // local bloc
   getIt.registerFactory<TasksBloc>(() => TasksBloc(
         addTaskUsecase: getIt(),

@@ -80,9 +80,9 @@ class AppConstant {
       backgroundColor: Colors.white,
       elevation: 10,
     ),
-    switchTheme: SwitchThemeData(),
+    switchTheme: const SwitchThemeData(),
     inputDecorationTheme:
-        InputDecorationTheme(enabledBorder: UnderlineInputBorder()),
+        const InputDecorationTheme(enabledBorder: UnderlineInputBorder()),
     iconTheme: const IconThemeData(
       color: Colors.black,
     ),
@@ -125,8 +125,8 @@ class AppConstant {
       backgroundColor: Colors.black,
       elevation: 10,
     ),
-    switchTheme: SwitchThemeData(),
-    inputDecorationTheme: InputDecorationTheme(
+    switchTheme: const SwitchThemeData(),
+    inputDecorationTheme: const InputDecorationTheme(
       enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           color: Colors.white,

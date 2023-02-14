@@ -37,16 +37,36 @@ class ChangeLanguageSuccess extends SettingsState {
   List<Object?> get props => [locale];
 }
 
-class FetchLocaleSuccess extends SettingsState {
+class InitDataFetchSuccess extends SettingsState {
   final Locale locale;
+  final ThemeData themeData;
 
-  const FetchLocaleSuccess(this.locale);
+  const InitDataFetchSuccess({required this.locale, required this.themeData});
 
   @override
-  List<Object?> get props => [locale];
+  List<Object?> get props => [locale, themeData];
 }
 
-class FetchLocaleFailure extends SettingsState {
+class InitDataFetchFailure extends SettingsState {
+  @override
+  List<Object?> get props => [];
+}
+
+class ChangeThemeLoading extends SettingsState {
+  @override
+  List<Object?> get props => [];
+}
+
+class ChangeThemeSuccess extends SettingsState {
+  final ThemeData themeData;
+
+  const ChangeThemeSuccess(this.themeData);
+
+  @override
+  List<Object?> get props => [themeData];
+}
+
+class ChangeThemeFailure extends SettingsState {
   @override
   List<Object?> get props => [];
 }

@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/router/router.dart';
 import 'package:pomodore/core/utils/bloc_observer.dart';
@@ -33,7 +32,7 @@ void main() async {
         BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
         BlocProvider<SettingsBloc>(
             create: (context) =>
-                getIt.get<SettingsBloc>()..add(LocaleFetched())),
+                getIt.get<SettingsBloc>()..add(InitDataFetched())),
       ],
       child: const MyApp(),
     ),
@@ -63,13 +62,19 @@ class MyApp extends StatelessWidget {
         return OrientationBuilder(
           builder: (context, orientation) {
             Locale locale = const Locale("en");
+            ThemeData themeData = AppConstant.defaultLightTheme;
 
-            if (state is FetchLocaleSuccess) {
+            if (state is InitDataFetchSuccess) {
               locale = state.locale;
+              themeData = state.themeData;
             }
 
             if (state is ChangeLanguageSuccess) {
               locale = state.locale;
+            }
+
+            if (state is ChangeThemeSuccess) {
+              themeData = state.themeData;
             }
 
             return LayoutBuilder(builder: (context, constraints) {
@@ -77,9 +82,7 @@ class MyApp extends StatelessWidget {
               return MaterialApp(
                 title: AppConstant.appName,
                 onGenerateRoute: AppRouter.onGenerationRouter,
-                themeMode: ThemeMode.dark,
-                theme: AppConstant.defaultLightTheme,
-                darkTheme: AppConstant.defaultDarkTheme,
+                theme: themeData,
                 debugShowCheckedModeBanner: false,
                 localizationsDelegates: const [
                   AppLocalizations.delegate,

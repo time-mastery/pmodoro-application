@@ -35,6 +35,12 @@ class SettingsView extends StatelessWidget {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.sunny,
+        ),
+        onPressed: () {},
+      ),
       appBar: BaseAppBar(title: localization.settingsTitle),
       body: SingleChildScrollView(
         child: BlocBuilder<SettingsBloc, SettingsState>(

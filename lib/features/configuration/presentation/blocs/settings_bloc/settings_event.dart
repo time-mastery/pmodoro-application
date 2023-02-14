@@ -9,7 +9,7 @@ class SettingsFromDeviceFetched extends SettingsEvent {
   List<Object?> get props => [];
 }
 
-class LocaleFetched extends SettingsEvent {
+class InitDataFetched extends SettingsEvent {
   @override
   List<Object?> get props => [];
 }
@@ -35,4 +35,13 @@ class LocaleChanged extends SettingsEvent {
 
   @override
   List<Object?> get props => [local];
+}
+
+class ThemeChanged extends SettingsEvent {
+  final ThemeEntity themeEntity;
+
+  const ThemeChanged(this.themeEntity);
+
+  @override
+  List<Object?> get props => [themeEntity];
 }
