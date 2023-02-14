@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-import '../constant/constant.dart';
 
 class GlobalDateTimePicker extends StatelessWidget {
   const GlobalDateTimePicker({
@@ -21,9 +20,7 @@ class GlobalDateTimePicker extends StatelessWidget {
           DatePicker.showDateTimePicker(
             context,
             showTitleActions: true,
-            theme: const DatePickerTheme(
-              backgroundColor: AppConstant.primaryColor,
-            ),
+            theme: const DatePickerTheme(),
             minTime: DateTime.now(),
             maxTime: DateTime(2024, 6, 7),
             onChanged: onChanged,

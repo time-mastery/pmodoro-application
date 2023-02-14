@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
               color: Colors.transparent,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: Image.asset(
-                "assets/images/logov2.png",
+                AppConstant.getLogoPath(context),
                 width: SizeConfig.widthMultiplier * 35,
                 height: SizeConfig.widthMultiplier * 35,
               ),

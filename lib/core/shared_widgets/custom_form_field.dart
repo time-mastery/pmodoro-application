@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pomodore/core/constant/constant.dart';
 
 class CustomFormField extends StatefulWidget {
   const CustomFormField({
@@ -42,38 +41,22 @@ class _CustomFormFieldState extends State<CustomFormField> {
       obscureText: obscure && widget.isPasswordField,
       maxLength: widget.maxLength,
       decoration: InputDecoration(
-          suffixIcon: widget.isPasswordField
-              ? GestureDetector(
-                  onTap: () {
-                    obscure = !obscure;
-                    setState(() {});
-                  },
-                  child: Icon(
-                    obscure ? Icons.visibility_off : Icons.visibility,
-                    color: AppConstant.swatchColor,
-                  ),
-                )
-              : null,
-          focusedBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          label: Text(
-            widget.hint ?? "",
-            textAlign: TextAlign.left,
-          )),
+        suffixIcon: widget.isPasswordField
+            ? GestureDetector(
+                onTap: () {
+                  obscure = !obscure;
+                  setState(() {});
+                },
+                child: Icon(
+                  obscure ? Icons.visibility_off : Icons.visibility,
+                ),
+              )
+            : null,
+        label: Text(
+          widget.hint ?? "",
+          textAlign: TextAlign.left,
+        ),
+      ),
       onChanged: (value) {
         if (widget.onChanged != null) {
           widget.onChanged!(value);
@@ -103,7 +86,6 @@ class _CustomFormFieldState extends State<CustomFormField> {
         }
         return null;
       },
-      cursorColor: AppConstant.swatchColor,
       keyboardType: widget.textInputType,
     );
   }

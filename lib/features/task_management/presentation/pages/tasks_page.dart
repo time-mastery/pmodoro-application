@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/core/utils/size_config.dart';
@@ -67,7 +66,6 @@ class TaskView extends StatelessWidget {
                         return Column(
                           children: const [
                             Divider(
-                              color: AppConstant.secondaryColor,
                               thickness: 8,
                               endIndent: 20,
                               indent: 20,
@@ -116,13 +114,8 @@ class DayWithoutTask extends StatelessWidget {
         SizedBox(
           height: SizeConfig.heightMultiplier * 5,
         ),
-        Text(
-          localization.emptyTaskListTitle,
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(color: Colors.cyanAccent),
-        ),
+        Text(localization.emptyTaskListTitle,
+            style: Theme.of(context).textTheme.headlineSmall),
         SizedBox(
           height: SizeConfig.heightMultiplier * 2,
         ),
@@ -134,7 +127,10 @@ class DayWithoutTask extends StatelessWidget {
           height: SizeConfig.heightMultiplier * 2,
         ),
         IconButton(
-          onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName),
+          onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName)
+              .then((value) => context
+                  .read<TasksBloc>()
+                  .add(SpecificDateTasksFetched(DateTime.now()))),
           icon: const Icon(CupertinoIcons.add_circled_solid),
         ),
       ],

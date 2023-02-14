@@ -6,8 +6,10 @@ import 'package:mockito/mockito.dart';
 import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
 import 'package:pomodore/features/configuration/domain/usecases/change_locale_usecase.dart';
 import 'package:pomodore/features/configuration/domain/usecases/change_settings_usecase.dart';
+import 'package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart';
 import 'package:pomodore/features/configuration/domain/usecases/get_locale_usecase.dart';
 import 'package:pomodore/features/configuration/domain/usecases/get_settings_usecase.dart';
+import 'package:pomodore/features/configuration/domain/usecases/get_theme_usecase.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 
 import 'settings_bloc_test.mocks.dart';
@@ -17,18 +19,25 @@ import 'settings_bloc_test.mocks.dart';
   ChangeSettingsUseCase,
   ChangeLocaleUseCase,
   GetLocaleUseCase,
+  ChangeThemeUseCase,
+  GetThemeUseCase,
 ])
 void main() {
   MockGetSettingsUseCase getSettingsUseCase = MockGetSettingsUseCase();
   MockChangeSettingsUseCase changeSettingsUseCase = MockChangeSettingsUseCase();
-  ChangeLocaleUseCase changeLocaleUseCase = MockChangeLocaleUseCase();
-  GetLocaleUseCase getLocaleUseCase = MockGetLocaleUseCase();
+  MockChangeLocaleUseCase changeLocaleUseCase = MockChangeLocaleUseCase();
+  MockGetLocaleUseCase getLocaleUseCase = MockGetLocaleUseCase();
+  MockChangeThemeUseCase changeThemeUseCase = MockChangeThemeUseCase();
+  MockGetThemeUseCase getThemeUseCase = MockGetThemeUseCase();
 
   getBlocInstance() => SettingsBloc(
-      getSettingUseCase: getSettingsUseCase,
-      changeSettingsUseCase: changeSettingsUseCase,
-      changeLocaleUseCase: changeLocaleUseCase,
-      getLocaleUseCase: getLocaleUseCase);
+        getSettingUseCase: getSettingsUseCase,
+        changeSettingsUseCase: changeSettingsUseCase,
+        changeLocaleUseCase: changeLocaleUseCase,
+        getLocaleUseCase: getLocaleUseCase,
+        getThemeUseCase: getThemeUseCase,
+        changeThemeUseCase: changeThemeUseCase,
+      );
 
   getSettingEntity() => const SettingsEntity(
         notification: true,

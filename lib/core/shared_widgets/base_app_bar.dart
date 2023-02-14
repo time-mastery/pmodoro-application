@@ -67,7 +67,7 @@ class _BaseAppBarState extends State<BaseAppBar>
                             color: Colors.transparent,
                             clipBehavior: Clip.antiAlias,
                             child: Image.asset(
-                              "assets/images/logov2.png",
+                              AppConstant.getLogoPath(context),
                             ),
                           ),
                     onPressed:
@@ -76,10 +76,7 @@ class _BaseAppBarState extends State<BaseAppBar>
                 )),
             title: Text(
               widget.title,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: AppConstant.secondaryColor),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             actions: [
               IconButton(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../constant/constant.dart';
 
 class GlobalIndicator extends StatelessWidget {
   const GlobalIndicator({Key? key, this.color, this.size, this.width})
@@ -12,7 +11,7 @@ class GlobalIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpinKitRing(
-      color: color ?? AppConstant.primaryColor,
+      color: color ?? Theme.of(context).primaryColor,
       size: size ?? 35,
       lineWidth: width ?? 1.7,
     );

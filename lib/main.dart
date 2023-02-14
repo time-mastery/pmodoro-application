@@ -17,8 +17,8 @@ import 'core/utils/size_config.dart';
 import 'features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
-      .copyWith(statusBarIconBrightness: Brightness.light));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
+      .copyWith(statusBarIconBrightness: Brightness.dark));
 
   // Dependency injection
   await inject();
@@ -32,7 +32,7 @@ void main() async {
         BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
         BlocProvider<SettingsBloc>(
             create: (context) =>
-                getIt.get<SettingsBloc>()..add(LocaleFetched())),
+                getIt.get<SettingsBloc>()..add(InitDataFetched())),
       ],
       child: const MyApp(),
     ),
@@ -52,8 +52,24 @@ void main() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Locale locale;
+  late ThemeData themeData;
+
+  @override
+  void initState() {
+    super.initState();
+
+    locale = const Locale("en");
+    themeData = AppConstant.defaultLightTheme;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +77,17 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return OrientationBuilder(
           builder: (context, orientation) {
-            Locale locale = const Locale("en");
-
-            if (state is FetchLocaleSuccess) {
+            if (state is InitDataFetchSuccess) {
               locale = state.locale;
+              themeData = state.themeData;
             }
 
             if (state is ChangeLanguageSuccess) {
               locale = state.locale;
+            }
+
+            if (state is ChangeThemeSuccess) {
+              themeData = state.themeData;
             }
 
             return LayoutBuilder(builder: (context, constraints) {
@@ -76,7 +95,7 @@ class MyApp extends StatelessWidget {
               return MaterialApp(
                 title: AppConstant.appName,
                 onGenerateRoute: AppRouter.onGenerationRouter,
-                theme: AppConstant.getTheme(context),
+                theme: themeData,
                 debugShowCheckedModeBanner: false,
                 localizationsDelegates: const [
                   AppLocalizations.delegate,

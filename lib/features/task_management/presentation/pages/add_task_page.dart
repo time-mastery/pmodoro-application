@@ -8,7 +8,6 @@ import 'package:pomodore/core/shared_widgets/global_snack.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 
-import '../../../../core/constant/constant.dart';
 import '../../../../core/shared_widgets/global_indicator.dart';
 import '../../../../core/utils/utils.dart';
 import '../../../../di.dart';
@@ -67,9 +66,10 @@ class _AddTaskViewState extends State<AddTaskView> {
       bloc: context.read<TasksBloc>(),
       listener: (context, state) {
         if (state is TaskAddFailure) {
-          showSnackBar(context,
-              title: localization.failureTitle,
-              color: AppConstant.primaryColor);
+          showSnackBar(
+            context,
+            title: localization.failureTitle,
+          );
         }
         if (state is TaskAddSuccess) {
           Navigator.pop(context);
@@ -100,23 +100,6 @@ class _AddTaskViewState extends State<AddTaskView> {
                       hint: localization.taskDescription,
                     ),
                     const SizedBox(height: 20),
-                    // Row(
-                    //   children: [
-                    //     Flexible(
-                    //       child:
-                    //           CustomFormField(hint: localization.categoryTitle),
-                    //     ),
-                    //     IconButton(
-                    //         onPressed: () {
-                    //           Navigator.pushNamed(
-                    //               context, AddCategoryPage.routeName);
-                    //         },
-                    //         icon: const Icon(
-                    //           Ionicons.add_circle_outline,
-                    //           size: 30,
-                    //         )),
-                    //   ],
-                    // ),
                     const SizedBox(height: 20),
                     GlobalDateTimePicker(
                       buttonTitle: "Select Deadline DateTime",
@@ -147,7 +130,6 @@ class _AddTaskViewState extends State<AddTaskView> {
                           }
                         }
                       },
-                      backgroundColor: AppConstant.secondaryColor,
                       child: (state is TaskAddLoading)
                           ? const GlobalIndicator()
                           : Text(localization.submitTask),

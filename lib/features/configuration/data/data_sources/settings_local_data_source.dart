@@ -36,6 +36,14 @@ class SettingsLocalDataSources {
     return locale;
   }
 
+  Future<String> getTheme() async {
+    return await FStorage.read(FStorage.themeKey) ?? "light";
+  }
+
+  Future changeTheme(String title) async {
+    return await FStorage.write(FStorage.themeKey, title) ?? title;
+  }
+
   Future<SettingsEntity> changeSettings(ChangeSettingsParams params) async {
     try {
       await FStorage.write(params.key, params.value ? "1" : "0");

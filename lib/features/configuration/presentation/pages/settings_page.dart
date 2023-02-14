@@ -38,13 +38,16 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       appBar: BaseAppBar(title: localization.settingsTitle),
       body: SingleChildScrollView(
-        child: BlocBuilder<SettingsBloc, SettingsState>(
+        child: BlocConsumer(
+          bloc: context.read<SettingsBloc>(),
+          listener: (BuildContext context, Object? state) {},
           builder: (context, state) {
             if (state is SettingFetchingSuccess) {
               SettingsEntity entity = state.item;
               return Column(
                 children: [
                   SizedBox(height: SizeConfig.heightMultiplier * 3),
+                  const ChangeThemeBottomSheet(),
                   SwitchListTile.adaptive(
                     title: Row(
                       children: [
@@ -74,12 +77,14 @@ class SettingsView extends StatelessWidget {
                     ),
                     value: entity.sound,
                     onChanged: (value) {
-                      context
-                          .read<SettingsBloc>()
-                          .add(SettingsChanged(ChangeSettingsParams(
-                            key: FStorage.soundKey,
-                            value: value,
-                          )));
+                      context.read<SettingsBloc>().add(
+                            SettingsChanged(
+                              ChangeSettingsParams(
+                                key: FStorage.soundKey,
+                                value: value,
+                              ),
+                            ),
+                          );
                     },
                   ),
                   SizedBox(height: SizeConfig.heightMultiplier * .5),
@@ -117,12 +122,14 @@ class SettingsView extends StatelessWidget {
                     ),
                     value: entity.appUpdates,
                     onChanged: (value) {
-                      context
-                          .read<SettingsBloc>()
-                          .add(SettingsChanged(ChangeSettingsParams(
-                            key: FStorage.appUpdateKey,
-                            value: value,
-                          )));
+                      context.read<SettingsBloc>().add(
+                            SettingsChanged(
+                              ChangeSettingsParams(
+                                key: FStorage.appUpdateKey,
+                                value: value,
+                              ),
+                            ),
+                          );
                     },
                   ),
                   SizedBox(height: SizeConfig.heightMultiplier * .5),
@@ -136,12 +143,14 @@ class SettingsView extends StatelessWidget {
                     ),
                     value: entity.newTips,
                     onChanged: (value) {
-                      context
-                          .read<SettingsBloc>()
-                          .add(SettingsChanged(ChangeSettingsParams(
-                            key: FStorage.newTipKey,
-                            value: value,
-                          )));
+                      context.read<SettingsBloc>().add(
+                            SettingsChanged(
+                              ChangeSettingsParams(
+                                key: FStorage.newTipKey,
+                                value: value,
+                              ),
+                            ),
+                          );
                     },
                   ),
                   SizedBox(height: SizeConfig.heightMultiplier * .5),
@@ -161,12 +170,14 @@ class SettingsView extends StatelessWidget {
                     ),
                     value: entity.ads,
                     onChanged: (value) {
-                      context
-                          .read<SettingsBloc>()
-                          .add(SettingsChanged(ChangeSettingsParams(
-                            key: FStorage.showAdsKey,
-                            value: value,
-                          )));
+                      context.read<SettingsBloc>().add(
+                            SettingsChanged(
+                              ChangeSettingsParams(
+                                key: FStorage.showAdsKey,
+                                value: value,
+                              ),
+                            ),
+                          );
                     },
                   ),
                   SizedBox(height: SizeConfig.heightMultiplier * .5),
@@ -192,9 +203,7 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
         builder: (BuildContext context) {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
-              decoration: const BoxDecoration(
-                color: AppConstant.scaffoldColor,
-              ),
+              decoration: const BoxDecoration(),
               child: child ?? Container());
         },
       );
@@ -247,11 +256,13 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 2),
                               child: Card(
+                                elevation: 0,
                                 child: InkWell(
                                   onTap: () {
                                     context.read<SettingsBloc>().add(
                                         LocaleChanged(
                                             flags[index].languageCode));
+                                    Navigator.pop(context);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(20.0),
@@ -262,7 +273,6 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                                           .bodyLarge
                                           ?.copyWith(
                                             fontStyle: FontStyle.italic,
-                                            color: AppConstant.darkTextColor,
                                           ),
                                       textAlign: TextAlign.start,
                                     ),
@@ -293,9 +303,7 @@ class ChangeThemeBottomSheet extends StatelessWidget {
         builder: (BuildContext context) {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
-              decoration: const BoxDecoration(
-                color: AppConstant.scaffoldColor,
-              ),
+              decoration: const BoxDecoration(),
               child: child ?? Container());
         },
       );
@@ -337,25 +345,36 @@ class ChangeThemeBottomSheet extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: GridView.count(
-                          crossAxisCount: 3,
-                          children: List.generate(
-                            Colors.primaries.length,
-                            (index) => Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.primaries[index]
-                                      .withOpacity(index == 1 ? .2 : 1),
-                                  shape: BoxShape.circle,
+                          child: ListView.builder(
+                        itemCount: AppConstant.themes.length,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 2),
+                          child: Card(
+                            elevation: 0,
+                            child: InkWell(
+                              onTap: () {
+                                context.read<SettingsBloc>().add(
+                                    ThemeChanged(AppConstant.themes[index]));
+                                Navigator.pop(context);
+                              },
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Text(
+                                    AppConstant.themes[index].title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.start,
+                                  ),
                                 ),
-                                child:
-                                    index == 1 ? const Icon(Icons.check) : null,
                               ),
                             ),
                           ),
                         ),
-                      ),
+                      )),
                     ],
                   ));
             },

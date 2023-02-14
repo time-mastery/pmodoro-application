@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/core/utils/size_config.dart';
@@ -66,7 +65,6 @@ class AnalysisView extends StatelessWidget {
                       width: SizeConfig.widthMultiplier * 90,
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: AppConstant.primaryColor.withOpacity(.1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
@@ -91,7 +89,6 @@ class AnalysisView extends StatelessWidget {
                   Center(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppConstant.primaryColor.withOpacity(.1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Directionality(
@@ -107,6 +104,8 @@ class AnalysisView extends StatelessWidget {
                             series: <
                                 LineSeries<YearlyAnalyzeItemEntity, String>>[
                               LineSeries<YearlyAnalyzeItemEntity, String>(
+                                color: Theme.of(context).colorScheme.secondary,
+                                width: 5,
                                 dataSource: item?.yearlyAnalyze ?? [],
                                 xValueMapper:
                                     (YearlyAnalyzeItemEntity sales, _) =>
@@ -126,7 +125,6 @@ class AnalysisView extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: AppConstant.primaryColor.withOpacity(.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
@@ -144,17 +142,24 @@ class AnalysisView extends StatelessWidget {
                           child: Directionality(
                             textDirection: TextDirection.ltr,
                             child: HeatMap(
-                              textColor: AppConstant.textColor,
                               size: 22,
                               scrollable: true,
                               fontSize: 9,
-                              showText: false,
+                              showText: true,
                               defaultColor:
-                                  AppConstant.textColor.withOpacity(.1),
+                                  Theme.of(context).colorScheme.brightness ==
+                                          Brightness.dark
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .onBackground
+                                          .withOpacity(.1)
+                                      : null,
                               colorMode: ColorMode.opacity,
                               datasets: item?.overviews,
                               showColorTip: true,
-                              colorsets: const {1: AppConstant.primaryColor},
+                              colorsets: {
+                                1: Theme.of(context).colorScheme.secondary
+                              },
                               colorTipCount: 10,
                               colorTipHelper: [
                                 Padding(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 
-import '../../../../core/constant/constant.dart';
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem({
@@ -23,7 +22,6 @@ class NotificationItem extends StatelessWidget {
       child: Container(
         height: SizeConfig.heightMultiplier * 15,
         decoration: BoxDecoration(
-          color: AppConstant.secondaryColor.withOpacity(.08),
           borderRadius: BorderRadius.circular(15),
         ),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),

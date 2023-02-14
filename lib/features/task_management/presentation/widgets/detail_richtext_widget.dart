@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constant/constant.dart';
 import '../../../../exports.dart';
 
 class DetailRichTextWidget extends StatelessWidget {
@@ -26,7 +25,6 @@ class DetailRichTextWidget extends StatelessWidget {
           TextSpan(
             text: " $count ",
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  color: AppConstant.swatchColor,
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.bold,
                 ),

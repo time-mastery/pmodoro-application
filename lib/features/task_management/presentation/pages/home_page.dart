@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/core/utils/size_config.dart';
@@ -51,81 +50,87 @@ class HomeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: SizeConfig.heightMultiplier * 2),
-            Container(
+            SizedBox(
               width: SizeConfig.widthMultiplier * 100,
               height: SizeConfig.heightMultiplier * 20,
-              decoration: BoxDecoration(
-                color: AppConstant.swatchColor.withOpacity(.09),
-                borderRadius: BorderRadius.circular(20),
-              ),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: BlocBuilder(
-                  bloc: context.read<HomeBloc>(),
-                  builder: (context, state) {
-                    if (state is FetchHomeDataSuccess) dailyItem = state.item;
-                    return Row(
-                      children: [
-                        SizedBox(
-                          width: SizeConfig.widthMultiplier * 20,
-                          height: SizeConfig.widthMultiplier * 20,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.center,
-                                child: SizedBox(
-                                  width: SizeConfig.widthMultiplier * 20,
-                                  height: SizeConfig.widthMultiplier * 20,
-                                  child: CircularProgressIndicator(
-                                    value: dailyItem?.processPercentage ?? 0,
-                                    strokeWidth: 10,
-                                    backgroundColor:
-                                        AppConstant.swatchColor.withOpacity(.2),
-                                    color: AppConstant.swatchColor,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Card(
+                  child: BlocBuilder(
+                    bloc: context.read<HomeBloc>(),
+                    builder: (context, state) {
+                      if (state is FetchHomeDataSuccess) dailyItem = state.item;
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: SizeConfig.widthMultiplier * 20,
+                              height: SizeConfig.widthMultiplier * 20,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: SizedBox(
+                                      width: SizeConfig.widthMultiplier * 20,
+                                      height: SizeConfig.widthMultiplier * 20,
+                                      child: CircularProgressIndicator(
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withOpacity(.2),
+                                        value:
+                                            dailyItem?.processPercentage ?? 0,
+                                        strokeWidth: 10,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "${dailyItem?.processPercentage.toString() ?? "0.0"} %",
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "${dailyItem?.processPercentage.toString() ?? "0.0"} %",
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
+                            ),
+                            SizedBox(width: SizeConfig.widthMultiplier * 4),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    localization.dailyTasksDoneTitle,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(
+                                      height: SizeConfig.heightMultiplier * 2),
+                                  Text(
+                                    dailyItem == null
+                                        ? "- - - - - -"
+                                        : localization.completedTasks(
+                                            dailyItem!.taskQuantity.toString(),
+                                            dailyItem!.completedTaskQuantity
+                                                .toString()),
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        SizedBox(width: SizeConfig.widthMultiplier * 4),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                localization.dailyTasksDoneTitle,
-                                style: Theme.of(context).textTheme.titleLarge,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              Text(
-                                dailyItem == null
-                                    ? "- - - - - -"
-                                    : localization.completedTasks(
-                                        dailyItem!.taskQuantity.toString(),
-                                        dailyItem!.completedTaskQuantity
-                                            .toString()),
-                                style: Theme.of(context).textTheme.bodySmall,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -160,13 +165,8 @@ class HomeView extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          localization.emptyTaskListTitle,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(color: Colors.cyanAccent),
-                        ),
+                        Text(localization.emptyTaskListTitle,
+                            style: Theme.of(context).textTheme.headlineSmall),
                         SizedBox(
                           height: SizeConfig.heightMultiplier * 2,
                         ),
