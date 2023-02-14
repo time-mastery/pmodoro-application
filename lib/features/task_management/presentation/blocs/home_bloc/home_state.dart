@@ -28,3 +28,37 @@ class FetchHomeDataFail extends HomeState {
   @override
   List<Object?> get props => [];
 }
+
+class CheckDailyGoalLoading extends HomeState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CheckDailyGoalSuccess extends HomeState {
+  final bool dailyGoalSubmitted;
+
+  const CheckDailyGoalSuccess(this.dailyGoalSubmitted);
+
+  @override
+  List<Object?> get props => [dailyGoalSubmitted];
+}
+
+class CheckDailyGoalFailure extends HomeState {
+  @override
+  List<Object?> get props => [];
+}
+
+class SaveDailyGoalLoading extends HomeState {
+  @override
+  List<Object?> get props => [];
+}
+
+class SaveDailyGoalSuccess extends HomeState {
+  @override
+  List<Object?> get props => [];
+}
+
+class SaveDailyGoalFailure extends HomeState {
+  @override
+  List<Object?> get props => [];
+}

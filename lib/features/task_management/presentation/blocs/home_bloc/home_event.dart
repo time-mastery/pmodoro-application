@@ -18,7 +18,16 @@ class HomeDataFetched extends HomeEvent {
   }
 }
 
-class TaskTimerStarted extends HomeEvent {
+class DailyGoalChecked extends HomeEvent {
   @override
   List<Object?> get props => [];
+}
+
+class DailyGoalSaved extends HomeEvent {
+  final int count;
+
+  const DailyGoalSaved(this.count);
+
+  @override
+  List<Object?> get props => [count];
 }

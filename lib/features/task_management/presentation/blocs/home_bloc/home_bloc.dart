@@ -8,6 +8,7 @@ import '../../../domain/entities/task_entity.dart';
 import '../../../domain/usecases/get_daily_information_usecase.dart';
 
 part 'home_event.dart';
+
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
@@ -20,14 +21,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) {});
     on<HomeDataFetched>(_onFetchHomeData);
-    on<TaskTimerStarted>(_onStartTimerTask);
   }
 
   _onFetchHomeData(HomeDataFetched event, Emitter emit) async {
     emit(FetchHomeDataLoading());
 
-    Either<String, List<TaskEntity>> tasks = await getTodayTasksUseCase.call(params: event.date);
-    Either<String, DailyInformationEntity> dailyInfo = await getDailyInformationUseCase.call();
+    Either<String, List<TaskEntity>> tasks =
+        await getTodayTasksUseCase.call(params: event.date);
+    Either<String, DailyInformationEntity> dailyInfo =
+        await getDailyInformationUseCase.call();
 
     tasks.fold(
       (l) => emit(FetchHomeDataFail()),
@@ -39,6 +41,4 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       },
     );
   }
-
-  _onStartTimerTask(TaskTimerStarted event, Emitter emit) {}
 }
