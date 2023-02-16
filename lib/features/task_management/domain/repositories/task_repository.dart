@@ -21,6 +21,10 @@ abstract class TaskRepository {
 
   Future<Either<String, AnalysisEntity>> getAnalysis();
 
+  Future<Either<String, bool>> checkDailyGoal();
+
+  Future<Either<String, bool>> saveDailyGoal(int count);
+
   Future getTaskById(String id);
 
   Future getCompletedTask();

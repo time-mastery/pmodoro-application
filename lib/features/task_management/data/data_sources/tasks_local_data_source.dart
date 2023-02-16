@@ -217,6 +217,64 @@ class TasksLocalDataSource {
     return item;
   }
 
+  Future<bool> saveDailyGoal(int count) async {
+    try {
+      Map<String, Object?> data = {
+        "count": count,
+        "dateTime": DateTime.now().toString()
+      };
+      await db.insert(DatabaseHelper.dailyGoalTable, data);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<int?> getDailyGoalQuantity() async {
+    int? count;
+    try {
+      const query = '''
+      SELECT * FROM ${DatabaseHelper.dailyGoalTable}
+      WHERE dateTime >= ? AND dateTime < ?
+      ''';
+
+      List<Map<String, dynamic>> records = await db.rawQuery(query, [
+        Utils.formatDateToYYYYMMDD(DateTime.now()),
+        Utils.formatDateToYYYYMMDD(DateTime.now().add(const Duration(days: 1))),
+      ]);
+
+      if (records.isNotEmpty) {
+        count = int.parse(records.first["count"]);
+      }
+    } catch (e) {
+      rethrow;
+    }
+
+    return count;
+  }
+
+  Future<bool?> checkDailyGoal() async {
+    bool? result;
+    try {
+      const query = '''
+      SELECT * FROM ${DatabaseHelper.dailyGoalTable}
+      WHERE dateTime >= ? AND dateTime < ?
+      ''';
+
+      List<Map<String, dynamic>> records = await db.rawQuery(query, [
+        Utils.formatDateToYYYYMMDD(DateTime.now()),
+        Utils.formatDateToYYYYMMDD(DateTime.now().add(const Duration(days: 1))),
+      ]);
+
+      result = records.isNotEmpty;
+    } catch (e) {
+      dPrint(e.toString());
+      rethrow;
+    }
+
+    return result;
+  }
+
   getTaskById(String id) {}
 
   getCompletedTask() {}

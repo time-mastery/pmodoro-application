@@ -34,7 +34,7 @@ class TaskRepositoryImpl implements TaskRepository {
     late Either<String, List<TaskEntity>> result;
 
     List<Map<String, dynamic>>? rawList =
-    await localDataSource.getSpecificDateTasks(date);
+        await localDataSource.getSpecificDateTasks(date);
 
     if (rawList != null) {
       List<TaskEntity> list = TaskModel.parseRawList(rawList);
@@ -81,7 +81,7 @@ class TaskRepositoryImpl implements TaskRepository {
     late Either<String, List<PomodoroEntity>> result;
 
     List<Map<String, dynamic>>? rawList =
-    await localDataSource.getSpecificDateTasks(DateTime.now());
+        await localDataSource.getSpecificDateTasks(DateTime.now());
 
     if (rawList != null) {
       List<PomodoroEntity> convertedList = PomodoroModel.parseRawList(rawList);
@@ -113,9 +113,11 @@ class TaskRepositoryImpl implements TaskRepository {
     late Either<String, DailyInformationEntity> result;
 
     int completedTasksQuantity =
-    await localDataSource.getCompletedTaskQuantity();
+        await localDataSource.getCompletedTaskQuantity();
     int tasksQuantity = await localDataSource.getAllTodayTaskQuantity();
+    int dailyGoal = await localDataSource.getDailyGoalQuantity() ?? 1;
     DailyInformationEntity item = DailyInformationEntity(
+        dailyGoalQuantity: dailyGoal,
         taskQuantity: tasksQuantity,
         completedTaskQuantity: completedTasksQuantity,
         processPercentage: tasksQuantity == 0
@@ -140,6 +142,34 @@ class TaskRepositoryImpl implements TaskRepository {
     if (rawData != null) {
       AnalysisEntity analysis = AnalysisModel.fromJson(rawData);
       result = Right(analysis);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
+  }
+
+  @override
+  Future<Either<String, bool>> checkDailyGoal() async {
+    late Either<String, bool> result;
+
+    bool? rawData = await localDataSource.checkDailyGoal();
+    if (rawData != null) {
+      result = Right(rawData);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
+  }
+
+  @override
+  Future<Either<String, bool>> saveDailyGoal(int count) async {
+    late Either<String, bool> result;
+
+    bool rawData = await localDataSource.saveDailyGoal(count);
+    if (rawData) {
+      result = Right(rawData);
     } else {
       result = const Left("error");
     }
