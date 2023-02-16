@@ -1,10 +1,8 @@
-import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/resources/params/settings_params.dart';
 import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
 import 'package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart';

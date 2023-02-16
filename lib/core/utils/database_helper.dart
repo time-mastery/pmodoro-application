@@ -12,6 +12,7 @@ class DatabaseHelper {
   static const taskTable = 'tasks';
   static const categoryTable = 'categories';
   static const pomodoroTable = 'pomodoros';
+  static const dailyGoalTable = 'dailyGoal';
 
   static Database? _database;
 
@@ -56,6 +57,13 @@ class DatabaseHelper {
             _id INTEGER PRIMARY KEY,
             taskUid TEXT NULL,
             duration INTEGER NOT NULL,
+            dateTime TEXT NOT NULL
+            )
+          ''');
+    batch.execute('''
+          CREATE TABLE $dailyGoalTable (
+            _id INTEGER PRIMARY KEY,
+            count TEXT NULL,
             dateTime TEXT NOT NULL
             )
           ''');
