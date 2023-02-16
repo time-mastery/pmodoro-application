@@ -53,5 +53,10 @@
     "startTimerWithoutTaskWarning":"Bitte wählen Sie eine Aufgabe aus!",
     "todayCompletedTask":"Today's Completed Task :",
     "lessTitle":"less",
-    "moreTitle":"more"
-}
+    "moreTitle":"more",
+    "selectDailyGoalTitle":"Select daily goal :",
+    "saveDailyGoalButton":"Save",
+    "dailyGoalTitle":"Daily Goal",
+    "dailyGoalHint":"How many task you can do in one day :)",
+    "submitButton":"Submit"
+  }

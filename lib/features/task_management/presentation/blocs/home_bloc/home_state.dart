@@ -62,3 +62,17 @@ class SaveDailyGoalFailure extends HomeState {
   @override
   List<Object?> get props => [];
 }
+
+class UpdateDailyGoalSuccess extends HomeState {
+  final int value;
+
+  const UpdateDailyGoalSuccess(this.value);
+
+  @override
+  List<Object?> get props => [value];
+}
+
+class UpdateDailyGoalLoading extends HomeState {
+  @override
+  List<Object?> get props => [];
+}

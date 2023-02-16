@@ -19,6 +19,7 @@ import 'package:pomodore/features/task_management/domain/repositories/task_repos
 import 'package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/check_daily_goal_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
@@ -26,6 +27,7 @@ import 'package:pomodore/features/task_management/domain/usecases/get_analysis_u
 import 'package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_today_pomodoros_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/save_daily_goal_usecase.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/analysis_bloc/analysis_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
@@ -91,6 +93,9 @@ Future inject() async {
   getIt.registerSingleton<GetLocaleUseCase>(GetLocaleUseCase(getIt()));
   getIt.registerSingleton<GetThemeUseCase>(GetThemeUseCase(getIt()));
   getIt.registerSingleton<ChangeThemeUseCase>(ChangeThemeUseCase(getIt()));
+  getIt.registerSingleton<SaveDailyGoalUseCase>(SaveDailyGoalUseCase(getIt()));
+  getIt
+      .registerSingleton<CheckDailyGoalUseCase>(CheckDailyGoalUseCase(getIt()));
 
   // inject blocs
   // global bloc
@@ -118,5 +123,7 @@ Future inject() async {
   getIt.registerFactory<HomeBloc>(() => HomeBloc(
         getDailyInformationUseCase: getIt(),
         getTodayTasksUseCase: getIt(),
+        checkDailyGoalUseCase: getIt(),
+        saveDailyGoalUseCase: getIt(),
       ));
 }

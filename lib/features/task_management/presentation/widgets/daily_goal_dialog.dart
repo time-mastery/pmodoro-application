@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodore/core/shared_widgets/global_button.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 
 import '../../../../exports.dart';
+import '../blocs/home_bloc/home_bloc.dart';
 
-Future<void> showDailyGoalDialog(BuildContext context) async {
+Future<void> showDailyGoalDialog(
+    BuildContext context, HomeBloc homeBloc) async {
   AppLocalizations localization = AppLocalizations.of(context)!;
+  int value = 1;
+
   await showDialog<void>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return SimpleDialog(
           backgroundColor: Theme.of(context).colorScheme.background,
-          title: const Text('Select Daily Goal Count'),
+          title: Text(localization.dailyGoalTitle),
           children: <Widget>[
             SizedBox(height: SizeConfig.heightMultiplier * 2),
             Text(
-              "How many task you can do in one day :)",
+              localization.dailyGoalHint,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: SizeConfig.heightMultiplier * 2),
@@ -23,15 +29,32 @@ Future<void> showDailyGoalDialog(BuildContext context) async {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
-                  Text(
-                    "2",
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
+                  IconButton(
+                      onPressed: () {
+                        homeBloc.add(DailyGoalUpdated(--value));
+                      },
+                      icon: const Icon(Icons.arrow_back)),
+                  BlocBuilder(
+                    bloc: homeBloc,
+                    builder: (context, state) {
+                      if (state is UpdateDailyGoalSuccess) value = state.value;
+                      return Text(
+                        value.toString(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                      );
+                    },
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward)),
+                  IconButton(
+                      onPressed: () {
+                        homeBloc.add(DailyGoalUpdated(++value));
+                      },
+                      icon: const Icon(Icons.arrow_forward)),
                 ],
               ),
             ),
@@ -39,9 +62,9 @@ Future<void> showDailyGoalDialog(BuildContext context) async {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: GlobalButton(
-                title: 'Submit',
+                title: localization.submitButton,
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  homeBloc.add(DailyGoalSaved(value));
                 },
               ),
             ),

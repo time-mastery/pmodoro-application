@@ -31,3 +31,17 @@ class DailyGoalSaved extends HomeEvent {
   @override
   List<Object?> get props => [count];
 }
+
+class DailyGoalUpdated extends HomeEvent {
+  final int value;
+
+  const DailyGoalUpdated(this.value);
+
+  @override
+  List<Object?> get props => [value];
+
+  @override
+  String toString() {
+    return 'DailyGoalUpdated{value: $value}';
+  }
+}

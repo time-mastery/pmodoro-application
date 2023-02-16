@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/core/utils/size_config.dart';
 import 'package:pomodore/features/configuration/domain/entities/language_entity.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
@@ -24,13 +23,13 @@ class SettingsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           getIt.get<SettingsBloc>()..add(SettingsFromDeviceFetched()),
-      child: SettingsView(),
+      child: const SettingsView(),
     );
   }
 }
 
 class SettingsView extends StatelessWidget {
-  SettingsView({Key? key}) : super(key: key);
+  const SettingsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
