@@ -56,6 +56,7 @@ class SettingsView extends StatelessWidget {
               children: [
                 SizedBox(height: SizeConfig.heightMultiplier * 3),
                 const ChangeThemeBottomSheet(),
+                SizedBox(height: SizeConfig.heightMultiplier * .5),
                 SwitchListTile.adaptive(
                   title: Row(
                     children: [
@@ -89,99 +90,6 @@ class SettingsView extends StatelessWidget {
                           SettingsChanged(
                             ChangeSettingsParams(
                               key: FStorage.soundKey,
-                              value: value,
-                            ),
-                          ),
-                        );
-                  },
-                ),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
-                if (Platform.isAndroid || Platform.isIOS)
-                  Column(
-                    children: [
-                      SwitchListTile.adaptive(
-                        title: Row(
-                          children: [
-                            const Icon(Icons.vibration),
-                            const SizedBox(width: 10),
-                            Text(localization.vibrationTitle),
-                          ],
-                        ),
-                        value: entity.vibration,
-                        onChanged: (value) {
-                          context
-                              .read<SettingsBloc>()
-                              .add(SettingsChanged(ChangeSettingsParams(
-                                key: FStorage.vibrationKey,
-                                value: value,
-                              )));
-                        },
-                      ),
-                      SizedBox(height: SizeConfig.heightMultiplier * .5),
-                    ],
-                  ),
-                SwitchListTile.adaptive(
-                  title: Row(
-                    children: [
-                      const Icon(Icons.update),
-                      const SizedBox(width: 10),
-                      Text(localization.appUpdatesTitle),
-                    ],
-                  ),
-                  value: entity.appUpdates,
-                  onChanged: (value) {
-                    context.read<SettingsBloc>().add(
-                          SettingsChanged(
-                            ChangeSettingsParams(
-                              key: FStorage.appUpdateKey,
-                              value: value,
-                            ),
-                          ),
-                        );
-                  },
-                ),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
-                SwitchListTile.adaptive(
-                  title: Row(
-                    children: [
-                      const Icon(Icons.tips_and_updates),
-                      const SizedBox(width: 10),
-                      Text(localization.newTipTitle),
-                    ],
-                  ),
-                  value: entity.newTips,
-                  onChanged: (value) {
-                    context.read<SettingsBloc>().add(
-                          SettingsChanged(
-                            ChangeSettingsParams(
-                              key: FStorage.newTipKey,
-                              value: value,
-                            ),
-                          ),
-                        );
-                  },
-                ),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
-                SwitchListTile.adaptive(
-                  title: Row(
-                    children: [
-                      const Icon(Icons.celebration),
-                      SizedBox(width: SizeConfig.widthMultiplier * 2),
-                      Expanded(
-                        child: Text(
-                          localization.showAdsTitle,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                  value: entity.ads,
-                  onChanged: (value) {
-                    context.read<SettingsBloc>().add(
-                          SettingsChanged(
-                            ChangeSettingsParams(
-                              key: FStorage.showAdsKey,
                               value: value,
                             ),
                           ),
@@ -389,3 +297,97 @@ class ChangeThemeBottomSheet extends StatelessWidget {
     );
   }
 }
+
+// if (Platform.isAndroid || Platform.isIOS)
+//   Column(
+//     children: [
+//       SwitchListTile.adaptive(
+//         title: Row(
+//           children: [
+//             const Icon(Icons.vibration),
+//             const SizedBox(width: 10),
+//             Text(localization.vibrationTitle),
+//           ],
+//         ),
+//         value: entity.vibration,
+//         onChanged: (value) {
+//           context
+//               .read<SettingsBloc>()
+//               .add(SettingsChanged(ChangeSettingsParams(
+//                 key: FStorage.vibrationKey,
+//                 value: value,
+//               )));
+//         },
+//       ),
+//       SizedBox(height: SizeConfig.heightMultiplier * .5),
+//     ],
+//   ),
+// SwitchListTile.adaptive(
+//   title: Row(
+//     children: [
+//       const Icon(Icons.update),
+//       const SizedBox(width: 10),
+//       Text(localization.appUpdatesTitle),
+//     ],
+//   ),
+//   value: entity.appUpdates,
+//   onChanged: (value) {
+//     context.read<SettingsBloc>().add(
+//           SettingsChanged(
+//             ChangeSettingsParams(
+//               key: FStorage.appUpdateKey,
+//               value: value,
+//             ),
+//           ),
+//         );
+//   },
+// ),
+// SizedBox(height: SizeConfig.heightMultiplier * .5),
+// SwitchListTile.adaptive(
+//   title: Row(
+//     children: [
+//       const Icon(Icons.tips_and_updates),
+//       const SizedBox(width: 10),
+//       Text(localization.newTipTitle),
+//     ],
+//   ),
+//   value: entity.newTips,
+//   onChanged: (value) {
+//     context.read<SettingsBloc>().add(
+//           SettingsChanged(
+//             ChangeSettingsParams(
+//               key: FStorage.newTipKey,
+//               value: value,
+//             ),
+//           ),
+//         );
+//   },
+// ),
+// SizedBox(height: SizeConfig.heightMultiplier * .5),
+// SwitchListTile.adaptive(
+//   title: Row(
+//     children: [
+//       const Icon(Icons.celebration),
+//       SizedBox(width: SizeConfig.widthMultiplier * 2),
+//       Expanded(
+//         child: Text(
+//           localization.showAdsTitle,
+//           maxLines: 2,
+//           overflow: TextOverflow.ellipsis,
+//         ),
+//       ),
+//     ],
+//   ),
+//   value: entity.ads,
+//   onChanged: (value) {
+//     context.read<SettingsBloc>().add(
+//           SettingsChanged(
+//             ChangeSettingsParams(
+//               key: FStorage.showAdsKey,
+//               value: value,
+//             ),
+//           ),
+//         );
+//   },
+// ),
+// SizedBox(height: SizeConfig.heightMultiplier * .5),

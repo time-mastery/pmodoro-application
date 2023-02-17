@@ -51,6 +51,7 @@ dependencies:
   intl: ^0.17.0
   flutter_datetime_picker: ^1.5.1
   dartz: ^0.10.1
+  awesome_notifications:
 
   # sensors
   vibration: ^1.7.6
