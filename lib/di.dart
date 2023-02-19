@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pomodore/core/utils/database_helper.dart';
-import 'package:pomodore/core/utils/storage.dart';
+import 'package:pomodore/core/utils/database/database_helper.dart';
+import 'package:pomodore/core/utils/database/storage.dart';
 import 'package:pomodore/features/configuration/data/data_sources/settings_local_data_source.dart';
 import 'package:pomodore/features/configuration/data/repositories/settings_repository_impl.dart';
 import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart';

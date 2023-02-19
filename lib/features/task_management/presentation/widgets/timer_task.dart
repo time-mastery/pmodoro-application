@@ -5,7 +5,7 @@ import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/bas
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/utils/responsive/size_config.dart';
 import '../../../../exports.dart';
 
 class TimerTask extends StatelessWidget {
@@ -90,7 +90,7 @@ class SelectATaskToStart extends StatelessWidget {
         return (current is SelectTaskSuccess || current is DeSelectTaskSuccess);
       },
       builder: (context, state) {
-        TaskEntity? taskItem;
+        TaskEntity? taskItem = context.read<TimerBloc>().taskItem;
 
         if (state is SelectTaskSuccess) {
           taskItem = state.taskItem;

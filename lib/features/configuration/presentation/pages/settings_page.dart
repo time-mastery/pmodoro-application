@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/core/utils/responsive/size_config.dart';
 import 'package:pomodore/features/configuration/domain/entities/language_entity.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 
 import '../../../../core/resources/params/settings_params.dart';
-import '../../../../core/utils/storage.dart';
+import '../../../../core/utils/database/storage.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../../domain/entities/settings_entity.dart';
