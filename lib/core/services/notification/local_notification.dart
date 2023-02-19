@@ -1,4 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/services/database/storage.dart';
 import 'package:pomodore/core/services/notification/notification_custom_controller.dart';
@@ -8,7 +9,15 @@ class AppLocalNotification {
     return (await FStorage.read(FStorage.notificationKey)) == "1";
   }
 
-  void initializeNotification() async {
+  Future shouldShowWelcomeNotification() async {
+    return (await FStorage.read(FStorage.welcomeNotificationKey)) != "1";
+  }
+
+  void showedWelcomeNotification() async {
+    await FStorage.write(FStorage.welcomeNotificationKey, "1");
+  }
+
+  Future initializeNotification() async {
     if (await notificationIsAllowedByUserOrNot()) {
       AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
         if (!isAllowed) {
@@ -24,6 +33,7 @@ class AppLocalNotification {
             channelKey: 'basic_channel',
             channelName: 'Basic notifications',
             channelDescription: 'Notification channel for basic tests',
+            importance: NotificationImportance.High,
             defaultColor: const Color(0xFF9D50DD),
             ledColor: Colors.white,
           )
@@ -33,7 +43,7 @@ class AppLocalNotification {
               channelGroupKey: 'basic_channel_group',
               channelGroupName: 'Basic group')
         ],
-        debug: true,
+        debug: kDebugMode,
       );
 
       AwesomeNotifications().setListeners(
@@ -49,17 +59,22 @@ class AppLocalNotification {
     }
   }
 
-  void sendNotification() async {
-    if ((await notificationIsAllowedByUserOrNot())) {
+  void sendWelcomeNotification() async {
+    bool showNotification = (await notificationIsAllowedByUserOrNot() &&
+        await shouldShowWelcomeNotification());
+    if (showNotification) {
       AwesomeNotifications().createNotification(
         content: NotificationContent(
           id: 10,
           channelKey: 'basic_channel',
-          title: 'Simple Notification',
-          body: 'Simple body',
+          title: 'Yayy! 🎉🍭',
+          body: 'Welcome to the Pmodoro',
+          // icon: "assets/images/logov2.png",
+          autoDismissible: true,
           actionType: ActionType.Default,
         ),
       );
+      showedWelcomeNotification();
     }
   }
 }

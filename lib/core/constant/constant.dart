@@ -7,7 +7,7 @@ class AppConstant {
   static const radius = 10;
 
   // strings
-  static const appName = "Pomodore";
+  static const appName = "Pmodoro";
   static const fontFamily = "inter";
 
   // Hero tags

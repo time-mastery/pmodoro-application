@@ -21,6 +21,7 @@ dependencies:
   ionicons: ^0.2.1
   flutter_spinkit: ^5.1.0
   flex_color_scheme: ^6.1.2
+  flutter_launcher_icons: ^0.11.0
 
   # state management
   flutter_bloc: ^8.1.1
@@ -66,7 +67,23 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_icon.png"
+  min_sdk_android: 21
+#  web:
+#    generate: true
+#    image_path: "path/to/image.png"
+#    background_color: "#hexcode"
+#    theme_color: "#hexcode"
+#  windows:
+#    generate: true
+#    image_path: "path/to/image.png"
+#    icon_size: 48
+#  macos:
+#    generate: true
+#    image_path: "path/to/image.png"
 
 flutter:
   generate: true
