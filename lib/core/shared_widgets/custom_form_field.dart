@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../exports.dart';
+
 class CustomFormField extends StatefulWidget {
   const CustomFormField({
     Key? key,
@@ -34,6 +36,8 @@ class _CustomFormFieldState extends State<CustomFormField> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       autofocus: false,
@@ -74,12 +78,11 @@ class _CustomFormFieldState extends State<CustomFormField> {
                     ]
                   : null,
       validator: (value) {
-        // todo : use i10n
         if (widget.validatorsType == "email") {
           return null;
         } else if (widget.validatorsType == "length") {
-          if (value!.length < 6) {
-            return "Minimum size 6 character";
+          if (value!.length < 2) {
+            return localization.minCharValidationTitle;
           } else {
             return null;
           }

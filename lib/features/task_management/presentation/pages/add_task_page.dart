@@ -22,7 +22,8 @@ class AddTaskPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (BuildContext context) =>
-            getIt.get<TasksBloc>()..add(CategoriesFetched()),
+        getIt.get<TasksBloc>()
+          ..add(CategoriesFetched()),
         child: const AddTaskView());
   }
 }
@@ -92,6 +93,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                       validatorsType: "length",
                       editController: titleController,
                       hint: localization.taskTitle,
+
                     ),
                     const SizedBox(height: 20),
                     CustomFormField(
@@ -119,14 +121,14 @@ class _AddTaskViewState extends State<AddTaskView> {
                                 title: "Please select a datetime");
                           } else {
                             context.read<TasksBloc>().add(TaskAdded(TaskEntity(
-                                  id: Utils.createUniqueId(),
-                                  title: titleController.text,
-                                  description: descriptionController.text,
-                                  deadLineTime: dateTime!,
-                                  doneTime: DateTime.now(),
-                                  done: false,
-                                  category: "cate",
-                                )));
+                              id: Utils.createUniqueId(),
+                              title: titleController.text,
+                              description: descriptionController.text,
+                              deadLineTime: dateTime!,
+                              doneTime: DateTime.now(),
+                              done: false,
+                              category: "cate",
+                            )));
                           }
                         }
                       },

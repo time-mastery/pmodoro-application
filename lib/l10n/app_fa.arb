@@ -58,5 +58,6 @@
     "saveDailyGoalButton":"Save",
     "dailyGoalTitle":"Daily Goal",
     "dailyGoalHint":"How many task you can do in one day :)",
-    "submitButton":"Submit"
+    "submitButton":"Submit",
+    "minCharValidationTitle":"Minimum size 2 character"
 }
