@@ -140,8 +140,60 @@ class AppConstant {
     ),
   );
 
+  static final polarNightTheme = ThemeData(
+    scaffoldBackgroundColor: const Color(0xff2e3440),
+    cardColor: Colors.white.withOpacity(.1),
+    cardTheme: const CardTheme(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+    ),
+    textTheme: getTextTheme(color: Colors.white),
+    colorScheme: ColorScheme(
+      brightness: Brightness.dark,
+      primary: const Color(0xffd8dee9),
+      onPrimary: Colors.black,
+      secondary: const Color(0xff8fbcbb),
+      onSecondary: Colors.black,
+      error: Colors.red,
+      onError: Colors.white,
+      background: Colors.black,
+      onBackground: Colors.white,
+      surface: Colors.white.withOpacity(.001),
+      onSurface: Colors.white,
+    ),
+    buttonTheme: const ButtonThemeData(),
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: Color(0xff8fbcbb),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      iconTheme: IconThemeData(
+        color: Colors.white,
+      ),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Color(0xff434c5e),
+      elevation: 10,
+    ),
+    switchTheme: const SwitchThemeData(),
+    inputDecorationTheme: const InputDecorationTheme(
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.white,
+        ),
+      ),
+    ),
+    iconTheme: const IconThemeData(
+      color: Colors.white,
+    ),
+  );
+
   static final List<ThemeParams> themes = [
-    ThemeParams("light", defaultLightTheme, "Light    ☀️"),
-    ThemeParams("dark", defaultDarkTheme, "Dark   🌑"),
+    ThemeParams("light", defaultLightTheme, "Light"),
+    ThemeParams("dark", defaultDarkTheme, "Dark"),
+    ThemeParams("polar", polarNightTheme, "Polar Night"),
   ];
 }
