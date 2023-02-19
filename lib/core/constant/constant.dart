@@ -57,7 +57,7 @@ class AppConstant {
       brightness: Brightness.light,
       primary: Colors.black,
       onPrimary: Colors.white,
-      secondary: const Color(0xffAACB73),
+      secondary: const Color(0xff01ED64),
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
