@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pomodore/core/utils/database/database_helper.dart';
-import 'package:pomodore/core/utils/database/storage.dart';
+import 'package:pomodore/core/services/notification/local_notification.dart';
 import 'package:pomodore/features/configuration/data/data_sources/settings_local_data_source.dart';
 import 'package:pomodore/features/configuration/data/repositories/settings_repository_impl.dart';
 import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart';
@@ -34,6 +33,8 @@ import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'core/services/database/database_helper.dart';
+import 'core/services/database/storage.dart';
 import 'core/utils/ticker.dart';
 import 'features/task_management/data/data_sources/tasks_local_data_source.dart';
 import 'features/task_management/domain/repositories/category_repository.dart';
@@ -42,7 +43,6 @@ import 'features/task_management/domain/usecases/get_today_tasks_usecase.dart';
 final getIt = GetIt.instance;
 
 Future inject() async {
-  // inject databases
   await Hive.initFlutter();
   Box appBox = await Hive.openBox('app_box');
 
@@ -52,6 +52,10 @@ Future inject() async {
   );
 
   FStorage.initialize();
+
+  // local notification
+  AppLocalNotification appLocalNotification = AppLocalNotification();
+  appLocalNotification.initializeNotification();
 
   Database db = await DatabaseHelper.database;
   getIt.registerSingleton<Database>(db);

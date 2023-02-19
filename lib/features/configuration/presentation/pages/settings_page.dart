@@ -10,7 +10,7 @@ import 'package:pomodore/features/configuration/domain/entities/language_entity.
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 
 import '../../../../core/resources/params/settings_params.dart';
-import '../../../../core/utils/database/storage.dart';
+import '../../../../core/services/database/storage.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../../domain/entities/settings_entity.dart';

@@ -1,7 +1,7 @@
 import 'package:pomodore/core/resources/params/settings_params.dart';
 import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
 
-import '../../../../core/utils/database/storage.dart';
+import '../../../../core/services/database/storage.dart';
 import '../../../../core/utils/utils.dart';
 
 class SettingsLocalDataSources {
