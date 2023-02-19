@@ -1,5 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pomodore/core/services/audio/audio_service.dart';
 import 'package:pomodore/core/services/notification/local_notification.dart';
 import 'package:pomodore/features/configuration/data/data_sources/settings_local_data_source.dart';
 import 'package:pomodore/features/configuration/data/repositories/settings_repository_impl.dart';
@@ -52,6 +54,11 @@ Future inject() async {
   );
 
   FStorage.initialize();
+
+  // player
+  getIt.registerSingleton(AudioPlayer());
+  AudioService audioService = AudioService();
+  getIt.registerSingleton<AudioService>(audioService);
 
   // local notification
   AppLocalNotification appLocalNotification = AppLocalNotification();

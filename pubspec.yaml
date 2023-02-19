@@ -57,6 +57,7 @@ dependencies:
   # sensors
   vibration: ^1.7.6
   audio_manager: ^0.8.2
+  audioplayers: ^3.0.1
 
 dev_dependencies:
   test: ^1.16.0
@@ -91,6 +92,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/sounds/
 
 
   fonts:

@@ -1,6 +1,8 @@
 PODS:
   - audio_manager (0.0.1):
     - Flutter
+  - audioplayers_darwin (0.0.1):
+    - Flutter
   - awesome_notifications (0.0.5):
     - Flutter
     - IosAwnCore (= 0.7.3)
@@ -22,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - audio_manager (from `.symlinks/plugins/audio_manager/ios`)
+  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - awesome_notifications (from `.symlinks/plugins/awesome_notifications/ios`)
   - Flutter (from `Flutter`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
@@ -37,6 +40,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   audio_manager:
     :path: ".symlinks/plugins/audio_manager/ios"
+  audioplayers_darwin:
+    :path: ".symlinks/plugins/audioplayers_darwin/ios"
   awesome_notifications:
     :path: ".symlinks/plugins/awesome_notifications/ios"
   Flutter:
@@ -52,6 +57,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   audio_manager: 59466b2ea5552ebdcba8106796f09b9357ef12e0
+  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   awesome_notifications: d63d9a25f126860f9a600850d99772237895b3ba
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
