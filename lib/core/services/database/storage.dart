@@ -10,6 +10,7 @@ class FStorage {
   static const initialized = "_init_";
   static const localeKey = "_locale_";
   static const themeKey = "_theme_";
+  static const welcomeNotificationKey = "_welcomeKey_";
 
   static late FlutterSecureStorage flutterSecureStorage;
 

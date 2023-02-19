@@ -6,7 +6,7 @@ import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/bas
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/utils/responsive/size_config.dart';
 
 class HomeTaskItem extends StatelessWidget {
   const HomeTaskItem({Key? key, required this.item}) : super(key: key);

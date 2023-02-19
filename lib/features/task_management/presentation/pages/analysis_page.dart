@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/core/utils/debug_print.dart';
-import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/core/utils/responsive/size_config.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/analysis_bloc/analysis_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/widgets/detail_richtext_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

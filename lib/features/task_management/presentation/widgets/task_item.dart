@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodore/core/extensions/datetime_extensions.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/utils/responsive/size_config.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem({

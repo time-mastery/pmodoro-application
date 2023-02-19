@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/core/utils/responsive/size_config.dart';
 
 import 'base_page.dart';
 
