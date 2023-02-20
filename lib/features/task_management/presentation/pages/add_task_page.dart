@@ -14,9 +14,11 @@ import '../../../../di.dart';
 import '../../../../exports.dart';
 
 class AddTaskPage extends StatelessWidget {
-  const AddTaskPage({Key? key}) : super(key: key);
+  const AddTaskPage({Key? key, this.editItem}) : super(key: key);
 
   static const routeName = "/addTask";
+
+  final TaskEntity? editItem;
 
   @override
   Widget build(BuildContext context) {
