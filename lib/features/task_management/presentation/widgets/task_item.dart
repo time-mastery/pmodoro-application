@@ -6,6 +6,7 @@ import 'package:pomodore/core/shared_widgets/global_button.dart';
 import 'package:pomodore/core/shared_widgets/global_indicator.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
+import 'package:pomodore/features/task_management/presentation/pages/edit_task_page.dart';
 
 import '../../../../core/utils/responsive/size_config.dart';
 import '../../../../exports.dart';
@@ -48,7 +49,16 @@ class TaskItem extends StatelessWidget {
                         children: [
                           Expanded(
                             child: GlobalButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                        context, EditTaskPage.routeName,
+                                        arguments: task)
+                                    .then((value) {
+                                  bloc.add(
+                                      SpecificDateTasksFetched(DateTime.now()));
+                                  Navigator.pop(context);
+                                });
+                              },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
