@@ -127,3 +127,17 @@ class SaveCurrentPomodoroFailure extends TasksState {
   @override
   List<Object?> get props => [];
 }
+
+class AddDateLoading extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AddDateSuccess extends TasksState {
+  final DateTime dateTime;
+
+  const AddDateSuccess(this.dateTime);
+
+  @override
+  List<Object?> get props => [dateTime];
+}

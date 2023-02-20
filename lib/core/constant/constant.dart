@@ -4,7 +4,7 @@ import 'package:pomodore/core/resources/params/theme_params.dart';
 
 class AppConstant {
   /// dimens
-  static const radius = 10;
+  static const radius = 10.0;
 
   // strings
   static const appName = "Pmodoro";

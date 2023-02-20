@@ -93,7 +93,6 @@ class _AddTaskViewState extends State<AddTaskView> {
                       validatorsType: "length",
                       editController: titleController,
                       hint: localization.taskTitle,
-
                     ),
                     const SizedBox(height: 20),
                     CustomFormField(
@@ -102,13 +101,36 @@ class _AddTaskViewState extends State<AddTaskView> {
                       hint: localization.taskDescription,
                     ),
                     const SizedBox(height: 20),
+                    BlocBuilder<TasksBloc, TasksState>(
+                      builder: (context, state) {
+                        if (state is AddDateSuccess) dateTime = state.dateTime;
+
+                        if (dateTime != null) {
+                          return Row(
+                            children: [
+                              Text(
+                                "${localization.dateTitle} : ",
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleMedium,
+                              ),
+                              Text(dateTime.toString()),
+                            ],
+                          );
+                        }
+                        return Container();
+                      },
+                    ),
                     const SizedBox(height: 20),
                     GlobalDateTimePicker(
                       buttonTitle: "Select Deadline DateTime",
                       onChanged: (time) {
+                        context.read<TasksBloc>().add(DateAdded(time));
                         dateTime = time;
                       },
                       onConfirm: (time) {
+                        context.read<TasksBloc>().add(DateAdded(time));
                         dateTime = time;
                       },
                     ),

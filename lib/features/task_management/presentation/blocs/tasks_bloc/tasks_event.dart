@@ -80,3 +80,13 @@ class CurrentPomodoroToDatabaseSaved extends TasksEvent {
     return 'CurrentPomodoroToDatabaseSaved{item: $item}';
   }
 }
+
+class DateAdded extends TasksEvent {
+
+  final DateTime dateTime;
+
+  const DateAdded(this.dateTime);
+
+  @override
+  List<Object?> get props => [dateTime];
+}

@@ -43,20 +43,26 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<TaskCompleted>(_taskCompleted);
     on<TaskDeleted>(_taskDeleted);
     on<CurrentPomodoroToDatabaseSaved>(_onCurrentPomodoroOnDatabaseSaved);
+    on<DateAdded>(_dateAdded);
+  }
+
+  void _dateAdded(DateAdded event, Emitter emit) {
+    emit(AddDateLoading());
+    emit(AddDateSuccess(event.dateTime));
   }
 
   void saveCurrentPomodoroOnDatabase(PomodoroEntity item) =>
       addPomodoroToDbUseCase.call(params: item);
 
-  void _onCurrentPomodoroOnDatabaseSaved(
-      CurrentPomodoroToDatabaseSaved event, Emitter<TasksState> emit) async {
+  void _onCurrentPomodoroOnDatabaseSaved(CurrentPomodoroToDatabaseSaved event,
+      Emitter<TasksState> emit) async {
     emit(const SaveCurrentPomodoroLoading());
 
     Either<String, bool> result =
-        await addPomodoroToDbUseCase.call(params: event.item);
+    await addPomodoroToDbUseCase.call(params: event.item);
     result.fold(
-      (l) => const SaveCurrentPomodoroFailure(),
-      (r) => const SaveCurrentPomodoroSuccess(),
+          (l) => const SaveCurrentPomodoroFailure(),
+          (r) => const SaveCurrentPomodoroSuccess(),
     );
   }
 
@@ -64,10 +70,10 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     emit(TaskDeleteLoading());
 
     Either<String, int?> result =
-        await deleteTaskUseCase.call(params: event.id);
+    await deleteTaskUseCase.call(params: event.id);
     result.fold(
-      (l) => emit(TaskDeleteFailure()),
-      (r) => emit(TaskDeleteSuccess()),
+          (l) => emit(TaskDeleteFailure()),
+          (r) => emit(TaskDeleteSuccess()),
     );
   }
 
@@ -75,11 +81,11 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     emit(TaskCompleteLoading());
 
     Either<String, int?> result =
-        await completeTaskUseCase.call(params: event.taskEntity);
+    await completeTaskUseCase.call(params: event.taskEntity);
 
     result.fold(
-      (l) => emit(TaskCompleteFailure()),
-      (r) => emit(TaskCompleteSuccess()),
+          (l) => emit(TaskCompleteFailure()),
+          (r) => emit(TaskCompleteSuccess()),
     );
   }
 
@@ -88,20 +94,20 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
 
     Either<String, List<CategoryEntity>> result = await getAllCategories.call();
     result.fold(
-      (l) => emit(CategoriesFetchFailure()),
-      (r) => emit(CategoriesFetchSuccess(r)),
+          (l) => emit(CategoriesFetchFailure()),
+          (r) => emit(CategoriesFetchSuccess(r)),
     );
   }
 
-  _todayTasksFetched(
-      SpecificDateTasksFetched event, Emitter<TasksState> emit) async {
+  _todayTasksFetched(SpecificDateTasksFetched event,
+      Emitter<TasksState> emit) async {
     emit(SpecificDateTasksReceivedLoading());
 
     Either<String, List<TaskEntity>> result =
-        await getSpecificDateTasks.call(params: event.data);
+    await getSpecificDateTasks.call(params: event.data);
     result.fold(
-      (l) => emit(SpecificDateTasksReceivedFailure()),
-      (r) => emit(SpecificDateTasksReceivedSuccess(r)),
+          (l) => emit(SpecificDateTasksReceivedFailure()),
+          (r) => emit(SpecificDateTasksReceivedSuccess(r)),
     );
   }
 
@@ -110,8 +116,8 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
 
     Either<String, bool> result = await addTaskUsecase.call(params: event.data);
     result.fold(
-      (l) => emit(TaskAddFailure()),
-      (r) => emit(TaskAddSuccess()),
+          (l) => emit(TaskAddFailure()),
+          (r) => emit(TaskAddSuccess()),
     );
   }
 
@@ -119,10 +125,10 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     emit(CategoryAddLoading());
 
     Either<String, bool> result =
-        await addCategoryUsecase.call(params: event.data);
+    await addCategoryUsecase.call(params: event.data);
     result.fold(
-      (l) => emit(CategoryAddFailure()),
-      (r) => emit(CategoryAddSuccess()),
+          (l) => emit(CategoryAddFailure()),
+          (r) => emit(CategoryAddSuccess()),
     );
   }
 }
