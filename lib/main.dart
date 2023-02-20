@@ -11,6 +11,7 @@ import 'package:pomodore/core/router/router.dart';
 import 'package:pomodore/di.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 
 import 'core/observers/bloc_observer.dart';
 import 'core/utils/responsive/size_config.dart';

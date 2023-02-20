@@ -1,43 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/shared_widgets/custom_form_field.dart';
-import 'package:pomodore/core/shared_widgets/global_button.dart';
-import 'package:pomodore/core/shared_widgets/global_datetime_picker.dart';
-import 'package:pomodore/core/shared_widgets/global_snack.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
+import 'package:pomodore/features/task_management/presentation/pages/tasks_page.dart';
 
+import '../../../../core/shared_widgets/base_app_bar.dart';
+import '../../../../core/shared_widgets/custom_form_field.dart';
+import '../../../../core/shared_widgets/global_button.dart';
+import '../../../../core/shared_widgets/global_datetime_picker.dart';
 import '../../../../core/shared_widgets/global_indicator.dart';
+import '../../../../core/shared_widgets/global_snack.dart';
 import '../../../../core/utils/utils.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
+import '../../domain/entities/task_entity.dart';
+import '../blocs/tasks_bloc/tasks_bloc.dart';
 
-class AddTaskPage extends StatelessWidget {
-  const AddTaskPage({Key? key, this.editItem}) : super(key: key);
+class EditTaskPage extends StatelessWidget {
+  const EditTaskPage({Key? key, required this.task}) : super(key: key);
 
-  static const routeName = "/addTask";
+  static const routeName = "/editTask";
 
-  final TaskEntity? editItem;
+  final TaskEntity task;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) =>
-        getIt.get<TasksBloc>()
-          ..add(CategoriesFetched()),
-        child: const AddTaskView());
+      create: (BuildContext context) => getIt.get<TasksBloc>(),
+      child: EditTaskView(
+        task: task,
+      ),
+    );
   }
 }
 
-class AddTaskView extends StatefulWidget {
-  const AddTaskView({Key? key}) : super(key: key);
+class EditTaskView extends StatefulWidget {
+  const EditTaskView({Key? key, required this.task}) : super(key: key);
+
+  final TaskEntity task;
 
   @override
-  State<AddTaskView> createState() => _AddTaskViewState();
+  State<EditTaskView> createState() => _EditTaskViewState();
 }
 
-class _AddTaskViewState extends State<AddTaskView> {
+class _EditTaskViewState extends State<EditTaskView> {
   late TextEditingController titleController;
   late TextEditingController descriptionController;
   DateTime? dateTime;
@@ -45,8 +49,10 @@ class _AddTaskViewState extends State<AddTaskView> {
 
   @override
   void initState() {
-    titleController = TextEditingController();
-    descriptionController = TextEditingController();
+    titleController = TextEditingController(text: widget.task.title);
+    descriptionController =
+        TextEditingController(text: widget.task.description);
+    dateTime = widget.task.deadLineTime;
     super.initState();
   }
 
@@ -68,13 +74,13 @@ class _AddTaskViewState extends State<AddTaskView> {
     return BlocConsumer(
       bloc: context.read<TasksBloc>(),
       listener: (context, state) {
-        if (state is TaskAddFailure) {
+        if (state is EditTaskFailure) {
           showSnackBar(
             context,
             title: localization.failureTitle,
           );
         }
-        if (state is TaskAddSuccess) {
+        if (state is EditTaskSuccess) {
           Navigator.pop(context);
         }
       },
@@ -112,10 +118,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                             children: [
                               Text(
                                 "${localization.dateTitle} : ",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleMedium,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Text(dateTime.toString()),
                             ],
@@ -144,15 +147,19 @@ class _AddTaskViewState extends State<AddTaskView> {
                             showSnackBar(context,
                                 title: "Please select a datetime");
                           } else {
-                            context.read<TasksBloc>().add(TaskAdded(TaskEntity(
-                              id: Utils.createUniqueId(),
-                              title: titleController.text,
-                              description: descriptionController.text,
-                              deadLineTime: dateTime!,
-                              doneTime: DateTime.now(),
-                              done: false,
-                              category: "cate",
-                            )));
+                            context.read<TasksBloc>().add(
+                                  TaskEdited(
+                                    TaskEntity(
+                                      id: widget.task.id,
+                                      title: titleController.text,
+                                      description: descriptionController.text,
+                                      deadLineTime: dateTime!,
+                                      doneTime: widget.task.doneTime,
+                                      done: false,
+                                      category: widget.task.category,
+                                    ),
+                                  ),
+                                );
                           }
                         }
                       },

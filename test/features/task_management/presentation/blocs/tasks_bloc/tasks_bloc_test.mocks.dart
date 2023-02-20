@@ -27,6 +27,8 @@ import 'package:pomodore/features/task_management/domain/usecases/complete_task_
     as _i12;
 import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart'
     as _i13;
+import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart'
+    as _i16;
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart'
     as _i11;
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart'
@@ -229,15 +231,15 @@ class MockCompleteTaskUseCase extends _i1.Mock
   }
 
   @override
-  _i6.Future<_i2.Either<String, int?>> call({_i7.TaskEntity? params}) =>
+  _i6.Future<_i2.Either<String, String>> call({_i7.TaskEntity? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
           {#params: params},
         ),
-        returnValue: _i6.Future<_i2.Either<String, int?>>.value(
-            _FakeEither_0<String, int?>(
+        returnValue: _i6.Future<_i2.Either<String, String>>.value(
+            _FakeEither_0<String, String>(
           this,
           Invocation.method(
             #call,
@@ -245,7 +247,7 @@ class MockCompleteTaskUseCase extends _i1.Mock
             {#params: params},
           ),
         )),
-      ) as _i6.Future<_i2.Either<String, int?>>);
+      ) as _i6.Future<_i2.Either<String, String>>);
 }
 
 /// A class which mocks [DeleteTaskUseCase].
@@ -257,15 +259,15 @@ class MockDeleteTaskUseCase extends _i1.Mock implements _i13.DeleteTaskUseCase {
   }
 
   @override
-  _i6.Future<_i2.Either<String, int?>> call({String? params}) =>
+  _i6.Future<_i2.Either<String, String>> call({String? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
           {#params: params},
         ),
-        returnValue: _i6.Future<_i2.Either<String, int?>>.value(
-            _FakeEither_0<String, int?>(
+        returnValue: _i6.Future<_i2.Either<String, String>>.value(
+            _FakeEither_0<String, String>(
           this,
           Invocation.method(
             #call,
@@ -273,7 +275,7 @@ class MockDeleteTaskUseCase extends _i1.Mock implements _i13.DeleteTaskUseCase {
             {#params: params},
           ),
         )),
-      ) as _i6.Future<_i2.Either<String, int?>>);
+      ) as _i6.Future<_i2.Either<String, String>>);
 }
 
 /// A class which mocks [AddPomodoroToDbUseCase].
@@ -303,6 +305,42 @@ class MockAddPomodoroToDbUseCase extends _i1.Mock
           ),
         )),
       ) as _i6.Future<_i2.Either<String, bool>>);
+}
+
+/// A class which mocks [EditTaskUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockEditTaskUseCase extends _i1.Mock implements _i16.EditTaskUseCase {
+  MockEditTaskUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.TaskRepository get taskRepository => (super.noSuchMethod(
+        Invocation.getter(#taskRepository),
+        returnValue: _FakeTaskRepository_1(
+          this,
+          Invocation.getter(#taskRepository),
+        ),
+      ) as _i3.TaskRepository);
+  @override
+  _i6.Future<_i2.Either<String, String>> call({_i7.TaskEntity? params}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+          {#params: params},
+        ),
+        returnValue: _i6.Future<_i2.Either<String, String>>.value(
+            _FakeEither_0<String, String>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+            {#params: params},
+          ),
+        )),
+      ) as _i6.Future<_i2.Either<String, String>>);
 }
 
 /// A class which mocks [TaskEntity].

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
+import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
 
 import '../../../domain/entities/category_entity.dart';
@@ -24,6 +25,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final GetAllCategoriesUseCase getAllCategories;
   final CompleteTaskUseCase completeTaskUseCase;
   final DeleteTaskUseCase deleteTaskUseCase;
+  final EditTaskUseCase editTaskUseCase;
   final AddPomodoroToDbUseCase addPomodoroToDbUseCase;
 
   TasksBloc({
@@ -33,6 +35,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     required this.getAllCategories,
     required this.completeTaskUseCase,
     required this.deleteTaskUseCase,
+    required this.editTaskUseCase,
     required this.addPomodoroToDbUseCase,
   }) : super(TasksInitial()) {
     on<TasksEvent>((event, emit) {});
@@ -43,6 +46,13 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<TaskCompleted>(_taskCompleted);
     on<TaskDeleted>(_taskDeleted);
     on<CurrentPomodoroToDatabaseSaved>(_onCurrentPomodoroOnDatabaseSaved);
+    on<DateAdded>(_dateAdded);
+    on<TaskEdited>(_taskEdited);
+  }
+
+  void _dateAdded(DateAdded event, Emitter emit) {
+    emit(AddDateLoading());
+    emit(AddDateSuccess(event.dateTime));
   }
 
   void saveCurrentPomodoroOnDatabase(PomodoroEntity item) =>
@@ -60,10 +70,22 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     );
   }
 
+  _taskEdited(TaskEdited event, Emitter emit) async {
+    emit(EditTaskLoading());
+
+    Either<String, String> result =
+        await editTaskUseCase.call(params: event.item);
+
+    result.fold(
+      (l) => emit(EditTaskFailure()),
+      (r) => emit(EditTaskSuccess()),
+    );
+  }
+
   _taskDeleted(TaskDeleted event, Emitter<TasksState> emit) async {
     emit(TaskDeleteLoading());
 
-    Either<String, int?> result =
+    Either<String, String> result =
         await deleteTaskUseCase.call(params: event.id);
     result.fold(
       (l) => emit(TaskDeleteFailure()),
@@ -74,7 +96,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   _taskCompleted(TaskCompleted event, Emitter<TasksState> emit) async {
     emit(TaskCompleteLoading());
 
-    Either<String, int?> result =
+    Either<String, String> result =
         await completeTaskUseCase.call(params: event.taskEntity);
 
     result.fold(

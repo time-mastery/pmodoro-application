@@ -84,37 +84,6 @@ class TasksLocalDataSource {
     return list;
   }
 
-  Future<int?> completeTask(TaskEntity task) async {
-    int? result;
-    try {
-      result = await db.update(
-        DatabaseHelper.taskTable,
-        TaskModel.toDbQuery(task),
-        where: "uid = ?",
-        whereArgs: [task.id],
-      );
-    } catch (e) {
-      rethrow;
-    }
-
-    return result;
-  }
-
-  Future<int?> deleteTask(String id) async {
-    int? result;
-    try {
-      result = await db.delete(
-        DatabaseHelper.taskTable,
-        where: "uid = ?",
-        whereArgs: [id],
-      );
-    } catch (e) {
-      rethrow;
-    }
-
-    return result;
-  }
-
   Future<bool> saveAPomodoroOnDb(PomodoroEntity item) async {
     try {
       Map<String, Object?> data = PomodoroModel.toDbQuery(item);
@@ -269,6 +238,59 @@ class TasksLocalDataSource {
       result = records.isNotEmpty;
     } catch (e) {
       dPrint(e.toString());
+      rethrow;
+    }
+
+    return result;
+  }
+
+  Future<String?> editTask(TaskEntity task) async {
+    String? result;
+    try {
+      await db.update(
+        DatabaseHelper.taskTable,
+        TaskModel.toDbQuery(task),
+        where: "uid = ?",
+        whereArgs: [task.id],
+      );
+
+      result = task.id;
+    } catch (e) {
+      rethrow;
+    }
+
+    return result;
+  }
+
+  Future<String?> completeTask(TaskEntity task) async {
+    String? result;
+    try {
+      await db.update(
+        DatabaseHelper.taskTable,
+        TaskModel.toDbQuery(task, isCompleted: true),
+        where: "uid = ?",
+        whereArgs: [task.id],
+      );
+
+      result = task.id;
+    } catch (e) {
+      rethrow;
+    }
+
+    return result;
+  }
+
+  Future<String?> deleteTask(String id) async {
+    String? result;
+    try {
+      await db.delete(
+        DatabaseHelper.taskTable,
+        where: "uid = ?",
+        whereArgs: [id],
+      );
+
+      result = id;
+    } catch (e) {
       rethrow;
     }
 

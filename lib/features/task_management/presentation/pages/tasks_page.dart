@@ -32,7 +32,21 @@ class TaskView extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    return BlocBuilder<TasksBloc, TasksState>(
+    return BlocConsumer<TasksBloc, TasksState>(
+      listener: (context, state) {
+        if (state is TaskCompleteSuccess ||
+            state is EditTaskSuccess ||
+            state is TaskDeleteSuccess) {
+          context
+              .read<TasksBloc>()
+              .add(SpecificDateTasksFetched(DateTime.now()));
+          Navigator.pop(context);
+        }
+
+        if (state is TaskCompleteFailure || state is TaskDeleteFailure) {
+          Navigator.pop(context);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: BaseAppBar(
@@ -62,22 +76,7 @@ class TaskView extends StatelessWidget {
                     itemBuilder: (context, index) =>
                         TaskItem(task: state.list[index]),
                     separatorBuilder: (BuildContext context, int index) {
-                      if (index == 2) {
-                        return Column(
-                          children: const [
-                            Divider(
-                              thickness: 8,
-                              endIndent: 20,
-                              indent: 20,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            )
-                          ],
-                        );
-                      } else {
-                        return Container();
-                      }
+                      return Container();
                     },
                   ),
                 ),

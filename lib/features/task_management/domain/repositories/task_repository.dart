@@ -9,10 +9,6 @@ abstract class TaskRepository {
 
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date);
 
-  Future<Either<String, int?>> completeTask(TaskEntity taskEntity);
-
-  Future<Either<String, int?>> deleteTask(String id);
-
   Future<Either<String, bool>> savePomodoroInDb(PomodoroEntity item);
 
   Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoros();
@@ -25,7 +21,9 @@ abstract class TaskRepository {
 
   Future<Either<String, bool>> saveDailyGoal(int count);
 
-  Future getTaskById(String id);
+  Future<Either<String, String>> completeTask(TaskEntity taskEntity);
 
-  Future getCompletedTask();
+  Future<Either<String, String>> editTask(TaskEntity task);
+
+  Future<Either<String, String>> deleteTask(String taskId);
 }

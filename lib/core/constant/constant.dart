@@ -4,7 +4,8 @@ import 'package:pomodore/core/resources/params/theme_params.dart';
 
 class AppConstant {
   /// dimens
-  static const radius = 10;
+  static const radius = 10.0;
+  static const modalPadding = 15.0;
 
   // strings
   static const appName = "Pmodoro";
@@ -158,7 +159,7 @@ class AppConstant {
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      background: Colors.black,
+      background: const Color(0xff2e3440),
       onBackground: Colors.white,
       surface: Colors.white.withOpacity(.001),
       onSurface: Colors.white,
