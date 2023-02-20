@@ -141,3 +141,18 @@ class AddDateSuccess extends TasksState {
   @override
   List<Object?> get props => [dateTime];
 }
+
+class EditTaskLoading extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class EditTaskSuccess extends TasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class EditTaskFailure extends TasksState {
+  @override
+  List<Object?> get props => [];
+}

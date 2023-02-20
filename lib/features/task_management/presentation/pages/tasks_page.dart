@@ -19,8 +19,7 @@ class TasksPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<TasksBloc>(
       create: (context) =>
-      getIt.get<TasksBloc>()
-        ..add(SpecificDateTasksFetched(DateTime.now())),
+          getIt.get<TasksBloc>()..add(SpecificDateTasksFetched(DateTime.now())),
       child: const TaskView(),
     );
   }
@@ -33,21 +32,33 @@ class TaskView extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    return BlocBuilder<TasksBloc, TasksState>(
+    return BlocConsumer<TasksBloc, TasksState>(
+      listener: (context, state) {
+        if (state is TaskCompleteSuccess ||
+            state is EditTaskSuccess ||
+            state is TaskDeleteSuccess) {
+          context
+              .read<TasksBloc>()
+              .add(SpecificDateTasksFetched(DateTime.now()));
+          Navigator.pop(context);
+        }
+
+        if (state is TaskCompleteFailure || state is TaskDeleteFailure) {
+          Navigator.pop(context);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: BaseAppBar(
             title: localization.tasksTitle,
             action: (state is SpecificDateTasksReceivedSuccess &&
-                state.list.isNotEmpty)
+                    state.list.isNotEmpty)
                 ? const Icon(CupertinoIcons.add_circled_solid)
                 : null,
             onPressed: (state is SpecificDateTasksReceivedSuccess &&
-                state.list.isNotEmpty)
-                ? () =>
-                Navigator.pushNamed(context, AddTaskPage.routeName)
-                    .then((_) =>
-                    context
+                    state.list.isNotEmpty)
+                ? () => Navigator.pushNamed(context, AddTaskPage.routeName)
+                    .then((_) => context
                         .read<TasksBloc>()
                         .add(SpecificDateTasksFetched(DateTime.now())))
                 : null,
@@ -70,7 +81,7 @@ class TaskView extends StatelessWidget {
                   ),
                 ),
               if (state is SpecificDateTasksReceivedFailure)
-              // todo: create a error widget
+                // todo: create a error widget
                 const Center(child: Text("error")),
               if (state is SpecificDateTasksReceivedLoading)
                 const GlobalIndicator(),
@@ -103,10 +114,7 @@ class DayWithoutTask extends StatelessWidget {
           height: SizeConfig.heightMultiplier * 5,
         ),
         Text(localization.emptyTaskListTitle,
-            style: Theme
-                .of(context)
-                .textTheme
-                .headlineSmall),
+            style: Theme.of(context).textTheme.headlineSmall),
         SizedBox(
           height: SizeConfig.heightMultiplier * 2,
         ),
@@ -118,12 +126,10 @@ class DayWithoutTask extends StatelessWidget {
           height: SizeConfig.heightMultiplier * 2,
         ),
         IconButton(
-          onPressed: () =>
-              Navigator.pushNamed(context, AddTaskPage.routeName)
-                  .then((value) =>
-                  context
-                      .read<TasksBloc>()
-                      .add(SpecificDateTasksFetched(DateTime.now()))),
+          onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName)
+              .then((value) => context
+                  .read<TasksBloc>()
+                  .add(SpecificDateTasksFetched(DateTime.now()))),
           icon: const Icon(CupertinoIcons.add_circled_solid),
         ),
       ],

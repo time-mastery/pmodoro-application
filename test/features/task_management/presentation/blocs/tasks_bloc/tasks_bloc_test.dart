@@ -10,6 +10,7 @@ import 'package:pomodore/features/task_management/domain/usecases/add_pomodoro_t
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
@@ -24,6 +25,7 @@ import 'tasks_bloc_test.mocks.dart';
   CompleteTaskUseCase,
   DeleteTaskUseCase,
   AddPomodoroToDbUseCase,
+  EditTaskUseCase,
   TaskEntity,
   PomodoroEntity,
 ])
@@ -38,6 +40,7 @@ void main() {
   MockAddCategoryUsecase mockAddCategoryUsecase = MockAddCategoryUsecase();
   MockGetAllCategoriesUseCase mockGetAllCategoriesUseCase =
       MockGetAllCategoriesUseCase();
+  MockEditTaskUseCase mockEditTaskUseCase = MockEditTaskUseCase();
 
   MockTaskEntity taskEntity = MockTaskEntity();
   MockPomodoroEntity pomodoroEntity = MockPomodoroEntity();
@@ -50,6 +53,7 @@ void main() {
         completeTaskUseCase: mockCompleteTaskUseCase,
         deleteTaskUseCase: mockDeleteTaskUseCase,
         addPomodoroToDbUseCase: mockAddPomodoroToDbUseCase,
+        editTaskUseCase: mockEditTaskUseCase,
       );
 
   group("TaskAdded Event", () {
@@ -93,7 +97,7 @@ void main() {
         "emit TaskCompleteLoading and TaskCompleteSuccess state",
         build: () {
           when(mockCompleteTaskUseCase.call(params: taskEntity))
-              .thenAnswer((_) async => Future.value(const Right(1)));
+              .thenAnswer((_) async => Future.value(const Right("1")));
           return getBlocInstance();
         },
         act: (bloc) => bloc.add(TaskCompleted(taskEntity)),
@@ -125,7 +129,7 @@ void main() {
         "emit TaskDeleteLoading and TaskDeleteSuccess state",
         build: () {
           when(mockDeleteTaskUseCase.call(params: "xx2"))
-              .thenAnswer((_) async => Future.value(const Right(1)));
+              .thenAnswer((_) async => Future.value(const Right("1")));
           return getBlocInstance();
         },
         act: (bloc) => bloc.add(const TaskDeleted("xx2")),

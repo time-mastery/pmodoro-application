@@ -23,6 +23,7 @@ import 'package:pomodore/features/task_management/domain/usecases/add_task_useca
 import 'package:pomodore/features/task_management/domain/usecases/check_daily_goal_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_analysis_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart';
@@ -96,6 +97,7 @@ Future inject() async {
   getIt.registerSingleton<GetTodayPomodorosUseCase>(
       GetTodayPomodorosUseCase(getIt()));
   getIt.registerSingleton<GetSettingsUseCase>(GetSettingsUseCase(getIt()));
+  getIt.registerSingleton<EditTaskUseCase>(EditTaskUseCase(getIt()));
   getIt
       .registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
   getIt.registerSingleton<GetDailyInformationUseCase>(
@@ -131,6 +133,7 @@ Future inject() async {
         completeTaskUseCase: getIt(),
         deleteTaskUseCase: getIt(),
         addPomodoroToDbUseCase: getIt(),
+        editTaskUseCase: getIt(),
       ));
   getIt.registerFactory<AnalysisBloc>(() => AnalysisBloc(getIt()));
   getIt.registerFactory<HomeBloc>(() => HomeBloc(

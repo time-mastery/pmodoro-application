@@ -48,36 +48,6 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, int?>> completeTask(TaskEntity taskEntity) async {
-    late Either<String, int?> result;
-
-    int? status = await localDataSource.completeTask(taskEntity);
-
-    if (status != null) {
-      result = Right(status);
-    } else {
-      result = const Left("error");
-    }
-
-    return result;
-  }
-
-  @override
-  Future<Either<String, int?>> deleteTask(String id) async {
-    late Either<String, int?> result;
-
-    int? status = await localDataSource.deleteTask(id);
-
-    if (status != null) {
-      result = Right(status);
-    } else {
-      result = const Left("error");
-    }
-
-    return result;
-  }
-
-  @override
   Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoros() async {
     late Either<String, List<PomodoroEntity>> result;
 
@@ -179,19 +149,47 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, List<TaskEntity>>> getTodayTasks() {
-    throw UnimplementedError();
+  Future<Either<String, String>> deleteTask(String id) async {
+    late Either<String, String> result;
+
+    String? status = await localDataSource.deleteTask(id);
+
+    if (status != null) {
+      result = Right(status);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
   }
 
   @override
-  Future getCompletedTask() {
-    // TODO: implement getCompletedTask
-    throw UnimplementedError();
+  Future<Either<String, String>> completeTask(TaskEntity taskEntity) async {
+    late Either<String, String> result;
+
+    String? status = await localDataSource.completeTask(taskEntity);
+
+    if (status != null) {
+      result = Right(status);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
   }
 
   @override
-  Future getTaskById(String id) {
-    // TODO: implement getTaskById
-    throw UnimplementedError();
+  Future<Either<String, String>> editTask(TaskEntity task) async {
+    late Either<String, String> result;
+
+    String? status = await localDataSource.editTask(task);
+
+    if (status != null) {
+      result = Right(status);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
   }
 }

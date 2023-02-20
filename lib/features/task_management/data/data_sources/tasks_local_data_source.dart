@@ -84,37 +84,6 @@ class TasksLocalDataSource {
     return list;
   }
 
-  Future<int?> completeTask(TaskEntity task) async {
-    int? result;
-    try {
-      result = await db.update(
-        DatabaseHelper.taskTable,
-        TaskModel.toDbQuery(task),
-        where: "uid = ?",
-        whereArgs: [task.id],
-      );
-    } catch (e) {
-      rethrow;
-    }
-
-    return result;
-  }
-
-  Future<int?> deleteTask(String id) async {
-    int? result;
-    try {
-      result = await db.delete(
-        DatabaseHelper.taskTable,
-        where: "uid = ?",
-        whereArgs: [id],
-      );
-    } catch (e) {
-      rethrow;
-    }
-
-    return result;
-  }
-
   Future<bool> saveAPomodoroOnDb(PomodoroEntity item) async {
     try {
       Map<String, Object?> data = PomodoroModel.toDbQuery(item);
@@ -166,7 +135,7 @@ class TasksLocalDataSource {
 
     try {
       List<Map<String, dynamic>>? tasks =
-          await getSpecificDateTasks(DateTime.now());
+      await getSpecificDateTasks(DateTime.now());
 
       quantity = tasks == null ? 0 : tasks.length;
     } catch (e) {
@@ -198,9 +167,9 @@ class TasksLocalDataSource {
     try {
       int todayCompletedTask = await getCompletedTaskQuantity();
       List<Map<String, dynamic>>? allPomodoroList =
-          await getAllPomodoroFromDb();
+      await getAllPomodoroFromDb();
       List<Map<String, dynamic>>? todayPomodoroList =
-          await getAllTodayPomodoroFromDb(DateTime.now());
+      await getAllTodayPomodoroFromDb(DateTime.now());
       int todayPomodoroCount = todayPomodoroList?.length ?? 0;
 
       item = {
@@ -269,6 +238,67 @@ class TasksLocalDataSource {
       result = records.isNotEmpty;
     } catch (e) {
       dPrint(e.toString());
+      rethrow;
+    }
+
+    return result;
+  }
+
+  Future<String?> editTask(TaskEntity task) async {
+    String? result;
+    try {
+      await db.update(
+        DatabaseHelper.taskTable,
+        TaskModel.toDbQuery(task),
+        where: "uid = ?",
+        whereArgs: [task.id],
+      );
+
+      result = task.id;
+    } catch (e) {
+      rethrow;
+    }
+
+    return result;
+  }
+
+  Future<String?> completeTask(TaskEntity task) async {
+    String? result;
+    try {
+      await db.update(
+        DatabaseHelper.taskTable,
+        TaskModel.toDbQuery(
+          TaskEntity(
+              id: task.id,
+              title: task.title,
+              description: task.description,
+              deadLineTime: task.deadLineTime,
+              category: task.category,
+              done: true),
+        ),
+        where: "uid = ?",
+        whereArgs: [task.id],
+      );
+
+      result = task.id;
+    } catch (e) {
+      rethrow;
+    }
+
+    return result;
+  }
+
+  Future<String?> deleteTask(String id) async {
+    String? result;
+    try {
+      await db.delete(
+        DatabaseHelper.taskTable,
+        where: "uid = ?",
+        whereArgs: [id],
+      );
+
+      result = id;
+    } catch (e) {
       rethrow;
     }
 
