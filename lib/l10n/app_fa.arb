@@ -59,5 +59,9 @@
     "dailyGoalTitle":"Daily Goal",
     "dailyGoalHint":"How many task you can do in one day :)",
     "submitButton":"Submit",
-    "minCharValidationTitle":"Minimum size 2 character"
+    "minCharValidationTitle":"Minimum size 2 character",
+    "taskManagementTitle":"Task management",
+    "editTaskTitle":"Edit Task",
+    "deleteTaskTitle":"Delete Task",
+    "completeTaskTitle":"Complete Task"
 }

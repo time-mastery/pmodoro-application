@@ -19,14 +19,18 @@ class TaskModel extends TaskEntity {
           done: done,
         );
 
-  static toDbQuery(TaskEntity item) => {
+  static toDbQuery(TaskEntity item, {bool isCompleted = false}) => {
         "uid": item.id,
         "title": item.title,
         "description": item.description,
         "category": item.category,
         "deadLineTime": item.deadLineTime.toString(),
         "doneTime": item.doneTime.toString(),
-        "done": item.done ? 1 : 0,
+        "done": isCompleted
+            ? 1
+            : item.done
+                ? 1
+                : 0,
       };
 
   static fromQueryToTaskModel(Map<String, dynamic> item) => TaskEntity(
