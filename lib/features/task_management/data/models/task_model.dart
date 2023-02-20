@@ -1,6 +1,5 @@
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
-
 class TaskModel extends TaskEntity {
   const TaskModel(
     String id,
@@ -44,5 +43,12 @@ class TaskModel extends TaskEntity {
     late List<TaskEntity> list;
     list = items.map<TaskEntity>((e) => fromQueryToTaskModel(e)).toList();
     return list;
+  }
+
+  static List<TaskEntity> sortTasksByDateTime(List<TaskEntity> item) {
+    item.sort(
+      (a, b) => a.deadLineTime.compareTo(b.deadLineTime),
+    );
+    return item;
   }
 }

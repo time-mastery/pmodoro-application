@@ -19,7 +19,8 @@ class TasksPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<TasksBloc>(
       create: (context) =>
-          getIt.get<TasksBloc>()..add(SpecificDateTasksFetched(DateTime.now())),
+      getIt.get<TasksBloc>()
+        ..add(SpecificDateTasksFetched(DateTime.now())),
       child: const TaskView(),
     );
   }
@@ -38,13 +39,15 @@ class TaskView extends StatelessWidget {
           appBar: BaseAppBar(
             title: localization.tasksTitle,
             action: (state is SpecificDateTasksReceivedSuccess &&
-                    state.list.isNotEmpty)
+                state.list.isNotEmpty)
                 ? const Icon(CupertinoIcons.add_circled_solid)
                 : null,
             onPressed: (state is SpecificDateTasksReceivedSuccess &&
-                    state.list.isNotEmpty)
-                ? () => Navigator.pushNamed(context, AddTaskPage.routeName)
-                    .then((_) => context
+                state.list.isNotEmpty)
+                ? () =>
+                Navigator.pushNamed(context, AddTaskPage.routeName)
+                    .then((_) =>
+                    context
                         .read<TasksBloc>()
                         .add(SpecificDateTasksFetched(DateTime.now())))
                 : null,
@@ -62,27 +65,12 @@ class TaskView extends StatelessWidget {
                     itemBuilder: (context, index) =>
                         TaskItem(task: state.list[index]),
                     separatorBuilder: (BuildContext context, int index) {
-                      if (index == 2) {
-                        return Column(
-                          children: const [
-                            Divider(
-                              thickness: 8,
-                              endIndent: 20,
-                              indent: 20,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            )
-                          ],
-                        );
-                      } else {
-                        return Container();
-                      }
+                      return Container();
                     },
                   ),
                 ),
               if (state is SpecificDateTasksReceivedFailure)
-                // todo: create a error widget
+              // todo: create a error widget
                 const Center(child: Text("error")),
               if (state is SpecificDateTasksReceivedLoading)
                 const GlobalIndicator(),
@@ -115,7 +103,10 @@ class DayWithoutTask extends StatelessWidget {
           height: SizeConfig.heightMultiplier * 5,
         ),
         Text(localization.emptyTaskListTitle,
-            style: Theme.of(context).textTheme.headlineSmall),
+            style: Theme
+                .of(context)
+                .textTheme
+                .headlineSmall),
         SizedBox(
           height: SizeConfig.heightMultiplier * 2,
         ),
@@ -127,10 +118,12 @@ class DayWithoutTask extends StatelessWidget {
           height: SizeConfig.heightMultiplier * 2,
         ),
         IconButton(
-          onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName)
-              .then((value) => context
-                  .read<TasksBloc>()
-                  .add(SpecificDateTasksFetched(DateTime.now()))),
+          onPressed: () =>
+              Navigator.pushNamed(context, AddTaskPage.routeName)
+                  .then((value) =>
+                  context
+                      .read<TasksBloc>()
+                      .add(SpecificDateTasksFetched(DateTime.now()))),
           icon: const Icon(CupertinoIcons.add_circled_solid),
         ),
       ],

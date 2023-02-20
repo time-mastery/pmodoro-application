@@ -20,7 +20,7 @@ class GlobalDateTimePicker extends StatelessWidget {
     return Container(
       height: SizeConfig.heightMultiplier * 5,
       decoration: BoxDecoration(
-        border: Border.all(),
+        border: Border.all(color: Theme.of(context).colorScheme.onBackground),
         borderRadius: BorderRadius.circular(AppConstant.radius),
       ),
       child: TextButton(
@@ -30,7 +30,7 @@ class GlobalDateTimePicker extends StatelessWidget {
             showTitleActions: true,
             theme: const DatePickerTheme(),
             minTime: DateTime.now(),
-            maxTime: DateTime(2024, 6, 7),
+            maxTime: DateTime.now().add(const Duration(days: 1)),
             onChanged: onChanged,
             onConfirm: onConfirm,
             currentTime: DateTime.now(),

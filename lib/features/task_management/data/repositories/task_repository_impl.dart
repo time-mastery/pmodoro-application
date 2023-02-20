@@ -37,7 +37,8 @@ class TaskRepositoryImpl implements TaskRepository {
         await localDataSource.getSpecificDateTasks(date);
 
     if (rawList != null) {
-      List<TaskEntity> list = TaskModel.parseRawList(rawList);
+      List<TaskEntity> list =
+          TaskModel.sortTasksByDateTime(TaskModel.parseRawList(rawList));
       result = Right(list);
     } else {
       result = const Left("error");
