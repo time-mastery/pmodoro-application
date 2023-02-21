@@ -92,10 +92,10 @@ class TaskRepositoryImpl implements TaskRepository {
     if (tasksQuantity == 0) {
       processPercentage = 0;
     } else if (dailyGoal < completedTasksQuantity) {
-      processPercentage = 100.0;
+      processPercentage = 1;
     } else {
-      processPercentage = double.parse(
-          ((completedTasksQuantity * 100) / dailyGoal).toStringAsFixed(1));
+      processPercentage =
+          double.parse((completedTasksQuantity / dailyGoal).toStringAsFixed(1));
     }
 
     DailyInformationEntity item = DailyInformationEntity(

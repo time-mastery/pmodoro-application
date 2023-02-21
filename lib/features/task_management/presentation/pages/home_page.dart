@@ -10,6 +10,7 @@ import 'package:pomodore/features/task_management/domain/entities/daily_informat
 import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/widgets/daily_goal_dialog.dart';
 
+import '../../../../core/utils/utils.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../../../notification_management/presentation/pages/notifications_page.dart';
@@ -129,7 +130,7 @@ class HomeGoalWidget extends StatelessWidget {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "${dailyItem?.processPercentage.toString() ?? "0.0"} %",
+                              "${((dailyItem?.processPercentage ?? 0) * 100).toString() ?? "0.0"} %",
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
                           ),
@@ -143,7 +144,8 @@ class HomeGoalWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            localization.dailyTasksDoneTitle,
+                            Utils.getProcessTitle(
+                                context, dailyItem?.processPercentage ?? 0),
                             style: Theme.of(context).textTheme.titleLarge,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,

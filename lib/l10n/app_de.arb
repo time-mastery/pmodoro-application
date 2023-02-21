@@ -63,5 +63,9 @@
     "taskManagementTitle":"Task management",
     "editTaskTitle":"Edit Task",
     "deleteTaskTitle":"Delete Task",
-    "completeTaskTitle":"Complete Task"
+    "completeTaskTitle":"Complete Task",
+    "firstStageDailyGoalTitle":"Start strong",
+    "secondStageDailyGoalTitle":"You can. You should do more",
+    "thirdStageDailyGoalTitle":"Wow! Your daily goals is almost done!",
+    "lastStageDailyGoalTitle":"Well done, you did it"
   }
