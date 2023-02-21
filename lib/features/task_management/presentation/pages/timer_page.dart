@@ -273,7 +273,7 @@ class TimerText extends StatelessWidget {
                             itemBuilder: (context, index) => GestureDetector(
                               onTap: () {
                                 context.read<TimerBloc>().add(
-                                      TimerDurationChanged(
+                                      TimerDurationSet(
                                           listOfTimerDuration[index]),
                                     );
                               },

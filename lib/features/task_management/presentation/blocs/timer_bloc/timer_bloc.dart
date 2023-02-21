@@ -26,7 +26,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<SaveCurrentTimerStateDialogShowed>(_onSaveCurrentTimeStateDialogShowed);
     on<TimerTaskSelected>(_timerTaskSelected);
     on<TimerTaskDeSelected>(_timerTaskDeSelected);
-    on<TimerDurationChanged>(_timerDurationChanged);
+    on<TimerDurationSet>(_timerDurationSet);
   }
 
   static int _duration = 60 * 25;
@@ -49,7 +49,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     return super.close();
   }
 
-  void _timerDurationChanged(TimerDurationChanged event, Emitter emit) {
+  void _timerDurationSet(TimerDurationSet event, Emitter emit) {
     emit(ChangeTimerDurationLoading(state.duration));
     setDuration(event.minute);
     emit(TimerInitial(_duration));

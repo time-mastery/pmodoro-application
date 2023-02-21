@@ -69,17 +69,31 @@ class TimerTaskDeSelected extends TimerEvent {
   List<Object?> get props => [];
 }
 
-class TimerDurationChanged extends TimerEvent {
-
+class TimerDurationSet extends TimerEvent {
   final int minute;
 
-  const TimerDurationChanged(this.minute);
+  const TimerDurationSet(this.minute);
 
   @override
   List<Object?> get props => [minute];
 
   @override
   String toString() {
-    return 'TimerDurationChanged{minute: $minute}';
+    return 'TimerDurationSet{minute: $minute}';
   }
+}
+
+class TimerStateSaved extends TimerEvent {
+
+  final int duration, baseDuration;
+
+  const TimerStateSaved(this.duration, this.baseDuration);
+
+  @override
+  List<Object?> get props => [duration, baseDuration];
+}
+
+class TimerStateRestored extends TimerEvent {
+  @override
+  List<Object?> get props => [];
 }
