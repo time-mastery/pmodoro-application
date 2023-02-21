@@ -87,13 +87,22 @@ class TaskRepositoryImpl implements TaskRepository {
         await localDataSource.getCompletedTaskQuantity();
     int tasksQuantity = await localDataSource.getAllTodayTaskQuantity();
     int dailyGoal = await localDataSource.getDailyGoalQuantity() ?? 1;
+    double processPercentage = 0;
+
+    if (tasksQuantity == 0) {
+      processPercentage = 0;
+    } else if (dailyGoal < completedTasksQuantity) {
+      processPercentage = 100.0;
+    } else {
+      processPercentage = double.parse(
+          ((completedTasksQuantity * 100) / dailyGoal).toStringAsFixed(1));
+    }
+
     DailyInformationEntity item = DailyInformationEntity(
         dailyGoalQuantity: dailyGoal,
         taskQuantity: tasksQuantity,
         completedTaskQuantity: completedTasksQuantity,
-        processPercentage: tasksQuantity == 0
-            ? 0
-            : (completedTasksQuantity * 100) / tasksQuantity);
+        processPercentage: processPercentage);
 
     if (tasksQuantity == 0 && completedTasksQuantity != 0) {
       result = const Left("error");
