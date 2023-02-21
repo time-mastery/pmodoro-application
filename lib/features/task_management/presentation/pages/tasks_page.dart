@@ -81,7 +81,6 @@ class TaskView extends StatelessWidget {
                   ),
                 ),
               if (state is SpecificDateTasksReceivedFailure)
-                // todo: create a error widget
                 const Center(child: Text("error")),
               if (state is SpecificDateTasksReceivedLoading)
                 const GlobalIndicator(),

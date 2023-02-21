@@ -51,7 +51,7 @@ class HomeTaskItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        "${item.description} Minutes",
+                        item.description,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
@@ -62,9 +62,6 @@ class HomeTaskItem extends StatelessWidget {
                   height: SizeConfig.widthMultiplier * 14,
                   onPressed: () {
                     context.read<TimerBloc>().add(TimerTaskSelected(item));
-                    /* todo : list to bloc inside base bloc to change index
-                        depend of different scenarios
-                    *   */
                     context.read<BaseBloc>().add(const PageIndexChanged(3));
                   },
                   shape: RoundedRectangleBorder(
