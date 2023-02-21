@@ -243,7 +243,7 @@ class TimerText extends StatelessWidget {
       AppLocalizations localization = AppLocalizations.of(context)!;
 
       final duration = context.select((TimerBloc bloc) => bloc.state.duration);
-      final listOfTimerDuration = [5, 10, 15, 25, 40, 60];
+      final listOfTimerDuration = [5, 10, 15, 25, 40, 60, 90, 120];
       return BlocListener<TimerBloc, TimerState>(
         listener: (context, state) {
           if (state is ChangeTimerDurationLoading) Navigator.pop(context);
@@ -263,7 +263,7 @@ class TimerText extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          "Select timer duration",
+                          localization.changeTimerDurationTitle,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Expanded(
