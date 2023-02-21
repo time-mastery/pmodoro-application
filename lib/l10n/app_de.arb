@@ -67,5 +67,6 @@
     "firstStageDailyGoalTitle":"Start strong",
     "secondStageDailyGoalTitle":"You can. You should do more",
     "thirdStageDailyGoalTitle":"Wow! Your daily goals is almost done!",
-    "lastStageDailyGoalTitle":"Well done, you did it"
+    "lastStageDailyGoalTitle":"Well done, you did it",
+    "changeTimerDurationTitle":"Change timer duration (min)"
   }

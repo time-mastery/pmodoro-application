@@ -10,6 +10,7 @@ import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/pages/analysis_page.dart';
 
+import '../../../../core/constant/constant.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../widgets/timer_task.dart';
@@ -239,15 +240,89 @@ class TimerText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      final duration = context.select((TimerBloc bloc) => bloc.state.duration);
+      AppLocalizations localization = AppLocalizations.of(context)!;
 
-      return Align(
-        alignment: Alignment.center,
-        child: Text(
-          Utils.formatSecToMinSec(timeInSecond: duration),
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+      final duration = context.select((TimerBloc bloc) => bloc.state.duration);
+      final listOfTimerDuration = [5, 10, 15, 25, 40, 60];
+      return BlocListener<TimerBloc, TimerState>(
+        listener: (context, state) {
+          if (state is ChangeTimerDurationLoading) Navigator.pop(context);
+        },
+        child: GestureDetector(
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              backgroundColor: Theme.of(context).colorScheme.background,
+              elevation: 20,
+              isScrollControlled: true,
+              builder: (context) {
+                return FractionallySizedBox(
+                  heightFactor: .2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppConstant.modalPadding),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Select timer duration",
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: listOfTimerDuration.length,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: () {
+                                context.read<TimerBloc>().add(
+                                      TimerDurationChanged(
+                                          listOfTimerDuration[index]),
+                                    );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                ),
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      listOfTimerDuration[index].toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSecondary,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              Utils.formatSecToMinSec(timeInSecond: duration),
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ),
         ),
       );
     });

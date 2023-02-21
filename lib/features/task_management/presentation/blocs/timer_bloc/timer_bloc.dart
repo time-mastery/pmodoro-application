@@ -17,7 +17,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   TimerBloc({required Ticker ticker})
       : _ticker = ticker,
-        super(const TimerInitial(_duration)) {
+        super(TimerInitial(_duration)) {
     on<TimerStarted>(_onStarted);
     on<TimerPaused>(_onPaused);
     on<TimerReset>(_onReset);
@@ -26,11 +26,16 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<SaveCurrentTimerStateDialogShowed>(_onSaveCurrentTimeStateDialogShowed);
     on<TimerTaskSelected>(_timerTaskSelected);
     on<TimerTaskDeSelected>(_timerTaskDeSelected);
+    on<TimerDurationChanged>(_timerDurationChanged);
   }
 
-  static const int _duration = 60 * 25;
+  static int _duration = 60 * 25;
 
   static get getDuration => _duration;
+
+  static setDuration(int duration) {
+    _duration = duration * 60;
+  }
 
   void selectTask(TaskEntity? item) => taskItem = item;
 
@@ -42,6 +47,12 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   Future<void> close() {
     _tickerSubscription?.cancel();
     return super.close();
+  }
+
+  void _timerDurationChanged(TimerDurationChanged event, Emitter emit) {
+    emit(ChangeTimerDurationLoading(state.duration));
+    setDuration(event.minute);
+    emit(TimerInitial(_duration));
   }
 
   void _timerTaskSelected(TimerTaskSelected event, Emitter emit) {
@@ -88,7 +99,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _onReset(TimerReset event, Emitter<TimerState> emit) {
     _tickerSubscription?.cancel();
-    emit(const TimerInitial(_duration));
+    emit(TimerInitial(_duration));
   }
 
   void _onTicked(_TimerTicked event, Emitter<TimerState> emit) {

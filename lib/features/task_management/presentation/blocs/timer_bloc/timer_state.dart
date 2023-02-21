@@ -67,3 +67,17 @@ class DeSelectTaskSuccess extends TimerState {
   @override
   List<Object?> get props => [duration];
 }
+
+class ChangeTimerDurationSuccess extends TimerState {
+  const ChangeTimerDurationSuccess(super.duration);
+
+  @override
+  List<Object?> get props => [duration];
+}
+
+class ChangeTimerDurationLoading extends TimerState {
+  const ChangeTimerDurationLoading(super.duration);
+
+  @override
+  List<Object?> get props => [duration];
+}
