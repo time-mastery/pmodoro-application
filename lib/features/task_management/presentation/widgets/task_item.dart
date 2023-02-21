@@ -26,27 +26,28 @@ class TaskItem extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        if (!task.done) {
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            isScrollControlled: true,
-            builder: (context) {
-              return FractionallySizedBox(
-                heightFactor: .3,
-                child: Padding(
-                  padding: const EdgeInsets.all(AppConstant.modalPadding),
-                  child: Column(
-                    children: [
-                      Text(
-                        localization.taskManagementTitle,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.heightMultiplier * 3,
-                      ),
-                      Row(
-                        children: [
+        showModalBottomSheet(
+          context: context,
+          backgroundColor: Theme.of(context).colorScheme.background,
+          elevation: 20,
+          isScrollControlled: true,
+          builder: (context) {
+            return FractionallySizedBox(
+              heightFactor: (!task.done) ? .3 : .2,
+              child: Padding(
+                padding: const EdgeInsets.all(AppConstant.modalPadding),
+                child: Column(
+                  children: [
+                    Text(
+                      localization.taskManagementTitle,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    SizedBox(
+                      height: SizeConfig.heightMultiplier * 3,
+                    ),
+                    Row(
+                      children: [
+                        if (!task.done)
                           Expanded(
                             child: GlobalButton(
                               onPressed: () {
@@ -71,41 +72,43 @@ class TaskItem extends StatelessWidget {
                               ),
                             ),
                           ),
+                        if (!task.done)
                           SizedBox(
                             width: SizeConfig.widthMultiplier * 2,
                           ),
-                          Expanded(
-                            child: GlobalButton(
-                              onPressed: () {
-                                bloc.add(TaskDeleted(task.id));
-                              },
-                              child: BlocBuilder(
-                                bloc: bloc,
-                                builder: (context, state) {
-                                  if (state is TaskDeleteLoading) {
-                                    return const Center(
-                                      child: GlobalIndicator(),
-                                    );
-                                  }
-                                  return Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(localization.deleteTaskTitle),
-                                      SizedBox(
-                                        width: SizeConfig.widthMultiplier * 2,
-                                      ),
-                                      const Icon(Icons.delete),
-                                    ],
+                        Expanded(
+                          child: GlobalButton(
+                            onPressed: () {
+                              bloc.add(TaskDeleted(task.id));
+                            },
+                            child: BlocBuilder(
+                              bloc: bloc,
+                              builder: (context, state) {
+                                if (state is TaskDeleteLoading) {
+                                  return const Center(
+                                    child: GlobalIndicator(),
                                   );
-                                },
-                              ),
+                                }
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(localization.deleteTaskTitle),
+                                    SizedBox(
+                                      width: SizeConfig.widthMultiplier * 2,
+                                    ),
+                                    const Icon(Icons.delete),
+                                  ],
+                                );
+                              },
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: SizeConfig.heightMultiplier,
-                      ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: SizeConfig.heightMultiplier,
+                    ),
+                    if (!task.done)
                       GlobalButton(
                         width: double.infinity,
                         backgroundColor:
@@ -134,13 +137,12 @@ class TaskItem extends StatelessWidget {
                           },
                         ),
                       ),
-                    ],
-                  ),
+                  ],
                 ),
-              );
-            },
-          );
-        }
+              ),
+            );
+          },
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
