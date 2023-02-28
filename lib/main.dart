@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
@@ -32,7 +33,8 @@ void main() async {
         BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
         BlocProvider<SettingsBloc>(
             create: (context) =>
-                getIt.get<SettingsBloc>()..add(InitDataFetched())),
+            getIt.get<SettingsBloc>()
+              ..add(InitDataFetched())),
       ],
       child: const MyApp(),
     ),
@@ -66,6 +68,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    restoreTimerState();
     WidgetsBinding.instance.addObserver(this);
     locale = const Locale("en");
     themeData = AppConstant.defaultLightTheme;
@@ -80,71 +83,86 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
-      case AppLifecycleState.resumed:
-        print("resumed");
-        //Execute the code the when user come back to the app
-        break;
       case AppLifecycleState.paused:
-        print("paused");
-        //Execute the code the when user leave the app
-        break;
-      case AppLifecycleState.inactive:
-        print("inactive");
-        //Execute the code the when user leave the app
+        saveTimerState();
         break;
       case AppLifecycleState.detached:
-        print("detached");
-        //Execute the code the when user leave the app
+        saveTimerState();
         break;
       default:
-        print("default");
         break;
     }
   }
 
+  void saveTimerState() {
+    context.read<TimerBloc>().add(const TimerStateSaved());
+  }
+
+  void restoreTimerState() {
+    context.read<TimerBloc>().add(const TimerStateRestored());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsBloc, SettingsState>(
-      builder: (context, state) {
-        return OrientationBuilder(
-          builder: (context, orientation) {
-            if (state is InitDataFetchSuccess) {
-              locale = state.locale;
-              themeData = state.themeData;
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<TimerBloc, TimerState>(
+          listener: (context, state) {
+            if (state is RestoreTimerSuccess) {
+              if (state.timerStateParams.task != null) {
+                context.read<TimerBloc>()
+                    .add(TimerTaskSelected(state.timerStateParams.task!));
+              }
+              context.read<TimerBloc>()
+                ..add(
+                    TimerDurationSet(state.timerStateParams.baseDuration))..add(
+                  TimerStarted(state.timerStateParams.duration));
             }
-
-            if (state is ChangeLanguageSuccess) {
-              locale = state.locale;
-            }
-
-            if (state is ChangeThemeSuccess) {
-              themeData = state.themeData;
-            }
-
-            return LayoutBuilder(builder: (context, constraints) {
-              SizeConfig().init(constraints, orientation);
-              return MaterialApp(
-                title: AppConstant.appName,
-                onGenerateRoute: AppRouter.onGenerationRouter,
-                theme: themeData,
-                debugShowCheckedModeBanner: false,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en'),
-                  Locale('fa'),
-                  Locale('de'),
-                ],
-                locale: locale,
-              );
-            });
           },
-        );
-      },
+        ),
+      ],
+      child: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, state) {
+          return OrientationBuilder(
+            builder: (context, orientation) {
+              if (state is InitDataFetchSuccess) {
+                locale = state.locale;
+                themeData = state.themeData;
+              }
+
+              if (state is ChangeLanguageSuccess) {
+                locale = state.locale;
+              }
+
+              if (state is ChangeThemeSuccess) {
+                themeData = state.themeData;
+              }
+
+              return LayoutBuilder(builder: (context, constraints) {
+                SizeConfig().init(constraints, orientation);
+                return MaterialApp(
+                  title: AppConstant.appName,
+                  onGenerateRoute: AppRouter.onGenerationRouter,
+                  theme: themeData,
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: const [
+                    Locale('en'),
+                    Locale('fa'),
+                    Locale('de'),
+                  ],
+                  locale: locale,
+                );
+              });
+            },
+          );
+        },
+      ),
     );
   }
 }

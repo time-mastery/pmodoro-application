@@ -4,7 +4,7 @@ import 'package:pomodore/features/task_management/domain/entities/task_entity.da
 class TimerStateParams extends Equatable {
   final int duration;
   final int baseDuration;
-  final TaskEntity task;
+  final TaskEntity? task;
 
   const TimerStateParams(
       {required this.duration, required this.baseDuration, required this.task});

@@ -16,7 +16,9 @@ class TimerLocalDataSource {
       await FStorage.write(FStorage.timerStateDateTimeKey, DateTime.now());
       await FStorage.write(
           FStorage.timerStateBaseDurationKey, stateParams.baseDuration);
-      await FStorage.write(FStorage.taskIdKey, stateParams.task.id);
+      if (stateParams.task != null) {
+        await FStorage.write(FStorage.taskIdKey, stateParams.task?.id);
+      }
       result = stateParams.duration;
     } catch (e) {
       rethrow;
@@ -53,6 +55,8 @@ class TimerLocalDataSource {
             task: task,
           );
         }
+      } else {
+        result = null;
       }
     } catch (e) {
       rethrow;

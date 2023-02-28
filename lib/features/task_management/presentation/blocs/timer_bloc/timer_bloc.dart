@@ -25,7 +25,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     required Ticker ticker,
     required this.saveTimerStateUseCase,
     required this.restoreTimerStateUseCase,
-  })  : _ticker = ticker,
+  })
+      : _ticker = ticker,
         super(TimerInitial(_duration)) {
     on<TimerStarted>(_onStarted);
     on<TimerPaused>(_onPaused);
@@ -62,21 +63,28 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _timerStateSaved(TimerStateSaved event, Emitter emit) async {
     emit(SaveTimerLoading(state.duration));
-    Either<String, int> result =
-        await saveTimerStateUseCase.call(params: event.timerStateParams);
+
+
+    Either<String, int> result = await saveTimerStateUseCase.call(
+      params: TimerStateParams(
+        duration: state.duration,
+        baseDuration: getDuration,
+        task: taskItem!,
+      ),
+    );
 
     result.fold((l) => emit(SaveTimerFailure(state.duration)),
-        (r) => emit(SaveTimerSuccess(state.duration)));
+            (r) => emit(SaveTimerSuccess(state.duration)));
   }
 
   void _timerStateRestored(TimerStateRestored event, Emitter emit) async {
     emit(RestoreTimerLoading(state.duration));
 
     Either<String, TimerStateParams> result =
-        await restoreTimerStateUseCase.call();
+    await restoreTimerStateUseCase.call();
 
     result.fold((l) => emit(RestoreTimerFailure(state.duration)),
-        (r) => emit(RestoreTimerSuccess(state.duration, r)));
+            (r) => emit(RestoreTimerSuccess(state.duration, r)));
   }
 
   void _timerDurationSet(TimerDurationSet event, Emitter emit) {
