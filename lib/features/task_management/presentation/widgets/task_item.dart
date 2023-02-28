@@ -151,52 +151,47 @@ class TaskItem extends StatelessWidget {
             Text(task.deadLineTime.taskTimeFormat()),
             SizedBox(width: SizeConfig.widthMultiplier * 2),
             Expanded(
-              child: SizedBox(
-                height: SizeConfig.heightMultiplier * 11,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          task.title,
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    decoration: task.done
-                                        ? TextDecoration.lineThrough
-                                        : null,
-                                  ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          task.description,
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    decoration: task.done
-                                        ? TextDecoration.lineThrough
-                                        : null,
-                                  ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: SizeConfig.heightMultiplier * 1),
-                        Text(
-                          task.deadLineTime.taskDateFormat(),
-                          style:
-                              Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    decoration: task.done
-                                        ? TextDecoration.lineThrough
-                                        : null,
-                                  ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
+              child: Card(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        task.title,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              decoration:
+                                  task.done ? TextDecoration.lineThrough : null,
+                            ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        task.description,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                              decoration:
+                                  task.done ? TextDecoration.lineThrough : null,
+                            ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: SizeConfig.heightMultiplier * 1),
+                      Text(
+                        task.deadLineTime.taskDateFormat(),
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              decoration:
+                                  task.done ? TextDecoration.lineThrough : null,
+                            ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
                 ),
               ),

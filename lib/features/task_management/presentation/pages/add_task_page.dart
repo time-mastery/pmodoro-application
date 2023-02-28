@@ -127,6 +127,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                     const SizedBox(height: 20),
                     GlobalDateTimePicker(
                       buttonTitle: "Select Deadline DateTime",
+
                       onChanged: (time) {
                         context.read<TasksBloc>().add(DateAdded(time));
                         dateTime = time;

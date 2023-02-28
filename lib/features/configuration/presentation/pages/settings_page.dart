@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
@@ -115,7 +114,9 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
         builder: (BuildContext context) {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
-              decoration: const BoxDecoration(),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+              ),
               child: child ?? Container());
         },
       );
@@ -168,7 +169,6 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 2),
                               child: Card(
-                                elevation: 0,
                                 child: InkWell(
                                   onTap: () {
                                     context.read<SettingsBloc>().add(
@@ -215,7 +215,9 @@ class ChangeThemeBottomSheet extends StatelessWidget {
         builder: (BuildContext context) {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
-              decoration: const BoxDecoration(),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+              ),
               child: child ?? Container());
         },
       );
@@ -263,7 +265,6 @@ class ChangeThemeBottomSheet extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 2),
                           child: Card(
-                            elevation: 0,
                             child: InkWell(
                               onTap: () {
                                 context.read<SettingsBloc>().add(
@@ -296,97 +297,3 @@ class ChangeThemeBottomSheet extends StatelessWidget {
     );
   }
 }
-
-// if (Platform.isAndroid || Platform.isIOS)
-//   Column(
-//     children: [
-//       SwitchListTile.adaptive(
-//         title: Row(
-//           children: [
-//             const Icon(Icons.vibration),
-//             const SizedBox(width: 10),
-//             Text(localization.vibrationTitle),
-//           ],
-//         ),
-//         value: entity.vibration,
-//         onChanged: (value) {
-//           context
-//               .read<SettingsBloc>()
-//               .add(SettingsChanged(ChangeSettingsParams(
-//                 key: FStorage.vibrationKey,
-//                 value: value,
-//               )));
-//         },
-//       ),
-//       SizedBox(height: SizeConfig.heightMultiplier * .5),
-//     ],
-//   ),
-// SwitchListTile.adaptive(
-//   title: Row(
-//     children: [
-//       const Icon(Icons.update),
-//       const SizedBox(width: 10),
-//       Text(localization.appUpdatesTitle),
-//     ],
-//   ),
-//   value: entity.appUpdates,
-//   onChanged: (value) {
-//     context.read<SettingsBloc>().add(
-//           SettingsChanged(
-//             ChangeSettingsParams(
-//               key: FStorage.appUpdateKey,
-//               value: value,
-//             ),
-//           ),
-//         );
-//   },
-// ),
-// SizedBox(height: SizeConfig.heightMultiplier * .5),
-// SwitchListTile.adaptive(
-//   title: Row(
-//     children: [
-//       const Icon(Icons.tips_and_updates),
-//       const SizedBox(width: 10),
-//       Text(localization.newTipTitle),
-//     ],
-//   ),
-//   value: entity.newTips,
-//   onChanged: (value) {
-//     context.read<SettingsBloc>().add(
-//           SettingsChanged(
-//             ChangeSettingsParams(
-//               key: FStorage.newTipKey,
-//               value: value,
-//             ),
-//           ),
-//         );
-//   },
-// ),
-// SizedBox(height: SizeConfig.heightMultiplier * .5),
-// SwitchListTile.adaptive(
-//   title: Row(
-//     children: [
-//       const Icon(Icons.celebration),
-//       SizedBox(width: SizeConfig.widthMultiplier * 2),
-//       Expanded(
-//         child: Text(
-//           localization.showAdsTitle,
-//           maxLines: 2,
-//           overflow: TextOverflow.ellipsis,
-//         ),
-//       ),
-//     ],
-//   ),
-//   value: entity.ads,
-//   onChanged: (value) {
-//     context.read<SettingsBloc>().add(
-//           SettingsChanged(
-//             ChangeSettingsParams(
-//               key: FStorage.showAdsKey,
-//               value: value,
-//             ),
-//           ),
-//         );
-//   },
-// ),
-// SizedBox(height: SizeConfig.heightMultiplier * .5),
