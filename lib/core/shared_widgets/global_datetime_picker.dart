@@ -27,7 +27,18 @@ class GlobalDateTimePicker extends StatelessWidget {
           DatePicker.showDateTimePicker(
             context,
             showTitleActions: true,
-            theme: const DatePickerTheme(),
+            theme: DatePickerTheme(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              itemStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+              cancelStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+              doneStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+            ),
             minTime: DateTime.now(),
             maxTime: DateTime.now().add(const Duration(days: 1)),
             onChanged: onChanged,
