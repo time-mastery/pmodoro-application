@@ -84,13 +84,12 @@ class TimerDurationSet extends TimerEvent {
 }
 
 class TimerStateSaved extends TimerEvent {
+  final TimerStateParams timerStateParams;
 
-  final int duration, baseDuration;
-
-  const TimerStateSaved(this.duration, this.baseDuration);
+  const TimerStateSaved(this.timerStateParams);
 
   @override
-  List<Object?> get props => [duration, baseDuration];
+  List<Object?> get props => [timerStateParams];
 }
 
 class TimerStateRestored extends TimerEvent {

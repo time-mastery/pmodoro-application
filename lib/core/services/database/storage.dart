@@ -14,6 +14,7 @@ class FStorage {
   static const timerStateKey = "_tState_";
   static const timerStateBaseDurationKey = "_tStateBaseDuration_";
   static const timerStateDateTimeKey = "_tdtState_";
+  static const taskIdKey = "_taskId_";
 
   static late FlutterSecureStorage flutterSecureStorage;
 

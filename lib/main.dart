@@ -11,7 +11,6 @@ import 'package:pomodore/core/router/router.dart';
 import 'package:pomodore/di.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 
 import 'core/observers/bloc_observer.dart';
 import 'core/utils/responsive/size_config.dart';
@@ -60,16 +59,47 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late Locale locale;
   late ThemeData themeData;
 
   @override
   void initState() {
     super.initState();
-
+    WidgetsBinding.instance.addObserver(this);
     locale = const Locale("en");
     themeData = AppConstant.defaultLightTheme;
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        print("resumed");
+        //Execute the code the when user come back to the app
+        break;
+      case AppLifecycleState.paused:
+        print("paused");
+        //Execute the code the when user leave the app
+        break;
+      case AppLifecycleState.inactive:
+        print("inactive");
+        //Execute the code the when user leave the app
+        break;
+      case AppLifecycleState.detached:
+        print("detached");
+        //Execute the code the when user leave the app
+        break;
+      default:
+        print("default");
+        break;
+    }
   }
 
   @override

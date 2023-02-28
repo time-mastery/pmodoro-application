@@ -2,10 +2,14 @@ import 'dart:async';
 
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pomodore/core/resources/params/timer_state_params.dart';
 
 import '../../../../../core/utils/ticker.dart';
 import '../../../domain/entities/task_entity.dart';
+import '../../../domain/usecases/restore_timer_state_usecase.dart';
+import '../../../domain/usecases/save_timer_state_usecase.dart';
 
 part 'timer_event.dart';
 
@@ -14,9 +18,14 @@ part 'timer_state.dart';
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final Ticker _ticker;
   TaskEntity? taskItem;
+  final SaveTimerStateUseCase saveTimerStateUseCase;
+  final RestoreTimerStateUseCase restoreTimerStateUseCase;
 
-  TimerBloc({required Ticker ticker})
-      : _ticker = ticker,
+  TimerBloc({
+    required Ticker ticker,
+    required this.saveTimerStateUseCase,
+    required this.restoreTimerStateUseCase,
+  })  : _ticker = ticker,
         super(TimerInitial(_duration)) {
     on<TimerStarted>(_onStarted);
     on<TimerPaused>(_onPaused);
@@ -27,6 +36,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<TimerTaskSelected>(_timerTaskSelected);
     on<TimerTaskDeSelected>(_timerTaskDeSelected);
     on<TimerDurationSet>(_timerDurationSet);
+    on<TimerStateSaved>(_timerStateSaved);
+    on<TimerStateRestored>(_timerStateRestored);
   }
 
   static int _duration = 60 * 25;
@@ -47,6 +58,25 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   Future<void> close() {
     _tickerSubscription?.cancel();
     return super.close();
+  }
+
+  void _timerStateSaved(TimerStateSaved event, Emitter emit) async {
+    emit(SaveTimerLoading(state.duration));
+    Either<String, int> result =
+        await saveTimerStateUseCase.call(params: event.timerStateParams);
+
+    result.fold((l) => emit(SaveTimerFailure(state.duration)),
+        (r) => emit(SaveTimerSuccess(state.duration)));
+  }
+
+  void _timerStateRestored(TimerStateRestored event, Emitter emit) async {
+    emit(RestoreTimerLoading(state.duration));
+
+    Either<String, TimerStateParams> result =
+        await restoreTimerStateUseCase.call();
+
+    result.fold((l) => emit(RestoreTimerFailure(state.duration)),
+        (r) => emit(RestoreTimerSuccess(state.duration, r)));
   }
 
   void _timerDurationSet(TimerDurationSet event, Emitter emit) {

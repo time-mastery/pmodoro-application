@@ -14,9 +14,12 @@ import 'package:pomodore/features/configuration/domain/usecases/get_settings_use
 import 'package:pomodore/features/configuration/domain/usecases/get_theme_usecase.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
+import 'package:pomodore/features/task_management/data/data_sources/timer_local_data_source.dart';
 import 'package:pomodore/features/task_management/data/repositories/category_repository_impl.dart';
 import 'package:pomodore/features/task_management/data/repositories/task_repository_impl.dart';
+import 'package:pomodore/features/task_management/data/repositories/timer_repository_impl.dart';
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
+import 'package:pomodore/features/task_management/domain/repositories/timer_repository.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
@@ -29,7 +32,9 @@ import 'package:pomodore/features/task_management/domain/usecases/get_analysis_u
 import 'package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_today_pomodoros_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/restore_timer_state_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/save_daily_goal_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/save_timer_state_usecase.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/analysis_bloc/analysis_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
@@ -77,11 +82,13 @@ Future inject() async {
   // inject datasource
   getIt.registerSingleton<TasksLocalDataSource>(TasksLocalDataSource(getIt()));
   getIt.registerSingleton<SettingsLocalDataSources>(SettingsLocalDataSources());
+  getIt.registerSingleton<TimerLocalDataSource>(TimerLocalDataSource(getIt()));
 
   // inject repositories
   getIt.registerSingleton<TaskRepository>(TaskRepositoryImpl(getIt()));
   getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImpl(getIt()));
   getIt.registerSingleton<SettingsRepository>(SettingsRepositoryImpl(getIt()));
+  getIt.registerSingleton<TimerRepository>(TimerRepositoryImpl(getIt()));
 
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
@@ -111,10 +118,18 @@ Future inject() async {
   getIt.registerSingleton<SaveDailyGoalUseCase>(SaveDailyGoalUseCase(getIt()));
   getIt
       .registerSingleton<CheckDailyGoalUseCase>(CheckDailyGoalUseCase(getIt()));
+  getIt
+      .registerSingleton<SaveTimerStateUseCase>(SaveTimerStateUseCase(getIt()));
+  getIt.registerSingleton<RestoreTimerStateUseCase>(
+      RestoreTimerStateUseCase(getIt()));
 
   // inject blocs
   // global bloc
-  getIt.registerSingleton<TimerBloc>(TimerBloc(ticker: getIt()));
+  getIt.registerSingleton<TimerBloc>(TimerBloc(
+    ticker: getIt(),
+    restoreTimerStateUseCase: getIt(),
+    saveTimerStateUseCase: getIt(),
+  ));
   getIt.registerSingleton<BaseBloc>(BaseBloc());
   getIt.registerFactory<SettingsBloc>(() => SettingsBloc(
         getSettingUseCase: getIt(),

@@ -83,21 +83,33 @@ class ChangeTimerDurationLoading extends TimerState {
 }
 
 class SaveTimerLoading extends TimerState {
-  SaveTimerLoading(super.duration);
+  const SaveTimerLoading(super.duration);
 }
 
 class SaveTimerSuccess extends TimerState {
-  SaveTimerSuccess(super.duration);
+  const SaveTimerSuccess(super.duration);
+}
+
+class SaveTimerFailure extends TimerState {
+  const SaveTimerFailure(super.duration);
 }
 
 class RestoreTimerLoading extends TimerState {
-  RestoreTimerLoading(super.duration);
+  const RestoreTimerLoading(super.duration);
 }
 
 class RestoreTimerSuccess extends TimerState {
-  RestoreTimerSuccess(super.duration);
+  final TimerStateParams timerStateParams;
+
+  const RestoreTimerSuccess(
+    super.duration,
+    this.timerStateParams,
+  );
+
+  @override
+  List<Object?> get props => [timerStateParams, duration];
 }
 
 class RestoreTimerFailure extends TimerState {
-  RestoreTimerFailure(super.duration);
+  const RestoreTimerFailure(super.duration);
 }
