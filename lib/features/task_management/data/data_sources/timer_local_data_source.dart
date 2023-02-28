@@ -9,6 +9,14 @@ class TimerLocalDataSource {
 
   TimerLocalDataSource(this.db);
 
+
+  void removeTimerState() async {
+    await FStorage.delete(FStorage.timerStateKey);
+    await FStorage.delete(FStorage.timerStateDateTimeKey);
+    await FStorage.delete(FStorage.timerStateBaseDurationKey);
+    await FStorage.delete(FStorage.taskIdKey);
+  }
+
   Future<int?> saveTimerState(TimerStateParams stateParams) async {
     int? result;
     try {
@@ -36,7 +44,7 @@ class TimerLocalDataSource {
       var state = await FStorage.read(FStorage.timerStateKey);
       var dateTimeState = await FStorage.read(FStorage.timerStateDateTimeKey);
       var baseStateDuration =
-          await FStorage.read(FStorage.timerStateBaseDurationKey);
+      await FStorage.read(FStorage.timerStateBaseDurationKey);
       String? id = await FStorage.read(FStorage.taskIdKey);
 
       if (state != null &&

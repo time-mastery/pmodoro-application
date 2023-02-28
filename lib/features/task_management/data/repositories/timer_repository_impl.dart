@@ -29,6 +29,8 @@ class TimerRepositoryImpl extends TimerRepository {
       result = const Left("error");
     }
 
+    timerLocalDataSource.removeTimerState();
+
     return result;
   }
 
