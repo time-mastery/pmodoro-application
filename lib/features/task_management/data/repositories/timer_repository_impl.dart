@@ -38,9 +38,8 @@ class TimerRepositoryImpl extends TimerRepository {
         TimerStateParams(
           duration: restoredState.duration,
           baseDuration: restoredState.baseDuration,
-          task: restoredState.task == null
-              ? null
-              : TaskModel.fromQueryToTaskModel(restoredState.task!),
+          task: TaskModel.fromQueryToTaskModel(restoredState.task),
+          timerDone: restoredState.timerDone,
         ),
       );
     } else {

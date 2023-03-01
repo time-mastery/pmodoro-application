@@ -80,16 +80,21 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   void _timerStateSaved(TimerStateSaved event, Emitter emit) async {
     emit(SaveTimerLoading(state.duration));
 
-    Either<String, int> result = await saveTimerStateUseCase.call(
-      params: TimerStateParams(
-        duration: state.duration,
-        baseDuration: getDuration,
-        task: taskItem,
-      ),
-    );
+    if (taskItem == null) {
+      emit(SaveTimerFailure(state.duration));
+    } else {
+      Either<String, int> result = await saveTimerStateUseCase.call(
+        params: TimerStateParams(
+          duration: state.duration,
+          baseDuration: getDuration,
+          task: taskItem!,
+          timerDone: false,
+        ),
+      );
 
-    result.fold((l) => emit(SaveTimerFailure(state.duration)),
-        (r) => emit(SaveTimerSuccess(state.duration)));
+      result.fold((l) => emit(SaveTimerFailure(state.duration)),
+          (r) => emit(SaveTimerSuccess(state.duration)));
+    }
   }
 
   void _timerStateRestored(TimerStateRestored event, Emitter emit) async {
