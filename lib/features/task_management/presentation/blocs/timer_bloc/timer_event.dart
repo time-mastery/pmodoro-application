@@ -96,3 +96,17 @@ class TimerStateRestored extends TimerEvent {
   @override
   List<Object?> get props => [];
 }
+
+class CurrentPomodoroToDatabaseSaved extends TimerEvent {
+  final PomodoroEntity item;
+
+  const CurrentPomodoroToDatabaseSaved(this.item);
+
+  @override
+  List<Object?> get props => [item];
+
+  @override
+  String toString() {
+    return 'CurrentPomodoroToDatabaseSaved{item: $item}';
+  }
+}

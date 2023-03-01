@@ -3,6 +3,9 @@ import 'package:pomodore/features/task_management/domain/entities/task_entity.da
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../core/resources/params/timer_state_params.dart';
+import '../../../../core/services/database/database_helper.dart';
+import '../../domain/entities/pomodoro_entity.dart';
+import '../models/pomodoro_model.dart';
 
 class TimerLocalDataSource {
   final Database db;
@@ -14,6 +17,16 @@ class TimerLocalDataSource {
     await FStorage.delete(FStorage.timerStateDateTimeKey);
     await FStorage.delete(FStorage.timerStateBaseDurationKey);
     await FStorage.delete(FStorage.taskIdKey);
+  }
+
+  Future<bool> saveAPomodoroOnDb(PomodoroEntity item) async {
+    try {
+      Map<String, Object?> data = PomodoroModel.toDbQuery(item);
+      await db.insert(DatabaseHelper.pomodoroTable, data);
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
   Future<int?> saveTimerState(TimerStateParams stateParams) async {

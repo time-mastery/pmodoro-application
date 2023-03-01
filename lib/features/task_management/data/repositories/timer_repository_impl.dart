@@ -4,11 +4,27 @@ import 'package:pomodore/features/task_management/data/models/task_model.dart';
 import 'package:pomodore/features/task_management/domain/repositories/timer_repository.dart';
 
 import '../../../../core/resources/params/timer_state_params.dart';
+import '../../domain/entities/pomodoro_entity.dart';
 
 class TimerRepositoryImpl extends TimerRepository {
   final TimerLocalDataSource timerLocalDataSource;
 
   TimerRepositoryImpl(this.timerLocalDataSource);
+
+  @override
+  Future<Either<String, bool>> savePomodoroInDb(PomodoroEntity item) async {
+    late Either<String, bool> result;
+
+    bool status = await timerLocalDataSource.saveAPomodoroOnDb(item);
+
+    if (status) {
+      result = Right(status);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
+  }
 
   @override
   Future<Either<String, TimerStateParams>> restoreTimerState() async {

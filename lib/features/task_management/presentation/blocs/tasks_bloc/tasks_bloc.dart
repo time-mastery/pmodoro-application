@@ -26,7 +26,6 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final CompleteTaskUseCase completeTaskUseCase;
   final DeleteTaskUseCase deleteTaskUseCase;
   final EditTaskUseCase editTaskUseCase;
-  final AddPomodoroToDbUseCase addPomodoroToDbUseCase;
 
   TasksBloc({
     required this.addTaskUsecase,
@@ -36,7 +35,6 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     required this.completeTaskUseCase,
     required this.deleteTaskUseCase,
     required this.editTaskUseCase,
-    required this.addPomodoroToDbUseCase,
   }) : super(TasksInitial()) {
     on<TasksEvent>((event, emit) {});
     on<TaskAdded>(_taskAdded);
@@ -45,7 +43,6 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<CategoriesFetched>(_categoriesFetched);
     on<TaskCompleted>(_taskCompleted);
     on<TaskDeleted>(_taskDeleted);
-    on<CurrentPomodoroToDatabaseSaved>(_onCurrentPomodoroOnDatabaseSaved);
     on<DateAdded>(_dateAdded);
     on<TaskEdited>(_taskEdited);
   }
@@ -55,20 +52,8 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     emit(AddDateSuccess(event.dateTime));
   }
 
-  void saveCurrentPomodoroOnDatabase(PomodoroEntity item) =>
-      addPomodoroToDbUseCase.call(params: item);
-
-  void _onCurrentPomodoroOnDatabaseSaved(
-      CurrentPomodoroToDatabaseSaved event, Emitter<TasksState> emit) async {
-    emit(const SaveCurrentPomodoroLoading());
-
-    Either<String, bool> result =
-        await addPomodoroToDbUseCase.call(params: event.item);
-    result.fold(
-      (l) => const SaveCurrentPomodoroFailure(),
-      (r) => const SaveCurrentPomodoroSuccess(),
-    );
-  }
+  // void saveCurrentPomodoroOnDatabase(PomodoroEntity item) =>
+  //     addPomodoroToDbUseCase.call(params: item);
 
   _taskEdited(TaskEdited event, Emitter emit) async {
     emit(EditTaskLoading());

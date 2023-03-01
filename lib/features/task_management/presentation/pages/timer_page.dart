@@ -47,7 +47,7 @@ class TimerView extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              context.read<TasksBloc>().add(
+              context.read<TimerBloc>().add(
                     CurrentPomodoroToDatabaseSaved(
                       PomodoroEntity(
                         duration: Utils.calculatePomodoroTime(

@@ -113,3 +113,24 @@ class RestoreTimerSuccess extends TimerState {
 class RestoreTimerFailure extends TimerState {
   const RestoreTimerFailure(super.duration);
 }
+
+class SaveCurrentPomodoroSuccess extends TimerState {
+  const SaveCurrentPomodoroSuccess(super.duration);
+
+  @override
+  List<Object?> get props => [];
+}
+
+class SaveCurrentPomodoroLoading extends TimerState {
+  const SaveCurrentPomodoroLoading(super.duration);
+
+  @override
+  List<Object?> get props => [];
+}
+
+class SaveCurrentPomodoroFailure extends TimerState {
+  const SaveCurrentPomodoroFailure(super.duration);
+
+  @override
+  List<Object?> get props => [];
+}

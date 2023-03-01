@@ -7,7 +7,9 @@ import 'package:equatable/equatable.dart';
 import 'package:pomodore/core/resources/params/timer_state_params.dart';
 
 import '../../../../../core/utils/ticker.dart';
+import '../../../domain/entities/pomodoro_entity.dart';
 import '../../../domain/entities/task_entity.dart';
+import '../../../domain/usecases/add_pomodoro_to_db_usecase.dart';
 import '../../../domain/usecases/restore_timer_state_usecase.dart';
 import '../../../domain/usecases/save_timer_state_usecase.dart';
 
@@ -20,11 +22,13 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   TaskEntity? taskItem;
   final SaveTimerStateUseCase saveTimerStateUseCase;
   final RestoreTimerStateUseCase restoreTimerStateUseCase;
+  final AddPomodoroToDbUseCase addPomodoroToDbUseCase;
 
   TimerBloc({
     required Ticker ticker,
     required this.saveTimerStateUseCase,
     required this.restoreTimerStateUseCase,
+    required this.addPomodoroToDbUseCase,
   })  : _ticker = ticker,
         super(TimerInitial(_duration)) {
     on<TimerStarted>(_onStarted);
@@ -38,6 +42,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<TimerDurationSet>(_timerDurationSet);
     on<TimerStateSaved>(_timerStateSaved);
     on<TimerStateRestored>(_timerStateRestored);
+    on<CurrentPomodoroToDatabaseSaved>(_onCurrentPomodoroOnDatabaseSaved);
   }
 
   static int _duration = 60 * 25;
@@ -58,6 +63,18 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   Future<void> close() {
     _tickerSubscription?.cancel();
     return super.close();
+  }
+
+  void _onCurrentPomodoroOnDatabaseSaved(
+      CurrentPomodoroToDatabaseSaved event, Emitter emit) async {
+    emit(SaveCurrentPomodoroLoading(state.duration));
+
+    Either<String, bool> result =
+        await addPomodoroToDbUseCase.call(params: event.item);
+    result.fold(
+      (l) => SaveCurrentPomodoroFailure(state.duration),
+      (r) => SaveCurrentPomodoroSuccess(state.duration),
+    );
   }
 
   void _timerStateSaved(TimerStateSaved event, Emitter emit) async {

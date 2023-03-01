@@ -129,6 +129,7 @@ Future inject() async {
     ticker: getIt(),
     restoreTimerStateUseCase: getIt(),
     saveTimerStateUseCase: getIt(),
+    addPomodoroToDbUseCase: getIt(),
   ));
   getIt.registerSingleton<BaseBloc>(BaseBloc());
   getIt.registerFactory<SettingsBloc>(() => SettingsBloc(
@@ -147,7 +148,6 @@ Future inject() async {
         getAllCategories: getIt(),
         completeTaskUseCase: getIt(),
         deleteTaskUseCase: getIt(),
-        addPomodoroToDbUseCase: getIt(),
         editTaskUseCase: getIt(),
       ));
   getIt.registerFactory<AnalysisBloc>(() => AnalysisBloc(getIt()));

@@ -84,16 +84,6 @@ class TasksLocalDataSource {
     return list;
   }
 
-  Future<bool> saveAPomodoroOnDb(PomodoroEntity item) async {
-    try {
-      Map<String, Object?> data = PomodoroModel.toDbQuery(item);
-      await db.insert(DatabaseHelper.pomodoroTable, data);
-    } catch (e) {
-      return false;
-    }
-    return true;
-  }
-
   Future<List<Map<String, dynamic>>>? getAllPomodoroFromDb() async {
     List<Map<String, dynamic>>? list;
     try {
