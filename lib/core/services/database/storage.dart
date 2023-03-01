@@ -35,7 +35,7 @@ class FStorage {
     }
   }
 
-  static write(String key, dynamic value) async =>
+  static write(String key, String value) async =>
       await flutterSecureStorage.write(key: key, value: value);
 
   static delete(String key) async =>

@@ -33,8 +33,7 @@ void main() async {
         BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
         BlocProvider<SettingsBloc>(
             create: (context) =>
-            getIt.get<SettingsBloc>()
-              ..add(InitDataFetched())),
+                getIt.get<SettingsBloc>()..add(InitDataFetched())),
       ],
       child: const MyApp(),
     ),
@@ -68,6 +67,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    print("initState");
     restoreTimerState();
     WidgetsBinding.instance.addObserver(this);
     locale = const Locale("en");
@@ -84,10 +84,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.paused:
+        print("paused");
         saveTimerState();
         break;
       case AppLifecycleState.detached:
+        print("detached");
         saveTimerState();
+        break;
+      case AppLifecycleState.inactive:
+        print("inactive");
+        saveTimerState();
+        break;
+      case AppLifecycleState.resumed:
+        print("resumed");
         break;
       default:
         break;
@@ -110,13 +119,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           listener: (context, state) {
             if (state is RestoreTimerSuccess) {
               if (state.timerStateParams.task != null) {
-                context.read<TimerBloc>()
+                context
+                    .read<TimerBloc>()
                     .add(TimerTaskSelected(state.timerStateParams.task!));
               }
               context.read<TimerBloc>()
-                ..add(
-                    TimerDurationSet(state.timerStateParams.baseDuration))..add(
-                  TimerStarted(state.timerStateParams.duration));
+                ..add(TimerDurationSet(state.timerStateParams.baseDuration))
+                ..add(TimerStarted(state.timerStateParams.duration));
             }
           },
         ),
