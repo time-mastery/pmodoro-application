@@ -6,9 +6,7 @@ import 'package:pomodore/features/task_management/domain/usecases/edit_task_usec
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
 
 import '../../../domain/entities/category_entity.dart';
-import '../../../domain/entities/pomodoro_entity.dart';
 import '../../../domain/usecases/add_category_usecase.dart';
-import '../../../domain/usecases/add_pomodoro_to_db_usecase.dart';
 import '../../../domain/usecases/add_task_usecase.dart';
 import '../../../domain/usecases/complete_task_usecase.dart';
 import '../../../domain/usecases/delete_task_usecase.dart';

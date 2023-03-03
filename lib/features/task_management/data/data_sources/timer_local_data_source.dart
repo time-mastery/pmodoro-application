@@ -1,6 +1,5 @@
 import 'package:pomodore/core/services/database/storage.dart';
 import 'package:pomodore/core/utils/debug_print.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../core/resources/params/timer_state_params.dart';
