@@ -49,6 +49,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   static get getDuration => _duration;
 
+  static get getDurationInMinutes => _duration ~/ 60;
+
   static setDuration(int duration) {
     _duration = duration * 60;
   }
@@ -72,8 +74,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     Either<String, bool> result =
         await addPomodoroToDbUseCase.call(params: event.item);
     result.fold(
-      (l) => SaveCurrentPomodoroFailure(state.duration),
-      (r) => SaveCurrentPomodoroSuccess(state.duration),
+      (l) => emit(SaveCurrentPomodoroFailure(state.duration)),
+      (r) => emit(SaveCurrentPomodoroSuccess(state.duration)),
     );
   }
 
@@ -86,7 +88,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       Either<String, int> result = await saveTimerStateUseCase.call(
         params: TimerStateParams(
           duration: state.duration,
-          baseDuration: getDuration,
+          baseDuration: getDurationInMinutes,
           task: taskItem!,
           timerDone: false,
         ),

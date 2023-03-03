@@ -1,4 +1,5 @@
 import 'package:pomodore/core/services/database/storage.dart';
+import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -62,7 +63,7 @@ class TimerLocalDataSource {
       var dateTimeState = await FStorage.read(FStorage.timerStateDateTimeKey);
       var baseStateDuration =
           await FStorage.read(FStorage.timerStateBaseDurationKey);
-      String? id = await FStorage.read(FStorage.taskIdKey);
+      var id = await FStorage.read(FStorage.taskIdKey);
 
       if (state != null &&
           dateTimeState != null &&
@@ -92,8 +93,10 @@ class TimerLocalDataSource {
         result = null;
       }
     } catch (e) {
+      dPrint(e.toString());
       rethrow;
     }
+
     return result;
   }
 }

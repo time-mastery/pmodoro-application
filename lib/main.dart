@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/router/router.dart';
+import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/di.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
@@ -34,8 +35,7 @@ void main() async {
         BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
         BlocProvider<SettingsBloc>(
             create: (context) =>
-            getIt.get<SettingsBloc>()
-              ..add(InitDataFetched())),
+                getIt.get<SettingsBloc>()..add(InitDataFetched())),
       ],
       child: const MyApp(),
     ),
@@ -69,7 +69,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    print("initState");
     restoreTimerState();
     WidgetsBinding.instance.addObserver(this);
     locale = const Locale("en");
@@ -83,13 +82,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.detached:
-        saveTimerState();
-        break;
-      default:
-        break;
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.detached ||
+        state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused) {
+      saveTimerState();
     }
   }
 
@@ -108,24 +105,26 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         BlocListener<TimerBloc, TimerState>(
           listener: (context, state) {
             TimerBloc bloc = context.read<TimerBloc>();
+            dPrint(state.toString());
             if (state is RestoreTimerSuccess) {
               if (state.timerStateParams.timerDone) {
-                bloc.add(
-                  CurrentPomodoroToDatabaseSaved(
-                    PomodoroEntity(
-                      duration: TimerBloc.getDuration,
-                      dateTime: DateTime.now().toString(),
+                bloc
+                  ..add(
+                    CurrentPomodoroToDatabaseSaved(
+                      PomodoroEntity(
+                        duration: TimerBloc.getDuration,
+                        dateTime: DateTime.now().toString(),
+                      ),
                     ),
-                  ),
-                );
+                  )
+                  ..add(TimerDurationSet(state.timerStateParams.baseDuration));
               } else {
-                bloc..add(TimerTaskSelected(state.timerStateParams.task))..add(
-                    TimerDurationSet(state.timerStateParams.baseDuration))..add(
-                    TimerStarted(state.timerStateParams.duration));
+                bloc
+                  ..add(TimerTaskSelected(state.timerStateParams.task))
+                  ..add(TimerDurationSet(state.timerStateParams.baseDuration))
+                  ..add(TimerStarted(state.timerStateParams.duration));
               }
-            }
-
-            if (state is TimerCompleted) {
+            } else if (state is TimerCompleted) {
               bloc.add(
                 CurrentPomodoroToDatabaseSaved(
                   PomodoroEntity(
@@ -134,6 +133,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   ),
                 ),
               );
+            } else if (state is SaveCurrentPomodoroSuccess) {
+              bloc
+                ..add(TimerReset())
+                ..add(TimerTaskDeSelected());
             }
           },
         ),
