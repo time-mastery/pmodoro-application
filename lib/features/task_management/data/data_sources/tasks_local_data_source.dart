@@ -1,8 +1,6 @@
 import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/features/task_management/data/models/category_model.dart';
-import 'package:pomodore/features/task_management/data/models/pomodoro_model.dart';
 import 'package:pomodore/features/task_management/domain/entities/category_entity.dart';
-import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../../../core/services/database/database_helper.dart';

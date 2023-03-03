@@ -1,7 +1,3 @@
-import 'package:bloc_test/bloc_test.dart';
-import 'package:pomodore/core/utils/ticker.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
-import 'package:test/test.dart';
 
 void main() {
   // todo : check why blocTest not work
