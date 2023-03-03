@@ -12,6 +12,7 @@ class DatabaseHelper {
   static const taskTable = 'tasks';
   static const categoryTable = 'categories';
   static const pomodoroTable = 'pomodoros';
+  static const dailyGoalTable = 'dailyGoal';
 
   static Database? _database;
 
@@ -59,15 +60,13 @@ class DatabaseHelper {
             dateTime TEXT NOT NULL
             )
           ''');
+    batch.execute('''
+          CREATE TABLE $dailyGoalTable (
+            _id INTEGER PRIMARY KEY,
+            count TEXT NULL,
+            dateTime TEXT NOT NULL
+            )
+          ''');
     await batch.commit();
   }
-
-  static Future showTaskTable() async =>
-      await _database?.rawQuery('SELECT * FROM "$taskTable"');
-
-  static Future showCategoryTable() async =>
-      await _database?.rawQuery('SELECT * FROM "$categoryTable"');
-
-  static Future showPomodorosTable() async =>
-      await _database?.rawQuery('SELECT * FROM "$pomodoroTable"');
 }

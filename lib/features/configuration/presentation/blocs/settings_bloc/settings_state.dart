@@ -27,3 +27,46 @@ class SettingFetchingFail extends SettingsState {
   @override
   List<Object?> get props => [];
 }
+
+class ChangeLanguageSuccess extends SettingsState {
+  final Locale locale;
+
+  const ChangeLanguageSuccess(this.locale);
+
+  @override
+  List<Object?> get props => [locale];
+}
+
+class InitDataFetchSuccess extends SettingsState {
+  final Locale locale;
+  final ThemeData themeData;
+
+  const InitDataFetchSuccess({required this.locale, required this.themeData});
+
+  @override
+  List<Object?> get props => [locale, themeData];
+}
+
+class InitDataFetchFailure extends SettingsState {
+  @override
+  List<Object?> get props => [];
+}
+
+class ChangeThemeLoading extends SettingsState {
+  @override
+  List<Object?> get props => [];
+}
+
+class ChangeThemeSuccess extends SettingsState {
+  final ThemeData themeData;
+
+  const ChangeThemeSuccess(this.themeData);
+
+  @override
+  List<Object?> get props => [themeData];
+}
+
+class ChangeThemeFailure extends SettingsState {
+  @override
+  List<Object?> get props => [];
+}

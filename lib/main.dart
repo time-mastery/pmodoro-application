@@ -8,22 +8,37 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/router/router.dart';
-import 'package:pomodore/core/utils/bloc_observer.dart';
+import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/di.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
+import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
+import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 
-import 'core/utils/size_config.dart';
+import 'core/observers/bloc_observer.dart';
+import 'core/utils/responsive/size_config.dart';
 import 'features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
-      .copyWith(statusBarIconBrightness: Brightness.light));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
+      .copyWith(statusBarIconBrightness: Brightness.dark));
 
   // Dependency injection
   await inject();
 
   Bloc.observer = MyBlocObserver();
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        // provide all global blocs
+        BlocProvider<TimerBloc>(create: (context) => getIt.get<TimerBloc>()),
+        BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
+        BlocProvider<SettingsBloc>(
+            create: (context) =>
+                getIt.get<SettingsBloc>()..add(InitDataFetched())),
+      ],
+      child: const MyApp(),
+    ),
+  );
 
   // some setting to config Desktop version
   if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
@@ -39,43 +54,133 @@ void main() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  late Locale locale;
+  late ThemeData themeData;
+
+  @override
+  void initState() {
+    super.initState();
+    restoreTimerState();
+    WidgetsBinding.instance.addObserver(this);
+    locale = const Locale("en");
+    themeData = AppConstant.defaultLightTheme;
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.detached ||
+        state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused) {
+      saveTimerState();
+    }
+  }
+
+  void saveTimerState() {
+    context.read<TimerBloc>().add(const TimerStateSaved());
+  }
+
+  void restoreTimerState() {
+    context.read<TimerBloc>().add(const TimerStateRestored());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<TimerBloc>(
-          create: (context) => getIt.get<TimerBloc>(),
-        ),
-        BlocProvider<BaseBloc>(
-          create: (context) => getIt.get<BaseBloc>(),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<TimerBloc, TimerState>(
+          listener: (context, state) {
+            TimerBloc bloc = context.read<TimerBloc>();
+            dPrint(state.toString());
+            if (state is RestoreTimerSuccess) {
+              if (state.timerStateParams.timerDone) {
+                bloc
+                  ..add(
+                    CurrentPomodoroToDatabaseSaved(
+                      PomodoroEntity(
+                        duration: TimerBloc.getDuration,
+                        dateTime: DateTime.now().toString(),
+                      ),
+                    ),
+                  )
+                  ..add(TimerDurationSet(state.timerStateParams.baseDuration));
+              } else {
+                bloc
+                  ..add(TimerTaskSelected(state.timerStateParams.task))
+                  ..add(TimerDurationSet(state.timerStateParams.baseDuration))
+                  ..add(TimerStarted(state.timerStateParams.duration));
+              }
+            } else if (state is TimerCompleted) {
+              bloc.add(
+                CurrentPomodoroToDatabaseSaved(
+                  PomodoroEntity(
+                    duration: TimerBloc.getDuration,
+                    dateTime: DateTime.now().toString(),
+                  ),
+                ),
+              );
+            } else if (state is SaveCurrentPomodoroSuccess) {
+              bloc
+                ..add(TimerReset())
+                ..add(TimerTaskDeSelected());
+            }
+          },
         ),
       ],
-      child: OrientationBuilder(
-        builder: (context, orientation) =>
-            LayoutBuilder(builder: (context, constraints) {
-          SizeConfig().init(constraints, orientation);
-          return MaterialApp(
-            title: AppConstant.appName,
-            onGenerateRoute: AppRouter.onGenerationRouter,
-            theme: AppConstant.getTheme(context),
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en'),
-              Locale('fa'),
-              Locale('de'),
-            ],
-            locale: const Locale('en'),
+      child: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, state) {
+          return OrientationBuilder(
+            builder: (context, orientation) {
+              if (state is InitDataFetchSuccess) {
+                locale = state.locale;
+                themeData = state.themeData;
+              }
+
+              if (state is ChangeLanguageSuccess) {
+                locale = state.locale;
+              }
+
+              if (state is ChangeThemeSuccess) {
+                themeData = state.themeData;
+              }
+
+              return LayoutBuilder(builder: (context, constraints) {
+                SizeConfig().init(constraints, orientation);
+                return MaterialApp(
+                  title: AppConstant.appName,
+                  onGenerateRoute: AppRouter.onGenerationRouter,
+                  theme: themeData,
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: const [
+                    Locale('en'),
+                    Locale('fa'),
+                    Locale('de'),
+                  ],
+                  locale: locale,
+                );
+              });
+            },
           );
-        }),
+        },
       ),
     );
   }

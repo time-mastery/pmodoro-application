@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/core/shared_widgets/global_button.dart';
-import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/core/utils/responsive/size_config.dart';
 import 'package:pomodore/core/utils/utils.dart';
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/pages/analyze_page.dart';
+import 'package:pomodore/features/task_management/presentation/pages/analysis_page.dart';
 
+import '../../../../core/constant/constant.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../widgets/timer_task.dart';
@@ -38,30 +38,30 @@ class TimerView extends StatelessWidget {
         content: Text(
           localization.saveProcessTitle,
           style: const TextStyle(
-            color: AppConstant.scaffoldColor,
             fontWeight: FontWeight.bold,
           ),
         ),
         leading: const Icon(
           Ionicons.save_outline,
-          color: AppConstant.scaffoldColor,
         ),
-        backgroundColor: AppConstant.primaryColor.withOpacity(.7),
         actions: [
           TextButton(
             onPressed: () {
-              context
-                  .read<TasksBloc>()
-                  .add(CurrentPomodoroToDatabaseSaved(PomodoroEntity(
-                    duration: Utils.calculatePomodoroTime(
-                        TimerBloc.getDuration, duration),
-                    dateTime: DateTime.now().toString(),
-                  )));
+              context.read<TimerBloc>().add(
+                    CurrentPomodoroToDatabaseSaved(
+                      PomodoroEntity(
+                        duration: Utils.calculatePomodoroTime(
+                          TimerBloc.getDuration,
+                          duration,
+                        ),
+                        dateTime: DateTime.now().toString(),
+                      ),
+                    ),
+                  );
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             },
             child: Text(
               localization.yesTitle,
-              style: const TextStyle(color: AppConstant.scaffoldColor),
             ),
           ),
           TextButton(
@@ -70,7 +70,6 @@ class TimerView extends StatelessWidget {
             },
             child: Text(
               localization.noTitle,
-              style: const TextStyle(color: AppConstant.scaffoldColor),
             ),
           ),
         ]);
@@ -82,18 +81,27 @@ class TimerView extends StatelessWidget {
 
     return BlocListener<TimerBloc, TimerState>(
       listenWhen: (previous, current) {
-        return (current is! TimerInitial && previous is! TimerInitial);
+        if (previous is TimerInitial &&
+            current is StartTimerWithoutTaskFailure) {
+          return true;
+        } else {
+          return (current is! TimerInitial && previous is! TimerInitial);
+        }
       },
       listener: (context, state) {
         if (state is SaveCurrentTimeStateDialog) {
-          // fixme[mahmoud]: pass me the current task UID
           ScaffoldMessenger.of(context)
             ..removeCurrentMaterialBanner()
             ..showMaterialBanner(_showMaterialBanner(
               context,
               duration: state.duration,
-              taskUid: "",
+              taskUid: context.read<TimerBloc>().taskItem?.id,
             ));
+        }
+        if (state is StartTimerWithoutTaskFailure) {
+          var snack = SnackBar(
+              content: Text(localization.startTimerWithoutTaskWarning));
+          ScaffoldMessenger.of(context).showSnackBar(snack);
         }
       },
       child: Scaffold(
@@ -103,7 +111,7 @@ class TimerView extends StatelessWidget {
             Icons.bar_chart,
           ),
           onPressed: () {
-            Navigator.pushNamed(context, AnalyzePage.routeName);
+            Navigator.pushNamed(context, AnalysisPage.routeName);
           },
         ),
         body: LayoutBuilder(
@@ -138,27 +146,29 @@ class TimerBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * .5,
-      height: MediaQuery.of(context).size.width * .5,
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * .5,
-              height: MediaQuery.of(context).size.width * .5,
-              child: CircularProgressIndicator(
-                value: context.select((TimerBloc bloc) => bloc.state.duration) /
-                    TimerBloc.getDuration,
-                color: AppConstant.primaryColor,
-                backgroundColor: AppConstant.primaryColor.withOpacity(.2),
-                strokeWidth: 7,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * .5,
+        height: MediaQuery.of(context).size.width * .5,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * .5,
+                height: MediaQuery.of(context).size.width * .5,
+                child: CircularProgressIndicator(
+                  value:
+                      context.select((TimerBloc bloc) => bloc.state.duration) /
+                          TimerBloc.getDuration,
+                  strokeWidth: 7,
+                ),
               ),
             ),
-          ),
-          const TimerText(),
-        ],
+            const TimerText(),
+          ],
+        ),
       ),
     );
   }
@@ -177,7 +187,7 @@ class TimerButtons extends StatelessWidget {
             GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: AppConstant.secondaryColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               onPressed: () {
                 if (state is TimerInProgress) {
                   context.read<TimerBloc>().add(TimerPaused());
@@ -196,6 +206,7 @@ class TimerButtons extends StatelessWidget {
               child: Icon(
                 (state is TimerInProgress) ? Ionicons.pause : Ionicons.play,
                 size: 30,
+                color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),
             const SizedBox(
@@ -204,18 +215,18 @@ class TimerButtons extends StatelessWidget {
             GlobalButton(
               width: SizeConfig.heightMultiplier * 10,
               height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: AppConstant.primaryColor,
+              backgroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () => context.read<TimerBloc>()
                 ..add(SaveCurrentTimerStateDialogShowed(
                   duration: state.duration,
-                  taskUid: "",
+                  taskItem: context.read<TimerBloc>().taskItem!,
                 ))
+                ..add(TimerTaskDeSelected())
                 ..add(TimerReset()),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
               child: const Icon(
                 Ionicons.square,
-                color: AppConstant.scaffoldColor,
               ),
             ),
           ],
@@ -231,16 +242,89 @@ class TimerText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      final duration = context.select((TimerBloc bloc) => bloc.state.duration);
+      AppLocalizations localization = AppLocalizations.of(context)!;
 
-      return Align(
-        alignment: Alignment.center,
-        child: Text(
-          Utils.formatSecToMinSec(timeInSecond: duration),
-          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                color: AppConstant.primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
+      final duration = context.select((TimerBloc bloc) => bloc.state.duration);
+      final listOfTimerDuration = [1, 5, 10, 15, 25, 40, 60, 90, 120];
+      return BlocListener<TimerBloc, TimerState>(
+        listener: (context, state) {
+          if (state is ChangeTimerDurationLoading) Navigator.pop(context);
+        },
+        child: GestureDetector(
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              backgroundColor: Theme.of(context).colorScheme.background,
+              elevation: 20,
+              isScrollControlled: true,
+              builder: (context) {
+                return FractionallySizedBox(
+                  heightFactor: .2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppConstant.modalPadding),
+                    child: Column(
+                      children: [
+                        Text(
+                          localization.changeTimerDurationTitle,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: listOfTimerDuration.length,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: () {
+                                context.read<TimerBloc>().add(
+                                      TimerDurationSet(
+                                          listOfTimerDuration[index]),
+                                    );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                ),
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      listOfTimerDuration[index].toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSecondary,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              Utils.formatSecToMinSec(timeInSecond: duration),
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ),
         ),
       );
     });

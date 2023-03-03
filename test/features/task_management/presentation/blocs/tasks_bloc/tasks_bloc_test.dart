@@ -10,6 +10,7 @@ import 'package:pomodore/features/task_management/domain/usecases/add_pomodoro_t
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
+import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
 import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
@@ -24,6 +25,7 @@ import 'tasks_bloc_test.mocks.dart';
   CompleteTaskUseCase,
   DeleteTaskUseCase,
   AddPomodoroToDbUseCase,
+  EditTaskUseCase,
   TaskEntity,
   PomodoroEntity,
 ])
@@ -33,11 +35,10 @@ void main() {
       MockGetSpecificDateTasksUseCase();
   MockCompleteTaskUseCase mockCompleteTaskUseCase = MockCompleteTaskUseCase();
   MockDeleteTaskUseCase mockDeleteTaskUseCase = MockDeleteTaskUseCase();
-  MockAddPomodoroToDbUseCase mockAddPomodoroToDbUseCase =
-      MockAddPomodoroToDbUseCase();
   MockAddCategoryUsecase mockAddCategoryUsecase = MockAddCategoryUsecase();
   MockGetAllCategoriesUseCase mockGetAllCategoriesUseCase =
       MockGetAllCategoriesUseCase();
+  MockEditTaskUseCase mockEditTaskUseCase = MockEditTaskUseCase();
 
   MockTaskEntity taskEntity = MockTaskEntity();
   MockPomodoroEntity pomodoroEntity = MockPomodoroEntity();
@@ -49,7 +50,7 @@ void main() {
         getAllCategories: mockGetAllCategoriesUseCase,
         completeTaskUseCase: mockCompleteTaskUseCase,
         deleteTaskUseCase: mockDeleteTaskUseCase,
-        addPomodoroToDbUseCase: mockAddPomodoroToDbUseCase,
+        editTaskUseCase: mockEditTaskUseCase,
       );
 
   group("TaskAdded Event", () {
@@ -81,7 +82,7 @@ void main() {
         act: (bloc) => bloc.add(TaskAdded(taskEntity)),
         expect: () => [
           TaskAddLoading(),
-          TaskAddFail(),
+          TaskAddFailure(),
         ],
       );
     });
@@ -93,7 +94,7 @@ void main() {
         "emit TaskCompleteLoading and TaskCompleteSuccess state",
         build: () {
           when(mockCompleteTaskUseCase.call(params: taskEntity))
-              .thenAnswer((_) async => Future.value(const Right(1)));
+              .thenAnswer((_) async => Future.value(const Right("1")));
           return getBlocInstance();
         },
         act: (bloc) => bloc.add(TaskCompleted(taskEntity)),
@@ -114,7 +115,7 @@ void main() {
         act: (bloc) => bloc.add(TaskCompleted(taskEntity)),
         expect: () => [
           TaskCompleteLoading(),
-          TaskCompleteFail(),
+          TaskCompleteFailure(),
         ],
       );
     });
@@ -125,7 +126,7 @@ void main() {
         "emit TaskDeleteLoading and TaskDeleteSuccess state",
         build: () {
           when(mockDeleteTaskUseCase.call(params: "xx2"))
-              .thenAnswer((_) async => Future.value(const Right(1)));
+              .thenAnswer((_) async => Future.value(const Right("1")));
           return getBlocInstance();
         },
         act: (bloc) => bloc.add(const TaskDeleted("xx2")),
@@ -146,41 +147,41 @@ void main() {
         act: (bloc) => bloc.add(const TaskDeleted("xx2")),
         expect: () => [
           TaskDeleteLoading(),
-          TaskDeleteFail(),
+          TaskDeleteFailure(),
         ],
       );
     });
   });
-  group("CurrentPomodoroToDatabaseSaved Event Test", () {
-    group("CurrentPomodoroToDatabaseSaved Success Event Test", () {
-      blocTest(
-        "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroSuccess state",
-        build: () {
-          when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
-              .thenAnswer((_) async => Future.value(const Right(true)));
-          return getBlocInstance();
-        },
-        act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
-        expect: () => [
-          const SaveCurrentPomodoroLoading(),
-          const SaveCurrentPomodoroSuccess(),
-        ],
-      );
-    });
-    group("CurrentPomodoroToDatabaseSaved Fail Event Test", () {
-      blocTest(
-        "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroFail state",
-        build: () {
-          when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
-              .thenAnswer((_) async => Future.value(const Left("error")));
-          return getBlocInstance();
-        },
-        act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
-        expect: () => [
-          const SaveCurrentPomodoroLoading(),
-          const SaveCurrentPomodoroFail(),
-        ],
-      );
-    });
-  });
+  // group("CurrentPomodoroToDatabaseSaved Event Test", () {
+  //   group("CurrentPomodoroToDatabaseSaved Success Event Test", () {
+  //     blocTest(
+  //       "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroSuccess state",
+  //       build: () {
+  //         when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
+  //             .thenAnswer((_) async => Future.value(const Right(true)));
+  //         return getBlocInstance();
+  //       },
+  //       act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
+  //       expect: () => [
+  //         const SaveCurrentPomodoroLoading(),
+  //         const SaveCurrentPomodoroSuccess(),
+  //       ],
+  //     );
+  //   });
+  //   group("CurrentPomodoroToDatabaseSaved Fail Event Test", () {
+  //     blocTest(
+  //       "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroFail state",
+  //       build: () {
+  //         when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
+  //             .thenAnswer((_) async => Future.value(const Left("error")));
+  //         return getBlocInstance();
+  //       },
+  //       act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
+  //       expect: () => [
+  //         const SaveCurrentPomodoroLoading(),
+  //         const SaveCurrentPomodoroFailure(),
+  //       ],
+  //     );
+  //   });
+  // });
 }

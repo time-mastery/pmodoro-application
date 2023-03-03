@@ -1,16 +1,36 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/utils/size_config.dart';
-import 'package:pomodore/features/task_management/presentation/pages/all_today_tasks_page.dart';
+import 'package:pomodore/core/shared_widgets/global_indicator.dart';
+import 'package:pomodore/core/utils/responsive/size_config.dart';
+import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
+import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
+import 'package:pomodore/features/task_management/presentation/widgets/daily_goal_dialog.dart';
 
+import '../../../../core/utils/utils.dart';
+import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../../../notification_management/presentation/pages/notifications_page.dart';
+import '../../domain/entities/task_entity.dart';
 import '../widgets/home_task_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt.get<HomeBloc>()..add(DailyGoalChecked()),
+      child: const HomeView(),
+    );
+  }
+}
+
+class HomeView extends StatelessWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +44,66 @@ class HomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: SizeConfig.heightMultiplier * 2),
-            Container(
-              width: SizeConfig.widthMultiplier * 100,
-              height: SizeConfig.heightMultiplier * 20,
-              decoration: BoxDecoration(
-                color: AppConstant.swatchColor.withOpacity(.09),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: BlocConsumer<HomeBloc, HomeState>(
+          listener: (context, state) {
+            if (state is CheckDailyGoalSuccess) {
+              if (state.dailyGoalSubmitted == false) {
+                showDailyGoalDialog(context, context.read<HomeBloc>());
+              } else {
+                context.read<HomeBloc>().add(HomeDataFetched(DateTime.now()));
+              }
+            } else if (state is SaveDailyGoalSuccess) {
+              Navigator.pop(context);
+              context.read<HomeBloc>().add(HomeDataFetched(DateTime.now()));
+            }
+          },
+          builder: (context, state) {
+            if (state is CheckDailyGoalLoading ||
+                state is FetchHomeDataLoading) {
+              return Center(
+                child: GlobalIndicator(
+                    color: Theme.of(context).colorScheme.primary),
+              );
+            }
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: SizeConfig.heightMultiplier * 2),
+                const HomeGoalWidget(),
+                SizedBox(height: SizeConfig.heightMultiplier * 2),
+                const HomeTaskCountWidget(),
+                SizedBox(height: SizeConfig.heightMultiplier * 2),
+                const HomeTasksList(),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class HomeGoalWidget extends StatelessWidget {
+  const HomeGoalWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+    DailyInformationEntity? dailyItem;
+
+    return SizedBox(
+      width: SizeConfig.widthMultiplier * 100,
+      height: SizeConfig.heightMultiplier * 20,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Card(
+          child: BlocBuilder(
+            bloc: context.read<HomeBloc>(),
+            builder: (context, state) {
+              if (state is FetchHomeDataSuccess) dailyItem = state.item;
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
                     SizedBox(
@@ -52,18 +117,19 @@ class HomePage extends StatelessWidget {
                               width: SizeConfig.widthMultiplier * 20,
                               height: SizeConfig.widthMultiplier * 20,
                               child: CircularProgressIndicator(
-                                value: .7,
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(.2),
+                                value: dailyItem?.processPercentage ?? 0,
                                 strokeWidth: 10,
-                                backgroundColor:
-                                    AppConstant.swatchColor.withOpacity(.2),
-                                color: AppConstant.swatchColor,
                               ),
                             ),
                           ),
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "75 %",
+                              "${((dailyItem?.processPercentage ?? 0) * 100).toString()} %",
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
                           ),
@@ -77,16 +143,20 @@ class HomePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            localization.dailyTasksDoneTitle,
+                            Utils.getProcessTitle(
+                                context, dailyItem?.processPercentage ?? 0),
                             style: Theme.of(context).textTheme.titleLarge,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           SizedBox(height: SizeConfig.heightMultiplier * 2),
                           Text(
-                            localization.completedTasks
-                                .replaceFirst("{d}", "12")
-                                .replaceFirst("{a}", "16"),
+                            dailyItem == null
+                                ? "- - - - - -"
+                                : localization.completedTasks(
+                                    dailyItem!.dailyGoalQuantity.toString(),
+                                    dailyItem!.completedTaskQuantity.toString(),
+                                  ),
                             style: Theme.of(context).textTheme.bodySmall,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -96,42 +166,90 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ),
-            SizedBox(height: SizeConfig.heightMultiplier * 2),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HomeTaskCountWidget extends StatelessWidget {
+  const HomeTaskCountWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+    return BlocBuilder(
+      bloc: context.read<HomeBloc>(),
+      builder: (context, state) {
+        return Text(
+          localization.todayTasks.replaceAll(
+              "#",
+              ((state is FetchHomeDataSuccess)
+                  ? state.list.length.toString()
+                  : "-")),
+          style: Theme.of(context).textTheme.titleLarge,
+        );
+      },
+    );
+  }
+}
+
+class HomeTasksList extends StatelessWidget {
+  const HomeTasksList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+    List<TaskEntity> list = [];
+
+    return BlocBuilder(
+      bloc: context.read<HomeBloc>(),
+      builder: (context, state) {
+        if (state is FetchHomeDataLoading) {
+          return const Center(child: GlobalIndicator());
+        }
+
+        if (state is FetchHomeDataSuccess) {
+          list = state.list;
+        }
+
+        if (state is FetchHomeDataSuccess && list.isEmpty) {
+          return Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  localization.todayTasks.replaceAll("#", "16"),
-                  style: Theme.of(context).textTheme.titleLarge,
+                Text(localization.emptyTaskListTitle,
+                    style: Theme.of(context).textTheme.headlineSmall),
+                SizedBox(
+                  height: SizeConfig.heightMultiplier * 2,
                 ),
-                InkWell(
-                  onTap: () =>
-                      Navigator.pushNamed(context, AllTodayTasksPage.routeName),
-                  child: Text(
-                    localization.seeAllTitle,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: AppConstant.swatchColor),
-                  ),
+                Text(
+                  localization.emptyTaskListHint,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: SizeConfig.heightMultiplier * 2,
+                ),
+                IconButton(
+                  onPressed: () =>
+                      getIt.get<BaseBloc>().add(const PageIndexChanged(1)),
+                  icon: const Icon(CupertinoIcons.add_circled_solid),
                 ),
               ],
             ),
-            SizedBox(height: SizeConfig.heightMultiplier * 2),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) => HomeTaskItem(
-                  title: "Task $index",
-                  time: index,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
+          );
+        }
+
+        return Expanded(
+          child: ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context, index) => HomeTaskItem(item: list[index]),
+          ),
+        );
+      },
     );
   }
 }

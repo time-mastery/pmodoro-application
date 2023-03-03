@@ -1,7 +1,5 @@
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
-import '../../../../core/utils/utils.dart';
-
 class TaskModel extends TaskEntity {
   const TaskModel(
     String id,
@@ -21,14 +19,18 @@ class TaskModel extends TaskEntity {
           done: done,
         );
 
-  static toDbQuery(TaskEntity item) => {
+  static toDbQuery(TaskEntity item, {bool isCompleted = false}) => {
         "uid": item.id,
         "title": item.title,
         "description": item.description,
         "category": item.category,
         "deadLineTime": item.deadLineTime.toString(),
         "doneTime": item.doneTime.toString(),
-        "done": item.done ? 1 : 0,
+        "done": isCompleted
+            ? 1
+            : item.done
+                ? 1
+                : 0,
       };
 
   static fromQueryToTaskModel(Map<String, dynamic> item) => TaskEntity(
@@ -47,12 +49,10 @@ class TaskModel extends TaskEntity {
     return list;
   }
 
-  static List<TaskEntity> filterTodayTasksList(
-      List<TaskEntity> items, DateTime date) {
-    List<TaskEntity> list = [];
-    for (var element in items) {
-      if (Utils.checkDateIsToday(element.deadLineTime)) list.add(element);
-    }
-    return list;
+  static List<TaskEntity> sortTasksByDateTime(List<TaskEntity> item) {
+    item.sort(
+      (a, b) => a.deadLineTime.compareTo(b.deadLineTime),
+    );
+    return item;
   }
 }

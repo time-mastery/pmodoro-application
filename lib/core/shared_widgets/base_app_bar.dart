@@ -49,42 +49,42 @@ class _BaseAppBarState extends State<BaseAppBar>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _fadeAnimation,
-      child: Container(
-        margin: const EdgeInsets.only(top: 30, left: 10, right: 10),
-        child: AppBar(
-          leading: Hero(
-              tag: AppConstant.splashIconHeroTag,
-              child: Material(
-                color: Colors.transparent,
-                child: IconButton(
-                  icon: widget.hasBackBtn
-                      ? const Icon(Icons.arrow_back)
-                      : Material(
-                          color: Colors.transparent,
-                          clipBehavior: Clip.antiAlias,
-                          child: Image.asset(
-                            "assets/images/logov2.png",
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: FadeTransition(
+        opacity: _fadeAnimation,
+        child: Container(
+          margin: const EdgeInsets.only(top: 30, left: 10, right: 10),
+          child: AppBar(
+            leading: Hero(
+                tag: AppConstant.splashIconHeroTag,
+                child: Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                    icon: widget.hasBackBtn
+                        ? const Icon(Icons.arrow_back)
+                        : Material(
+                            color: Colors.transparent,
+                            clipBehavior: Clip.antiAlias,
+                            child: Image.asset(
+                              AppConstant.getLogoPath(context),
+                            ),
                           ),
-                        ),
-                  onPressed:
-                      widget.hasBackBtn ? () => Navigator.pop(context) : null,
-                ),
-              )),
-          title: Text(
-            widget.title,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: AppConstant.secondaryColor),
-          ),
-          actions: [
-            IconButton(
-              onPressed: widget.onPressed,
-              icon: widget.action ?? Container(),
+                    onPressed:
+                        widget.hasBackBtn ? () => Navigator.pop(context) : null,
+                  ),
+                )),
+            title: Text(
+              widget.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          ],
+            actions: [
+              IconButton(
+                onPressed: widget.onPressed,
+                icon: widget.action ?? Container(),
+              ),
+            ],
+          ),
         ),
       ),
     );

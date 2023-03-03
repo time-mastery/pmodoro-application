@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/core/utils/responsive/size_config.dart';
 
 import 'base_page.dart';
 
@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
               color: Colors.transparent,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: Image.asset(
-                "assets/images/logov2.png",
+                AppConstant.getLogoPath(context),
                 width: SizeConfig.widthMultiplier * 35,
                 height: SizeConfig.widthMultiplier * 35,
               ),

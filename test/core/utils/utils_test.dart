@@ -26,5 +26,20 @@ void main() {
 
       expect(time, 100);
     });
+
+    test("Test get name of month", () {
+      String name = Utils.monthNameOfDateTime(DateTime(1998, 4, 1).toString());
+
+      expect(name, "April");
+    });
+
+    test("Test time to formatted yyyy MM dd", () {
+      var dateTime = DateTime(1998, 1, 1);
+      var formatterTime = Utils.formatDateToYYYYMMDD(dateTime);
+      var result =
+          Utils.formatDateToYYYYMMDD(dateTime.add(const Duration(days: 1)));
+
+      expect(result, "1998-01-02");
+    });
   });
 }

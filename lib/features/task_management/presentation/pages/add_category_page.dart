@@ -4,7 +4,6 @@ import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
 import 'package:pomodore/features/task_management/domain/entities/category_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 
-import '../../../../core/constant/constant.dart';
 import '../../../../core/shared_widgets/custom_form_field.dart';
 import '../../../../core/shared_widgets/global_button.dart';
 import '../../../../core/shared_widgets/global_indicator.dart';
@@ -59,12 +58,12 @@ class _AddCategoryViewState extends State<AddCategoryView> {
 
     return BlocConsumer<TasksBloc, TasksState>(
       listener: (context, state) {
-        if (state is CategoryAddSuccess || state is CategoryAddFail) {
+        if (state is CategoryAddSuccess || state is CategoryAddFailure) {
           showSnackBar(context,
               title: (state is CategoryAddSuccess)
                   ? localization.successTitle
                   : localization.failureTitle,
-              color: AppConstant.primaryColor);
+              color: Theme.of(context).primaryColor);
         }
       },
       builder: (context, state) {
@@ -93,7 +92,7 @@ class _AddCategoryViewState extends State<AddCategoryView> {
                               CategoryEntity(title: titleController.text)));
                         }
                       },
-                      backgroundColor: AppConstant.secondaryColor,
+                      backgroundColor: Theme.of(context).secondaryHeaderColor,
                       child: (state is CategoryAddLoading)
                           ? const GlobalIndicator()
                           : Text(localization.submitCategory),

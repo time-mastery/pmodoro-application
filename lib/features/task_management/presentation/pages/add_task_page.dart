@@ -8,22 +8,24 @@ import 'package:pomodore/core/shared_widgets/global_snack.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
 
-import '../../../../core/constant/constant.dart';
 import '../../../../core/shared_widgets/global_indicator.dart';
 import '../../../../core/utils/utils.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
 
 class AddTaskPage extends StatelessWidget {
-  const AddTaskPage({Key? key}) : super(key: key);
+  const AddTaskPage({Key? key, this.editItem}) : super(key: key);
 
   static const routeName = "/addTask";
+
+  final TaskEntity? editItem;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (BuildContext context) =>
-            getIt.get<TasksBloc>()..add(CategoriesFetched()),
+        getIt.get<TasksBloc>()
+          ..add(CategoriesFetched()),
         child: const AddTaskView());
   }
 }
@@ -66,12 +68,14 @@ class _AddTaskViewState extends State<AddTaskView> {
     return BlocConsumer(
       bloc: context.read<TasksBloc>(),
       listener: (context, state) {
-        if (state is TaskAddSuccess || state is TaskAddFail) {
-          showSnackBar(context,
-              title: (state is TaskAddSuccess)
-                  ? localization.successTitle
-                  : localization.failureTitle,
-              color: AppConstant.primaryColor);
+        if (state is TaskAddFailure) {
+          showSnackBar(
+            context,
+            title: localization.failureTitle,
+          );
+        }
+        if (state is TaskAddSuccess) {
+          Navigator.pop(context);
         }
       },
       builder: (context, state) {
@@ -99,30 +103,37 @@ class _AddTaskViewState extends State<AddTaskView> {
                       hint: localization.taskDescription,
                     ),
                     const SizedBox(height: 20),
-                    // Row(
-                    //   children: [
-                    //     Flexible(
-                    //       child:
-                    //           CustomFormField(hint: localization.categoryTitle),
-                    //     ),
-                    //     IconButton(
-                    //         onPressed: () {
-                    //           Navigator.pushNamed(
-                    //               context, AddCategoryPage.routeName);
-                    //         },
-                    //         icon: const Icon(
-                    //           Ionicons.add_circle_outline,
-                    //           size: 30,
-                    //         )),
-                    //   ],
-                    // ),
+                    BlocBuilder<TasksBloc, TasksState>(
+                      builder: (context, state) {
+                        if (state is AddDateSuccess) dateTime = state.dateTime;
+
+                        if (dateTime != null) {
+                          return Row(
+                            children: [
+                              Text(
+                                "${localization.dateTitle} : ",
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleMedium,
+                              ),
+                              Text(dateTime.toString()),
+                            ],
+                          );
+                        }
+                        return Container();
+                      },
+                    ),
                     const SizedBox(height: 20),
                     GlobalDateTimePicker(
                       buttonTitle: "Select Deadline DateTime",
+
                       onChanged: (time) {
+                        context.read<TasksBloc>().add(DateAdded(time));
                         dateTime = time;
                       },
                       onConfirm: (time) {
+                        context.read<TasksBloc>().add(DateAdded(time));
                         dateTime = time;
                       },
                     ),
@@ -135,18 +146,17 @@ class _AddTaskViewState extends State<AddTaskView> {
                                 title: "Please select a datetime");
                           } else {
                             context.read<TasksBloc>().add(TaskAdded(TaskEntity(
-                                  id: Utils.createUniqueId(),
-                                  title: titleController.text,
-                                  description: descriptionController.text,
-                                  deadLineTime: dateTime!,
-                                  doneTime: DateTime.now(),
-                                  done: false,
-                                  category: "cate",
-                                )));
+                              id: Utils.createUniqueId(),
+                              title: titleController.text,
+                              description: descriptionController.text,
+                              deadLineTime: dateTime!,
+                              doneTime: DateTime.now(),
+                              done: false,
+                              category: "cate",
+                            )));
                           }
                         }
                       },
-                      backgroundColor: AppConstant.secondaryColor,
                       child: (state is TaskAddLoading)
                           ? const GlobalIndicator()
                           : Text(localization.submitTask),

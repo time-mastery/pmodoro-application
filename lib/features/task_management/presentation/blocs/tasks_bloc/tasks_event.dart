@@ -25,17 +25,17 @@ class CategoryAdded extends TasksEvent {
   List<Object?> get props => [data];
 }
 
-class SpecificDateTasksReceived extends TasksEvent {
+class SpecificDateTasksFetched extends TasksEvent {
   final DateTime data;
 
-  const SpecificDateTasksReceived(this.data);
+  const SpecificDateTasksFetched(this.data);
 
   @override
   List<Object?> get props => [data];
 
   @override
   String toString() {
-    return 'SpecificDateTasksReceived{data: $data}';
+    return 'SpecificDateTasksFetched{data: $data}';
   }
 }
 
@@ -67,16 +67,25 @@ class TaskDeleted extends TasksEvent {
   List<Object?> get props => [id];
 }
 
-class CurrentPomodoroToDatabaseSaved extends TasksEvent {
-  final PomodoroEntity item;
+class DateAdded extends TasksEvent {
+  final DateTime dateTime;
 
-  const CurrentPomodoroToDatabaseSaved(this.item);
+  const DateAdded(this.dateTime);
+
+  @override
+  List<Object?> get props => [dateTime];
+}
+
+class TaskEdited extends TasksEvent {
+  final TaskEntity item;
+
+  const TaskEdited(this.item);
 
   @override
   List<Object?> get props => [item];
 
   @override
   String toString() {
-    return 'CurrentPomodoroToDatabaseSaved{item: $item}';
+    return 'TaskEdited{item: $item}';
   }
 }

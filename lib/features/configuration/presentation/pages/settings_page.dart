@@ -1,15 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/utils/size_config.dart';
+import 'package:pomodore/core/utils/responsive/size_config.dart';
+import 'package:pomodore/features/configuration/domain/entities/language_entity.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
 
 import '../../../../core/resources/params/settings_params.dart';
-import '../../../../core/utils/storage.dart';
+import '../../../../core/services/database/storage.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
 import '../../domain/entities/settings_entity.dart';
@@ -33,140 +32,72 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
+    SettingsEntity entity = const SettingsEntity(
+        notification: false,
+        sound: false,
+        vibration: false,
+        appUpdates: false,
+        newTips: false,
+        ads: false);
 
     return Scaffold(
       appBar: BaseAppBar(title: localization.settingsTitle),
       body: SingleChildScrollView(
-        child: BlocBuilder<SettingsBloc, SettingsState>(
+        child: BlocConsumer(
+          bloc: context.read<SettingsBloc>(),
+          listener: (BuildContext context, Object? state) {},
           builder: (context, state) {
             if (state is SettingFetchingSuccess) {
-              SettingsEntity entity = state.item;
-              return Column(
-                children: [
-                  SizedBox(height: SizeConfig.heightMultiplier * 3),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.notifications_off),
-                        const SizedBox(width: 10),
-                        Text(localization.generalNotificationTitle),
-                      ],
-                    ),
-                    value: entity.notification,
-                    onChanged: (value) {
-                      context
-                          .read<SettingsBloc>()
-                          .add(SettingsChanged(ChangeSettingsParams(
-                            key: FStorage.notificationKey,
-                            value: value,
-                          )));
-                    },
-                  ),
-                  SizedBox(height: SizeConfig.heightMultiplier * .5),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.keyboard_voice),
-                        const SizedBox(width: 10),
-                        Text(localization.soundTitle),
-                      ],
-                    ),
-                    value: entity.sound,
-                    onChanged: (value) {
-                      context
-                          .read<SettingsBloc>()
-                          .add(SettingsChanged(ChangeSettingsParams(
-                            key: FStorage.soundKey,
-                            value: value,
-                          )));
-                    },
-                  ),
-                  SizedBox(height: SizeConfig.heightMultiplier * .5),
-                  if (Platform.isAndroid || Platform.isIOS)
-                    Column(
-                      children: [
-                        SwitchListTile.adaptive(
-                          title: Row(
-                            children: [
-                              const Icon(Icons.vibration),
-                              const SizedBox(width: 10),
-                              Text(localization.vibrationTitle),
-                            ],
-                          ),
-                          value: entity.vibration,
-                          onChanged: (value) {
-                            context
-                                .read<SettingsBloc>()
-                                .add(SettingsChanged(ChangeSettingsParams(
-                                  key: FStorage.vibrationKey,
-                                  value: value,
-                                )));
-                          },
-                        ),
-                        SizedBox(height: SizeConfig.heightMultiplier * .5),
-                      ],
-                    ),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.update),
-                        const SizedBox(width: 10),
-                        Text(localization.appUpdatesTitle),
-                      ],
-                    ),
-                    value: entity.appUpdates,
-                    onChanged: (value) {
-                      context
-                          .read<SettingsBloc>()
-                          .add(SettingsChanged(ChangeSettingsParams(
-                            key: FStorage.appUpdateKey,
-                            value: value,
-                          )));
-                    },
-                  ),
-                  SizedBox(height: SizeConfig.heightMultiplier * .5),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.tips_and_updates),
-                        const SizedBox(width: 10),
-                        Text(localization.newTipTitle),
-                      ],
-                    ),
-                    value: entity.newTips,
-                    onChanged: (value) {
-                      context
-                          .read<SettingsBloc>()
-                          .add(SettingsChanged(ChangeSettingsParams(
-                            key: FStorage.newTipKey,
-                            value: value,
-                          )));
-                    },
-                  ),
-                  SizedBox(height: SizeConfig.heightMultiplier * .5),
-                  SwitchListTile.adaptive(
-                    title: Row(
-                      children: [
-                        const Icon(Icons.celebration),
-                        SizedBox(width: SizeConfig.widthMultiplier * 2),
-                        Text(localization.showAdsTitle),
-                      ],
-                    ),
-                    value: entity.ads,
-                    onChanged: (value) {
-                      context
-                          .read<SettingsBloc>()
-                          .add(SettingsChanged(ChangeSettingsParams(
-                            key: FStorage.showAdsKey,
-                            value: value,
-                          )));
-                    },
-                  ),
-                ],
-              );
+              entity = state.item;
             }
-
-            return Container();
+            return Column(
+              children: [
+                SizedBox(height: SizeConfig.heightMultiplier * 3),
+                const ChangeThemeBottomSheet(),
+                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                SwitchListTile.adaptive(
+                  title: Row(
+                    children: [
+                      const Icon(Icons.notifications_off),
+                      const SizedBox(width: 10),
+                      Text(localization.generalNotificationTitle),
+                    ],
+                  ),
+                  value: entity.notification,
+                  onChanged: (value) {
+                    context
+                        .read<SettingsBloc>()
+                        .add(SettingsChanged(ChangeSettingsParams(
+                          key: FStorage.notificationKey,
+                          value: value,
+                        )));
+                  },
+                ),
+                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                SwitchListTile.adaptive(
+                  title: Row(
+                    children: [
+                      const Icon(Icons.keyboard_voice),
+                      const SizedBox(width: 10),
+                      Text(localization.soundTitle),
+                    ],
+                  ),
+                  value: entity.sound,
+                  onChanged: (value) {
+                    context.read<SettingsBloc>().add(
+                          SettingsChanged(
+                            ChangeSettingsParams(
+                              key: FStorage.soundKey,
+                              value: value,
+                            ),
+                          ),
+                        );
+                  },
+                ),
+                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                const ChangeLanguageBottomSheet(),
+              ],
+            );
           },
         ),
       ),
@@ -183,8 +114,8 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
         builder: (BuildContext context) {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
-              decoration: const BoxDecoration(
-                color: AppConstant.scaffoldColor,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
               ),
               child: child ?? Container());
         },
@@ -194,10 +125,10 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
 
-    List flags = [
-      '🇩🇪       German',
-      '🇺🇸       English',
-      '🇮🇷       Farsi',
+    List<LanguageEntity> flags = [
+      LanguageEntity('English', 'en'),
+      LanguageEntity('German', 'de'),
+      LanguageEntity('Persian', 'fa'),
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -236,22 +167,27 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 10),
-                              child: InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppConstant.secondaryColor),
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Text(
-                                    flags[index],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.start,
+                                  horizontal: 20, vertical: 2),
+                              child: Card(
+                                child: InkWell(
+                                  onTap: () {
+                                    context.read<SettingsBloc>().add(
+                                        LocaleChanged(
+                                            flags[index].languageCode));
+                                    Navigator.pop(context);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Text(
+                                      flags[index].title,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                      textAlign: TextAlign.start,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -279,8 +215,8 @@ class ChangeThemeBottomSheet extends StatelessWidget {
         builder: (BuildContext context) {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
-              decoration: const BoxDecoration(
-                color: AppConstant.scaffoldColor,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
               ),
               child: child ?? Container());
         },
@@ -323,25 +259,35 @@ class ChangeThemeBottomSheet extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: GridView.count(
-                          crossAxisCount: 3,
-                          children: List.generate(
-                            Colors.primaries.length,
-                            (index) => Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.primaries[index]
-                                      .withOpacity(index == 1 ? .2 : 1),
-                                  shape: BoxShape.circle,
+                          child: ListView.builder(
+                        itemCount: AppConstant.themes.length,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 2),
+                          child: Card(
+                            child: InkWell(
+                              onTap: () {
+                                context.read<SettingsBloc>().add(
+                                    ThemeChanged(AppConstant.themes[index]));
+                                Navigator.pop(context);
+                              },
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Text(
+                                    AppConstant.themes[index].title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.start,
+                                  ),
                                 ),
-                                child:
-                                    index == 1 ? const Icon(Icons.check) : null,
                               ),
                             ),
                           ),
                         ),
-                      ),
+                      )),
                     ],
                   ));
             },

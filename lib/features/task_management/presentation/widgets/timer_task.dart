@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
+import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
+import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/utils/responsive/size_config.dart';
 import '../../../../exports.dart';
 
 class TimerTask extends StatelessWidget {
@@ -27,7 +28,6 @@ class TimerTask extends StatelessWidget {
       width: SizeConfig.widthMultiplier * 85,
       height: SizeConfig.heightMultiplier * 11,
       decoration: BoxDecoration(
-        color: AppConstant.secondaryColor.withOpacity(.07),
         borderRadius: BorderRadius.circular(20),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -35,14 +35,12 @@ class TimerTask extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Material(
-            color: AppConstant.swatchColor,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: const Padding(
               padding: EdgeInsets.all(11.0),
               child: Icon(
                 Ionicons.ice_cream,
-                color: AppConstant.scaffoldColor,
               ),
             ),
           ),
@@ -86,20 +84,42 @@ class SelectATaskToStart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations localization = AppLocalizations.of(context)!;
-
-    return InkWell(
-      onTap: () {
-        context.read<BaseBloc>().add(const PageIndexChanged(0));
+    var theme = Theme.of(context).textTheme;
+    return BlocBuilder<TimerBloc, TimerState>(
+      buildWhen: (previous, current) {
+        return (current is SelectTaskSuccess || current is DeSelectTaskSuccess);
       },
-      child: Container(
-        width: SizeConfig.widthMultiplier * 60,
-        height: SizeConfig.heightMultiplier * 5,
-        decoration: BoxDecoration(
-          color: AppConstant.secondaryColor.withOpacity(.2),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(child: Text(localization.selectTaskTitle)),
-      ),
+      builder: (context, state) {
+        TaskEntity? taskItem = context.read<TimerBloc>().taskItem;
+
+        if (state is SelectTaskSuccess) {
+          taskItem = state.taskItem;
+        }
+
+        if (state is DeSelectTaskSuccess) {
+          taskItem = null;
+        }
+
+        return InkWell(
+          onTap: () {
+            context.read<BaseBloc>().add(const PageIndexChanged(0));
+          },
+          child: SizedBox(
+            width: SizeConfig.widthMultiplier * 60,
+            height: SizeConfig.heightMultiplier * 6,
+            child: Card(
+              child: Center(
+                child: (taskItem != null)
+                    ? Text(
+                        taskItem.title,
+                        style: theme.titleLarge,
+                      )
+                    : Text(localization.selectTaskTitle),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

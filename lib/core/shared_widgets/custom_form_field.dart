@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pomodore/core/constant/constant.dart';
+
+import '../../exports.dart';
 
 class CustomFormField extends StatefulWidget {
   const CustomFormField({
@@ -35,6 +36,8 @@ class _CustomFormFieldState extends State<CustomFormField> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localization = AppLocalizations.of(context)!;
+
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       autofocus: false,
@@ -42,38 +45,22 @@ class _CustomFormFieldState extends State<CustomFormField> {
       obscureText: obscure && widget.isPasswordField,
       maxLength: widget.maxLength,
       decoration: InputDecoration(
-          suffixIcon: widget.isPasswordField
-              ? GestureDetector(
-                  onTap: () {
-                    obscure = !obscure;
-                    setState(() {});
-                  },
-                  child: Icon(
-                    obscure ? Icons.visibility_off : Icons.visibility,
-                    color: AppConstant.swatchColor,
-                  ),
-                )
-              : null,
-          focusedBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppConstant.secondaryColor, width: 1.0),
-          ),
-          label: Text(
-            widget.hint ?? "",
-            textAlign: TextAlign.left,
-          )),
+        suffixIcon: widget.isPasswordField
+            ? GestureDetector(
+                onTap: () {
+                  obscure = !obscure;
+                  setState(() {});
+                },
+                child: Icon(
+                  obscure ? Icons.visibility_off : Icons.visibility,
+                ),
+              )
+            : null,
+        label: Text(
+          widget.hint ?? "",
+          textAlign: TextAlign.left,
+        ),
+      ),
       onChanged: (value) {
         if (widget.onChanged != null) {
           widget.onChanged!(value);
@@ -94,15 +81,14 @@ class _CustomFormFieldState extends State<CustomFormField> {
         if (widget.validatorsType == "email") {
           return null;
         } else if (widget.validatorsType == "length") {
-          if (value!.length < 6) {
-            return "Minimum size 6 character";
+          if (value!.length < 2) {
+            return localization.minCharValidationTitle;
           } else {
             return null;
           }
         }
         return null;
       },
-      cursorColor: AppConstant.swatchColor,
       keyboardType: widget.textInputType,
     );
   }

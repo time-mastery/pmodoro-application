@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:pomodore/features/task_management/domain/entities/analysis_entity.dart';
+import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
 
@@ -7,15 +9,19 @@ abstract class TaskRepository {
 
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date);
 
-  Future<Either<String, int?>> completeTask(TaskEntity taskEntity);
+  Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoros();
 
-  Future<Either<String, int?>> deleteTask(String id);
+  Future<Either<String, DailyInformationEntity>> getDailyInformation();
 
-  Future<Either<String, bool>> savePomodoroInDb(PomodoroEntity item);
+  Future<Either<String, AnalysisEntity>> getAnalysis();
 
-  Future<Either<String, List<PomodoroEntity>>> getAllPomodoros();
+  Future<Either<String, bool>> checkDailyGoal();
 
-  Future getTaskById(String id);
+  Future<Either<String, bool>> saveDailyGoal(int count);
 
-  Future getCompletedTask();
+  Future<Either<String, String>> completeTask(TaskEntity taskEntity);
+
+  Future<Either<String, String>> editTask(TaskEntity task);
+
+  Future<Either<String, String>> deleteTask(String taskId);
 }
