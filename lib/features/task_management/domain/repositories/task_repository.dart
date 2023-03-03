@@ -9,8 +9,6 @@ abstract class TaskRepository {
 
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date);
 
-  Future<Either<String, bool>> savePomodoroInDb(PomodoroEntity item);
-
   Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoros();
 
   Future<Either<String, DailyInformationEntity>> getDailyInformation();

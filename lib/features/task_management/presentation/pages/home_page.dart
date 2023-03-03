@@ -24,7 +24,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt.get<HomeBloc>()..add(DailyGoalChecked()),
-      // ..add(HomeDataFetched(DateTime.now())),
       child: const HomeView(),
     );
   }
@@ -130,7 +129,7 @@ class HomeGoalWidget extends StatelessWidget {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "${((dailyItem?.processPercentage ?? 0) * 100).toString() ?? "0.0"} %",
+                              "${((dailyItem?.processPercentage ?? 0) * 100).toString()} %",
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
                           ),

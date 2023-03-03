@@ -65,21 +65,6 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, bool>> savePomodoroInDb(PomodoroEntity item) async {
-    late Either<String, bool> result;
-
-    bool status = await localDataSource.saveAPomodoroOnDb(item);
-
-    if (status) {
-      result = Right(status);
-    } else {
-      result = const Left("error");
-    }
-
-    return result;
-  }
-
-  @override
   Future<Either<String, DailyInformationEntity>> getDailyInformation() async {
     late Either<String, DailyInformationEntity> result;
 

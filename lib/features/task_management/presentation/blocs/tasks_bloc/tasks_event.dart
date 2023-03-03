@@ -67,20 +67,6 @@ class TaskDeleted extends TasksEvent {
   List<Object?> get props => [id];
 }
 
-class CurrentPomodoroToDatabaseSaved extends TasksEvent {
-  final PomodoroEntity item;
-
-  const CurrentPomodoroToDatabaseSaved(this.item);
-
-  @override
-  List<Object?> get props => [item];
-
-  @override
-  String toString() {
-    return 'CurrentPomodoroToDatabaseSaved{item: $item}';
-  }
-}
-
 class DateAdded extends TasksEvent {
   final DateTime dateTime;
 

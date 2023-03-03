@@ -100,22 +100,6 @@ class SelectATaskToStart extends StatelessWidget {
           taskItem = null;
         }
 
-        if (taskItem != null) {
-          return Container(
-            width: SizeConfig.widthMultiplier * 60,
-            height: SizeConfig.heightMultiplier * 5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Center(
-              child: Text(
-                taskItem.title,
-                style: theme.titleLarge,
-              ),
-            ),
-          );
-        }
-
         return InkWell(
           onTap: () {
             context.read<BaseBloc>().add(const PageIndexChanged(0));
@@ -125,7 +109,12 @@ class SelectATaskToStart extends StatelessWidget {
             height: SizeConfig.heightMultiplier * 6,
             child: Card(
               child: Center(
-                child: Text(localization.selectTaskTitle),
+                child: (taskItem != null)
+                    ? Text(
+                        taskItem.title,
+                        style: theme.titleLarge,
+                      )
+                    : Text(localization.selectTaskTitle),
               ),
             ),
           ),

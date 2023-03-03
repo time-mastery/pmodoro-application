@@ -11,6 +11,10 @@ class FStorage {
   static const localeKey = "_locale_";
   static const themeKey = "_theme_";
   static const welcomeNotificationKey = "_welcomeKey_";
+  static const timerStateKey = "_tState_";
+  static const timerStateBaseDurationKey = "_tStateBaseDuration_";
+  static const timerStateDateTimeKey = "_tdtState_";
+  static const taskIdKey = "_taskId_";
 
   static late FlutterSecureStorage flutterSecureStorage;
 
@@ -31,7 +35,7 @@ class FStorage {
     }
   }
 
-  static write(String key, dynamic value) async =>
+  static write(String key, String value) async =>
       await flutterSecureStorage.write(key: key, value: value);
 
   static delete(String key) async =>

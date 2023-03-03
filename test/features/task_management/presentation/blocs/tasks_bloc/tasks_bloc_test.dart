@@ -35,8 +35,6 @@ void main() {
       MockGetSpecificDateTasksUseCase();
   MockCompleteTaskUseCase mockCompleteTaskUseCase = MockCompleteTaskUseCase();
   MockDeleteTaskUseCase mockDeleteTaskUseCase = MockDeleteTaskUseCase();
-  MockAddPomodoroToDbUseCase mockAddPomodoroToDbUseCase =
-      MockAddPomodoroToDbUseCase();
   MockAddCategoryUsecase mockAddCategoryUsecase = MockAddCategoryUsecase();
   MockGetAllCategoriesUseCase mockGetAllCategoriesUseCase =
       MockGetAllCategoriesUseCase();
@@ -52,7 +50,6 @@ void main() {
         getAllCategories: mockGetAllCategoriesUseCase,
         completeTaskUseCase: mockCompleteTaskUseCase,
         deleteTaskUseCase: mockDeleteTaskUseCase,
-        addPomodoroToDbUseCase: mockAddPomodoroToDbUseCase,
         editTaskUseCase: mockEditTaskUseCase,
       );
 
@@ -155,36 +152,36 @@ void main() {
       );
     });
   });
-  group("CurrentPomodoroToDatabaseSaved Event Test", () {
-    group("CurrentPomodoroToDatabaseSaved Success Event Test", () {
-      blocTest(
-        "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroSuccess state",
-        build: () {
-          when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
-              .thenAnswer((_) async => Future.value(const Right(true)));
-          return getBlocInstance();
-        },
-        act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
-        expect: () => [
-          const SaveCurrentPomodoroLoading(),
-          const SaveCurrentPomodoroSuccess(),
-        ],
-      );
-    });
-    group("CurrentPomodoroToDatabaseSaved Fail Event Test", () {
-      blocTest(
-        "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroFail state",
-        build: () {
-          when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
-              .thenAnswer((_) async => Future.value(const Left("error")));
-          return getBlocInstance();
-        },
-        act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
-        expect: () => [
-          const SaveCurrentPomodoroLoading(),
-          const SaveCurrentPomodoroFailure(),
-        ],
-      );
-    });
-  });
+  // group("CurrentPomodoroToDatabaseSaved Event Test", () {
+  //   group("CurrentPomodoroToDatabaseSaved Success Event Test", () {
+  //     blocTest(
+  //       "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroSuccess state",
+  //       build: () {
+  //         when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
+  //             .thenAnswer((_) async => Future.value(const Right(true)));
+  //         return getBlocInstance();
+  //       },
+  //       act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
+  //       expect: () => [
+  //         const SaveCurrentPomodoroLoading(),
+  //         const SaveCurrentPomodoroSuccess(),
+  //       ],
+  //     );
+  //   });
+  //   group("CurrentPomodoroToDatabaseSaved Fail Event Test", () {
+  //     blocTest(
+  //       "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroFail state",
+  //       build: () {
+  //         when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
+  //             .thenAnswer((_) async => Future.value(const Left("error")));
+  //         return getBlocInstance();
+  //       },
+  //       act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
+  //       expect: () => [
+  //         const SaveCurrentPomodoroLoading(),
+  //         const SaveCurrentPomodoroFailure(),
+  //       ],
+  //     );
+  //   });
+  // });
 }

@@ -107,27 +107,6 @@ class TaskDeleteLoading extends TasksState {
   List<Object?> get props => [];
 }
 
-class SaveCurrentPomodoroSuccess extends TasksState {
-  const SaveCurrentPomodoroSuccess();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class SaveCurrentPomodoroLoading extends TasksState {
-  const SaveCurrentPomodoroLoading();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class SaveCurrentPomodoroFailure extends TasksState {
-  const SaveCurrentPomodoroFailure();
-
-  @override
-  List<Object?> get props => [];
-}
-
 class AddDateLoading extends TasksState {
   @override
   List<Object?> get props => [];

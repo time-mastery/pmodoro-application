@@ -68,3 +68,45 @@ class TimerTaskDeSelected extends TimerEvent {
   @override
   List<Object?> get props => [];
 }
+
+class TimerDurationSet extends TimerEvent {
+  final int minute;
+
+  const TimerDurationSet(this.minute);
+
+  @override
+  List<Object?> get props => [minute];
+
+  @override
+  String toString() {
+    return 'TimerDurationSet{minute: $minute}';
+  }
+}
+
+class TimerStateSaved extends TimerEvent {
+  const TimerStateSaved();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class TimerStateRestored extends TimerEvent {
+  const TimerStateRestored();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class CurrentPomodoroToDatabaseSaved extends TimerEvent {
+  final PomodoroEntity item;
+
+  const CurrentPomodoroToDatabaseSaved(this.item);
+
+  @override
+  List<Object?> get props => [item];
+
+  @override
+  String toString() {
+    return 'CurrentPomodoroToDatabaseSaved{item: $item}';
+  }
+}
