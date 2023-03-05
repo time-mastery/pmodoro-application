@@ -68,5 +68,10 @@
     "secondStageDailyGoalTitle":"You can. You should do more",
     "thirdStageDailyGoalTitle":"Wow! Your daily goals is almost done!",
     "lastStageDailyGoalTitle":"Well done, you did it",
-    "changeTimerDurationTitle":"Change timer duration (min)"
+    "changeTimerDurationTitle":"Change timer duration (min)",
+    "yayTitle":"Yay! 😇",
+    "niceJobTitle":"Nice job! 😎",
+    "completedAPomodoroBody":"You completed a pomodoro!",
+    "hohoTitle":"Hoho! 🥳",
+    "anotherPomodoroBody":"You can do another pomodoro!"
   }

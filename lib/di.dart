@@ -69,7 +69,6 @@ Future inject() async {
   // local notification
   AppLocalNotification appLocalNotification = AppLocalNotification();
   await appLocalNotification.initializeNotification();
-  appLocalNotification.sendWelcomeNotification();
   getIt.registerSingleton(appLocalNotification);
 
   Database db = await DatabaseHelper.database;
