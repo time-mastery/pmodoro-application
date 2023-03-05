@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/utils/responsive/size_config.dart';
@@ -11,13 +13,38 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashPageState extends State<SplashPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3)).then(
-        (value) => Navigator.pushReplacementNamed(context, BasePage.routeName));
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 3800),
+    )
+      ..forward()
+      ..addListener(() {
+        if (_animationController.isCompleted) {
+          Navigator.pushReplacementNamed(context, BasePage.routeName);
+        }
+      });
+
+    _animation = Tween<double>(begin: 0, end: 10 * pi).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.ease,
+      ),
+    );
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -26,13 +53,16 @@ class _SplashPageState extends State<SplashPage> {
       body: Center(
         child: Hero(
             tag: AppConstant.splashIconHeroTag,
-            child: Material(
-              color: Colors.transparent,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Image.asset(
-                AppConstant.getLogoPath(context),
-                width: SizeConfig.widthMultiplier * 35,
-                height: SizeConfig.widthMultiplier * 35,
+            child: AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) => Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()..rotateY(_animation.value),
+                child: Image.asset(
+                  AppConstant.getLogoPath(context),
+                  width: SizeConfig.widthMultiplier * 35,
+                  height: SizeConfig.widthMultiplier * 35,
+                ),
               ),
             )),
       ),

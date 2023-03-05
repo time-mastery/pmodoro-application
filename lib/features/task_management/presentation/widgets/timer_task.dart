@@ -90,6 +90,7 @@ class SelectATaskToStart extends StatelessWidget {
         return (current is SelectTaskSuccess || current is DeSelectTaskSuccess);
       },
       builder: (context, state) {
+        print(state);
         TaskEntity? taskItem = context.read<TimerBloc>().taskItem;
 
         if (state is SelectTaskSuccess) {
@@ -102,7 +103,9 @@ class SelectATaskToStart extends StatelessWidget {
 
         return InkWell(
           onTap: () {
-            context.read<BaseBloc>().add(const PageIndexChanged(0));
+            if (state is! TimerInProgress) {
+              context.read<BaseBloc>().add(const PageIndexChanged(0));
+            }
           },
           child: SizedBox(
             width: SizeConfig.widthMultiplier * 60,
