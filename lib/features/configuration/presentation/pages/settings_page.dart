@@ -128,7 +128,6 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
     List<LanguageEntity> flags = [
       LanguageEntity('English', 'en'),
       LanguageEntity('German', 'de'),
-      LanguageEntity('Persian', 'fa'),
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
