@@ -48,33 +48,31 @@ class AppLocalNotification {
 
       AwesomeNotifications().setListeners(
         onActionReceivedMethod:
-            NotificationCustomController.onActionReceivedMethod,
+        NotificationCustomController.onActionReceivedMethod,
         onNotificationCreatedMethod:
-            NotificationCustomController.onNotificationCreatedMethod,
+        NotificationCustomController.onNotificationCreatedMethod,
         onNotificationDisplayedMethod:
-            NotificationCustomController.onNotificationDisplayedMethod,
+        NotificationCustomController.onNotificationDisplayedMethod,
         onDismissActionReceivedMethod:
-            NotificationCustomController.onDismissActionReceivedMethod,
+        NotificationCustomController.onDismissActionReceivedMethod,
       );
     }
   }
 
-  void sendWelcomeNotification() async {
-    bool showNotification = (await notificationIsAllowedByUserOrNot() &&
-        await shouldShowWelcomeNotification());
+
+  void sendCustomNotification(String title, String body) async {
+    bool showNotification = (await notificationIsAllowedByUserOrNot());
     if (showNotification) {
       AwesomeNotifications().createNotification(
         content: NotificationContent(
           id: 10,
           channelKey: 'basic_channel',
-          title: 'Yayy! 🎉🍭',
-          body: 'Welcome to the Pmodoro',
-          // icon: "assets/images/logov2.png",
+          title: title,
+          body: body,
           autoDismissible: true,
           actionType: ActionType.Default,
         ),
       );
-      showedWelcomeNotification();
     }
   }
 }
