@@ -179,7 +179,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   ],
                   supportedLocales: const [
                     Locale('en'),
-                    Locale('fa'),
                     Locale('de'),
                   ],
                   locale: locale,
