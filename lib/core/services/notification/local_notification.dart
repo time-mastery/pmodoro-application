@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class AppLocalNotification {
       });
 
       AwesomeNotifications().initialize(
-        'resource://drawable/res_app_icon',
+        'resource://drawable/app_icon',
         [
           NotificationChannel(
             channelGroupKey: 'basic_channel_group',
@@ -34,7 +36,6 @@ class AppLocalNotification {
             channelName: 'Basic notifications',
             channelDescription: 'Notification channel for basic tests',
             importance: NotificationImportance.High,
-            defaultColor: const Color(0xFF9D50DD),
             ledColor: Colors.white,
           )
         ],
@@ -48,17 +49,16 @@ class AppLocalNotification {
 
       AwesomeNotifications().setListeners(
         onActionReceivedMethod:
-        NotificationCustomController.onActionReceivedMethod,
+            NotificationCustomController.onActionReceivedMethod,
         onNotificationCreatedMethod:
-        NotificationCustomController.onNotificationCreatedMethod,
+            NotificationCustomController.onNotificationCreatedMethod,
         onNotificationDisplayedMethod:
-        NotificationCustomController.onNotificationDisplayedMethod,
+            NotificationCustomController.onNotificationDisplayedMethod,
         onDismissActionReceivedMethod:
-        NotificationCustomController.onDismissActionReceivedMethod,
+            NotificationCustomController.onDismissActionReceivedMethod,
       );
     }
   }
-
 
   void sendCustomNotification(String title, String body) async {
     bool showNotification = (await notificationIsAllowedByUserOrNot());
