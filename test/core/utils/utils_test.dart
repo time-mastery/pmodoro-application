@@ -3,6 +3,18 @@ import 'package:pomodore/core/utils/utils.dart';
 
 void main() {
   group("Utils", () {
+    test("Test month name function", () {
+      var monthName =
+          Utils.monthNameOfDateTime(DateTime(1998, 4, 1).toString());
+      expect(monthName, "April");
+    });
+
+    test("Test create overview function", () {
+      var overviewDate =
+          Utils.createOverviewItemDateTime(DateTime(1998, 4, 1).toString());
+      expect(overviewDate, DateTime(1998, 4, 1));
+    });
+
     test("Test sec to formatted min:sec", () {
       var formatterTime = Utils.formatSecToMinSec(timeInSecond: 90);
       expect(formatterTime, "01 : 30");
@@ -27,15 +39,8 @@ void main() {
       expect(time, 100);
     });
 
-    test("Test get name of month", () {
-      String name = Utils.monthNameOfDateTime(DateTime(1998, 4, 1).toString());
-
-      expect(name, "April");
-    });
-
     test("Test time to formatted yyyy MM dd", () {
       var dateTime = DateTime(1998, 1, 1);
-      var formatterTime = Utils.formatDateToYYYYMMDD(dateTime);
       var result =
           Utils.formatDateToYYYYMMDD(dateTime.add(const Duration(days: 1)));
 

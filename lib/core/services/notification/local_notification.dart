@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class AppLocalNotification {
       });
 
       AwesomeNotifications().initialize(
-        'resource://drawable/res_app_icon',
+        'resource://drawable/app_icon',
         [
           NotificationChannel(
             channelGroupKey: 'basic_channel_group',
@@ -34,7 +36,6 @@ class AppLocalNotification {
             channelName: 'Basic notifications',
             channelDescription: 'Notification channel for basic tests',
             importance: NotificationImportance.High,
-            defaultColor: const Color(0xFF9D50DD),
             ledColor: Colors.white,
           )
         ],
@@ -59,22 +60,19 @@ class AppLocalNotification {
     }
   }
 
-  void sendWelcomeNotification() async {
-    bool showNotification = (await notificationIsAllowedByUserOrNot() &&
-        await shouldShowWelcomeNotification());
+  void sendCustomNotification(String title, String body) async {
+    bool showNotification = (await notificationIsAllowedByUserOrNot());
     if (showNotification) {
       AwesomeNotifications().createNotification(
         content: NotificationContent(
           id: 10,
           channelKey: 'basic_channel',
-          title: 'Yayy! 🎉🍭',
-          body: 'Welcome to the Pmodoro',
-          // icon: "assets/images/logov2.png",
+          title: title,
+          body: body,
           autoDismissible: true,
           actionType: ActionType.Default,
         ),
       );
-      showedWelcomeNotification();
     }
   }
 }

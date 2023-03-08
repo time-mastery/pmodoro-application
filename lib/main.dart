@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pomodore/core/constant/constant.dart';
 import 'package:pomodore/core/router/router.dart';
+import 'package:pomodore/core/services/notification/local_notification.dart';
 import 'package:pomodore/core/utils/debug_print.dart';
 import 'package:pomodore/di.dart';
 import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
@@ -107,6 +108,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             dPrint(state.toString());
             if (state is RestoreTimerSuccess) {
               if (state.timerStateParams.timerDone) {
+                getIt.get<AppLocalNotification>().sendCustomNotification(
+                    "hohoo! 🥰", "You completed a pomodoro");
                 bloc
                   ..add(
                     CurrentPomodoroToDatabaseSaved(
@@ -124,6 +127,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   ..add(TimerStarted(state.timerStateParams.duration));
               }
             } else if (state is TimerCompleted) {
+              getIt.get<AppLocalNotification>().sendCustomNotification(
+                  "Nice Job! 😎", "You completed a pomodoro");
               bloc.add(
                 CurrentPomodoroToDatabaseSaved(
                   PomodoroEntity(
@@ -133,6 +138,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 ),
               );
             } else if (state is SaveCurrentPomodoroSuccess) {
+              getIt.get<AppLocalNotification>().sendCustomNotification(
+                  "Yay! 🥳", "Another Pomodoro for today!");
               bloc
                 ..add(TimerReset())
                 ..add(TimerTaskDeSelected());
@@ -172,7 +179,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   ],
                   supportedLocales: const [
                     Locale('en'),
-                    Locale('fa'),
                     Locale('de'),
                   ],
                   locale: locale,

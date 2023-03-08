@@ -114,59 +114,137 @@ class TimerView extends StatelessWidget {
             Navigator.pushNamed(context, AnalysisPage.routeName);
           },
         ),
-        body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraint) =>
-              SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraint.maxHeight),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SelectATaskToStart(),
-                  SizedBox(
-                    height: SizeConfig.heightMultiplier * 5,
+        body: Stack(
+          children: [
+            LayoutBuilder(
+              builder: (p0, p1) => SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: p1.maxHeight),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SelectATaskToStart(),
+                        SizedBox(
+                          height: SizeConfig.heightMultiplier * 40,
+                        ),
+                        const TimerButtons(),
+                      ],
+                    ),
                   ),
-                  const TimerBar(),
-                  SizedBox(
-                    height: SizeConfig.heightMultiplier * 5,
-                  ),
-                  const TimerButtons(),
-                ],
+                ),
               ),
             ),
-          ),
+            const Align(
+              alignment: Alignment.center,
+              child: TimerBar(),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class TimerBar extends StatelessWidget {
+class TimerBar extends StatefulWidget {
   const TimerBar({Key? key}) : super(key: key);
 
   @override
+  State<TimerBar> createState() => _TimerBarState();
+}
+
+class _TimerBarState extends State<TimerBar>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    );
+
+    _animation = Tween<double>(begin: 0, end: 60).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * .5,
-        height: MediaQuery.of(context).size.width * .5,
+    return BlocListener<TimerBloc, TimerState>(
+      listener: (context, state) {
+        if (state is TimerInProgress) {
+          if (!_controller.isAnimating) {
+            _controller.repeat(reverse: true);
+          }
+        } else {
+          _controller.reset();
+        }
+      },
+      child: Directionality(
+        textDirection: TextDirection.ltr,
         child: Stack(
           children: [
+            Align(
+              alignment: Alignment.center,
+              child: AnimatedBuilder(
+                animation: _animation,
+                builder: (context, child) => Container(
+                  width:
+                      MediaQuery.of(context).size.width * .5 + _animation.value,
+                  height:
+                      MediaQuery.of(context).size.width * .5 + _animation.value,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(.1),
+                      width: 7,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Align(
               alignment: Alignment.center,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * .5,
                 height: MediaQuery.of(context).size.width * .5,
-                child: CircularProgressIndicator(
-                  value:
-                      context.select((TimerBloc bloc) => bloc.state.duration) /
-                          TimerBloc.getDuration,
-                  strokeWidth: 7,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * .5,
+                        height: MediaQuery.of(context).size.width * .5,
+                        child: CircularProgressIndicator(
+                          value: context.select(
+                                  (TimerBloc bloc) => bloc.state.duration) /
+                              TimerBloc.getDuration,
+                          strokeWidth: 7,
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(.1),
+                        ),
+                      ),
+                    ),
+                    const TimerText(),
+                  ],
                 ),
               ),
             ),
-            const TimerText(),
           ],
         ),
       ),

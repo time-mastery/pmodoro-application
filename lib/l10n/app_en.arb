@@ -1,5 +1,5 @@
 {
-    "appName": "Pmodore",
+    "appName": "Pmodoro",
     "homeTab": "Home",
     "tasksTab": "Tasks",
     "timerTab": "Timer",
@@ -20,7 +20,7 @@
     "tasksTitle": "Tasks",
     "emptyTaskListTitle": "You have no task today !",
     "emptyTaskListHint": "Click the (+) icon to add a new task !",
-    "homeTitle": "Pmodore",
+    "homeTitle": "Pmodoro",
     "welcomeTitle": "Morning Christina 👋🏻",
     "dailyTasksDoneTitle": "Wow! Your daily goals is almost done!",
     "completedTasks": "{d} of {a} completed!",
@@ -33,12 +33,12 @@
     "categoryTitle": "Category",
     "submitTask": "Submit Task",
     "analysisPageTitle":"Analysis",
-    "todayPmodoreTitle":"Today's Pmodore :",
+    "todayPmodoreTitle":"Today's Pmodoro :",
     "todayFocusTitle":"Today's Focus :",
     "fromYesterdayTitle":"x from yesterday",
     "taskDetailTitle":"Today Tasks Details",
-    "yearAnalysisTitle":"Pmodore Yearly Analysis",
-    "dailyActivityTitle":"Pmodore Daily Activity Counter",
+    "yearAnalysisTitle":"Pmodoro Yearly Analysis",
+    "dailyActivityTitle":"Pmodoro Daily Activity Counter",
     "successTitle":"Successful",
     "taskDescription":"Description",
     "addCategoryTitle":"Add Category",
@@ -68,5 +68,10 @@
     "secondStageDailyGoalTitle":"You can. You should do more",
     "thirdStageDailyGoalTitle":"Wow! Your daily goals is almost done!",
     "lastStageDailyGoalTitle":"Well done, you did it",
-    "changeTimerDurationTitle":"Change timer duration (min)"
+    "changeTimerDurationTitle":"Change timer duration (min)",
+    "yayTitle":"Yay! 😇",
+    "niceJobTitle":"Nice job! 😎",
+    "completedAPomodoroBody":"You completed a pomodoro!",
+    "hohoTitle":"Hoho! 🥳",
+    "anotherPomodoroBody":"You can do another pomodoro!"
 }

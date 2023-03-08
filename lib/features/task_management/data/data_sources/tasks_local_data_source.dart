@@ -14,7 +14,7 @@ class TasksLocalDataSource {
 
   Future<bool> addTask(TaskEntity task) async {
     try {
-      Map<String, Object?> data = TaskModel.toDbQuery(task);
+      Map<String, Object?> data = TaskModel.toJson(task);
       await db.insert(DatabaseHelper.taskTable, data);
     } catch (e) {
       return false;
@@ -24,7 +24,7 @@ class TasksLocalDataSource {
 
   Future<bool> addCategory(CategoryEntity category) async {
     try {
-      Map<String, Object?> data = CategoryModel.toDbQuery(category);
+      Map<String, Object?> data = CategoryModel.toJson(category);
       await db.insert(DatabaseHelper.categoryTable, data);
     } catch (e) {
       return false;
@@ -237,7 +237,7 @@ class TasksLocalDataSource {
     try {
       await db.update(
         DatabaseHelper.taskTable,
-        TaskModel.toDbQuery(task),
+        TaskModel.toJson(task),
         where: "uid = ?",
         whereArgs: [task.id],
       );
@@ -255,7 +255,7 @@ class TasksLocalDataSource {
     try {
       await db.update(
         DatabaseHelper.taskTable,
-        TaskModel.toDbQuery(task, isCompleted: true),
+        TaskModel.toJson(task, isCompleted: true),
         where: "uid = ?",
         whereArgs: [task.id],
       );

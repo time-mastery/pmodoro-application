@@ -68,5 +68,10 @@
     "secondStageDailyGoalTitle":"You can. You should do more",
     "thirdStageDailyGoalTitle":"Wow! Your daily goals is almost done!",
     "lastStageDailyGoalTitle":"Well done, you did it",
-    "changeTimerDurationTitle":"Change timer duration (min)"
+    "changeTimerDurationTitle":"Change timer duration (min)",
+    "yayTitle":"بسیار عالی! 😎",
+    "niceJobTitle":"کارت درسته! 😎",
+    "completedAPomodoroBody":"یک پوموردور انجام دادید!",
+    "hohoTitle":"درود! 😎",
+    "anotherPomodoroBody":"You can do another pomodoro!"
 }
