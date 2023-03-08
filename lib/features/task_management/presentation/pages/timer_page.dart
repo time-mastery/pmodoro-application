@@ -196,6 +196,28 @@ class _TimerBarState extends State<TimerBar>
           children: [
             Align(
               alignment: Alignment.center,
+              child: AnimatedBuilder(
+                animation: _animation,
+                builder: (context, child) => Container(
+                  width:
+                      MediaQuery.of(context).size.width * .5 + _animation.value,
+                  height:
+                      MediaQuery.of(context).size.width * .5 + _animation.value,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(.1),
+                      width: 7,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * .5,
                 height: MediaQuery.of(context).size.width * .5,
@@ -220,28 +242,6 @@ class _TimerBarState extends State<TimerBar>
                     ),
                     const TimerText(),
                   ],
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: AnimatedBuilder(
-                animation: _animation,
-                builder: (context, child) => Container(
-                  width:
-                      MediaQuery.of(context).size.width * .5 + _animation.value,
-                  height:
-                      MediaQuery.of(context).size.width * .5 + _animation.value,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .secondary
-                          .withOpacity(.1),
-                      width: 7,
-                    ),
-                  ),
                 ),
               ),
             ),
