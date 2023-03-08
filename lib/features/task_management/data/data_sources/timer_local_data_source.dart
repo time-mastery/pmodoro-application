@@ -21,7 +21,7 @@ class TimerLocalDataSource {
 
   Future<bool> saveAPomodoroOnDb(PomodoroEntity item) async {
     try {
-      Map<String, Object?> data = PomodoroModel.toDbQuery(item);
+      Map<String, Object?> data = PomodoroModel.toJson(item);
       await db.insert(DatabaseHelper.pomodoroTable, data);
     } catch (e) {
       return false;

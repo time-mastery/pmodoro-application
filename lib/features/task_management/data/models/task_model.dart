@@ -19,7 +19,7 @@ class TaskModel extends TaskEntity {
           done: done,
         );
 
-  static toDbQuery(TaskEntity item, {bool isCompleted = false}) => {
+  static toJson(TaskEntity item, {bool isCompleted = false}) => {
         "uid": item.id,
         "title": item.title,
         "description": item.description,
@@ -33,7 +33,7 @@ class TaskModel extends TaskEntity {
                 : 0,
       };
 
-  static fromQueryToTaskModel(Map<String, dynamic> item) => TaskEntity(
+  static fromJson(Map<String, dynamic> item) => TaskEntity(
         id: item["uid"],
         title: item["title"],
         description: item["description"],
@@ -45,14 +45,12 @@ class TaskModel extends TaskEntity {
 
   static List<TaskEntity> parseRawList(List<Map<String, dynamic>> items) {
     late List<TaskEntity> list;
-    list = items.map<TaskEntity>((e) => fromQueryToTaskModel(e)).toList();
+    list = items.map<TaskEntity>((e) => fromJson(e)).toList();
     return list;
   }
 
   static List<TaskEntity> sortTasksByDateTime(List<TaskEntity> item) {
-    item.sort(
-      (a, b) => a.deadLineTime.compareTo(b.deadLineTime),
-    );
+    item.sort((a, b) => a.deadLineTime.compareTo(b.deadLineTime));
     return item;
   }
 }
