@@ -13,15 +13,14 @@ class DailyInformationModel extends DailyInformationEntity {
           dailyGoalQuantity: dailyGoalQuantity,
         );
 
-  static fromDbToDailyInformationModel(Map<String, dynamic> item) =>
-      DailyInformationModel(
+  static fromJson(Map<String, dynamic> item) => DailyInformationModel(
         taskQuantity: item["taskQuantity"],
         completedTaskQuantity: item["completedTaskQuantity"],
         processPercentage: item["processPercentage"],
         dailyGoalQuantity: item["dailyGoalQuantity"],
       );
 
-  static toDbFromDailyInformationModel(DailyInformationEntity item) => {
+  static toJson(DailyInformationEntity item) => {
         "taskQuantity": item.taskQuantity,
         "completedTaskQuantity": item.completedTaskQuantity,
         "processPercentage": item.processPercentage,

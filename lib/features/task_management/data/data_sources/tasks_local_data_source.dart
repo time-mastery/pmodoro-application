@@ -24,7 +24,7 @@ class TasksLocalDataSource {
 
   Future<bool> addCategory(CategoryEntity category) async {
     try {
-      Map<String, Object?> data = CategoryModel.toDbQuery(category);
+      Map<String, Object?> data = CategoryModel.toJson(category);
       await db.insert(DatabaseHelper.categoryTable, data);
     } catch (e) {
       return false;
