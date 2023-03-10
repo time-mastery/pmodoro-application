@@ -135,6 +135,10 @@ class TimerView extends StatelessWidget {
                           height: SizeConfig.heightMultiplier * 3,
                         ),
                         const TimerDurationSelector(),
+                        SizedBox(
+                          height: SizeConfig.heightMultiplier * 3,
+                        ),
+                        const TimerButtons(),
                       ],
                     ),
                   ),
@@ -152,6 +156,114 @@ class TimerView extends StatelessWidget {
   }
 }
 
+class TimerButtons extends StatefulWidget {
+  const TimerButtons({Key? key}) : super(key: key);
+
+  @override
+  State<TimerButtons> createState() => _TimerButtonsState();
+}
+
+class _TimerButtonsState extends State<TimerButtons>
+    with SingleTickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width * .30;
+    var height = MediaQuery.of(context).size.width * .30;
+    return BlocBuilder<TimerBloc, TimerState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            Stack(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (state is TimerInProgress) {
+                      context.read<TimerBloc>().add(TimerPaused());
+                    } else {
+                      if (state.duration == TimerBloc.getDuration) {
+                        context
+                            .read<TimerBloc>()
+                            .add(TimerStarted(TimerBloc.getDuration));
+                      } else {
+                        context.read<TimerBloc>().add(TimerResumed());
+                      }
+                    }
+                  },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: width,
+                      height: height,
+                      child: Center(
+                        child: Container(
+                          width: width - 20,
+                          height: height - 20,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onBackground
+                                .withOpacity(.2),
+                          ),
+                          child: Icon(
+                            (state is TimerInProgress)
+                                ? Icons.pause
+                                : Icons.play_arrow,
+                            size: 50,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: width,
+                    height: height,
+                    child: CircularProgressIndicator(
+                      value: context
+                              .select((TimerBloc bloc) => bloc.state.duration) /
+                          TimerBloc.getDuration,
+                      strokeWidth: 5,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.primary.withOpacity(.1),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.heightMultiplier * 2,
+            ),
+            GestureDetector(
+              onTap: () => context.read<TimerBloc>()
+                ..add(SaveCurrentTimerStateDialogShowed(
+                  duration: state.duration,
+                  taskItem: context.read<TimerBloc>().taskItem!,
+                ))
+                ..add(TimerTaskDeSelected())
+                ..add(TimerReset()),
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+                child: Icon(
+                  Icons.stop,
+                  color: Theme.of(context).colorScheme.background,
+                  size: 30,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
 class TimerBar extends StatefulWidget {
   const TimerBar({Key? key}) : super(key: key);
 
@@ -160,6 +272,42 @@ class TimerBar extends StatefulWidget {
 }
 
 class _TimerBarState extends State<TimerBar>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    );
+
+    _animation = Tween<double>(begin: 0, end: 60).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class TimerBarD extends StatefulWidget {
+  const TimerBarD({Key? key}) : super(key: key);
+
+  @override
+  State<TimerBarD> createState() => _TimerBarDState();
+}
+
+class _TimerBarDState extends State<TimerBarD>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -245,7 +393,7 @@ class _TimerBarState extends State<TimerBar>
                         ),
                       ),
                     ),
-                    const TimerText(),
+                    const TimerTextD(),
                   ],
                 ),
               ),
@@ -257,70 +405,8 @@ class _TimerBarState extends State<TimerBar>
   }
 }
 
-class TimerButtons extends StatelessWidget {
-  const TimerButtons({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<TimerBloc, TimerState>(
-      builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GlobalButton(
-              width: SizeConfig.heightMultiplier * 10,
-              height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: () {
-                if (state is TimerInProgress) {
-                  context.read<TimerBloc>().add(TimerPaused());
-                } else {
-                  if (state.duration == TimerBloc.getDuration) {
-                    context
-                        .read<TimerBloc>()
-                        .add(TimerStarted(TimerBloc.getDuration));
-                  } else {
-                    context.read<TimerBloc>().add(TimerResumed());
-                  }
-                }
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100)),
-              child: Icon(
-                (state is TimerInProgress) ? Ionicons.pause : Ionicons.play,
-                size: 30,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            GlobalButton(
-              width: SizeConfig.heightMultiplier * 10,
-              height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              onPressed: () => context.read<TimerBloc>()
-                ..add(SaveCurrentTimerStateDialogShowed(
-                  duration: state.duration,
-                  taskItem: context.read<TimerBloc>().taskItem!,
-                ))
-                ..add(TimerTaskDeSelected())
-                ..add(TimerReset()),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100)),
-              child: const Icon(
-                Ionicons.square,
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class TimerText extends StatelessWidget {
-  const TimerText({Key? key}) : super(key: key);
+class TimerTextD extends StatelessWidget {
+  const TimerTextD({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
