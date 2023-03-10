@@ -13,6 +13,7 @@ import 'package:pomodore/features/task_management/presentation/pages/analysis_pa
 import '../../../../core/constant/constant.dart';
 import '../../../../di.dart';
 import '../../../../exports.dart';
+import '../widgets/timer_duration_selector.dart';
 import '../widgets/timer_task.dart';
 
 class TimerPage extends StatelessWidget {
@@ -125,21 +126,25 @@ class TimerView extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SelectATaskToStart(),
+                        // const SelectATaskToStart(),
+                        // SizedBox(
+                        //   height: SizeConfig.heightMultiplier * 40,
+                        // ),
+                        // const TimerButtons(),
                         SizedBox(
-                          height: SizeConfig.heightMultiplier * 40,
+                          height: SizeConfig.heightMultiplier * 3,
                         ),
-                        const TimerButtons(),
+                        const TimerDurationSelector(),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-            const Align(
-              alignment: Alignment.center,
-              child: TimerBar(),
-            ),
+            // const Align(
+            //   alignment: Alignment.center,
+            //   child: TimerBar(),
+            // ),
           ],
         ),
       ),
