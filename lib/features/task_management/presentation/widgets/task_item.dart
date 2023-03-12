@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/core/extensions/datetime_extensions.dart';
-import 'package:pomodore/core/shared_widgets/global_button.dart';
-import 'package:pomodore/core/shared_widgets/global_indicator.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/pages/edit_task_page.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:pomodore/core/constant/constant.dart";
+import "package:pomodore/core/extensions/datetime_extensions.dart";
+import "package:pomodore/core/shared_widgets/global_button.dart";
+import "package:pomodore/core/shared_widgets/global_indicator.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
+import "package:pomodore/features/task_management/presentation/pages/edit_task_page.dart";
 
-import '../../../../core/utils/responsive/size_config.dart';
-import '../../../../exports.dart';
+import "../../../../core/utils/responsive/size_config.dart";
+import "../../../../exports.dart";
 
 class TaskItem extends StatelessWidget {
   const TaskItem({
@@ -21,8 +21,8 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TasksBloc bloc = context.read<TasksBloc>();
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final TasksBloc bloc = context.read<TasksBloc>();
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return InkWell(
       onTap: () {

@@ -1,16 +1,16 @@
-import 'package:bloc_test/bloc_test.dart';
-import 'package:dartz/dartz.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
-import 'package:pomodore/features/task_management/domain/usecases/check_daily_goal_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_today_tasks_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/save_daily_goal_usecase.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
-import 'package:test/scaffolding.dart';
+import "package:bloc_test/bloc_test.dart";
+import "package:dartz/dartz.dart";
+import "package:mockito/annotations.dart";
+import "package:mockito/mockito.dart";
+import "package:pomodore/features/task_management/domain/entities/daily_information_entity.dart";
+import "package:pomodore/features/task_management/domain/usecases/check_daily_goal_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_today_tasks_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/save_daily_goal_usecase.dart";
+import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
+import "package:test/scaffolding.dart";
 
-import 'home_bloc_test.mocks.dart';
+import "home_bloc_test.mocks.dart";
 
 @GenerateMocks([
   GetDailyInformationUseCase,
@@ -20,18 +20,18 @@ import 'home_bloc_test.mocks.dart';
   SaveDailyGoalUseCase,
 ])
 Future<void> main() async {
-  MockGetDailyInformationUseCase mockGetDailyInformationUseCase =
+  final MockGetDailyInformationUseCase mockGetDailyInformationUseCase =
       MockGetDailyInformationUseCase();
-  MockGetTodayTasksUseCase mockGetTodayTasksUseCase =
+  final MockGetTodayTasksUseCase mockGetTodayTasksUseCase =
       MockGetTodayTasksUseCase();
-  MockDailyInformationEntity item = MockDailyInformationEntity();
-  MockCheckDailyGoalUseCase mockCheckDailyGoalUseCase =
+  final MockDailyInformationEntity item = MockDailyInformationEntity();
+  final MockCheckDailyGoalUseCase mockCheckDailyGoalUseCase =
       MockCheckDailyGoalUseCase();
-  MockSaveDailyGoalUseCase mockSaveDailyGoalUseCase =
+  final MockSaveDailyGoalUseCase mockSaveDailyGoalUseCase =
       MockSaveDailyGoalUseCase();
-  DateTime time = DateTime.now();
+  final DateTime time = DateTime.now();
 
-  getBlocInstance() => HomeBloc(
+  HomeBloc getBlocInstance() => HomeBloc(
         getDailyInformationUseCase: mockGetDailyInformationUseCase,
         getTodayTasksUseCase: mockGetTodayTasksUseCase,
         checkDailyGoalUseCase: mockCheckDailyGoalUseCase,

@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import "package:equatable/equatable.dart";
 
 class PomodoroEntity extends Equatable {
   final int? id, duration;

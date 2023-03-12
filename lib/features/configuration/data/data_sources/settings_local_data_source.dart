@@ -1,18 +1,18 @@
-import 'package:pomodore/core/resources/params/settings_params.dart';
-import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
+import "package:pomodore/core/resources/params/settings_params.dart";
+import "package:pomodore/features/configuration/domain/entities/settings_entity.dart";
 
-import '../../../../core/services/database/storage.dart';
-import '../../../../core/utils/utils.dart';
+import "../../../../core/services/database/storage.dart";
+import "../../../../core/utils/utils.dart";
 
 class SettingsLocalDataSources {
   Future<SettingsEntity> getAllSettings() async {
     try {
-      String? notification = await FStorage.read(FStorage.notificationKey);
-      String? sound = await FStorage.read(FStorage.soundKey);
-      String? vibration = await FStorage.read(FStorage.vibrationKey);
-      String? appUpdates = await FStorage.read(FStorage.appUpdateKey);
-      String? newTip = await FStorage.read(FStorage.newTipKey);
-      String? showAds = await FStorage.read(FStorage.showAdsKey);
+      final String? notification = await FStorage.read(FStorage.notificationKey);
+      final String? sound = await FStorage.read(FStorage.soundKey);
+      final String? vibration = await FStorage.read(FStorage.vibrationKey);
+      final String? appUpdates = await FStorage.read(FStorage.appUpdateKey);
+      final String? newTip = await FStorage.read(FStorage.newTipKey);
+      final String? showAds = await FStorage.read(FStorage.showAdsKey);
       return SettingsEntity(
         notification: Utils.convertStringFromStorageToBool(notification ?? "1"),
         sound: Utils.convertStringFromStorageToBool(sound ?? "1"),
@@ -27,13 +27,13 @@ class SettingsLocalDataSources {
   }
 
   Future<String> getLocale() async {
-    String? locale = await FStorage.read(FStorage.localeKey);
+    final String? locale = await FStorage.read(FStorage.localeKey);
     return locale ?? "en";
   }
 
   Future<String> changeLocale(String langCode) async {
-    String locale = await FStorage.write(FStorage.localeKey, langCode);
-    return locale;
+     await FStorage.write(FStorage.localeKey, langCode);
+    return langCode;
   }
 
   Future<String> getTheme() async {
@@ -41,7 +41,8 @@ class SettingsLocalDataSources {
   }
 
   Future changeTheme(String title) async {
-    return await FStorage.write(FStorage.themeKey, title) ?? title;
+    await FStorage.write(FStorage.themeKey, title);
+    return title;
   }
 
   Future<SettingsEntity> changeSettings(ChangeSettingsParams params) async {

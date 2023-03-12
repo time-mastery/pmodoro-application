@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
+import "package:flutter/material.dart";
+import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 
-import '../../../../exports.dart';
+import "../../../../exports.dart";
 
 class AllTodayTasksPage extends StatelessWidget {
   const AllTodayTasksPage({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class AllTodayTasksPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return Scaffold(
         appBar: BaseAppBar(

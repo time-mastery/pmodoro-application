@@ -1,4 +1,4 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import "package:flutter_secure_storage/flutter_secure_storage.dart";
 
 class FStorage {
   static const notificationKey = "_notification_";
@@ -21,7 +21,7 @@ class FStorage {
   static initialize() async {
     flutterSecureStorage = const FlutterSecureStorage();
 
-    String? init = await read(initialized);
+    final String? init = await read(initialized);
     if (init != "1") {
       write(initialized, "1");
       write(notificationKey, "1");
@@ -35,10 +35,10 @@ class FStorage {
     }
   }
 
-  static write(String key, String value) async =>
+  static Future<void> write(String key, String value) async =>
       await flutterSecureStorage.write(key: key, value: value);
 
-  static delete(String key) async =>
+  static Future<void> delete(String key) async =>
       await flutterSecureStorage.delete(key: key);
 
   static Future<String?> read(String key) async =>

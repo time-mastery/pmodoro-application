@@ -1,4 +1,4 @@
-part of 'home_bloc.dart';
+part of "home_bloc.dart";
 
 abstract class HomeEvent extends Equatable {
   const HomeEvent();
@@ -14,7 +14,7 @@ class HomeDataFetched extends HomeEvent {
 
   @override
   String toString() {
-    return 'HomeDataFetched{date: $date}';
+    return "HomeDataFetched{date: $date}";
   }
 }
 
@@ -42,6 +42,6 @@ class DailyGoalUpdated extends HomeEvent {
 
   @override
   String toString() {
-    return 'DailyGoalUpdated{value: $value}';
+    return "DailyGoalUpdated{value: $value}";
   }
 }

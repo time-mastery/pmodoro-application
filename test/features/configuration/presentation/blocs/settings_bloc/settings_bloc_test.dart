@@ -1,18 +1,18 @@
-import 'package:bloc_test/bloc_test.dart';
-import 'package:dartz/dartz.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
-import 'package:pomodore/features/configuration/domain/usecases/change_locale_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/change_settings_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/get_locale_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/get_settings_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/get_theme_usecase.dart';
-import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
+import "package:bloc_test/bloc_test.dart";
+import "package:dartz/dartz.dart";
+import "package:flutter_test/flutter_test.dart";
+import "package:mockito/annotations.dart";
+import "package:mockito/mockito.dart";
+import "package:pomodore/features/configuration/domain/entities/settings_entity.dart";
+import "package:pomodore/features/configuration/domain/usecases/change_locale_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/change_settings_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/get_locale_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/get_settings_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/get_theme_usecase.dart";
+import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
 
-import 'settings_bloc_test.mocks.dart';
+import "settings_bloc_test.mocks.dart";
 
 @GenerateMocks([
   GetSettingsUseCase,
@@ -23,14 +23,14 @@ import 'settings_bloc_test.mocks.dart';
   GetThemeUseCase,
 ])
 void main() {
-  MockGetSettingsUseCase getSettingsUseCase = MockGetSettingsUseCase();
-  MockChangeSettingsUseCase changeSettingsUseCase = MockChangeSettingsUseCase();
-  MockChangeLocaleUseCase changeLocaleUseCase = MockChangeLocaleUseCase();
-  MockGetLocaleUseCase getLocaleUseCase = MockGetLocaleUseCase();
-  MockChangeThemeUseCase changeThemeUseCase = MockChangeThemeUseCase();
-  MockGetThemeUseCase getThemeUseCase = MockGetThemeUseCase();
+  final MockGetSettingsUseCase getSettingsUseCase = MockGetSettingsUseCase();
+  final MockChangeSettingsUseCase changeSettingsUseCase = MockChangeSettingsUseCase();
+  final MockChangeLocaleUseCase changeLocaleUseCase = MockChangeLocaleUseCase();
+  final MockGetLocaleUseCase getLocaleUseCase = MockGetLocaleUseCase();
+  final MockChangeThemeUseCase changeThemeUseCase = MockChangeThemeUseCase();
+  final MockGetThemeUseCase getThemeUseCase = MockGetThemeUseCase();
 
-  getBlocInstance() => SettingsBloc(
+  SettingsBloc getBlocInstance() => SettingsBloc(
         getSettingUseCase: getSettingsUseCase,
         changeSettingsUseCase: changeSettingsUseCase,
         changeLocaleUseCase: changeLocaleUseCase,
@@ -39,7 +39,7 @@ void main() {
         changeThemeUseCase: changeThemeUseCase,
       );
 
-  getSettingEntity() => const SettingsEntity(
+  SettingsEntity getSettingEntity() => const SettingsEntity(
         notification: true,
         sound: true,
         vibration: true,

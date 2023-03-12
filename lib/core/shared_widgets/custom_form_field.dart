@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
-import '../../exports.dart';
+import "../../exports.dart";
 
 class CustomFormField extends StatefulWidget {
   const CustomFormField({
@@ -36,7 +36,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -70,11 +70,11 @@ class _CustomFormFieldState extends State<CustomFormField> {
           ? widget.formatter
           : (widget.justNumber == true)
               ? <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  FilteringTextInputFormatter.allow(RegExp(r"[0-9]")),
                 ]
               : (widget.isRating == true)
                   ? <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp(r'[1-5]')),
+                      FilteringTextInputFormatter.allow(RegExp(r"[1-5]")),
                     ]
                   : null,
       validator: (value) {

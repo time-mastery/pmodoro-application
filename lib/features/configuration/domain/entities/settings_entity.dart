@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import "package:equatable/equatable.dart";
 
 class SettingsEntity extends Equatable {
   final bool notification;

@@ -1,10 +1,10 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:flutter/material.dart';
-import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/core/utils/responsive/size_config.dart';
+import "package:flutter/material.dart";
+import "package:pomodore/core/constant/constant.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
 
-import 'base_page.dart';
+import "base_page.dart";
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/shared_widgets/global_button.dart';
-import 'package:pomodore/core/utils/responsive/size_config.dart';
-import 'package:pomodore/core/utils/utils.dart';
-import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/pages/analysis_page.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:google_fonts/google_fonts.dart";
+import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/shared_widgets/base_app_bar.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/core/utils/utils.dart";
+import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
+import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
+import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
+import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
+import "package:pomodore/features/task_management/presentation/widgets/timer_task.dart";
 
-import '../../../../core/constant/constant.dart';
-import '../../../../di.dart';
-import '../../../../exports.dart';
-import '../widgets/timer_task.dart';
+import "../../../../di.dart";
+import "../../../../exports.dart";
+import "../widgets/timer_duration_selector.dart";
 
 class TimerPage extends StatelessWidget {
   const TimerPage({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class TimerView extends StatelessWidget {
 
   MaterialBanner _showMaterialBanner(BuildContext context,
       {required int duration, String? taskUid}) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return MaterialBanner(
         content: Text(
@@ -77,7 +77,7 @@ class TimerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return BlocListener<TimerBloc, TimerState>(
       listenWhen: (previous, current) {
@@ -99,7 +99,7 @@ class TimerView extends StatelessWidget {
             ));
         }
         if (state is StartTimerWithoutTaskFailure) {
-          var snack = SnackBar(
+          final snack = SnackBar(
               content: Text(localization.startTimerWithoutTaskWarning));
           ScaffoldMessenger.of(context).showSnackBar(snack);
         }
@@ -127,7 +127,15 @@ class TimerView extends StatelessWidget {
                       children: [
                         const SelectATaskToStart(),
                         SizedBox(
-                          height: SizeConfig.heightMultiplier * 40,
+                          height: SizeConfig.heightMultiplier * 2,
+                        ),
+                        const TimerBar(),
+                        SizedBox(
+                          height: SizeConfig.heightMultiplier * 2,
+                        ),
+                        const TimerDurationSelector(),
+                        SizedBox(
+                          height: SizeConfig.heightMultiplier * 3,
                         ),
                         const TimerButtons(),
                       ],
@@ -136,10 +144,6 @@ class TimerView extends StatelessWidget {
                 ),
               ),
             ),
-            const Align(
-              alignment: Alignment.center,
-              child: TimerBar(),
-            ),
           ],
         ),
       ),
@@ -147,264 +151,130 @@ class TimerView extends StatelessWidget {
   }
 }
 
-class TimerBar extends StatefulWidget {
-  const TimerBar({Key? key}) : super(key: key);
-
-  @override
-  State<TimerBar> createState() => _TimerBarState();
-}
-
-class _TimerBarState extends State<TimerBar>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 5),
-    );
-
-    _animation = Tween<double>(begin: 0, end: 60).animate(_controller);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-
-    super.dispose();
-  }
+class TimerBar extends StatelessWidget {
+  const TimerBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<TimerBloc, TimerState>(
-      listener: (context, state) {
-        if (state is TimerInProgress) {
-          if (!_controller.isAnimating) {
-            _controller.repeat(reverse: true);
-          }
-        } else {
-          _controller.reset();
-        }
-      },
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: AnimatedBuilder(
-                animation: _animation,
-                builder: (context, child) => Container(
-                  width:
-                      MediaQuery.of(context).size.width * .5 + _animation.value,
-                  height:
-                      MediaQuery.of(context).size.width * .5 + _animation.value,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .secondary
-                          .withOpacity(.1),
-                      width: 7,
-                    ),
-                  ),
-                ),
-              ),
+    final duration = context.select((TimerBloc bloc) => bloc.state.duration);
+
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        Utils.formatSecToMinSec(timeInSecond: duration),
+        style: Theme.of(context).textTheme.displayLarge?.copyWith(
+              fontSize: 80,
+              fontFamily: GoogleFonts.rubikMonoOne().fontFamily,
             ),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * .5,
-                height: MediaQuery.of(context).size.width * .5,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * .5,
-                        height: MediaQuery.of(context).size.width * .5,
-                        child: CircularProgressIndicator(
-                          value: context.select(
-                                  (TimerBloc bloc) => bloc.state.duration) /
-                              TimerBloc.getDuration,
-                          strokeWidth: 7,
-                          backgroundColor: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(.1),
-                        ),
-                      ),
-                    ),
-                    const TimerText(),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
 }
 
-class TimerButtons extends StatelessWidget {
+class TimerButtons extends StatefulWidget {
   const TimerButtons({Key? key}) : super(key: key);
 
   @override
+  State<TimerButtons> createState() => _TimerButtonsState();
+}
+
+class _TimerButtonsState extends State<TimerButtons>
+    with SingleTickerProviderStateMixin {
+  @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width * .30;
+    final height = MediaQuery.of(context).size.width * .30;
     return BlocBuilder<TimerBloc, TimerState>(
       builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        return Column(
           children: [
-            GlobalButton(
-              width: SizeConfig.heightMultiplier * 10,
-              height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: () {
-                if (state is TimerInProgress) {
-                  context.read<TimerBloc>().add(TimerPaused());
-                } else {
-                  if (state.duration == TimerBloc.getDuration) {
-                    context
-                        .read<TimerBloc>()
-                        .add(TimerStarted(TimerBloc.getDuration));
-                  } else {
-                    context.read<TimerBloc>().add(TimerResumed());
-                  }
-                }
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100)),
-              child: Icon(
-                (state is TimerInProgress) ? Ionicons.pause : Ionicons.play,
-                size: 30,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
+            Stack(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: width,
+                    height: height,
+                    child: CircularProgressIndicator(
+                      value: context
+                              .select((TimerBloc bloc) => bloc.state.duration) /
+                          TimerBloc.getDuration,
+                      strokeWidth: 5,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.primary.withOpacity(.1),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (state is TimerInProgress) {
+                      context.read<TimerBloc>().add(TimerPaused());
+                    } else {
+                      if (state.duration == TimerBloc.getDuration) {
+                        context
+                            .read<TimerBloc>()
+                            .add(TimerStarted(TimerBloc.getDuration));
+                      } else {
+                        context.read<TimerBloc>().add(TimerResumed());
+                      }
+                    }
+                  },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: width,
+                      height: height,
+                      child: Center(
+                        child: Container(
+                          width: width - 20,
+                          height: height - 20,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onBackground
+                                .withOpacity(.2),
+                          ),
+                          child: Icon(
+                            (state is TimerInProgress)
+                                ? Icons.pause
+                                : Icons.play_arrow,
+                            size: 50,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              height: SizeConfig.heightMultiplier * 2,
             ),
-            GlobalButton(
-              width: SizeConfig.heightMultiplier * 10,
-              height: SizeConfig.heightMultiplier * 10,
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              onPressed: () => context.read<TimerBloc>()
+            GestureDetector(
+              onTap: () => context.read<TimerBloc>()
                 ..add(SaveCurrentTimerStateDialogShowed(
                   duration: state.duration,
                   taskItem: context.read<TimerBloc>().taskItem!,
                 ))
                 ..add(TimerTaskDeSelected())
                 ..add(TimerReset()),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100)),
-              child: const Icon(
-                Ionicons.square,
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+                child: Icon(
+                  Icons.stop,
+                  color: Theme.of(context).colorScheme.background,
+                  size: 30,
+                ),
               ),
             ),
           ],
         );
       },
     );
-  }
-}
-
-class TimerText extends StatelessWidget {
-  const TimerText({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      AppLocalizations localization = AppLocalizations.of(context)!;
-
-      final duration = context.select((TimerBloc bloc) => bloc.state.duration);
-      final listOfTimerDuration = [1, 5, 10, 15, 25, 40, 60, 90, 120];
-      return BlocListener<TimerBloc, TimerState>(
-        listener: (context, state) {
-          if (state is ChangeTimerDurationLoading) Navigator.pop(context);
-        },
-        child: GestureDetector(
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              backgroundColor: Theme.of(context).colorScheme.background,
-              elevation: 20,
-              isScrollControlled: true,
-              builder: (context) {
-                return FractionallySizedBox(
-                  heightFactor: .2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppConstant.modalPadding),
-                    child: Column(
-                      children: [
-                        Text(
-                          localization.changeTimerDurationTitle,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: listOfTimerDuration.length,
-                            itemBuilder: (context, index) => GestureDetector(
-                              onTap: () {
-                                context.read<TimerBloc>().add(
-                                      TimerDurationSet(
-                                          listOfTimerDuration[index]),
-                                    );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
-                                child: Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      listOfTimerDuration[index].toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall
-                                          ?.copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondary,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          },
-          child: Align(
-            alignment: Alignment.center,
-            child: Text(
-              Utils.formatSecToMinSec(timeInSecond: duration),
-              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-          ),
-        ),
-      );
-    });
   }
 }

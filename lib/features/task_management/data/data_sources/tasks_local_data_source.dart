@@ -1,11 +1,11 @@
-import 'package:pomodore/core/utils/debug_print.dart';
-import 'package:pomodore/features/task_management/data/models/category_model.dart';
-import 'package:pomodore/features/task_management/domain/entities/category_entity.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
-import 'package:sqflite/sqflite.dart';
-import '../../../../core/services/database/database_helper.dart';
-import '../../../../core/utils/utils.dart';
-import '../models/task_model.dart';
+import "package:pomodore/core/utils/debug_print.dart";
+import "package:pomodore/features/task_management/data/models/category_model.dart";
+import "package:pomodore/features/task_management/domain/entities/category_entity.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:sqflite/sqflite.dart";
+import "../../../../core/services/database/database_helper.dart";
+import "../../../../core/utils/utils.dart";
+import "../models/task_model.dart";
 
 class TasksLocalDataSource {
   final Database db;
@@ -14,7 +14,7 @@ class TasksLocalDataSource {
 
   Future<bool> addTask(TaskEntity task) async {
     try {
-      Map<String, Object?> data = TaskModel.toJson(task);
+      final Map<String, Object?> data = TaskModel.toJson(task);
       await db.insert(DatabaseHelper.taskTable, data);
     } catch (e) {
       return false;
@@ -24,7 +24,7 @@ class TasksLocalDataSource {
 
   Future<bool> addCategory(CategoryEntity category) async {
     try {
-      Map<String, Object?> data = CategoryModel.toJson(category);
+      final Map<String, Object?> data = CategoryModel.toJson(category);
       await db.insert(DatabaseHelper.categoryTable, data);
     } catch (e) {
       return false;
@@ -35,8 +35,8 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllTasks() async {
     List<Map<String, dynamic>>? list;
     try {
-      const query = 'SELECT * FROM ${DatabaseHelper.taskTable}';
-      List<Map<String, Object?>> records = await db.rawQuery(query);
+      const query = "SELECT * FROM ${DatabaseHelper.taskTable}";
+      final List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
     } catch (e) {
@@ -50,12 +50,12 @@ class TasksLocalDataSource {
       DateTime time) async {
     List<Map<String, dynamic>>? list;
     try {
-      const query = '''
+      const query = """
       SELECT * FROM ${DatabaseHelper.taskTable}
       WHERE deadLineTime >= ? AND deadLineTime < ?
-      ''';
+      """;
 
-      List<Map<String, Object?>> records = await db.rawQuery(query, [
+      final List<Map<String, Object?>> records = await db.rawQuery(query, [
         Utils.formatDateToYYYYMMDD(time),
         Utils.formatDateToYYYYMMDD(time.add(const Duration(days: 1))),
       ]);
@@ -71,8 +71,8 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllCategories() async {
     List<Map<String, dynamic>>? list;
     try {
-      const query = 'SELECT * FROM ${DatabaseHelper.categoryTable}';
-      List<Map<String, Object?>> records = await db.rawQuery(query);
+      const query = "SELECT * FROM ${DatabaseHelper.categoryTable}";
+      final List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
     } catch (e) {
@@ -85,8 +85,8 @@ class TasksLocalDataSource {
   Future<List<Map<String, dynamic>>>? getAllPomodoroFromDb() async {
     List<Map<String, dynamic>>? list;
     try {
-      const query = 'SELECT * FROM ${DatabaseHelper.pomodoroTable}';
-      List<Map<String, Object?>> records = await db.rawQuery(query);
+      const query = "SELECT * FROM ${DatabaseHelper.pomodoroTable}";
+      final List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
     } catch (e) {
@@ -100,12 +100,12 @@ class TasksLocalDataSource {
       DateTime time) async {
     List<Map<String, dynamic>>? list;
     try {
-      const query = '''
+      const query = """
       SELECT * FROM ${DatabaseHelper.pomodoroTable}
       WHERE dateTime >= ? AND dateTime < ?
-      ''';
+      """;
 
-      List<Map<String, Object?>> records = await db.rawQuery(query, [
+      final List<Map<String, Object?>> records = await db.rawQuery(query, [
         Utils.formatDateToYYYYMMDD(time),
         Utils.formatDateToYYYYMMDD(time.add(const Duration(days: 1))),
       ]);
@@ -122,7 +122,7 @@ class TasksLocalDataSource {
     late int quantity;
 
     try {
-      List<Map<String, dynamic>>? tasks =
+      final List<Map<String, dynamic>>? tasks =
           await getSpecificDateTasks(DateTime.now());
 
       quantity = tasks == null ? 0 : tasks.length;
@@ -136,7 +136,7 @@ class TasksLocalDataSource {
     late int quantity;
 
     try {
-      List<Map<String, Object?>> records = await db.query(
+      final List<Map<String, Object?>> records = await db.query(
         DatabaseHelper.taskTable,
         columns: ["_id"],
         where: "done = ?",
@@ -153,12 +153,12 @@ class TasksLocalDataSource {
   Future<Map<String, dynamic>?> getAnalysisPageData() async {
     late Map<String, dynamic>? item;
     try {
-      int todayCompletedTask = await getCompletedTaskQuantity();
-      List<Map<String, dynamic>>? allPomodoroList =
+      final int todayCompletedTask = await getCompletedTaskQuantity();
+      final List<Map<String, dynamic>>? allPomodoroList =
           await getAllPomodoroFromDb();
-      List<Map<String, dynamic>>? todayPomodoroList =
+      final List<Map<String, dynamic>>? todayPomodoroList =
           await getAllTodayPomodoroFromDb(DateTime.now());
-      int todayPomodoroCount = todayPomodoroList?.length ?? 0;
+      final int todayPomodoroCount = todayPomodoroList?.length ?? 0;
 
       item = {
         "overviews": allPomodoroList,
@@ -176,7 +176,7 @@ class TasksLocalDataSource {
 
   Future<bool> saveDailyGoal(int count) async {
     try {
-      Map<String, Object?> data = {
+      final Map<String, Object?> data = {
         "count": count,
         "dateTime": DateTime.now().toString()
       };
@@ -190,12 +190,12 @@ class TasksLocalDataSource {
   Future<int?> getDailyGoalQuantity() async {
     int? count;
     try {
-      const query = '''
+      const query = """
       SELECT * FROM ${DatabaseHelper.dailyGoalTable}
       WHERE dateTime >= ? AND dateTime < ?
-      ''';
+      """;
 
-      List<Map<String, dynamic>> records = await db.rawQuery(query, [
+      final List<Map<String, dynamic>> records = await db.rawQuery(query, [
         Utils.formatDateToYYYYMMDD(DateTime.now()),
         Utils.formatDateToYYYYMMDD(DateTime.now().add(const Duration(days: 1))),
       ]);
@@ -213,12 +213,12 @@ class TasksLocalDataSource {
   Future<bool?> checkDailyGoal() async {
     bool? result;
     try {
-      const query = '''
+      const query = """
       SELECT * FROM ${DatabaseHelper.dailyGoalTable}
       WHERE dateTime >= ? AND dateTime < ?
-      ''';
+      """;
 
-      List<Map<String, dynamic>> records = await db.rawQuery(query, [
+      final List<Map<String, dynamic>> records = await db.rawQuery(query, [
         Utils.formatDateToYYYYMMDD(DateTime.now()),
         Utils.formatDateToYYYYMMDD(DateTime.now().add(const Duration(days: 1))),
       ]);

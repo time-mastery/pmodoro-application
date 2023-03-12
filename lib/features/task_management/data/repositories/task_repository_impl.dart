@@ -1,14 +1,14 @@
-import 'package:dartz/dartz.dart';
-import 'package:pomodore/features/task_management/data/data_sources/tasks_local_data_source.dart';
-import 'package:pomodore/features/task_management/data/models/pomodoro_model.dart';
-import 'package:pomodore/features/task_management/data/models/task_model.dart';
-import 'package:pomodore/features/task_management/domain/entities/analysis_entity.dart';
-import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
-import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
-import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
+import "package:dartz/dartz.dart";
+import "package:pomodore/features/task_management/data/data_sources/tasks_local_data_source.dart";
+import "package:pomodore/features/task_management/data/models/pomodoro_model.dart";
+import "package:pomodore/features/task_management/data/models/task_model.dart";
+import "package:pomodore/features/task_management/domain/entities/analysis_entity.dart";
+import "package:pomodore/features/task_management/domain/entities/daily_information_entity.dart";
+import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
+import "package:pomodore/features/task_management/domain/repositories/task_repository.dart";
 
-import '../../domain/entities/task_entity.dart';
-import '../models/analysis_model.dart';
+import "../../domain/entities/task_entity.dart";
+import "../models/analysis_model.dart";
 
 class TaskRepositoryImpl implements TaskRepository {
   final TasksLocalDataSource localDataSource;
@@ -19,7 +19,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, bool>> addTask(TaskEntity task) async {
     late Either<String, bool> result;
 
-    bool state = await localDataSource.addTask(task);
+    final bool state = await localDataSource.addTask(task);
 
     if (!state) {
       result = const Left("error");
@@ -33,11 +33,11 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date) async {
     late Either<String, List<TaskEntity>> result;
 
-    List<Map<String, dynamic>>? rawList =
+    final List<Map<String, dynamic>>? rawList =
         await localDataSource.getSpecificDateTasks(date);
 
     if (rawList != null) {
-      List<TaskEntity> list =
+      final List<TaskEntity> list =
           TaskModel.sortTasksByDateTime(TaskModel.parseRawList(rawList));
       result = Right(list);
     } else {
@@ -51,11 +51,11 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoros() async {
     late Either<String, List<PomodoroEntity>> result;
 
-    List<Map<String, dynamic>>? rawList =
+    final List<Map<String, dynamic>>? rawList =
         await localDataSource.getSpecificDateTasks(DateTime.now());
 
     if (rawList != null) {
-      List<PomodoroEntity> convertedList = PomodoroModel.parseRawList(rawList);
+      final List<PomodoroEntity> convertedList = PomodoroModel.parseRawList(rawList);
       result = Right(convertedList);
     } else {
       result = const Left("error");
@@ -68,10 +68,10 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, DailyInformationEntity>> getDailyInformation() async {
     late Either<String, DailyInformationEntity> result;
 
-    int completedTasksQuantity =
+    final int completedTasksQuantity =
         await localDataSource.getCompletedTaskQuantity();
-    int tasksQuantity = await localDataSource.getAllTodayTaskQuantity();
-    int dailyGoal = await localDataSource.getDailyGoalQuantity() ?? 1;
+    final int tasksQuantity = await localDataSource.getAllTodayTaskQuantity();
+    final int dailyGoal = await localDataSource.getDailyGoalQuantity() ?? 1;
     double processPercentage = 0;
 
     if (tasksQuantity == 0) {
@@ -83,7 +83,7 @@ class TaskRepositoryImpl implements TaskRepository {
           double.parse((completedTasksQuantity / dailyGoal).toStringAsFixed(1));
     }
 
-    DailyInformationEntity item = DailyInformationEntity(
+    final DailyInformationEntity item = DailyInformationEntity(
         dailyGoalQuantity: dailyGoal,
         taskQuantity: tasksQuantity,
         completedTaskQuantity: completedTasksQuantity,
@@ -102,10 +102,10 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, AnalysisEntity>> getAnalysis() async {
     late Either<String, AnalysisEntity> result;
 
-    Map<String, dynamic>? rawData = await localDataSource.getAnalysisPageData();
+    final Map<String, dynamic>? rawData = await localDataSource.getAnalysisPageData();
 
     if (rawData != null) {
-      AnalysisEntity analysis = AnalysisModel.fromJson(rawData);
+      final AnalysisEntity analysis = AnalysisModel.fromJson(rawData);
       result = Right(analysis);
     } else {
       result = const Left("error");
@@ -118,7 +118,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, bool>> checkDailyGoal() async {
     late Either<String, bool> result;
 
-    bool? rawData = await localDataSource.checkDailyGoal();
+    final bool? rawData = await localDataSource.checkDailyGoal();
     if (rawData != null) {
       result = Right(rawData);
     } else {
@@ -132,7 +132,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, bool>> saveDailyGoal(int count) async {
     late Either<String, bool> result;
 
-    bool rawData = await localDataSource.saveDailyGoal(count);
+    final bool rawData = await localDataSource.saveDailyGoal(count);
     if (rawData) {
       result = Right(rawData);
     } else {
@@ -146,7 +146,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, String>> deleteTask(String id) async {
     late Either<String, String> result;
 
-    String? status = await localDataSource.deleteTask(id);
+    final String? status = await localDataSource.deleteTask(id);
 
     if (status != null) {
       result = Right(status);
@@ -161,7 +161,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, String>> completeTask(TaskEntity taskEntity) async {
     late Either<String, String> result;
 
-    String? status = await localDataSource.completeTask(taskEntity);
+    final String? status = await localDataSource.completeTask(taskEntity);
 
     if (status != null) {
       result = Right(status);
@@ -176,7 +176,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, String>> editTask(TaskEntity task) async {
     late Either<String, String> result;
 
-    String? status = await localDataSource.editTask(task);
+    final String? status = await localDataSource.editTask(task);
 
     if (status != null) {
       result = Right(status);

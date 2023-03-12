@@ -1,22 +1,22 @@
 
-import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:pomodore/core/resources/params/settings_params.dart';
-import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
-import 'package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart';
+import "package:bloc/bloc.dart";
+import "package:dartz/dartz.dart";
+import "package:equatable/equatable.dart";
+import "package:flutter/material.dart";
+import "package:pomodore/core/resources/params/settings_params.dart";
+import "package:pomodore/features/configuration/domain/entities/settings_entity.dart";
+import "package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart";
 
-import '../../../../../core/resources/params/theme_params.dart';
-import '../../../domain/usecases/change_locale_usecase.dart';
-import '../../../domain/usecases/change_settings_usecase.dart';
-import '../../../domain/usecases/get_locale_usecase.dart';
-import '../../../domain/usecases/get_settings_usecase.dart';
-import '../../../domain/usecases/get_theme_usecase.dart';
+import "../../../../../core/resources/params/theme_params.dart";
+import "../../../domain/usecases/change_locale_usecase.dart";
+import "../../../domain/usecases/change_settings_usecase.dart";
+import "../../../domain/usecases/get_locale_usecase.dart";
+import "../../../domain/usecases/get_settings_usecase.dart";
+import "../../../domain/usecases/get_theme_usecase.dart";
 
-part 'settings_event.dart';
+part "settings_event.dart";
 
-part 'settings_state.dart';
+part "settings_state.dart";
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final GetSettingsUseCase getSettingUseCase;
@@ -44,7 +44,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   _themeChanged(ThemeChanged event, Emitter emit) async {
     emit(ChangeThemeLoading());
-    Either<String, ThemeData>? theme =
+    final Either<String, ThemeData>? theme =
         await changeThemeUseCase.call(params: event.themeParams);
 
     if (theme != null) {
@@ -58,8 +58,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   _localeFetched(InitDataFetched event, Emitter emit) async {
-    Either<String, String> result = await getLocaleUseCase.call();
-    Either<String, ThemeData> themeResult = await getThemeUseCase.call();
+    final Either<String, String> result = await getLocaleUseCase.call();
+    final Either<String, ThemeData> themeResult = await getThemeUseCase.call();
     result.fold((l) => emit(InitDataFetchFailure()), (r) {
       themeResult.fold(
         (l) => emit(InitDataFetchFailure()),
@@ -72,7 +72,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   _settingsChanged(SettingsChanged event, Emitter emit) async {
     emit(SettingFetchingLoading());
-    Either<String, SettingsEntity> result =
+    final Either<String, SettingsEntity> result =
         await changeSettingsUseCase.call(params: event.params);
     result.fold(
       (l) => emit(SettingFetchingFail()),
@@ -84,7 +84,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       SettingsFromDeviceFetched event, Emitter emit) async {
     emit(SettingFetchingLoading());
 
-    Either<String, SettingsEntity> result = await getSettingUseCase.call();
+    final Either<String, SettingsEntity> result = await getSettingUseCase.call();
 
     result.fold(
       (l) => emit(SettingFetchingFail()),

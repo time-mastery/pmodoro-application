@@ -1,4 +1,4 @@
-part of 'settings_bloc.dart';
+part of "settings_bloc.dart";
 
 abstract class SettingsEvent extends Equatable {
   const SettingsEvent();
@@ -24,7 +24,7 @@ class SettingsChanged extends SettingsEvent {
 
   @override
   String toString() {
-    return 'SettingsChanged{params: $params}';
+    return "SettingsChanged{params: $params}";
   }
 }
 

@@ -1,4 +1,4 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
+import "package:awesome_notifications/awesome_notifications.dart";
 
 class NotificationCustomController {
   /// Use this method to detect when a new notification or a schedule is created

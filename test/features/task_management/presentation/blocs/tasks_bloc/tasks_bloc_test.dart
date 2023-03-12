@@ -1,21 +1,21 @@
-import 'package:bloc_test/bloc_test.dart';
-import 'package:dartz/dartz.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
-import 'package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
+import "package:bloc_test/bloc_test.dart";
+import "package:dartz/dartz.dart";
+import "package:flutter_test/flutter_test.dart";
+import "package:mockito/annotations.dart";
+import "package:mockito/mockito.dart";
+import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart";
+import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
-import 'tasks_bloc_test.mocks.dart';
+import "tasks_bloc_test.mocks.dart";
 
 @GenerateMocks([
   AddTaskUsecase,
@@ -30,20 +30,20 @@ import 'tasks_bloc_test.mocks.dart';
   PomodoroEntity,
 ])
 void main() {
-  MockAddTaskUsecase mockAddTaskUsecase = MockAddTaskUsecase();
-  MockGetSpecificDateTasksUseCase mockGetSpecificDateTasksUseCase =
+  final MockAddTaskUsecase mockAddTaskUsecase = MockAddTaskUsecase();
+  final MockGetSpecificDateTasksUseCase mockGetSpecificDateTasksUseCase =
       MockGetSpecificDateTasksUseCase();
-  MockCompleteTaskUseCase mockCompleteTaskUseCase = MockCompleteTaskUseCase();
-  MockDeleteTaskUseCase mockDeleteTaskUseCase = MockDeleteTaskUseCase();
-  MockAddCategoryUsecase mockAddCategoryUsecase = MockAddCategoryUsecase();
-  MockGetAllCategoriesUseCase mockGetAllCategoriesUseCase =
+  final MockCompleteTaskUseCase mockCompleteTaskUseCase = MockCompleteTaskUseCase();
+  final MockDeleteTaskUseCase mockDeleteTaskUseCase = MockDeleteTaskUseCase();
+  final MockAddCategoryUsecase mockAddCategoryUsecase = MockAddCategoryUsecase();
+  final MockGetAllCategoriesUseCase mockGetAllCategoriesUseCase =
       MockGetAllCategoriesUseCase();
-  MockEditTaskUseCase mockEditTaskUseCase = MockEditTaskUseCase();
+  final MockEditTaskUseCase mockEditTaskUseCase = MockEditTaskUseCase();
 
-  MockTaskEntity taskEntity = MockTaskEntity();
-  MockPomodoroEntity pomodoroEntity = MockPomodoroEntity();
+  final MockTaskEntity taskEntity = MockTaskEntity();
+  final MockPomodoroEntity pomodoroEntity = MockPomodoroEntity();
 
-  getBlocInstance() => TasksBloc(
+  TasksBloc getBlocInstance() => TasksBloc(
         addTaskUsecase: mockAddTaskUsecase,
         addCategoryUsecase: mockAddCategoryUsecase,
         getSpecificDateTasks: mockGetSpecificDateTasksUseCase,

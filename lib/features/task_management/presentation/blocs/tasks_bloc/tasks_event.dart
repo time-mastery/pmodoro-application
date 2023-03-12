@@ -1,4 +1,4 @@
-part of 'tasks_bloc.dart';
+part of "tasks_bloc.dart";
 
 abstract class TasksEvent extends Equatable {
   const TasksEvent();
@@ -35,7 +35,7 @@ class SpecificDateTasksFetched extends TasksEvent {
 
   @override
   String toString() {
-    return 'SpecificDateTasksFetched{data: $data}';
+    return "SpecificDateTasksFetched{data: $data}";
   }
 }
 
@@ -54,7 +54,7 @@ class TaskCompleted extends TasksEvent {
 
   @override
   String toString() {
-    return 'TaskCompleted{taskEntity: $taskEntity}';
+    return "TaskCompleted{taskEntity: $taskEntity}";
   }
 }
 
@@ -86,6 +86,6 @@ class TaskEdited extends TasksEvent {
 
   @override
   String toString() {
-    return 'TaskEdited{item: $item}';
+    return "TaskEdited{item: $item}";
   }
 }

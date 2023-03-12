@@ -1,6 +1,6 @@
-import 'package:pomodore/features/task_management/domain/entities/analysis_entity.dart';
+import "package:pomodore/features/task_management/domain/entities/analysis_entity.dart";
 
-import '../../../../core/utils/utils.dart';
+import "../../../../core/utils/utils.dart";
 
 class AnalysisModel extends AnalysisEntity {
   const AnalysisModel({
@@ -16,9 +16,9 @@ class AnalysisModel extends AnalysisEntity {
         );
 
   factory AnalysisModel.fromJson(Map<String, dynamic> item) {
-    List<YearlyAnalyzeItemModel> yearlyAnalyze =
+    final List<YearlyAnalyzeItemModel> yearlyAnalyze =
         createYearlyAnalysis(item["yearlyAnalyze"]);
-    Map<DateTime, int> overviews = createOverview(item["overviews"]);
+    final Map<DateTime, int> overviews = createOverview(item["overviews"]);
 
     return AnalysisModel(
       overviews: overviews,
@@ -29,9 +29,9 @@ class AnalysisModel extends AnalysisEntity {
   }
 
   static Map<DateTime, int> createOverview(List<Map<String, dynamic>> mapList) {
-    Map<DateTime, int> overviews = {};
+    final Map<DateTime, int> overviews = {};
     for (var element in mapList) {
-      DateTime dateTime = Utils.createOverviewItemDateTime(element["dateTime"]);
+      final DateTime dateTime = Utils.createOverviewItemDateTime(element["dateTime"]);
       if (overviews.containsKey(dateTime)) {
         overviews.update(dateTime, (value) => value + 1);
       } else {
@@ -44,10 +44,10 @@ class AnalysisModel extends AnalysisEntity {
 
   static List<YearlyAnalyzeItemModel> createYearlyAnalysis(
       List<Map<String, dynamic>>? mapList) {
-    Map<String, int> yearMap = {};
+    final Map<String, int> yearMap = {};
     if (mapList == null) return [];
     for (var element in mapList) {
-      String monthName = Utils.monthNameOfDateTime(element["dateTime"]);
+      final String monthName = Utils.monthNameOfDateTime(element["dateTime"]);
       if (yearMap.containsKey(monthName)) {
         yearMap.update(monthName, (value) => value + 1);
       } else {
@@ -55,7 +55,7 @@ class AnalysisModel extends AnalysisEntity {
       }
     }
 
-    List<YearlyAnalyzeItemModel> yearlyAnalyze = yearMap.entries
+    final List<YearlyAnalyzeItemModel> yearlyAnalyze = yearMap.entries
         .map((e) => YearlyAnalyzeItemModel(month: e.key, count: e.value))
         .toList();
 
