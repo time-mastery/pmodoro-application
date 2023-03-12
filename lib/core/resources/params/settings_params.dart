@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import "package:equatable/equatable.dart";
 
 class ChangeSettingsParams extends Equatable {
   final String key;
@@ -8,7 +8,7 @@ class ChangeSettingsParams extends Equatable {
 
   @override
   String toString() {
-    return 'ChangeSettingsParams{key: $key, value: $value}';
+    return "ChangeSettingsParams{key: $key, value: $value}";
   }
 
   @override

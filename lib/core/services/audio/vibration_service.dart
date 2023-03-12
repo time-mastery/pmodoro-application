@@ -1,11 +1,11 @@
-import 'package:vibration/vibration.dart';
+import "package:vibration/vibration.dart";
 
 class VibrationService {
   Future<bool> checkDeviceCapabilities() async {
-    bool levelOne = await Vibration.hasVibrator() ?? false;
-    bool levelTwo = await Vibration.hasAmplitudeControl() ?? false;
-    bool levelThree = await Vibration.hasCustomVibrationsSupport() ?? false;
-    List levels = [levelOne, levelTwo, levelThree];
+    final bool levelOne = await Vibration.hasVibrator() ?? false;
+    final bool levelTwo = await Vibration.hasAmplitudeControl() ?? false;
+    final bool levelThree = await Vibration.hasCustomVibrationsSupport() ?? false;
+    final List levels = [levelOne, levelTwo, levelThree];
     return levels.contains(true);
   }
 

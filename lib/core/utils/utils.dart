@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
+import "package:flutter/cupertino.dart";
+import "package:intl/intl.dart";
+import "package:uuid/uuid.dart";
 
-import '../../exports.dart';
+import "../../exports.dart";
 
 class Utils {
   static String getProcessTitle(BuildContext context, double value) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     if (value == 0) {
       return localization.firstStageDailyGoalTitle;
@@ -23,25 +23,25 @@ class Utils {
       DateFormat("MMMM").format(DateTime.parse(date));
 
   static DateTime createOverviewItemDateTime(String date) {
-    DateTime dateTime = DateTime.parse(date);
+    final DateTime dateTime = DateTime.parse(date);
     return DateTime(dateTime.year, dateTime.month, dateTime.day);
   }
 
   static String formatDateToYYYYMMDD(DateTime time) {
-    String formattedDate = DateFormat('yyyy-MM-dd').format(time);
+    final String formattedDate = DateFormat("yyyy-MM-dd").format(time);
     return formattedDate;
   }
 
   static String formatSecToMinSec({required int timeInSecond}) {
-    int sec = timeInSecond % 60;
-    int min = (timeInSecond / 60).floor();
-    String minute = min.toString().length <= 1 ? "0$min" : "$min";
-    String second = sec.toString().length <= 1 ? "0$sec" : "$sec";
+    final int sec = timeInSecond % 60;
+    final int min = (timeInSecond / 60).floor();
+    final String minute = min.toString().length <= 1 ? "0$min" : "$min";
+    final String second = sec.toString().length <= 1 ? "0$sec" : "$sec";
     return "$minute : $second";
   }
 
   static String createUniqueId() {
-    Uuid uuid = const Uuid();
+    const Uuid uuid = Uuid();
     return uuid.v4();
   }
 

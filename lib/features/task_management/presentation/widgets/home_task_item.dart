@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/shared_widgets/global_button.dart';
-import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/shared_widgets/global_button.dart";
+import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
-import '../../../../core/utils/responsive/size_config.dart';
+import "../../../../core/utils/responsive/size_config.dart";
 
 class HomeTaskItem extends StatelessWidget {
   const HomeTaskItem({Key? key, required this.item}) : super(key: key);

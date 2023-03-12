@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pomodore/core/shared_widgets/global_button.dart';
-import 'package:pomodore/core/utils/responsive/size_config.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:pomodore/core/shared_widgets/global_button.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
 
-import '../../../../exports.dart';
-import '../blocs/home_bloc/home_bloc.dart';
+import "../../../../exports.dart";
+import "../blocs/home_bloc/home_bloc.dart";
 
 Future<void> showDailyGoalDialog(
     BuildContext context, HomeBloc homeBloc) async {
-  AppLocalizations localization = AppLocalizations.of(context)!;
+  final AppLocalizations localization = AppLocalizations.of(context)!;
   int value = 1;
 
   await showDialog<void>(

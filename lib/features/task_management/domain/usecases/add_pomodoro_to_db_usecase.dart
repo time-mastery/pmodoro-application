@@ -1,7 +1,7 @@
-import 'package:dartz/dartz.dart';
-import 'package:pomodore/core/resources/usecase.dart';
-import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
-import 'package:pomodore/features/task_management/domain/repositories/timer_repository.dart';
+import "package:dartz/dartz.dart";
+import "package:pomodore/core/resources/usecase.dart";
+import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
+import "package:pomodore/features/task_management/domain/repositories/timer_repository.dart";
 
 class AddPomodoroToDbUseCase
     extends UseCase<Either<String, bool>, PomodoroEntity> {

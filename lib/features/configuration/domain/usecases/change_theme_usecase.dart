@@ -1,9 +1,9 @@
-import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
-import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart';
+import "package:dartz/dartz.dart";
+import "package:flutter/material.dart";
+import "package:pomodore/features/configuration/domain/repositories/settings_repository.dart";
 
-import '../../../../core/resources/params/theme_params.dart';
-import '../../../../core/resources/usecase.dart';
+import "../../../../core/resources/params/theme_params.dart";
+import "../../../../core/resources/usecase.dart";
 
 class ChangeThemeUseCase
     extends UseCase<Either<String, ThemeData>?, ThemeParams?> {

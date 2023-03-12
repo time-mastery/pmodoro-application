@@ -1,13 +1,13 @@
-import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
+import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
 
 class PomodoroModel extends PomodoroEntity {
   const PomodoroModel(int id, int duration, String? taskUid, String datetime)
       : super(id: id, duration: duration, taskUid: taskUid, dateTime: datetime);
 
-  static fromJson(Map<String, dynamic> item) => PomodoroModel(
+  static PomodoroModel fromJson(Map<String, dynamic> item) => PomodoroModel(
       item["_id"], item["duration"], item["taskUid"], item["datetime"]);
 
-  static toJson(PomodoroEntity item) => {
+  static Map<String, Object?> toJson(PomodoroEntity item) => {
         "taskUid": item.taskUid,
         "duration": item.duration,
         "dateTime": item.dateTime,

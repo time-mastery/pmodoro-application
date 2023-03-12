@@ -1,11 +1,11 @@
-import 'package:pomodore/core/services/database/storage.dart';
-import 'package:pomodore/core/utils/debug_print.dart';
-import 'package:sqflite/sqflite.dart';
+import "package:pomodore/core/services/database/storage.dart";
+import "package:pomodore/core/utils/debug_print.dart";
+import "package:sqflite/sqflite.dart";
 
-import '../../../../core/resources/params/timer_state_params.dart';
-import '../../../../core/services/database/database_helper.dart';
-import '../../domain/entities/pomodoro_entity.dart';
-import '../models/pomodoro_model.dart';
+import "../../../../core/resources/params/timer_state_params.dart";
+import "../../../../core/services/database/database_helper.dart";
+import "../../domain/entities/pomodoro_entity.dart";
+import "../models/pomodoro_model.dart";
 
 class TimerLocalDataSource {
   final Database db;
@@ -21,7 +21,7 @@ class TimerLocalDataSource {
 
   Future<bool> saveAPomodoroOnDb(PomodoroEntity item) async {
     try {
-      Map<String, Object?> data = PomodoroModel.toJson(item);
+      final Map<String, Object?> data = PomodoroModel.toJson(item);
       await db.insert(DatabaseHelper.pomodoroTable, data);
     } catch (e) {
       return false;
@@ -47,9 +47,9 @@ class TimerLocalDataSource {
   }
 
   Future<Map<String, dynamic>> getTaskById(String id) async {
-    List<Map<String, dynamic>> result = await db.query(
-      'tasks',
-      where: 'uid = ?',
+    final List<Map<String, dynamic>> result = await db.query(
+      "tasks",
+      where: "uid = ?",
       whereArgs: [id],
     );
     return result.first;
@@ -58,20 +58,20 @@ class TimerLocalDataSource {
   Future<TimerStateRestoreParams?> restoreTimerState() async {
     TimerStateRestoreParams? result;
     try {
-      var state = await FStorage.read(FStorage.timerStateKey);
-      var dateTimeState = await FStorage.read(FStorage.timerStateDateTimeKey);
-      var baseStateDuration =
+      final state = await FStorage.read(FStorage.timerStateKey);
+      final dateTimeState = await FStorage.read(FStorage.timerStateDateTimeKey);
+      final baseStateDuration =
           await FStorage.read(FStorage.timerStateBaseDurationKey);
-      var id = await FStorage.read(FStorage.taskIdKey);
+      final id = await FStorage.read(FStorage.taskIdKey);
 
       if (state != null &&
           dateTimeState != null &&
           baseStateDuration != null &&
           id != null) {
-        DateTime restoredDateTime = DateTime.parse(dateTimeState);
-        DateTime now = DateTime.now();
-        Duration remainDuration = now.difference(restoredDateTime);
-        Map<String, dynamic> task = await getTaskById(id);
+        final DateTime restoredDateTime = DateTime.parse(dateTimeState);
+        final DateTime now = DateTime.now();
+        final Duration remainDuration = now.difference(restoredDateTime);
+        final Map<String, dynamic> task = await getTaskById(id);
 
         if (remainDuration.inSeconds < int.parse(state)) {
           result = TimerStateRestoreParams(

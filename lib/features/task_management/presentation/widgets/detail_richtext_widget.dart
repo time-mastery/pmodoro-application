@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import '../../../../exports.dart';
+import "../../../../exports.dart";
 
 class DetailRichTextWidget extends StatelessWidget {
   const DetailRichTextWidget({
@@ -13,7 +13,7 @@ class DetailRichTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return RichText(
       text: TextSpan(

@@ -1,20 +1,20 @@
-import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
-import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
+import "package:bloc/bloc.dart";
+import "package:dartz/dartz.dart";
+import "package:equatable/equatable.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
 
-import '../../../domain/entities/category_entity.dart';
-import '../../../domain/usecases/add_category_usecase.dart';
-import '../../../domain/usecases/add_task_usecase.dart';
-import '../../../domain/usecases/complete_task_usecase.dart';
-import '../../../domain/usecases/delete_task_usecase.dart';
-import '../../../domain/usecases/get_specific_date_tasks_usecase.dart';
+import "../../../domain/entities/category_entity.dart";
+import "../../../domain/usecases/add_category_usecase.dart";
+import "../../../domain/usecases/add_task_usecase.dart";
+import "../../../domain/usecases/complete_task_usecase.dart";
+import "../../../domain/usecases/delete_task_usecase.dart";
+import "../../../domain/usecases/get_specific_date_tasks_usecase.dart";
 
-part 'tasks_event.dart';
+part "tasks_event.dart";
 
-part 'tasks_state.dart';
+part "tasks_state.dart";
 
 class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final AddTaskUsecase addTaskUsecase;
@@ -56,7 +56,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   _taskEdited(TaskEdited event, Emitter emit) async {
     emit(EditTaskLoading());
 
-    Either<String, String> result =
+    final Either<String, String> result =
         await editTaskUseCase.call(params: event.item);
 
     result.fold(
@@ -68,7 +68,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   _taskDeleted(TaskDeleted event, Emitter<TasksState> emit) async {
     emit(TaskDeleteLoading());
 
-    Either<String, String> result =
+    final Either<String, String> result =
         await deleteTaskUseCase.call(params: event.id);
     result.fold(
       (l) => emit(TaskDeleteFailure()),
@@ -79,7 +79,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   _taskCompleted(TaskCompleted event, Emitter<TasksState> emit) async {
     emit(TaskCompleteLoading());
 
-    Either<String, String> result =
+    final Either<String, String> result =
         await completeTaskUseCase.call(params: event.taskEntity);
 
     result.fold(
@@ -91,7 +91,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   _categoriesFetched(CategoriesFetched event, Emitter<TasksState> emit) async {
     emit(CategoriesFetchLoading());
 
-    Either<String, List<CategoryEntity>> result = await getAllCategories.call();
+    final Either<String, List<CategoryEntity>> result = await getAllCategories.call();
     result.fold(
       (l) => emit(CategoriesFetchFailure()),
       (r) => emit(CategoriesFetchSuccess(r)),
@@ -102,7 +102,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
       SpecificDateTasksFetched event, Emitter<TasksState> emit) async {
     emit(SpecificDateTasksReceivedLoading());
 
-    Either<String, List<TaskEntity>> result =
+    final Either<String, List<TaskEntity>> result =
         await getSpecificDateTasks.call(params: event.data);
     result.fold(
       (l) => emit(SpecificDateTasksReceivedFailure()),
@@ -113,7 +113,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   _taskAdded(TaskAdded event, Emitter<TasksState> emit) async {
     emit(TaskAddLoading());
 
-    Either<String, bool> result = await addTaskUsecase.call(params: event.data);
+    final Either<String, bool> result = await addTaskUsecase.call(params: event.data);
     result.fold(
       (l) => emit(TaskAddFailure()),
       (r) => emit(TaskAddSuccess()),
@@ -123,7 +123,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   _categoryAdded(CategoryAdded event, Emitter<TasksState> emit) async {
     emit(CategoryAddLoading());
 
-    Either<String, bool> result =
+    final Either<String, bool> result =
         await addCategoryUsecase.call(params: event.data);
     result.fold(
       (l) => emit(CategoryAddFailure()),

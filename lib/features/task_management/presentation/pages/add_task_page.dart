@@ -1,17 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/shared_widgets/custom_form_field.dart';
-import 'package:pomodore/core/shared_widgets/global_button.dart';
-import 'package:pomodore/core/shared_widgets/global_datetime_picker.dart';
-import 'package:pomodore/core/shared_widgets/global_snack.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:pomodore/core/shared_widgets/base_app_bar.dart";
+import "package:pomodore/core/shared_widgets/custom_form_field.dart";
+import "package:pomodore/core/shared_widgets/global_button.dart";
+import "package:pomodore/core/shared_widgets/global_datetime_picker.dart";
+import "package:pomodore/core/shared_widgets/global_snack.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
-import '../../../../core/shared_widgets/global_indicator.dart';
-import '../../../../core/utils/utils.dart';
-import '../../../../di.dart';
-import '../../../../exports.dart';
+import "../../../../core/shared_widgets/global_indicator.dart";
+import "../../../../core/utils/utils.dart";
+import "../../../../di.dart";
+import "../../../../exports.dart";
 
 class AddTaskPage extends StatelessWidget {
   const AddTaskPage({Key? key, this.editItem}) : super(key: key);
@@ -63,7 +63,7 @@ class _AddTaskViewState extends State<AddTaskView> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return BlocConsumer(
       bloc: context.read<TasksBloc>(),

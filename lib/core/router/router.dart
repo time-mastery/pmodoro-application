@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:pomodore/features/notification_management/presentation/pages/notifications_page.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
-import 'package:pomodore/features/task_management/presentation/pages/add_category_page.dart';
-import 'package:pomodore/features/task_management/presentation/pages/add_task_page.dart';
-import 'package:pomodore/features/task_management/presentation/pages/all_today_tasks_page.dart';
-import 'package:pomodore/features/task_management/presentation/pages/analysis_page.dart';
-import 'package:pomodore/features/task_management/presentation/pages/edit_task_page.dart';
+import "package:flutter/material.dart";
+import "package:pomodore/features/notification_management/presentation/pages/notifications_page.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/presentation/pages/add_category_page.dart";
+import "package:pomodore/features/task_management/presentation/pages/add_task_page.dart";
+import "package:pomodore/features/task_management/presentation/pages/all_today_tasks_page.dart";
+import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
+import "package:pomodore/features/task_management/presentation/pages/edit_task_page.dart";
 
-import '../../features/configuration/presentation/pages/base_page.dart';
-import '../../features/configuration/presentation/pages/splash_page.dart';
+import "../../features/configuration/presentation/pages/base_page.dart";
+import "../../features/configuration/presentation/pages/splash_page.dart";
 
 class AppRouter {
   static Route<dynamic> onGenerationRouter(RouteSettings routeSettings) {

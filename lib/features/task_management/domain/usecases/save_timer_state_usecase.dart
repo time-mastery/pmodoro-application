@@ -1,8 +1,8 @@
-import 'package:dartz/dartz.dart';
-import 'package:pomodore/core/resources/usecase.dart';
+import "package:dartz/dartz.dart";
+import "package:pomodore/core/resources/usecase.dart";
 
-import '../../../../core/resources/params/timer_state_params.dart';
-import '../repositories/timer_repository.dart';
+import "../../../../core/resources/params/timer_state_params.dart";
+import "../repositories/timer_repository.dart";
 
 class SaveTimerStateUseCase
     extends UseCase<Either<String, int>, TimerStateParams> {

@@ -1,4 +1,4 @@
-import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
+import "package:pomodore/features/task_management/domain/entities/daily_information_entity.dart";
 
 class DailyInformationModel extends DailyInformationEntity {
   const DailyInformationModel({
@@ -13,14 +13,14 @@ class DailyInformationModel extends DailyInformationEntity {
           dailyGoalQuantity: dailyGoalQuantity,
         );
 
-  static fromJson(Map<String, dynamic> item) => DailyInformationModel(
+  static DailyInformationModel fromJson(Map<String, dynamic> item) => DailyInformationModel(
         taskQuantity: item["taskQuantity"],
         completedTaskQuantity: item["completedTaskQuantity"],
         processPercentage: item["processPercentage"],
         dailyGoalQuantity: item["dailyGoalQuantity"],
       );
 
-  static toJson(DailyInformationEntity item) => {
+  static Map<String, num> toJson(DailyInformationEntity item) => {
         "taskQuantity": item.taskQuantity,
         "completedTaskQuantity": item.completedTaskQuantity,
         "processPercentage": item.processPercentage,

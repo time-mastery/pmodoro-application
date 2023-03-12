@@ -1,4 +1,4 @@
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 
 class TaskModel extends TaskEntity {
   const TaskModel(
@@ -19,7 +19,7 @@ class TaskModel extends TaskEntity {
           done: done,
         );
 
-  static toJson(TaskEntity item, {bool isCompleted = false}) => {
+  static Map<String, Object> toJson(TaskEntity item, {bool isCompleted = false}) => {
         "uid": item.id,
         "title": item.title,
         "description": item.description,
@@ -33,7 +33,7 @@ class TaskModel extends TaskEntity {
                 : 0,
       };
 
-  static fromJson(Map<String, dynamic> item) => TaskEntity(
+  static TaskEntity fromJson(Map<String, dynamic> item) => TaskEntity(
         id: item["uid"],
         title: item["title"],
         description: item["description"],

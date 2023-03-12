@@ -1,20 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/shared_widgets/global_button.dart';
-import 'package:pomodore/core/utils/responsive/size_config.dart';
-import 'package:pomodore/core/utils/utils.dart';
-import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/pages/analysis_page.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/shared_widgets/base_app_bar.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/core/utils/utils.dart";
+import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
+import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
+import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
+import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
 
-import '../../../../core/constant/constant.dart';
-import '../../../../di.dart';
-import '../../../../exports.dart';
-import '../widgets/timer_duration_selector.dart';
-import '../widgets/timer_task.dart';
+import "../../../../core/constant/constant.dart";
+import "../../../../di.dart";
+import "../../../../exports.dart";
+import "../widgets/timer_duration_selector.dart";
 
 class TimerPage extends StatelessWidget {
   const TimerPage({Key? key}) : super(key: key);
@@ -33,7 +31,7 @@ class TimerView extends StatelessWidget {
 
   MaterialBanner _showMaterialBanner(BuildContext context,
       {required int duration, String? taskUid}) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return MaterialBanner(
         content: Text(
@@ -78,7 +76,7 @@ class TimerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return BlocListener<TimerBloc, TimerState>(
       listenWhen: (previous, current) {
@@ -100,7 +98,7 @@ class TimerView extends StatelessWidget {
             ));
         }
         if (state is StartTimerWithoutTaskFailure) {
-          var snack = SnackBar(
+          final snack = SnackBar(
               content: Text(localization.startTimerWithoutTaskWarning));
           ScaffoldMessenger.of(context).showSnackBar(snack);
         }
@@ -167,8 +165,8 @@ class _TimerButtonsState extends State<TimerButtons>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width * .30;
-    var height = MediaQuery.of(context).size.width * .30;
+    final width = MediaQuery.of(context).size.width * .30;
+    final height = MediaQuery.of(context).size.width * .30;
     return BlocBuilder<TimerBloc, TimerState>(
       builder: (context, state) {
         return Column(
@@ -411,7 +409,7 @@ class TimerTextD extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      AppLocalizations localization = AppLocalizations.of(context)!;
+      final AppLocalizations localization = AppLocalizations.of(context)!;
 
       final duration = context.select((TimerBloc bloc) => bloc.state.duration);
       final listOfTimerDuration = [1, 5, 10, 15, 25, 40, 60, 90, 120];

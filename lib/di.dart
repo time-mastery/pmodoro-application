@@ -1,58 +1,58 @@
-import 'package:audioplayers/audioplayers.dart';
-import 'package:get_it/get_it.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pomodore/core/services/audio/audio_service.dart';
-import 'package:pomodore/core/services/notification/local_notification.dart';
-import 'package:pomodore/features/configuration/data/data_sources/settings_local_data_source.dart';
-import 'package:pomodore/features/configuration/data/repositories/settings_repository_impl.dart';
-import 'package:pomodore/features/configuration/domain/repositories/settings_repository.dart';
-import 'package:pomodore/features/configuration/domain/usecases/change_locale_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/change_settings_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/get_locale_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/get_settings_usecase.dart';
-import 'package:pomodore/features/configuration/domain/usecases/get_theme_usecase.dart';
-import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
-import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
-import 'package:pomodore/features/task_management/data/data_sources/timer_local_data_source.dart';
-import 'package:pomodore/features/task_management/data/repositories/category_repository_impl.dart';
-import 'package:pomodore/features/task_management/data/repositories/task_repository_impl.dart';
-import 'package:pomodore/features/task_management/data/repositories/timer_repository_impl.dart';
-import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart';
-import 'package:pomodore/features/task_management/domain/repositories/timer_repository.dart';
-import 'package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/check_daily_goal_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_analysis_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_today_pomodoros_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/restore_timer_state_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/save_daily_goal_usecase.dart';
-import 'package:pomodore/features/task_management/domain/usecases/save_timer_state_usecase.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/analysis_bloc/analysis_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
-import 'package:sqflite/sqflite.dart';
+import "package:audioplayers/audioplayers.dart";
+import "package:get_it/get_it.dart";
+import "package:hive_flutter/hive_flutter.dart";
+import "package:pomodore/core/services/audio/audio_service.dart";
+import "package:pomodore/core/services/notification/local_notification.dart";
+import "package:pomodore/features/configuration/data/data_sources/settings_local_data_source.dart";
+import "package:pomodore/features/configuration/data/repositories/settings_repository_impl.dart";
+import "package:pomodore/features/configuration/domain/repositories/settings_repository.dart";
+import "package:pomodore/features/configuration/domain/usecases/change_locale_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/change_settings_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/get_locale_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/get_settings_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/get_theme_usecase.dart";
+import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
+import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
+import "package:pomodore/features/task_management/data/data_sources/timer_local_data_source.dart";
+import "package:pomodore/features/task_management/data/repositories/category_repository_impl.dart";
+import "package:pomodore/features/task_management/data/repositories/task_repository_impl.dart";
+import "package:pomodore/features/task_management/data/repositories/timer_repository_impl.dart";
+import "package:pomodore/features/task_management/domain/repositories/task_repository.dart";
+import "package:pomodore/features/task_management/domain/repositories/timer_repository.dart";
+import "package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/check_daily_goal_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_analysis_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_today_pomodoros_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/restore_timer_state_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/save_daily_goal_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/save_timer_state_usecase.dart";
+import "package:pomodore/features/task_management/presentation/blocs/analysis_bloc/analysis_bloc.dart";
+import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
+import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
+import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
+import "package:sqflite/sqflite.dart";
 
-import 'core/services/database/database_helper.dart';
-import 'core/services/database/storage.dart';
-import 'core/utils/ticker.dart';
-import 'features/task_management/data/data_sources/tasks_local_data_source.dart';
-import 'features/task_management/domain/repositories/category_repository.dart';
-import 'features/task_management/domain/usecases/get_today_tasks_usecase.dart';
+import "core/services/database/database_helper.dart";
+import "core/services/database/storage.dart";
+import "core/utils/ticker.dart";
+import "features/task_management/data/data_sources/tasks_local_data_source.dart";
+import "features/task_management/domain/repositories/category_repository.dart";
+import "features/task_management/domain/usecases/get_today_tasks_usecase.dart";
 
 final getIt = GetIt.instance;
 
 Future inject() async {
   await Hive.initFlutter();
-  Box appBox = await Hive.openBox('app_box');
+  final Box appBox = await Hive.openBox("app_box");
 
   getIt.registerLazySingleton<Box>(
     () => appBox,
@@ -63,19 +63,19 @@ Future inject() async {
 
   // player
   getIt.registerSingleton(AudioPlayer());
-  AudioService audioService = AudioService();
+  final AudioService audioService = AudioService();
   getIt.registerSingleton<AudioService>(audioService);
 
   // local notification
-  AppLocalNotification appLocalNotification = AppLocalNotification();
+  final AppLocalNotification appLocalNotification = AppLocalNotification();
   await appLocalNotification.initializeNotification();
   getIt.registerSingleton(appLocalNotification);
 
-  Database db = await DatabaseHelper.database;
+  final Database db = await DatabaseHelper.database;
   getIt.registerSingleton<Database>(db);
 
   // inject ticker
-  Ticker ticker = const Ticker();
+  const Ticker ticker = Ticker();
   getIt.registerSingleton<Ticker>(ticker);
 
   // inject datasource

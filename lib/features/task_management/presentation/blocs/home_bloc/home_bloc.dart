@@ -1,17 +1,17 @@
-import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
-import 'package:pomodore/features/task_management/domain/usecases/get_today_tasks_usecase.dart';
+import "package:bloc/bloc.dart";
+import "package:dartz/dartz.dart";
+import "package:equatable/equatable.dart";
+import "package:pomodore/features/task_management/domain/entities/daily_information_entity.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_today_tasks_usecase.dart";
 
-import '../../../domain/entities/task_entity.dart';
-import '../../../domain/usecases/check_daily_goal_usecase.dart';
-import '../../../domain/usecases/get_daily_information_usecase.dart';
-import '../../../domain/usecases/save_daily_goal_usecase.dart';
+import "../../../domain/entities/task_entity.dart";
+import "../../../domain/usecases/check_daily_goal_usecase.dart";
+import "../../../domain/usecases/get_daily_information_usecase.dart";
+import "../../../domain/usecases/save_daily_goal_usecase.dart";
 
-part 'home_event.dart';
+part "home_event.dart";
 
-part 'home_state.dart';
+part "home_state.dart";
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetDailyInformationUseCase getDailyInformationUseCase;
@@ -43,7 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   _dailyGoalSaved(DailyGoalSaved event, Emitter emit) async {
     emit(SaveDailyGoalLoading());
-    Either<String, bool> result =
+    final Either<String, bool> result =
         await saveDailyGoalUseCase.call(params: event.count);
 
     result.fold(
@@ -54,7 +54,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   _dailyGoalChecked(DailyGoalChecked event, Emitter emit) async {
     emit(CheckDailyGoalLoading());
-    Either<String, bool> result = await checkDailyGoalUseCase.call();
+    final Either<String, bool> result = await checkDailyGoalUseCase.call();
 
     result.fold(
       (l) => emit(CheckDailyGoalFailure()),
@@ -65,9 +65,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onFetchHomeData(HomeDataFetched event, Emitter emit) async {
     emit(FetchHomeDataLoading());
 
-    Either<String, List<TaskEntity>> tasks =
+    final Either<String, List<TaskEntity>> tasks =
         await getTodayTasksUseCase.call(params: event.date);
-    Either<String, DailyInformationEntity> dailyInfo =
+    final Either<String, DailyInformationEntity> dailyInfo =
         await getDailyInformationUseCase.call();
 
     tasks.fold(

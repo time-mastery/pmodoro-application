@@ -12,7 +12,7 @@ class TaskParams {
     this.taskDone = false,
   });
 
-  static convertParamsToHiveMap(String id, TaskParams item) => {
+  static Map<String, Object?> convertParamsToHiveMap(String id, TaskParams item) => {
         "id": id,
         "taskTitle": item.taskTitle,
         "taskDescription": item.taskDescription,

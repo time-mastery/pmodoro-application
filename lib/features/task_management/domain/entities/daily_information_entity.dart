@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import "package:equatable/equatable.dart";
 
 class DailyInformationEntity extends Equatable {
   final int taskQuantity;

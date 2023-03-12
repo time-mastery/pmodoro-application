@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../../../../core/utils/responsive/size_config.dart';
-import '../blocs/timer_bloc/timer_bloc.dart';
+import "../../../../core/utils/responsive/size_config.dart";
+import "../blocs/timer_bloc/timer_bloc.dart";
 
 class TimerDurationSelector extends StatefulWidget {
   const TimerDurationSelector({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class _TimerDurationSelectorState extends State<TimerDurationSelector> {
     WidgetsBinding.instance.addPostFrameCallback((_) => _initialScroll());
   }
 
-  _initialScroll() =>
+  Future<void> _initialScroll() =>
       _scrollController.animateTo(
         4 * 80.0,
         duration: const Duration(milliseconds: 500),
@@ -71,7 +71,7 @@ class _TimerDurationSelectorState extends State<TimerDurationSelector> {
             return BlocBuilder<TimerBloc, TimerState>(
               builder: (context, state) {
                 if (state is ChangeTimerDurationSuccess) {}
-                var selected =
+                final selected =
                 (listOfTimerDuration[index] == TimerBloc.getDuration / 60);
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),

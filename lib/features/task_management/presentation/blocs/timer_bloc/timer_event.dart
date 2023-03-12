@@ -1,4 +1,4 @@
-part of 'timer_bloc.dart';
+part of "timer_bloc.dart";
 
 abstract class TimerEvent extends Equatable {
   const TimerEvent();
@@ -51,7 +51,7 @@ class SaveCurrentTimerStateDialogShowed extends TimerEvent {
 
   @override
   String toString() {
-    return 'SaveCurrentTimerStateDialogShowed{taskUid: $taskItem, duration: $duration}';
+    return "SaveCurrentTimerStateDialogShowed{taskUid: $taskItem, duration: $duration}";
   }
 }
 
@@ -79,7 +79,7 @@ class TimerDurationSet extends TimerEvent {
 
   @override
   String toString() {
-    return 'TimerDurationSet{minute: $minute}';
+    return "TimerDurationSet{minute: $minute}";
   }
 }
 
@@ -107,6 +107,6 @@ class CurrentPomodoroToDatabaseSaved extends TimerEvent {
 
   @override
   String toString() {
-    return 'CurrentPomodoroToDatabaseSaved{item: $item}';
+    return "CurrentPomodoroToDatabaseSaved{item: $item}";
   }
 }

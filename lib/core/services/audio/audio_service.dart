@@ -1,7 +1,7 @@
-import 'package:audioplayers/audioplayers.dart';
+import "package:audioplayers/audioplayers.dart";
 
-import '../../../di.dart';
-import '../database/storage.dart';
+import "../../../di.dart";
+import "../database/storage.dart";
 
 class AudioService {
   Future soundIsAllowedByUserOrNot() async {
