@@ -1,10 +1,9 @@
-import 'dart:io';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:pomodore/core/services/database/storage.dart';
-import 'package:pomodore/core/services/notification/notification_custom_controller.dart';
+import "package:awesome_notifications/awesome_notifications.dart";
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:pomodore/core/services/database/storage.dart";
+import "package:pomodore/core/services/notification/notification_custom_controller.dart";
 
 class AppLocalNotification {
   Future notificationIsAllowedByUserOrNot() async {
@@ -28,21 +27,21 @@ class AppLocalNotification {
       });
 
       AwesomeNotifications().initialize(
-        'resource://drawable/app_icon',
+        "resource://drawable/app_icon",
         [
           NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
-            channelKey: 'basic_channel',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
+            channelGroupKey: "basic_channel_group",
+            channelKey: "basic_channel",
+            channelName: "Basic notifications",
+            channelDescription: "Notification channel for basic tests",
             importance: NotificationImportance.High,
             ledColor: Colors.white,
           )
         ],
         channelGroups: [
           NotificationChannelGroup(
-              channelGroupKey: 'basic_channel_group',
-              channelGroupName: 'Basic group')
+              channelGroupKey: "basic_channel_group",
+              channelGroupName: "Basic group")
         ],
         debug: kDebugMode,
       );
@@ -61,12 +60,12 @@ class AppLocalNotification {
   }
 
   void sendCustomNotification(String title, String body) async {
-    bool showNotification = (await notificationIsAllowedByUserOrNot());
+    final bool showNotification = (await notificationIsAllowedByUserOrNot());
     if (showNotification) {
       AwesomeNotifications().createNotification(
         content: NotificationContent(
           id: 10,
-          channelKey: 'basic_channel',
+          channelKey: "basic_channel",
           title: title,
           body: body,
           autoDismissible: true,

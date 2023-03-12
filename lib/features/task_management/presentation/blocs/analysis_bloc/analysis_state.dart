@@ -1,4 +1,4 @@
-part of 'analysis_bloc.dart';
+part of "analysis_bloc.dart";
 
 abstract class AnalysisState extends Equatable {
   const AnalysisState();

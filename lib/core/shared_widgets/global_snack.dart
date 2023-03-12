@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-showSnackBar(BuildContext context, {required String title, Color? color}) =>
+ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(BuildContext context, {required String title, Color? color}) =>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(title),

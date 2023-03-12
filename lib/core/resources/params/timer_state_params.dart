@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
+import "package:equatable/equatable.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 
 class TimerStateParams extends Equatable {
   final int duration;

@@ -1,17 +1,17 @@
-import 'dart:convert';
-import 'dart:io';
+import "dart:convert";
+import "dart:io";
 
-import 'package:flutter_test/flutter_test.dart';
-import 'package:pomodore/features/configuration/data/models/settings_model.dart';
-import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
+import "package:flutter_test/flutter_test.dart";
+import "package:pomodore/features/configuration/data/models/settings_model.dart";
+import "package:pomodore/features/configuration/domain/entities/settings_entity.dart";
 
 void main() {
   group("Settings model", () {
     test("Test settings model from json", () {
-      var file =
+      final file =
           File("test/test_resources/random_settings.json").readAsStringSync();
-      Map<String, dynamic> json = Map<String, dynamic>.from(jsonDecode(file));
-      SettingsEntity settings = SettingsModel.fromJson(json);
+      final Map<String, dynamic> json = Map<String, dynamic>.from(jsonDecode(file));
+      final SettingsEntity settings = SettingsModel.fromJson(json);
 
       expect(settings.notification, json["notification"]);
       expect(settings.sound, json["sound"]);
@@ -21,11 +21,11 @@ void main() {
       expect(settings.newTips, json["newTips"]);
     });
     test("Test settings model to json", () {
-      var file =
+      final file =
           File("test/test_resources/random_settings.json").readAsStringSync();
-      Map<String, dynamic> json = Map<String, dynamic>.from(jsonDecode(file));
-      SettingsEntity settings = SettingsModel.fromJson(json);
-      Map<String, dynamic> temp = SettingsModel.toJson(settings);
+      final Map<String, dynamic> json = Map<String, dynamic>.from(jsonDecode(file));
+      final SettingsEntity settings = SettingsModel.fromJson(json);
+      final Map<String, dynamic> temp = SettingsModel.toJson(settings);
 
       expect(temp["notification"], json["notification"]);
       expect(temp["sound"], json["sound"]);

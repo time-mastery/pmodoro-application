@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import "package:equatable/equatable.dart";
 
 class AnalysisEntity extends Equatable {
   final Map<DateTime, int> overviews;
@@ -22,7 +22,7 @@ class AnalysisEntity extends Equatable {
 
   @override
   String toString() {
-    return 'AnalysisEntity{overviews: $overviews, yearlyAnalyze: $yearlyAnalyze, todayCompletedPomodoroCount: $todayCompletedPomodoroCount, todayCompletedTask: $todayCompletedTask}';
+    return "AnalysisEntity{overviews: $overviews, yearlyAnalyze: $yearlyAnalyze, todayCompletedPomodoroCount: $todayCompletedPomodoroCount, todayCompletedTask: $todayCompletedTask}";
   }
 }
 
@@ -37,6 +37,6 @@ class YearlyAnalyzeItemEntity extends Equatable {
 
   @override
   String toString() {
-    return 'YearlyAnalyzeItemEntity{month: $month, count: $count}';
+    return "YearlyAnalyzeItemEntity{month: $month, count: $count}";
   }
 }

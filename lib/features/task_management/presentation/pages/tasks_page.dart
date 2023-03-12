@@ -1,16 +1,16 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/shared_widgets/global_indicator.dart';
-import 'package:pomodore/core/utils/responsive/size_config.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/pages/add_task_page.dart';
+import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/shared_widgets/base_app_bar.dart";
+import "package:pomodore/core/shared_widgets/global_indicator.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
+import "package:pomodore/features/task_management/presentation/pages/add_task_page.dart";
 
-import '../../../../di.dart';
-import '../../../../exports.dart';
-import '../widgets/task_item.dart';
+import "../../../../di.dart";
+import "../../../../exports.dart";
+import "../widgets/task_item.dart";
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class TaskView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return BlocConsumer<TasksBloc, TasksState>(
       listener: (context, state) {
@@ -98,7 +98,7 @@ class DayWithoutTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return Column(
       children: [

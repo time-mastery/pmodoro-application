@@ -1,4 +1,4 @@
-import 'package:pomodore/features/configuration/domain/entities/settings_entity.dart';
+import "package:pomodore/features/configuration/domain/entities/settings_entity.dart";
 
 class SettingsModel extends SettingsEntity {
   const SettingsModel(
@@ -17,7 +17,7 @@ class SettingsModel extends SettingsEntity {
           newTips: newTips,
         );
 
-  static toJson(SettingsEntity model) => {
+  static Map<String, bool> toJson(SettingsEntity model) => {
         "notification": model.notification,
         "sound": model.sound,
         "vibration": model.vibration,
@@ -26,7 +26,7 @@ class SettingsModel extends SettingsEntity {
         "newTips": model.newTips,
       };
 
-  static fromJson(Map<String, dynamic> item) => SettingsEntity(
+  static SettingsEntity fromJson(Map<String, dynamic> item) => SettingsEntity(
         notification: item["notification"],
         sound: item["sound"],
         vibration: item["vibration"],

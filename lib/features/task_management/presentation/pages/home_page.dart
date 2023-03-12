@@ -1,21 +1,21 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/shared_widgets/global_indicator.dart';
-import 'package:pomodore/core/utils/responsive/size_config.dart';
-import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
-import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart';
-import 'package:pomodore/features/task_management/presentation/widgets/daily_goal_dialog.dart';
+import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/shared_widgets/base_app_bar.dart";
+import "package:pomodore/core/shared_widgets/global_indicator.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
+import "package:pomodore/features/task_management/domain/entities/daily_information_entity.dart";
+import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
+import "package:pomodore/features/task_management/presentation/widgets/daily_goal_dialog.dart";
 
-import '../../../../core/utils/utils.dart';
-import '../../../../di.dart';
-import '../../../../exports.dart';
-import '../../../notification_management/presentation/pages/notifications_page.dart';
-import '../../domain/entities/task_entity.dart';
-import '../widgets/home_task_item.dart';
+import "../../../../core/utils/utils.dart";
+import "../../../../di.dart";
+import "../../../../exports.dart";
+import "../../../notification_management/presentation/pages/notifications_page.dart";
+import "../../domain/entities/task_entity.dart";
+import "../widgets/home_task_item.dart";
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: BaseAppBar(
         title: localization.homeTitle,
@@ -89,7 +89,7 @@ class HomeGoalWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
     DailyInformationEntity? dailyItem;
 
     return SizedBox(
@@ -180,7 +180,7 @@ class HomeTaskCountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
     return BlocBuilder(
       bloc: context.read<HomeBloc>(),
       builder: (context, state) {
@@ -202,7 +202,7 @@ class HomeTasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
     List<TaskEntity> list = [];
 
     return BlocBuilder(

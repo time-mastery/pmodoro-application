@@ -1,17 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/constant/constant.dart';
-import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/utils/responsive/size_config.dart';
-import 'package:pomodore/features/configuration/domain/entities/language_entity.dart';
-import 'package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/constant/constant.dart";
+import "package:pomodore/core/shared_widgets/base_app_bar.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/features/configuration/domain/entities/language_entity.dart";
+import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
 
-import '../../../../core/resources/params/settings_params.dart';
-import '../../../../core/services/database/storage.dart';
-import '../../../../di.dart';
-import '../../../../exports.dart';
-import '../../domain/entities/settings_entity.dart';
+import "../../../../core/resources/params/settings_params.dart";
+import "../../../../core/services/database/storage.dart";
+import "../../../../di.dart";
+import "../../../../exports.dart";
+import "../../domain/entities/settings_entity.dart";
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
     SettingsEntity entity = const SettingsEntity(
         notification: false,
         sound: false,
@@ -108,7 +108,7 @@ class SettingsView extends StatelessWidget {
 class ChangeLanguageBottomSheet extends StatelessWidget {
   const ChangeLanguageBottomSheet({Key? key}) : super(key: key);
 
-  bottomSheet(BuildContext context, Widget? child) =>
+  Future<void> bottomSheet(BuildContext context, Widget? child) =>
       showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
@@ -123,11 +123,11 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
-    List<LanguageEntity> flags = [
-      LanguageEntity('English', 'en'),
-      LanguageEntity('German', 'de'),
+    final List<LanguageEntity> flags = [
+      LanguageEntity("English", "en"),
+      LanguageEntity("German", "de"),
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -208,7 +208,7 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
 class ChangeThemeBottomSheet extends StatelessWidget {
   const ChangeThemeBottomSheet({Key? key}) : super(key: key);
 
-  bottomSheet(BuildContext context, Widget? child) =>
+  Future<void> bottomSheet(BuildContext context, Widget? child) =>
       showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
@@ -223,7 +223,7 @@ class ChangeThemeBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),

@@ -1,8 +1,8 @@
 
-import 'package:dartz/dartz.dart';
-import 'package:pomodore/core/resources/usecase.dart';
+import "package:dartz/dartz.dart";
+import "package:pomodore/core/resources/usecase.dart";
 
-import '../repositories/settings_repository.dart';
+import "../repositories/settings_repository.dart";
 
 class GetLocaleUseCase extends UseCase<Either<String, String>, String> {
   final SettingsRepository repository;

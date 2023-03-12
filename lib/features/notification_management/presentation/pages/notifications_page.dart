@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/core/shared_widgets/base_app_bar.dart';
-import 'package:pomodore/core/utils/responsive/size_config.dart';
-import 'package:pomodore/features/notification_management/presentation/widgets/notificaiton_item.dart';
+import "package:flutter/material.dart";
+import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/shared_widgets/base_app_bar.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/features/notification_management/presentation/widgets/notificaiton_item.dart";
 
-import '../../../../exports.dart';
+import "../../../../exports.dart";
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -14,8 +14,8 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // todo : check it here and connect to the api
-    List<String> notificationList = [];
-    AppLocalizations localization = AppLocalizations.of(context)!;
+    final List<String> notificationList = [];
+    final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: BaseAppBar(

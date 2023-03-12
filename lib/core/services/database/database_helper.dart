@@ -1,18 +1,18 @@
-import 'dart:io';
+import "dart:io";
 
 // ignore: depend_on_referenced_packages
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
+import "package:path/path.dart";
+import "package:path_provider/path_provider.dart";
+import "package:sqflite/sqflite.dart";
 
 class DatabaseHelper {
   static const _databaseName = "pmodore.db";
   static const _databaseVersion = 1;
 
-  static const taskTable = 'tasks';
-  static const categoryTable = 'categories';
-  static const pomodoroTable = 'pomodoros';
-  static const dailyGoalTable = 'dailyGoal';
+  static const taskTable = "tasks";
+  static const categoryTable = "categories";
+  static const pomodoroTable = "pomodoros";
+  static const dailyGoalTable = "dailyGoal";
 
   static Database? _database;
 
@@ -22,9 +22,9 @@ class DatabaseHelper {
     return _database!;
   }
 
-  static _initDatabase() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, _databaseName);
+  static Future<Database> _initDatabase() async {
+    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    final String path = join(documentsDirectory.path, _databaseName);
     return await openDatabase(
       path,
       version: _databaseVersion,
@@ -33,8 +33,8 @@ class DatabaseHelper {
   }
 
   static Future _onCreate(Database db, int version) async {
-    Batch batch = db.batch();
-    batch.execute('''
+    final Batch batch = db.batch();
+    batch.execute("""
           CREATE TABLE $taskTable (
             _id INTEGER PRIMARY KEY,
             uid TEXT NOT NULL,
@@ -45,28 +45,28 @@ class DatabaseHelper {
             doneTime TEXT NOT NULL,
             done INTEGER NOT NULL
             )
-          ''');
-    batch.execute('''
+          """);
+    batch.execute("""
           CREATE TABLE $categoryTable (
             _id INTEGER PRIMARY KEY,
             title TEXT NOT NULL
             )
-          ''');
-    batch.execute('''
+          """);
+    batch.execute("""
           CREATE TABLE $pomodoroTable (
             _id INTEGER PRIMARY KEY,
             taskUid TEXT NULL,
             duration INTEGER NOT NULL,
             dateTime TEXT NOT NULL
             )
-          ''');
-    batch.execute('''
+          """);
+    batch.execute("""
           CREATE TABLE $dailyGoalTable (
             _id INTEGER PRIMARY KEY,
             count TEXT NULL,
             dateTime TEXT NOT NULL
             )
-          ''');
+          """);
     await batch.commit();
   }
 }

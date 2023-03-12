@@ -1,16 +1,16 @@
-import 'dart:convert';
-import 'dart:io';
+import "dart:convert";
+import "dart:io";
 
-import 'package:flutter_test/flutter_test.dart';
-import 'package:pomodore/features/task_management/data/models/task_model.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
+import "package:flutter_test/flutter_test.dart";
+import "package:pomodore/features/task_management/data/models/task_model.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 
 void main() {
   group("Task model", () {
     test("Test task model from json method", () {
       final data =
-          File('test/test_resources/random_task.json').readAsStringSync();
-      TaskEntity task =
+          File("test/test_resources/random_task.json").readAsStringSync();
+      final TaskEntity task =
           TaskModel.fromJson(jsonDecode(data) as Map<String, dynamic>);
 
       expect(task.done, true);
@@ -24,11 +24,11 @@ void main() {
 
     test("Test task model to json method", () {
       final data =
-          File('test/test_resources/random_task.json').readAsStringSync();
-      TaskEntity task =
+          File("test/test_resources/random_task.json").readAsStringSync();
+      final TaskEntity task =
           TaskModel.fromJson(jsonDecode(data) as Map<String, dynamic>);
 
-      Map<String, dynamic> json = TaskModel.toJson(task, isCompleted: true);
+      final Map<String, dynamic> json = TaskModel.toJson(task, isCompleted: true);
 
       expect(json["done"], 1);
       expect(json["uid"], "test-uid");

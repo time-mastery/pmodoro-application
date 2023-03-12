@@ -1,13 +1,13 @@
-import 'package:pomodore/features/task_management/domain/entities/category_entity.dart';
+import "package:pomodore/features/task_management/domain/entities/category_entity.dart";
 
 class CategoryModel extends CategoryEntity {
   const CategoryModel(int? id, String title) : super(id: id, title: title);
 
-  static toJson(CategoryEntity item) => {
+  static Map<String, String> toJson(CategoryEntity item) => {
         "title": item.title,
       };
 
-  static fromJson(Map<String, dynamic> item) => CategoryEntity(
+  static CategoryEntity fromJson(Map<String, dynamic> item) => CategoryEntity(
         id: item["_id"],
         title: item["title"],
       );

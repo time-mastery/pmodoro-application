@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart';
-import 'package:pomodore/features/task_management/domain/entities/task_entity.dart';
-import 'package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:ionicons/ionicons.dart";
+import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
-import '../../../../core/utils/responsive/size_config.dart';
-import '../../../../exports.dart';
+import "../../../../core/utils/responsive/size_config.dart";
+import "../../../../exports.dart";
 
 class TimerTask extends StatelessWidget {
   const TimerTask(
@@ -83,14 +83,13 @@ class SelectATaskToStart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localization = AppLocalizations.of(context)!;
-    var theme = Theme.of(context).textTheme;
+    final AppLocalizations localization = AppLocalizations.of(context)!;
+    final theme = Theme.of(context).textTheme;
     return BlocBuilder<TimerBloc, TimerState>(
       buildWhen: (previous, current) {
         return (current is SelectTaskSuccess || current is DeSelectTaskSuccess);
       },
       builder: (context, state) {
-        print(state);
         TaskEntity? taskItem = context.read<TimerBloc>().taskItem;
 
         if (state is SelectTaskSuccess) {
