@@ -17,7 +17,7 @@ void main() {
 
     test("Test sec to formatted min:sec", () {
       final formatterTime = Utils.formatSecToMinSec(timeInSecond: 90);
-      expect(formatterTime, "01 : 30");
+      expect(formatterTime, "01\n30");
     });
 
     test("Test unique id generator", () {

@@ -37,7 +37,7 @@ class Utils {
     final int min = (timeInSecond / 60).floor();
     final String minute = min.toString().length <= 1 ? "0$min" : "$min";
     final String second = sec.toString().length <= 1 ? "0$sec" : "$sec";
-    return "$minute : $second";
+    return "$minute\n$second";
   }
 
   static String createUniqueId() {

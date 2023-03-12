@@ -90,7 +90,6 @@ class SelectATaskToStart extends StatelessWidget {
         return (current is SelectTaskSuccess || current is DeSelectTaskSuccess);
       },
       builder: (context, state) {
-        print(state);
         TaskEntity? taskItem = context.read<TimerBloc>().taskItem;
 
         if (state is SelectTaskSuccess) {
