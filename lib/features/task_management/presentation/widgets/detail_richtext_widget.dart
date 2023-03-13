@@ -1,7 +1,5 @@
 import "package:flutter/material.dart";
 
-import "../../../../exports.dart";
-
 class DetailRichTextWidget extends StatelessWidget {
   const DetailRichTextWidget({
     Key? key,
@@ -13,8 +11,6 @@ class DetailRichTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations localization = AppLocalizations.of(context)!;
-
     return RichText(
       text: TextSpan(
         children: [
