@@ -14,7 +14,7 @@ class AppRouter {
   static Route<dynamic> onGenerationRouter(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case BasePage.routeName:
-        return MaterialPageRoute(builder: (context) => const BasePage());
+        return MaterialPageRoute(builder: (context) => BasePage());
       case NotificationsPage.routeName:
         return MaterialPageRoute(
             builder: (context) => const NotificationsPage());
