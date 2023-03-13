@@ -1,9 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:flutter_hooks/flutter_hooks.dart";
 
 import "../../exports.dart";
 
-class CustomFormField extends StatefulWidget {
+class CustomFormField extends HookWidget {
   const CustomFormField({
     Key? key,
     this.editController,
@@ -28,59 +29,52 @@ class CustomFormField extends StatefulWidget {
   final List<TextInputFormatter>? formatter;
 
   @override
-  _CustomFormFieldState createState() => _CustomFormFieldState();
-}
-
-class _CustomFormFieldState extends State<CustomFormField> {
-  bool obscure = true;
-
-  @override
   Widget build(BuildContext context) {
     final AppLocalizations localization = AppLocalizations.of(context)!;
+    final obscure = useState<bool>(true);
 
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       autofocus: false,
-      controller: widget.editController,
-      obscureText: obscure && widget.isPasswordField,
-      maxLength: widget.maxLength,
+      controller: editController,
+      obscureText: obscure.value && isPasswordField,
+      maxLength: maxLength,
       decoration: InputDecoration(
-        suffixIcon: widget.isPasswordField
+        suffixIcon: isPasswordField
             ? GestureDetector(
                 onTap: () {
-                  obscure = !obscure;
-                  setState(() {});
+                  obscure.value = !obscure.value;
                 },
                 child: Icon(
-                  obscure ? Icons.visibility_off : Icons.visibility,
+                  obscure.value ? Icons.visibility_off : Icons.visibility,
                 ),
               )
             : null,
         label: Text(
-          widget.hint ?? "",
+          hint ?? "",
           textAlign: TextAlign.left,
         ),
       ),
       onChanged: (value) {
-        if (widget.onChanged != null) {
-          widget.onChanged!(value);
+        if (onChanged != null) {
+          onChanged!(value);
         }
       },
-      inputFormatters: (widget.formatter != null)
-          ? widget.formatter
-          : (widget.justNumber == true)
+      inputFormatters: (formatter != null)
+          ? formatter
+          : (justNumber == true)
               ? <TextInputFormatter>[
                   FilteringTextInputFormatter.allow(RegExp(r"[0-9]")),
                 ]
-              : (widget.isRating == true)
+              : (isRating == true)
                   ? <TextInputFormatter>[
                       FilteringTextInputFormatter.allow(RegExp(r"[1-5]")),
                     ]
                   : null,
       validator: (value) {
-        if (widget.validatorsType == "email") {
+        if (validatorsType == "email") {
           return null;
-        } else if (widget.validatorsType == "length") {
+        } else if (validatorsType == "length") {
           if (value!.length < 2) {
             return localization.minCharValidationTitle;
           } else {
@@ -89,7 +83,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
         }
         return null;
       },
-      keyboardType: widget.textInputType,
+      keyboardType: textInputType,
     );
   }
 }
