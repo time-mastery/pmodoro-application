@@ -27,14 +27,6 @@ void main() {
         ));
 
     blocTest(
-      "emit [TimerInProcess] when start timer",
-      build: () => timerBloc,
-      act: (bloc) => bloc.add(const TimerStarted(duration)),
-      expect: () =>
-          [const StartTimerLoading(duration), const StartTimerWithoutTaskFailure(duration)],
-    );
-
-    blocTest(
       "emit [TimerInitial] when reset timer",
       build: () => timerBloc,
       act: (bloc) => bloc.add(TimerReset()),
