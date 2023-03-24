@@ -87,7 +87,9 @@ class SelectATaskToStart extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return BlocBuilder<TimerBloc, TimerState>(
       buildWhen: (previous, current) {
-        return (current is SelectTaskSuccess || current is DeSelectTaskSuccess);
+        return (current is SelectTaskSuccess ||
+            current is DeSelectTaskSuccess ||
+            current is TimerInProgress);
       },
       builder: (context, state) {
         TaskEntity? taskItem = context.read<TimerBloc>().taskItem;
@@ -98,6 +100,10 @@ class SelectATaskToStart extends StatelessWidget {
 
         if (state is DeSelectTaskSuccess) {
           taskItem = null;
+        }
+
+        if (state is TimerInProgress && taskItem?.id == null) {
+          return Container();
         }
 
         return InkWell(

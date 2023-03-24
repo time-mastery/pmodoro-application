@@ -81,7 +81,7 @@ class TimerButtons extends StatelessWidget {
               onTap: () => context.read<TimerBloc>()
                 ..add(SaveCurrentTimerStateDialogShowed(
                   duration: state.duration,
-                  taskItem: context.read<TimerBloc>().taskItem!,
+                  taskItem: context.read<TimerBloc>().taskItem,
                 ))
                 ..add(TimerTaskDeSelected())
                 ..add(TimerReset()),
