@@ -68,12 +68,11 @@ class AnalysisView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8.0,
-                  horizontal: 20,
+                  horizontal: 35,
                 ),
                 child: Column(
                   children: [
                     20.spaceH(),
-                    BarChartWidget(),
                     Center(
                       child: Container(
                         width: SizeConfig.widthMultiplier * 90,
@@ -97,41 +96,57 @@ class AnalysisView extends StatelessWidget {
                         ),
                       ),
                     ),
+                    20.spaceH(),
+                    BarChartWidget(
+                        weeklySpendingPomodoro:
+                            item?.weeklySpendingPomodoro ?? []),
                     (SizeConfig.heightMultiplier * 1.5).spaceH(),
                     Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Directionality(
-                          textDirection: TextDirection.ltr,
-                          child: SfCartesianChart(
-                              primaryXAxis: CategoryAxis(),
-                              title: ChartTitle(
-                                text: localization.yearAnalysisTitle,
-                                textStyle:
-                                    Theme.of(context).textTheme.titleLarge,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                localization.yearAnalysisTitle,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
-                              tooltipBehavior: TooltipBehavior(enable: true),
-                              enableAxisAnimation: true,
-                              series: <
-                                  LineSeries<YearlyAnalyzeItemEntity, String>>[
-                                LineSeries<YearlyAnalyzeItemEntity, String>(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  width: 5,
-                                  dataSource: item?.yearlyAnalyze ?? [],
-                                  xValueMapper:
-                                      (YearlyAnalyzeItemEntity sales, _) =>
-                                          sales.month,
-                                  yValueMapper:
-                                      (YearlyAnalyzeItemEntity sales, _) =>
-                                          sales.count,
-                                  dataLabelSettings:
-                                      const DataLabelSettings(isVisible: true),
-                                )
-                              ]),
-                        ),
+                            ],
+                          ),
+                          20.spaceH(),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Directionality(
+                              textDirection: TextDirection.ltr,
+                              child: SfCartesianChart(
+                                  primaryXAxis: CategoryAxis(),
+                                  tooltipBehavior:
+                                      TooltipBehavior(enable: true),
+                                  enableAxisAnimation: true,
+                                  series: <
+                                      LineSeries<YearlyAnalyzeItemEntity,
+                                          String>>[
+                                    LineSeries<YearlyAnalyzeItemEntity, String>(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      width: 5,
+                                      dataSource: item?.yearlyAnalyze ?? [],
+                                      xValueMapper:
+                                          (YearlyAnalyzeItemEntity sales, _) =>
+                                              sales.month,
+                                      yValueMapper:
+                                          (YearlyAnalyzeItemEntity sales, _) =>
+                                              sales.count,
+                                      dataLabelSettings:
+                                          const DataLabelSettings(
+                                              isVisible: true),
+                                    )
+                                  ]),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     (SizeConfig.heightMultiplier * 1.5).spaceH(),
@@ -146,7 +161,7 @@ class AnalysisView extends StatelessWidget {
                             child: Text(
                               localization.dailyActivityTitle,
                               style: Theme.of(context).textTheme.titleLarge,
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.start,
                             ),
                           ),
                           Padding(
