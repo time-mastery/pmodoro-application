@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/features/task_management/domain/entities/category_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
@@ -63,7 +64,7 @@ class AddCategoryView extends HookWidget {
                       editController: titleController,
                       hint: localization.taskTitle,
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     GlobalButton(
                       onPressed: () {
                         if (formKey.value.currentState!.validate()) {

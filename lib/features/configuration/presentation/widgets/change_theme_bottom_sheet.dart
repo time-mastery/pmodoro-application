@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 
 import "../../../../core/constant/constant.dart";
 import "../../../../core/utils/responsive/size_config.dart";
@@ -33,14 +34,14 @@ class ChangeThemeBottomSheet extends StatelessWidget {
           Row(
             children: [
               const Icon(Icons.color_lens),
-              SizedBox(width: SizeConfig.widthMultiplier * 2),
+              (SizeConfig.widthMultiplier * 2).spaceW(),
               Text(
                 localization.changeThemeTitle,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
           ),
-          const Expanded(child: SizedBox(width: 1)),
+          const Spacer(),
           IconButton(
             icon: const Icon(Icons.arrow_drop_down_circle),
             onPressed: () {

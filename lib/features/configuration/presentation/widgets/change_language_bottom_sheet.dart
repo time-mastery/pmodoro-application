@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 
 import "../../../../core/utils/responsive/size_config.dart";
 import "../../../../exports.dart";
@@ -38,14 +39,14 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
           Row(
             children: [
               const Icon(Ionicons.language),
-              SizedBox(width: SizeConfig.widthMultiplier * 2),
+              (SizeConfig.widthMultiplier * 2).spaceW(),
               Text(
                 localization.changeLanguageTitle,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
           ),
-          const Expanded(child: SizedBox(width: 1)),
+          const Spacer(),
           IconButton(
             onPressed: () {
               bottomSheet(

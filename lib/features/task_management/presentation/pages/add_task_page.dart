@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/custom_form_field.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
@@ -72,13 +73,13 @@ class AddTaskView extends HookWidget {
                       editController: titleController,
                       hint: localization.taskTitle,
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     CustomFormField(
                       validatorsType: "length",
                       editController: descriptionController,
                       hint: localization.taskDescription,
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     BlocBuilder<TasksBloc, TasksState>(
                       builder: (context, state) {
                         if (state is AddDateSuccess) {
@@ -99,7 +100,7 @@ class AddTaskView extends HookWidget {
                         return Container();
                       },
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     GlobalDateTimePicker(
                       buttonTitle: "Select Deadline DateTime",
                       onChanged: (time) {
@@ -111,7 +112,7 @@ class AddTaskView extends HookWidget {
                         dateTime.value = time;
                       },
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     GlobalButton(
                       onPressed: () {
                         if (formKey.value.currentState!.validate()) {

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
@@ -74,9 +75,7 @@ class TimerButtons extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: SizeConfig.heightMultiplier * 2,
-            ),
+            (SizeConfig.heightMultiplier * 2).spaceH(),
             GestureDetector(
               onTap: () => context.read<TimerBloc>()
                 ..add(SaveCurrentTimerStateDialogShowed(

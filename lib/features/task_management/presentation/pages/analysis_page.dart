@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/global_indicator.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
@@ -83,9 +84,7 @@ class AnalysisView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: SizeConfig.heightMultiplier * 1.5,
-                  ),
+                  (SizeConfig.heightMultiplier * 1.5).spaceH(),
                   Center(
                     child: Container(
                       decoration: BoxDecoration(
@@ -120,9 +119,7 @@ class AnalysisView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: SizeConfig.heightMultiplier * 1.5,
-                  ),
+                  (SizeConfig.heightMultiplier * 1.5).spaceH(),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),

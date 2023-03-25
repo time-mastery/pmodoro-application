@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 
@@ -19,12 +20,12 @@ Future<void> showDailyGoalDialog(
           backgroundColor: Theme.of(context).colorScheme.background,
           title: Text(localization.dailyGoalTitle),
           children: <Widget>[
-            SizedBox(height: SizeConfig.heightMultiplier * 2),
+            (SizeConfig.heightMultiplier * 2).spaceH(),
             Text(
               localization.dailyGoalHint,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: SizeConfig.heightMultiplier * 2),
+            (SizeConfig.heightMultiplier * 2).spaceH(),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,7 +59,7 @@ Future<void> showDailyGoalDialog(
                 ],
               ),
             ),
-            SizedBox(height: SizeConfig.heightMultiplier * 2),
+            (SizeConfig.heightMultiplier * 2).spaceH(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: GlobalButton(

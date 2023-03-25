@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/core/utils/utils.dart";
@@ -122,17 +123,11 @@ class TimerView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SelectATaskToStart(),
-                        SizedBox(
-                          height: SizeConfig.heightMultiplier * 2,
-                        ),
+                        (SizeConfig.heightMultiplier * 2).spaceH(),
                         const TimerBar(),
-                        SizedBox(
-                          height: SizeConfig.heightMultiplier * 2,
-                        ),
+                        (SizeConfig.heightMultiplier * 2).spaceH(),
                         const TimerDurationSelector(),
-                        SizedBox(
-                          height: SizeConfig.heightMultiplier * 3,
-                        ),
+                        (SizeConfig.heightMultiplier * 2).spaceH(),
                         const TimerButtons(),
                       ],
                     ),

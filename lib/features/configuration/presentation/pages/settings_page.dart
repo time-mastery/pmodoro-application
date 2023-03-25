@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
@@ -51,14 +52,14 @@ class SettingsView extends StatelessWidget {
             }
             return Column(
               children: [
-                SizedBox(height: SizeConfig.heightMultiplier * 3),
+                (SizeConfig.heightMultiplier * 3).spaceH(),
                 const ChangeThemeBottomSheet(),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                (SizeConfig.heightMultiplier * .5).spaceH(),
                 SwitchListTile.adaptive(
                   title: Row(
                     children: [
                       const Icon(Icons.notifications_off),
-                      const SizedBox(width: 10),
+                      10.spaceW(),
                       Text(localization.generalNotificationTitle),
                     ],
                   ),
@@ -72,12 +73,12 @@ class SettingsView extends StatelessWidget {
                         )));
                   },
                 ),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                (SizeConfig.heightMultiplier * .5).spaceH(),
                 SwitchListTile.adaptive(
                   title: Row(
                     children: [
                       const Icon(Icons.keyboard_voice),
-                      const SizedBox(width: 10),
+                      10.spaceH(),
                       Text(localization.soundTitle),
                     ],
                   ),
@@ -93,7 +94,7 @@ class SettingsView extends StatelessWidget {
                         );
                   },
                 ),
-                SizedBox(height: SizeConfig.heightMultiplier * .5),
+                (SizeConfig.heightMultiplier * .5).spaceH(),
                 const ChangeLanguageBottomSheet(),
               ],
             );

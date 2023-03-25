@@ -1,16 +1,13 @@
-
-
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 import "package:pomodore/features/task_management/presentation/pages/add_task_page.dart";
 
 import "../../../../../exports.dart";
-
-
 
 class DayWithoutTask extends StatelessWidget {
   const DayWithoutTask({Key? key}) : super(key: key);
@@ -21,28 +18,20 @@ class DayWithoutTask extends StatelessWidget {
 
     return Column(
       children: [
-        SizedBox(
-          height: SizeConfig.heightMultiplier * 10,
-        ),
+        (SizeConfig.heightMultiplier * 10).spaceH(),
         const Icon(
           Ionicons.document_text,
           size: 150,
         ),
-        SizedBox(
-          height: SizeConfig.heightMultiplier * 5,
-        ),
+        (SizeConfig.heightMultiplier * 5).spaceH(),
         Text(localization.emptyTaskListTitle,
             style: Theme.of(context).textTheme.headlineSmall),
-        SizedBox(
-          height: SizeConfig.heightMultiplier * 2,
-        ),
+        (SizeConfig.heightMultiplier * 2).spaceH(),
         Text(
           localization.emptyTaskListHint,
           textAlign: TextAlign.center,
         ),
-        SizedBox(
-          height: SizeConfig.heightMultiplier * 2,
-        ),
+        (SizeConfig.heightMultiplier * 2).spaceH(),
         IconButton(
           onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName)
               .then((value) => context
