@@ -20,11 +20,10 @@ class AppConstant {
           ? "assets/images/logov2_light_mode.png"
           : "assets/images/logov2.png";
 
+  static String? getFontFamily() => GoogleFonts.poppins().fontFamily;
+
   static TextStyle getTextStyle({double? fontSize, Color? color}) =>
-      GoogleFonts.archivo(
-        fontSize: fontSize,
-        color: color,
-      );
+      TextStyle(color: color, fontSize: fontSize);
 
   static TextTheme getTextTheme({Color? color}) => TextTheme(
         bodyLarge: getTextStyle(color: color),
@@ -46,6 +45,7 @@ class AppConstant {
 
   static final defaultLightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
+    fontFamily: getFontFamily(),
     cardColor: Colors.white,
     cardTheme: const CardTheme(
       elevation: 5,
@@ -92,6 +92,7 @@ class AppConstant {
 
   static final defaultDarkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,
+    fontFamily: getFontFamily(),
     cardColor: Colors.white.withOpacity(.1),
     cardTheme: const CardTheme(
       elevation: 5,
@@ -143,6 +144,7 @@ class AppConstant {
 
   static final polarNightTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xff2e3440),
+    fontFamily: getFontFamily(),
     cardColor: Colors.white.withOpacity(.1),
     cardTheme: const CardTheme(
       elevation: 0,

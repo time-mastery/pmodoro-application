@@ -9,7 +9,7 @@ import "package:pomodore/features/task_management/presentation/pages/task_widget
 
 import "../../../../di.dart";
 import "../../../../exports.dart";
-import "../widgets/task_item.dart";
+import "../shared_widgets/task_item.dart";
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);

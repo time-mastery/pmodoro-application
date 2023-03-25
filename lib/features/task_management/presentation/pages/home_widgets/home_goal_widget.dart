@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/domain/entities/daily_information_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
@@ -59,7 +60,7 @@ class HomeGoalWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(width: SizeConfig.widthMultiplier * 4),
+                    (SizeConfig.heightMultiplier * 4).spaceW(),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +73,7 @@ class HomeGoalWidget extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(height: SizeConfig.heightMultiplier * 2),
+                          (SizeConfig.heightMultiplier * 2).spaceH(),
                           Text(
                             dailyItem == null
                                 ? "- - - - - -"

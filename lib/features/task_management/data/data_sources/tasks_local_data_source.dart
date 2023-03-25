@@ -150,6 +150,34 @@ class TasksLocalDataSource {
     return quantity;
   }
 
+  Future<List<double>?> getWeeklySpendingPomodoro() async {
+    List<double>? list;
+    try {
+      final List<Map<String, dynamic>>? allPomodoroList =
+          await getAllPomodoroFromDb();
+
+      if (allPomodoroList == null) {
+        return null;
+      }
+
+      final List<double> weeklySpendingPomodoro = [];
+      for (int i = 0; i < 7; i++) {
+        final DateTime date = DateTime.now().subtract(Duration(days: i));
+        final List<Map<String, dynamic>>? todayPomodoroList =
+            await getAllTodayPomodoroFromDb(date);
+        final pomodoroCount = todayPomodoroList?.length ?? 0;
+
+        weeklySpendingPomodoro.insert(0, pomodoroCount.toDouble());
+      }
+
+      list = weeklySpendingPomodoro;
+    } catch (e) {
+      rethrow;
+    }
+
+    return list;
+  }
+
   Future<Map<String, dynamic>?> getAnalysisPageData() async {
     late Map<String, dynamic>? item;
     try {
@@ -159,12 +187,14 @@ class TasksLocalDataSource {
       final List<Map<String, dynamic>>? todayPomodoroList =
           await getAllTodayPomodoroFromDb(DateTime.now());
       final int todayPomodoroCount = todayPomodoroList?.length ?? 0;
+      final List<double>? weeklyList = await getWeeklySpendingPomodoro();
 
       item = {
         "overviews": allPomodoroList,
         "yearlyAnalyze": allPomodoroList,
         "todayPomodoroCount": todayPomodoroCount,
         "todayCompletedTask": todayCompletedTask,
+        "weeklySpendingPomodoro": weeklyList ?? [],
       };
     } catch (e, s) {
       dPrint("$e $s");

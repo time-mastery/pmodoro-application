@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/extensions/datetime_extensions.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
 import "package:pomodore/core/shared_widgets/global_indicator.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
@@ -42,9 +43,7 @@ class TaskItem extends StatelessWidget {
                       localization.taskManagementTitle,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    SizedBox(
-                      height: SizeConfig.heightMultiplier * 3,
-                    ),
+                    (SizeConfig.heightMultiplier * 3).spaceH(),
                     Row(
                       children: [
                         if (!task.done)
@@ -64,18 +63,14 @@ class TaskItem extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(localization.editTaskTitle),
-                                  SizedBox(
-                                    width: SizeConfig.widthMultiplier * 2,
-                                  ),
+                                  (SizeConfig.heightMultiplier * 2).spaceW(),
                                   const Icon(Icons.edit),
                                 ],
                               ),
                             ),
                           ),
                         if (!task.done)
-                          SizedBox(
-                            width: SizeConfig.widthMultiplier * 2,
-                          ),
+                          (SizeConfig.heightMultiplier * 2).spaceW(),
                         Expanded(
                           child: GlobalButton(
                             onPressed: () {
@@ -93,9 +88,7 @@ class TaskItem extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(localization.deleteTaskTitle),
-                                    SizedBox(
-                                      width: SizeConfig.widthMultiplier * 2,
-                                    ),
+                                    (SizeConfig.heightMultiplier * 2).spaceW(),
                                     const Icon(Icons.delete),
                                   ],
                                 );
@@ -105,9 +98,7 @@ class TaskItem extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: SizeConfig.heightMultiplier,
-                    ),
+                    (SizeConfig.heightMultiplier * 1).spaceH(),
                     if (!task.done)
                       GlobalButton(
                         width: double.infinity,
@@ -149,7 +140,7 @@ class TaskItem extends StatelessWidget {
         child: Row(
           children: [
             Text(task.deadLineTime.taskTimeFormat()),
-            SizedBox(width: SizeConfig.widthMultiplier * 2),
+            (SizeConfig.heightMultiplier * 2).spaceW(),
             Expanded(
               child: Card(
                 child: Padding(
@@ -181,7 +172,7 @@ class TaskItem extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: SizeConfig.heightMultiplier * 1),
+                      (SizeConfig.heightMultiplier * 1).spaceH(),
                       Text(
                         task.deadLineTime.taskDateFormat(),
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(

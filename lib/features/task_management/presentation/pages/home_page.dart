@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/global_indicator.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
-import "package:pomodore/features/task_management/presentation/widgets/daily_goal_dialog.dart";
+import "package:pomodore/features/task_management/presentation/shared_widgets/daily_goal_dialog.dart";
 
 import "../../../../di.dart";
 import "../../../../exports.dart";
@@ -66,11 +67,11 @@ class HomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: SizeConfig.heightMultiplier * 2),
+                (SizeConfig.heightMultiplier * 2).spaceH(),
                 const HomeGoalWidget(),
-                SizedBox(height: SizeConfig.heightMultiplier * 2),
+                (SizeConfig.heightMultiplier * 2).spaceH(),
                 const HomeTaskCountWidget(),
-                SizedBox(height: SizeConfig.heightMultiplier * 2),
+                (SizeConfig.heightMultiplier * 2).spaceH(),
                 const HomeTasksList(),
               ],
             );

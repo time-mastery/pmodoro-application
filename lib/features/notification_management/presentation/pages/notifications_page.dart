@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/notification_management/presentation/widgets/notificaiton_item.dart";
@@ -44,7 +45,7 @@ class NotificationsPage extends StatelessWidget {
             Ionicons.ice_cream_outline,
             size: 200,
           ),
-          SizedBox(height: SizeConfig.heightMultiplier * 2),
+          (SizeConfig.heightMultiplier * 2).spaceH(),
           Center(
             child: Text(
               AppLocalizations.of(context)!.noNotificationTitle,

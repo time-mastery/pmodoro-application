@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
@@ -44,9 +45,7 @@ class TimerTask extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: SizeConfig.widthMultiplier * 2,
-          ),
+          (SizeConfig.heightMultiplier * 2).spaceW(),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

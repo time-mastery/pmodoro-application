@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 
 class NotificationItem extends StatelessWidget {
@@ -35,7 +36,7 @@ class NotificationItem extends StatelessWidget {
               ),
               child: Icon(icon),
             ),
-            SizedBox(width: SizeConfig.widthMultiplier * 5),
+            (SizeConfig.widthMultiplier * 5).spaceW(),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +46,7 @@ class NotificationItem extends StatelessWidget {
                     title,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  const SizedBox(height: 10),
+                  10.spaceH(),
                   Text(
                     description,
                     style: Theme.of(context).textTheme.bodySmall,

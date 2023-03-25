@@ -4,12 +4,14 @@ class AnalysisEntity extends Equatable {
   final Map<DateTime, int> overviews;
   final List<YearlyAnalyzeItemEntity> yearlyAnalyze;
   final int todayCompletedPomodoroCount, todayCompletedTask;
+  final List<double> weeklySpendingPomodoro;
 
   const AnalysisEntity({
     required this.overviews,
     required this.yearlyAnalyze,
     required this.todayCompletedPomodoroCount,
     required this.todayCompletedTask,
+    required this.weeklySpendingPomodoro,
   });
 
   @override

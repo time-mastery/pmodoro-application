@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:ionicons/ionicons.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/core/utils/utils.dart";
@@ -8,11 +9,11 @@ import "package:pomodore/features/task_management/domain/entities/pomodoro_entit
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
-import "package:pomodore/features/task_management/presentation/widgets/timer_task.dart";
+import "package:pomodore/features/task_management/presentation/shared_widgets/timer_task.dart";
 
 import "../../../../di.dart";
 import "../../../../exports.dart";
-import "../widgets/timer_duration_selector.dart";
+import "../shared_widgets/timer_duration_selector.dart";
 import "timer_widgets/timer_bar_widgets.dart";
 import "timer_widgets/timer_buttons_widget.dart";
 
@@ -122,17 +123,11 @@ class TimerView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SelectATaskToStart(),
-                        SizedBox(
-                          height: SizeConfig.heightMultiplier * 2,
-                        ),
+                        (SizeConfig.heightMultiplier * 2).spaceH(),
                         const TimerBar(),
-                        SizedBox(
-                          height: SizeConfig.heightMultiplier * 2,
-                        ),
+                        (SizeConfig.heightMultiplier * 2).spaceH(),
                         const TimerDurationSelector(),
-                        SizedBox(
-                          height: SizeConfig.heightMultiplier * 3,
-                        ),
+                        (SizeConfig.heightMultiplier * 2).spaceH(),
                         const TimerButtons(),
                       ],
                     ),
