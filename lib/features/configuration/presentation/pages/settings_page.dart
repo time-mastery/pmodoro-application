@@ -78,7 +78,7 @@ class SettingsView extends StatelessWidget {
                   title: Row(
                     children: [
                       const Icon(Icons.keyboard_voice),
-                      10.spaceH(),
+                      10.spaceW(),
                       Text(localization.soundTitle),
                     ],
                   ),

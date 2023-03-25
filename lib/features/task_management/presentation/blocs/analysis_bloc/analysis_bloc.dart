@@ -1,4 +1,3 @@
-
 import "package:bloc/bloc.dart";
 import "package:dartz/dartz.dart";
 import "package:equatable/equatable.dart";
@@ -18,10 +17,11 @@ class AnalysisBloc extends Bloc<AnalysisEvent, AnalysisState> {
     on<AnalysisFetched>(_analysisFetched);
   }
 
-  _analysisFetched(AnalysisFetched event, Emitter emit) async {
+  void _analysisFetched(AnalysisFetched event, Emitter emit) async {
     emit(FetchAnalysisLoading());
 
-    final Either<String, AnalysisEntity> result = await getAnalysisUseCase.call();
+    final Either<String, AnalysisEntity> result =
+        await getAnalysisUseCase.call();
 
     result.fold((l) => emit(FetchAnalysisFailure()),
         (r) => emit(FetchAnalysisSuccess(r)));

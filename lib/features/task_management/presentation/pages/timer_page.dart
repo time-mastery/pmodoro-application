@@ -9,11 +9,11 @@ import "package:pomodore/features/task_management/domain/entities/pomodoro_entit
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
-import "package:pomodore/features/task_management/presentation/widgets/timer_task.dart";
+import "package:pomodore/features/task_management/presentation/shared_widgets/timer_task.dart";
 
 import "../../../../di.dart";
 import "../../../../exports.dart";
-import "../widgets/timer_duration_selector.dart";
+import "../shared_widgets/timer_duration_selector.dart";
 import "timer_widgets/timer_bar_widgets.dart";
 import "timer_widgets/timer_buttons_widget.dart";
 

@@ -4,18 +4,20 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "../constant/constant.dart";
 
 class BaseAppBar extends HookWidget with PreferredSizeWidget {
-  const BaseAppBar(
-      {Key? key,
-      required this.title,
-      this.action,
-      this.onPressed,
-      this.hasBackBtn = false})
-      : super(key: key);
+  const BaseAppBar({
+    Key? key,
+    required this.title,
+    this.action,
+    this.onPressed,
+    this.hasBackBtn = false,
+    this.customColor,
+  }) : super(key: key);
 
   final String title;
   final Widget? action;
   final VoidCallback? onPressed;
   final bool hasBackBtn;
+  final Color? customColor;
 
   @override
   Size get preferredSize => const Size.fromHeight(90);
@@ -41,7 +43,10 @@ class BaseAppBar extends HookWidget with PreferredSizeWidget {
                   color: Colors.transparent,
                   child: IconButton(
                     icon: hasBackBtn
-                        ? const Icon(Icons.arrow_back)
+                        ? Icon(
+                            Icons.arrow_back,
+                            color: customColor,
+                          )
                         : Material(
                             color: Colors.transparent,
                             clipBehavior: Clip.antiAlias,
@@ -54,7 +59,11 @@ class BaseAppBar extends HookWidget with PreferredSizeWidget {
                 )),
             title: Text(
               title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontSize: 25,
+                    color: customColor,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             actions: [
               IconButton(

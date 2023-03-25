@@ -49,6 +49,7 @@ dependencies:
   # charts
   flutter_heatmap_calendar: ^1.0.5
   syncfusion_flutter_charts: ^20.3.52
+  fl_chart: ^0.61.0
 
   # utility
   intl: ^0.17.0

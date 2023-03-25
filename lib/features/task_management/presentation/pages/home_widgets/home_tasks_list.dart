@@ -10,7 +10,7 @@ import "package:pomodore/features/task_management/presentation/blocs/home_bloc/h
 import "../../../../../di.dart";
 import "../../../../../exports.dart";
 import "../../../domain/entities/task_entity.dart";
-import "../../widgets/home_task_item.dart";
+import "../../shared_widgets/home_task_item.dart";
 
 class HomeTasksList extends StatelessWidget {
   const HomeTasksList({Key? key}) : super(key: key);
