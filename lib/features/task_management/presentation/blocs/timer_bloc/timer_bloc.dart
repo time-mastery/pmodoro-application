@@ -51,7 +51,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   static int get getDurationInMinutes => _duration ~/ 60;
 
-  static setDuration(int duration) {
+  static void setDuration(int duration) {
     _duration = duration * 60;
   }
 
@@ -132,15 +132,12 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _onStarted(TimerStarted event, Emitter<TimerState> emit) {
     emit(StartTimerLoading(event.duration));
-    if (taskItem == null) {
-      emit(StartTimerWithoutTaskFailure(event.duration));
-    } else {
-      emit(TimerInProgress(event.duration));
-      _tickerSubscription?.cancel();
-      _tickerSubscription = _ticker
-          .tick(ticks: event.duration)
-          .listen((duration) => add(_TimerTicked(duration)));
-    }
+
+    emit(TimerInProgress(event.duration));
+    _tickerSubscription?.cancel();
+    _tickerSubscription = _ticker
+        .tick(ticks: event.duration)
+        .listen((duration) => add(_TimerTicked(duration)));
   }
 
   void _onPaused(TimerPaused event, Emitter<TimerState> emit) {

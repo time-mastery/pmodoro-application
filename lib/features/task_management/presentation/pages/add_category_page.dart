@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_hooks/flutter_hooks.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/features/task_management/domain/entities/category_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
@@ -25,36 +27,14 @@ class AddCategoryPage extends StatelessWidget {
   }
 }
 
-class AddCategoryView extends StatefulWidget {
+class AddCategoryView extends HookWidget {
   const AddCategoryView({Key? key}) : super(key: key);
-
-  @override
-  State<AddCategoryView> createState() => _AddCategoryViewState();
-}
-
-class _AddCategoryViewState extends State<AddCategoryView> {
-  late TextEditingController titleController;
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    titleController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controllersDisposer();
-    super.dispose();
-  }
-
-  void controllersDisposer() {
-    titleController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final AppLocalizations localization = AppLocalizations.of(context)!;
+    final titleController = useTextEditingController();
+    final formKey = useState(GlobalKey<FormState>());
 
     return BlocConsumer<TasksBloc, TasksState>(
       listener: (context, state) {
@@ -68,7 +48,7 @@ class _AddCategoryViewState extends State<AddCategoryView> {
       },
       builder: (context, state) {
         return Form(
-          key: _formKey,
+          key: formKey.value,
           child: Scaffold(
             appBar: BaseAppBar(
               title: localization.addCategoryTitle,
@@ -84,10 +64,10 @@ class _AddCategoryViewState extends State<AddCategoryView> {
                       editController: titleController,
                       hint: localization.taskTitle,
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     GlobalButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
+                        if (formKey.value.currentState!.validate()) {
                           context.read<TasksBloc>().add(CategoryAdded(
                               CategoryEntity(title: titleController.text)));
                         }

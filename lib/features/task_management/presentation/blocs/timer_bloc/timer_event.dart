@@ -38,7 +38,7 @@ class _TimerTicked extends TimerEvent {
 }
 
 class SaveCurrentTimerStateDialogShowed extends TimerEvent {
-  final TaskEntity taskItem;
+  final TaskEntity? taskItem;
   final int duration;
 
   const SaveCurrentTimerStateDialogShowed({

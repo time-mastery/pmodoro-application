@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_hooks/flutter_hooks.dart";
+import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/custom_form_field.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
@@ -24,46 +26,21 @@ class AddTaskPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (BuildContext context) =>
-        getIt.get<TasksBloc>()
-          ..add(CategoriesFetched()),
+            getIt.get<TasksBloc>()..add(CategoriesFetched()),
         child: const AddTaskView());
   }
 }
 
-class AddTaskView extends StatefulWidget {
+class AddTaskView extends HookWidget {
   const AddTaskView({Key? key}) : super(key: key);
-
-  @override
-  State<AddTaskView> createState() => _AddTaskViewState();
-}
-
-class _AddTaskViewState extends State<AddTaskView> {
-  late TextEditingController titleController;
-  late TextEditingController descriptionController;
-  DateTime? dateTime;
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    titleController = TextEditingController();
-    descriptionController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controllersDisposer();
-    super.dispose();
-  }
-
-  void controllersDisposer() {
-    titleController.dispose();
-    descriptionController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final AppLocalizations localization = AppLocalizations.of(context)!;
+    final titleController = useTextEditingController();
+    final descriptionController = useTextEditingController();
+    final formKey = useState(GlobalKey<FormState>());
+    final dateTime = useState<DateTime?>(null);
 
     return BlocConsumer(
       bloc: context.read<TasksBloc>(),
@@ -85,7 +62,7 @@ class _AddTaskViewState extends State<AddTaskView> {
             hasBackBtn: true,
           ),
           body: Form(
-            key: _formKey,
+            key: formKey.value,
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -96,64 +73,62 @@ class _AddTaskViewState extends State<AddTaskView> {
                       editController: titleController,
                       hint: localization.taskTitle,
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     CustomFormField(
                       validatorsType: "length",
                       editController: descriptionController,
                       hint: localization.taskDescription,
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     BlocBuilder<TasksBloc, TasksState>(
                       builder: (context, state) {
-                        if (state is AddDateSuccess) dateTime = state.dateTime;
+                        if (state is AddDateSuccess) {
+                          dateTime.value = state.dateTime;
+                        }
 
-                        if (dateTime != null) {
+                        if (dateTime.value != null) {
                           return Row(
                             children: [
                               Text(
                                 "${localization.dateTitle} : ",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleMedium,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
-                              Text(dateTime.toString()),
+                              Text(dateTime.value.toString()),
                             ],
                           );
                         }
                         return Container();
                       },
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     GlobalDateTimePicker(
                       buttonTitle: "Select Deadline DateTime",
-
                       onChanged: (time) {
                         context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime = time;
+                        dateTime.value = time;
                       },
                       onConfirm: (time) {
                         context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime = time;
+                        dateTime.value = time;
                       },
                     ),
-                    const SizedBox(height: 20),
+                    20.spaceH(),
                     GlobalButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          if (dateTime == null) {
+                        if (formKey.value.currentState!.validate()) {
+                          if (dateTime.value == null) {
                             showSnackBar(context,
                                 title: "Please select a datetime");
                           } else {
                             context.read<TasksBloc>().add(TaskAdded(TaskEntity(
-                              id: Utils.createUniqueId(),
-                              title: titleController.text,
-                              description: descriptionController.text,
-                              deadLineTime: dateTime!,
-                              doneTime: DateTime.now(),
-                              done: false,
-                              category: "cate",
-                            )));
+                                  id: Utils.createUniqueId(),
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  deadLineTime: dateTime.value!,
+                                  doneTime: DateTime.now(),
+                                  done: false,
+                                  category: "cate",
+                                )));
                           }
                         }
                       },

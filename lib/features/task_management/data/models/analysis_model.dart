@@ -8,11 +8,13 @@ class AnalysisModel extends AnalysisEntity {
     required List<YearlyAnalyzeItemEntity> yearlyAnalyze,
     required int todayPomodoroCount,
     required int todayCompletedTask,
+    required List<double> weeklySpendingPomodoro,
   }) : super(
           yearlyAnalyze: yearlyAnalyze,
           todayCompletedPomodoroCount: todayPomodoroCount,
           overviews: overviews,
           todayCompletedTask: todayCompletedTask,
+          weeklySpendingPomodoro: weeklySpendingPomodoro,
         );
 
   factory AnalysisModel.fromJson(Map<String, dynamic> item) {
@@ -25,13 +27,15 @@ class AnalysisModel extends AnalysisEntity {
       yearlyAnalyze: yearlyAnalyze,
       todayPomodoroCount: item["todayPomodoroCount"],
       todayCompletedTask: item["todayCompletedTask"],
+      weeklySpendingPomodoro: item["weeklySpendingPomodoro"],
     );
   }
 
   static Map<DateTime, int> createOverview(List<Map<String, dynamic>> mapList) {
     final Map<DateTime, int> overviews = {};
     for (var element in mapList) {
-      final DateTime dateTime = Utils.createOverviewItemDateTime(element["dateTime"]);
+      final DateTime dateTime =
+          Utils.createOverviewItemDateTime(element["dateTime"]);
       if (overviews.containsKey(dateTime)) {
         overviews.update(dateTime, (value) => value + 1);
       } else {

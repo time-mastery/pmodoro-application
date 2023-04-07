@@ -1,58 +1,39 @@
 import "package:flutter/material.dart";
+import "package:flutter_hooks/flutter_hooks.dart";
 
 import "../constant/constant.dart";
 
-class BaseAppBar extends StatefulWidget with PreferredSizeWidget {
-  const BaseAppBar(
-      {Key? key,
-      required this.title,
-      this.action,
-      this.onPressed,
-      this.hasBackBtn = false})
-      : super(key: key);
+class BaseAppBar extends HookWidget with PreferredSizeWidget {
+  const BaseAppBar({
+    Key? key,
+    required this.title,
+    this.action,
+    this.onPressed,
+    this.hasBackBtn = false,
+    this.customColor,
+  }) : super(key: key);
 
   final String title;
   final Widget? action;
   final VoidCallback? onPressed;
   final bool hasBackBtn;
-
-  @override
-  State<BaseAppBar> createState() => _BaseAppBarState();
+  final Color? customColor;
 
   @override
   Size get preferredSize => const Size.fromHeight(90);
-}
-
-class _BaseAppBarState extends State<BaseAppBar>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800))
-      ..forward();
-
-    _fadeAnimation =
-        Tween<double>(begin: 0, end: 1).animate(_animationController);
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final controller = useAnimationController(
+        duration: const Duration(milliseconds: 800),
+        lowerBound: 0.0,
+        upperBound: 1.0)
+      ..forward();
+
     return Directionality(
       textDirection: TextDirection.ltr,
       child: FadeTransition(
-        opacity: _fadeAnimation,
+        opacity: controller,
         child: Container(
           margin: const EdgeInsets.only(top: 30, left: 10, right: 10),
           child: AppBar(
@@ -61,8 +42,11 @@ class _BaseAppBarState extends State<BaseAppBar>
                 child: Material(
                   color: Colors.transparent,
                   child: IconButton(
-                    icon: widget.hasBackBtn
-                        ? const Icon(Icons.arrow_back)
+                    icon: hasBackBtn
+                        ? Icon(
+                            Icons.arrow_back,
+                            color: customColor,
+                          )
                         : Material(
                             color: Colors.transparent,
                             clipBehavior: Clip.antiAlias,
@@ -70,18 +54,21 @@ class _BaseAppBarState extends State<BaseAppBar>
                               AppConstant.getLogoPath(context),
                             ),
                           ),
-                    onPressed:
-                        widget.hasBackBtn ? () => Navigator.pop(context) : null,
+                    onPressed: hasBackBtn ? () => Navigator.pop(context) : null,
                   ),
                 )),
             title: Text(
-              widget.title,
-              style: Theme.of(context).textTheme.titleLarge,
+              title,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontSize: 25,
+                    color: customColor,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             actions: [
               IconButton(
-                onPressed: widget.onPressed,
-                icon: widget.action ?? Container(),
+                onPressed: onPressed,
+                icon: action ?? Container(),
               ),
             ],
           ),

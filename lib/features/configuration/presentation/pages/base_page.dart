@@ -9,22 +9,16 @@ import "../../../task_management/presentation/pages/home_page.dart";
 import "../../../task_management/presentation/pages/tasks_page.dart";
 import "../../../task_management/presentation/pages/timer_page.dart";
 
-class BasePage extends StatefulWidget {
-  const BasePage({Key? key}) : super(key: key);
+class BasePage extends StatelessWidget {
+  BasePage({Key? key}) : super(key: key);
 
   static const routeName = "/base";
 
-  @override
-  State<BasePage> createState() => _BasePageState();
-}
-
-class _BasePageState extends State<BasePage> {
   final List<Widget> _pages = [
     const HomePage(),
     const TasksPage(),
     const SettingsPage(),
     const TimerPage(),
-    // const ProfilePage(),
   ];
 
   @override
@@ -68,8 +62,6 @@ class _BasePageState extends State<BasePage> {
               ),
               label: localization.timerTab,
             ),
-            // const BottomNavigationBarItem(
-            //     icon: Icon(Ionicons.people), label: AppConstant.profileTab),
           ],
           showSelectedLabels: false,
           showUnselectedLabels: false,

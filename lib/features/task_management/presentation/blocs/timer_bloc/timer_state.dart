@@ -38,13 +38,6 @@ class SaveCurrentTimeStateDialog extends TimerState {
   const SaveCurrentTimeStateDialog(super.duration);
 }
 
-class StartTimerWithoutTaskFailure extends TimerState {
-  const StartTimerWithoutTaskFailure(super.duration);
-
-  @override
-  List<Object?> get props => [duration];
-}
-
 class StartTimerLoading extends TimerState {
   const StartTimerLoading(super.duration);
 
