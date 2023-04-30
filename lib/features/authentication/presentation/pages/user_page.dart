@@ -25,8 +25,8 @@ class AuthView extends HookWidget {
     final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: const BaseAppBar(
-        title: "User",
+      appBar: BaseAppBar(
+        title: localization.userTitle,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -43,22 +43,22 @@ class AuthView extends HookWidget {
               if (isSignUp.value)
                 Column(
                   children: [
-                    const CustomFormField(
-                      hint: "Full name",
+                    CustomFormField(
+                      hint: localization.nameHint,
                     ),
                     10.spaceH(),
-                    const CustomFormField(
-                      hint: "Email",
+                    CustomFormField(
+                      hint: localization.emailHint,
                     ),
                     10.spaceH(),
                   ],
                 ),
-              const CustomFormField(
-                hint: "Username",
+              CustomFormField(
+                hint: localization.emailHint,
               ),
               10.spaceH(),
-              const CustomFormField(
-                hint: "Password",
+              CustomFormField(
+                hint: localization.passwordHint,
                 isPasswordField: true,
               ),
               10.spaceH(),
@@ -68,7 +68,7 @@ class AuthView extends HookWidget {
                   InkWell(
                     onTap: () {},
                     child: Text(
-                      "Forget password",
+                      localization.forgetPasswordHint,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             decoration: TextDecoration.underline,
                           ),
@@ -78,7 +78,9 @@ class AuthView extends HookWidget {
               ),
               30.spaceH(),
               GlobalButton(
-                title: isSignUp.value ? "Sign Up" : "Sign In",
+                title: isSignUp.value
+                    ? localization.signUpBtn
+                    : localization.signInBtn,
                 height: 60,
                 width: double.infinity,
                 padding: EdgeInsets.zero,
@@ -91,8 +93,8 @@ class AuthView extends HookWidget {
                 },
                 child: Text(
                   isSignUp.value
-                      ? "Do you have an account ?"
-                      : "Register new account!",
+                      ? localization.doYouHaveAcc
+                      : localization.registerNewAccount,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         decoration: TextDecoration.underline,
                       ),

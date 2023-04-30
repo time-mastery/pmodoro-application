@@ -73,15 +73,5 @@
     "niceJobTitle":"Nice job! 😎",
     "completedAPomodoroBody":"You completed a pomodoro!",
     "hohoTitle":"Hoho! 🥳",
-    "anotherPomodoroBody":"You can do another pomodoro!",
-    "userTitle":"User Area",
-    "nameHint":"Full name",
-    "emailHint":"Email",
-    "usernameHint":"Username",
-    "passwordHint":"Password",
-    "forgetPasswordHint":"Forget password",
-    "signUpBtn":"Sign Up",
-    "signInBtn":"Sign In",
-    "doYouHaveAcc":"Do you have an account ?",
-    "registerNewAccount":"Register new account!"    
+    "anotherPomodoroBody":"You can do another pomodoro!"
 }
