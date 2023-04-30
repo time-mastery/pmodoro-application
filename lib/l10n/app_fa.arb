@@ -73,5 +73,15 @@
     "niceJobTitle":"کارت درسته! 😎",
     "completedAPomodoroBody":"یک پوموردور انجام دادید!",
     "hohoTitle":"درود! 😎",
-    "anotherPomodoroBody":"You can do another pomodoro!"
+    "anotherPomodoroBody":"You can do another pomodoro!",
+    "userTitle":"User Area",
+    "nameHint":"Full name",
+    "emailHint":"Email",
+    "usernameHint":"Username",
+    "passwordHint":"Password",
+    "forgetPasswordHint":"Forget password",
+    "signUpBtn":"Sign Up",
+    "signInBtn":"Sign In",
+    "doYouHaveAcc":"Do you have an account ?",
+    "registerNewAccount":"Register new account!"    
 }

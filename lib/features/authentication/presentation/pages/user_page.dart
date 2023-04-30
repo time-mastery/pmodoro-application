@@ -16,15 +16,6 @@ class UserPage extends StatelessWidget {
   }
 }
 
-class ProfileView extends HookWidget {
-  const ProfileView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox();
-  }
-}
-
 class AuthView extends HookWidget {
   const AuthView({Key? key}) : super(key: key);
 
@@ -34,7 +25,9 @@ class AuthView extends HookWidget {
     final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: const BaseAppBar(title: "User"),
+      appBar: const BaseAppBar(
+        title: "User",
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 30,
