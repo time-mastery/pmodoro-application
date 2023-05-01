@@ -5,6 +5,7 @@ import "package:pomodore/features/configuration/presentation/blocs/base_bloc/bas
 import "package:pomodore/features/configuration/presentation/pages/settings_page.dart";
 
 import "../../../../exports.dart";
+import "../../../authentication/presentation/pages/user_page.dart";
 import "../../../task_management/presentation/pages/home_page.dart";
 import "../../../task_management/presentation/pages/tasks_page.dart";
 import "../../../task_management/presentation/pages/timer_page.dart";
@@ -18,6 +19,7 @@ class BasePage extends StatelessWidget {
     const HomePage(),
     const TasksPage(),
     const SettingsPage(),
+    const UserPage(),
     const TimerPage(),
   ];
 
@@ -46,6 +48,9 @@ class BasePage extends StatelessWidget {
             ),
             BottomNavigationBarItem(
                 icon: const Icon(Ionicons.settings_outline),
+                label: localization.settingTab),
+            BottomNavigationBarItem(
+                icon: const Icon(Ionicons.person),
                 label: localization.settingTab),
             BottomNavigationBarItem(
               icon: Container(
