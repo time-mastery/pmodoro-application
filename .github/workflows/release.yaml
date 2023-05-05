@@ -43,7 +43,7 @@ jobs:
           ls -lh build/app/outputs/apk/release/
 
       - name: Setup Telegram Action
-        uses: appleboy/telegram-action@v2
+        uses: appleboy/telegram-action@master
         with:
           server_url: "https://api.telegram.org"
           token: ${{ secrets.BOT_ID }}
