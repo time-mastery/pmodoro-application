@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop, feature/apk-uploader]
 
 jobs:
   build_android:
@@ -20,7 +20,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.7.0"
-          channel: 'stable'
+          channel: "stable"
 
       - name: Check dir
         run: ls /home/runner/work
@@ -38,10 +38,16 @@ jobs:
         run: flutter test
 
       - name: Build android app
-        run: flutter build apk --release
+        run: |
+          flutter build apk --split-per-abi --release
+          ls -lh build/app/outputs/apk/release/
 
-      - name: Publish apk artefacts
-        uses: actions/upload-artifact@v1
+      - name: Setup Telegram Action
+        uses: appleboy/telegram-action@v2
         with:
-          name: release-apk
-          path: build/app/outputs/apk/release/app-release.apk
+          server_url: "https://api.telegram.org"
+          token: ${{ secrets.BOT_ID }}
+          to: ${{ secrets.CHAT_ID }}
+          message: "New release is available!"
+          files: |
+            build/app/outputs/apk/release/*-release.apk
