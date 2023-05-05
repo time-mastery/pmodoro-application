@@ -47,6 +47,6 @@ jobs:
         with:
           token: ${{ secrets.BOT_ID }}
           to: ${{ secrets.CHAT_ID }}
-          message: "New release is available!"
-          files: |
+          message: "New Pmodoro release is available!"
+          document: |
             build/app/outputs/apk/release/*-release.apk
