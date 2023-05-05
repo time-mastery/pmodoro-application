@@ -45,7 +45,6 @@ jobs:
       - name: Setup Telegram Action
         uses: appleboy/telegram-action@master
         with:
-          server_url: "https://api.telegram.org"
           token: ${{ secrets.BOT_ID }}
           to: ${{ secrets.CHAT_ID }}
           message: "New release is available!"
