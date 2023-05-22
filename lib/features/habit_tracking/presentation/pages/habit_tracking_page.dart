@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
+import "package:pomodore/features/habit_tracking/presentation/pages/add_habit_page.dart";
 import "package:pomodore/features/habit_tracking/presentation/shared_widgets/habit_item_widget.dart";
 
 class HabitTrackingPage extends StatelessWidget {
@@ -38,7 +39,9 @@ class HabitTrackingView extends HookWidget {
       appBar: BaseAppBar(
         title: "Habit Traking",
         action: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, AddHabitPage.routeName);
+          },
           icon: const Icon(CupertinoIcons.add_circled_solid),
         ),
       ),

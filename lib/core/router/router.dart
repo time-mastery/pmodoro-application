@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:pomodore/features/habit_tracking/presentation/pages/add_habit_page.dart";
 import "package:pomodore/features/notification_management/presentation/pages/notifications_page.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:pomodore/features/task_management/presentation/pages/add_category_page.dart";
@@ -27,6 +28,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const AddTaskPage());
       case AddCategoryPage.routeName:
         return MaterialPageRoute(builder: (context) => const AddCategoryPage());
+      case AddHabitPage.routeName:
+        return MaterialPageRoute(builder: (context) => const AddHabitPage());
       case EditTaskPage.routeName:
         return MaterialPageRoute(
             builder: (context) =>
