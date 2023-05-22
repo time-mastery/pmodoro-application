@@ -6,6 +6,8 @@ import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/features/habit_tracking/presentation/pages/add_habit_page.dart";
 import "package:pomodore/features/habit_tracking/presentation/shared_widgets/habit_item_widget.dart";
 
+import "../../../../exports.dart";
+
 class HabitTrackingPage extends StatelessWidget {
   const HabitTrackingPage({super.key});
 
@@ -20,6 +22,8 @@ class HabitTrackingView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations localization = AppLocalizations.of(context)!;
+
     var habitList = [
       "Deutsch",
       "Persian",
@@ -37,7 +41,7 @@ class HabitTrackingView extends HookWidget {
     ];
     return Scaffold(
       appBar: BaseAppBar(
-        title: "Habit Traking",
+        title: localization.habitTrackingTitle,
         action: IconButton(
           onPressed: () {
             Navigator.pushNamed(context, AddHabitPage.routeName);
@@ -46,9 +50,9 @@ class HabitTrackingView extends HookWidget {
         ),
       ),
       body: habitList.isEmpty
-          ? const Center(
+          ? Center(
               child: Text(
-                "There is no habit!\n Please define new habit",
+                localization.noHabitMessage,
                 textAlign: TextAlign.center,
               ),
             )

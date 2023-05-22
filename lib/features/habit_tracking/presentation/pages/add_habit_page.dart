@@ -7,6 +7,8 @@ import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/custom_form_field.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
+import "package:pomodore/core/utils/icon_converter.dart";
+import "package:pomodore/exports.dart";
 
 class AddHabitPage extends StatelessWidget {
   const AddHabitPage({super.key});
@@ -29,35 +31,13 @@ class AddHabitView extends HookWidget {
     var nameController = useTextEditingController();
     var desctiptionController = useTextEditingController();
 
-    List iconList = [
-      Ionicons.musical_notes_outline,
-      Ionicons.film_outline,
-      Ionicons.leaf_outline,
-      Ionicons.headset_outline,
-      Ionicons.shirt_outline,
-      Ionicons.today_outline,
-      Ionicons.moon_outline,
-      Ionicons.telescope_outline,
-      Ionicons.bed_outline,
-      Ionicons.home_outline,
-      Ionicons.car_sport_outline,
-      Ionicons.list_outline,
-      Ionicons.document_lock_outline,
-      Ionicons.open_outline,
-      Ionicons.book_outline,
-      Ionicons.school_outline,
-      Ionicons.library_outline,
-      Ionicons.walk_outline,
-      Ionicons.wallet_outline,
-      Ionicons.game_controller_outline,
-      Ionicons.terminal_outline,
-      Ionicons.code_download_outline,
-      Ionicons.alarm_outline,
-      Ionicons.notifications_circle_outline,
-    ];
+    final AppLocalizations localization = AppLocalizations.of(context)!;
+
+    List iconList = IconConverter.icons.values.toList();
+
     return Scaffold(
-      appBar: const BaseAppBar(
-        title: "Add Habit",
+      appBar: BaseAppBar(
+        title: localization.addHabitTitle,
         hasBackBtn: true,
       ),
       body: Padding(
@@ -67,14 +47,14 @@ class AddHabitView extends HookWidget {
           children: [
             CustomFormField(
               editController: nameController,
-              hint: "Name",
+              hint: localization.habitNameHint,
             ),
             CustomFormField(
               editController: desctiptionController,
-              hint: "Description",
+              hint: localization.habitDescriptionHint,
             ),
             20.spaceH(),
-            const Text("Icon"),
+            Text(localization.habitIcon),
             20.spaceH(),
             Center(
               child: Wrap(
@@ -108,7 +88,7 @@ class AddHabitView extends HookWidget {
               ),
             ),
             20.spaceH(),
-            const Text("Color"),
+            Text(localization.habitColor),
             20.spaceH(),
             Center(
               child: Wrap(
@@ -150,7 +130,7 @@ class AddHabitView extends HookWidget {
             const Spacer(),
             Center(
               child: GlobalButton(
-                title: "Submit",
+                title: localization.submitButton,
                 onPressed: () {},
               ),
             ),
