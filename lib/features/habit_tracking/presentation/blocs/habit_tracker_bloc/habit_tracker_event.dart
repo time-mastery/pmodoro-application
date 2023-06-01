@@ -10,19 +10,25 @@ abstract class HabitTrackerEvent extends Equatable {
 class AllHabitsFetched extends HabitTrackerEvent {}
 
 class HabitDeleted extends HabitTrackerEvent {
-  final String uuid;
+  final String id;
 
-  const HabitDeleted(this.uuid);
+  const HabitDeleted(this.id);
 }
 
 class HabitUpdated extends HabitTrackerEvent {
-  final HabitEntity updatedHabit;
+  final HabitParams updatedHabit;
 
   const HabitUpdated(this.updatedHabit);
 }
 
 class HabitDone extends HabitTrackerEvent {
-  final String uuid;
+  final String id;
 
-  const HabitDone(this.uuid);
+  const HabitDone(this.id);
+}
+
+class HabitAdded extends HabitTrackerEvent {
+  final HabitParams params;
+
+  const HabitAdded(this.params);
 }

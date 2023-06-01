@@ -93,5 +93,7 @@
     "habitNameHint":"Name",
     "habitDescriptionHint":"Description",
     "habitIcon":"Icon",
-    "habitColor":"Color"
+    "habitColor":"Color",
+    "completeHabit":"Complete",
+    "uncompleteHabit":"Uncomplete"    
 }

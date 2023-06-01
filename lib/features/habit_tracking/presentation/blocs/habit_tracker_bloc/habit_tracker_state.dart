@@ -56,3 +56,18 @@ class EditHabit extends HabitTrackerState {
         error,
       ];
 }
+
+class AddHabit extends HabitTrackerState {
+  final bool loading, error;
+
+  const AddHabit({
+    required this.loading,
+    required this.error,
+  });
+
+  @override
+  List<Object> get props => [
+        loading,
+        error,
+      ];
+}

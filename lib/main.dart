@@ -31,11 +31,18 @@ void main() async {
     MultiBlocProvider(
       providers: [
         // provide all global blocs
-        BlocProvider<TimerBloc>(create: (context) => getIt.get<TimerBloc>()),
-        BlocProvider<BaseBloc>(create: (context) => getIt.get<BaseBloc>()),
+        BlocProvider<TimerBloc>(
+          create: (context) => getIt.get<TimerBloc>(),
+        ),
+        BlocProvider<BaseBloc>(
+          create: (context) => getIt.get<BaseBloc>(),
+        ),
         BlocProvider<SettingsBloc>(
-            create: (context) =>
-                getIt.get<SettingsBloc>()..add(InitDataFetched())),
+          create: (context) => getIt.get<SettingsBloc>()
+            ..add(
+              InitDataFetched(),
+            ),
+        ),
       ],
       child: const MyApp(),
     ),

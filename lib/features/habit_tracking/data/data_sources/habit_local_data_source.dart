@@ -1,3 +1,4 @@
+import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/services/database/database_helper.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/habit_tracking/data/models/habit_model.dart";
@@ -17,10 +18,16 @@ class HabitLocalDataSource {
       List<Map> data = await db.rawQuery(habitQuery);
 
       for (var element in data) {
+        Map<DateTime, int> overviewsMap = {};
         List<Map> overviews =
             await db.rawQuery(habitDetailsQuery, [element["_id"]]);
 
-        result.add({"habit": element, "overviews": overviews});
+        for (var element in overviews) {
+          String key = element["dateTime"];
+          overviewsMap.addAll({DateTime.parse(key): 1});
+        }
+
+        result.add({"habit": element, "overviews": overviewsMap});
       }
 
       return result;
@@ -30,9 +37,12 @@ class HabitLocalDataSource {
     }
   }
 
-  Future<bool> addHabit(HabitModel item) async {
+  Future<bool> addHabit(HabitParams item) async {
     try {
-      await db.insert(DatabaseHelper.habitTable, item.toJson());
+      await db.insert(
+        DatabaseHelper.habitTable,
+        HabitModel.toJson(item),
+      );
       return true;
     } catch (e, s) {
       dPrint("$e     $s");

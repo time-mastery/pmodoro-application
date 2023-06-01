@@ -82,7 +82,8 @@ class DatabaseHelper {
             _id INTEGER PRIMARY KEY,
             habitTitle TEXT NULL,
             habitDescription TEXT NULL,
-            habitIcon TEXT NULL
+            habitIcon TEXT NULL,
+            habitColor INTEGER NULL
             )    
           """);
     await batch.commit();

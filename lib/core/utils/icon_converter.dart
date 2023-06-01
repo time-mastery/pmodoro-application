@@ -27,7 +27,7 @@ class IconConverter {
     "wallet_outline": Ionicons.wallet_outline
   };
 
-  static String findKeyByValue(Ionicons value) {
+  static String findKeyByValue(IoniconsData value) {
     var entry = icons.entries.firstWhere(
       (entry) => entry.value == value,
     );
