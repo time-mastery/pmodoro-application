@@ -38,7 +38,11 @@ class HabitTrackingView extends HookWidget {
         title: localization.habitTrackingTitle,
         action: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, AddHabitPage.routeName);
+            Navigator.pushNamed(context, AddHabitPage.routeName).then(
+              (value) => context.read<HabitTrackerBloc>().add(
+                    AllHabitsFetched(),
+                  ),
+            );
           },
           icon: const Icon(CupertinoIcons.add_circled_solid),
         ),

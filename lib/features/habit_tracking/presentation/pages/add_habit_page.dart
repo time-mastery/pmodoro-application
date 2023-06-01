@@ -8,9 +8,11 @@ import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/custom_form_field.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
+import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/core/utils/icon_converter.dart";
 import "package:pomodore/exports.dart";
 
+import "../../../../core/shared_widgets/global_snack.dart";
 import "../../../../di.dart";
 import "../blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
 
@@ -48,7 +50,12 @@ class AddHabitView extends HookWidget {
         hasBackBtn: true,
       ),
       body: BlocConsumer<HabitTrackerBloc, HabitTrackerState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is AddHabit) {
+            if (state.error) showSnackBar(context, title: "Failed!");
+            if (!state.loading && !state.error) Navigator.pop(context);
+          }
+        },
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(AppConstant.modalPadding),
@@ -142,19 +149,26 @@ class AddHabitView extends HookWidget {
                   child: GlobalButton(
                     title: localization.submitButton,
                     onPressed: () {
-                      context.read<HabitTrackerBloc>().add(
-                            HabitAdded(
-                              HabitParams(
-                                title: titleController.text,
-                                color:
-                                    Colors.primaries[selectedColor.value].value,
-                                description: desctiptionController.text,
-                                icon: IconConverter.findKeyByValue(
-                                  iconList[selectedIcon.value],
+                      if (titleController.text.isEmpty ||
+                          desctiptionController.text.isEmpty ||
+                          selectedColor.value < 0 ||
+                          selectedIcon.value < 0) {
+                        showSnackBar(context, title: "Please fill all fields");
+                      } else {
+                        context.read<HabitTrackerBloc>().add(
+                              HabitAdded(
+                                HabitParams(
+                                  title: titleController.text,
+                                  color: Colors
+                                      .primaries[selectedColor.value].value,
+                                  description: desctiptionController.text,
+                                  icon: IconConverter.findKeyByValue(
+                                    iconList[selectedIcon.value],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
+                            );
+                      }
                     },
                   ),
                 ),

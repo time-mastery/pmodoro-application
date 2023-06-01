@@ -57,17 +57,18 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
       Either result = await addNewHabitUseCase.call(params: event.params);
 
       result.fold(
-        (l) => emit(
-          const AddHabit(
-            loading: false,
-            error: true,
-          ),
-        ),
-        (r) => const AddHabit(
-          loading: false,
-          error: false,
-        ),
-      );
+          (l) => emit(
+                const AddHabit(
+                  loading: false,
+                  error: true,
+                ),
+              ),
+          (r) => emit(
+                const AddHabit(
+                  loading: false,
+                  error: false,
+                ),
+              ));
     });
     on<HabitDeleted>((event, emit) {});
     on<HabitUpdated>((event, emit) {});
