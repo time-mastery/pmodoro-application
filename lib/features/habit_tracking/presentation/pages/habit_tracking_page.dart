@@ -57,9 +57,6 @@ class _HabitTrackingViewState extends State<HabitTrackingView> {
         bloc: context.read<HabitTrackerBloc>(),
         listener: (context, state) {
           if (state is DeleteHabit && !state.loading && !state.error) {
-            context.read<HabitTrackerBloc>().add(
-                  AllHabitsFetched(),
-                );
             Navigator.of(context).pop();
           }
         },
@@ -71,9 +68,8 @@ class _HabitTrackingViewState extends State<HabitTrackingView> {
               );
             }
             if (state.habits.isEmpty) {
-              return const Center(
-                // todo : add this string to the l10n
-                child: Text("There is no habit!"),
+              return Center(
+                child: Text(localization.noHabitMessage),
               );
             }
             if (!state.loading && !state.error && state.habits.isNotEmpty) {

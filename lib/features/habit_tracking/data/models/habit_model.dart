@@ -1,4 +1,5 @@
 import "../../../../core/resources/params/habit_params.dart";
+import "../../../../core/utils/utils.dart";
 import "../../domain/entities/habit_entity.dart";
 
 class HabitModel extends HabitEntity {
@@ -9,6 +10,7 @@ class HabitModel extends HabitEntity {
     required String desctription,
     required String iconName,
     required int color,
+    required bool isCompleteToday,
   }) : super(
           overviews: overviews,
           title: title,
@@ -16,9 +18,14 @@ class HabitModel extends HabitEntity {
           desctription: desctription,
           iconName: iconName,
           color: color,
+          isCompleteToday: isCompleteToday,
         );
 
   factory HabitModel.fromJson(Map json) {
+    final overviews = json["overviews"] as Map<DateTime, int>;
+    final completed =
+        overviews.keys.any((element) => Utils.checkDateIsToday(element));
+
     return HabitModel(
       id: json["habit"]["_id"] ?? 0,
       color: json["habit"]["habitColor"] ?? 0,
@@ -26,6 +33,7 @@ class HabitModel extends HabitEntity {
       title: json["habit"]["habitTitle"] ?? "",
       desctription: json["habit"]["habitDescription"] ?? "",
       iconName: json["habit"]["habitIcon"] ?? "",
+      isCompleteToday: completed,
     );
   }
 

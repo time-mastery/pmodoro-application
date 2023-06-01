@@ -5,6 +5,7 @@ class HabitEntity extends Equatable {
   final String title, desctription, iconName;
   final int id;
   final int color;
+  final bool isCompleteToday;
 
   const HabitEntity({
     required this.overviews,
@@ -13,6 +14,7 @@ class HabitEntity extends Equatable {
     required this.desctription,
     required this.iconName,
     required this.id,
+    this.isCompleteToday = false,
   });
 
   @override
@@ -23,5 +25,6 @@ class HabitEntity extends Equatable {
         desctription,
         iconName,
         overviews,
+        isCompleteToday,
       ];
 }
