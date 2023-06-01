@@ -14,6 +14,7 @@ class DatabaseHelper {
   static const pomodoroTable = "pomodoros";
   static const dailyGoalTable = "dailyGoal";
   static const habitTrackingTable = "habits";
+  static const habitTable = "habitTable";
 
   static Database? _database;
 
@@ -72,8 +73,16 @@ class DatabaseHelper {
     batch.execute("""
           CREATE TABLE $habitTrackingTable (
             _id INTEGER PRIMARY KEY,
-            habitUid TEXT NULL,
+            habitId TEXT NULL,
             dateTime TEXT NOT NULL
+            )    
+          """);
+    batch.execute("""
+          CREATE TABLE $habitTable (
+            _id INTEGER PRIMARY KEY,
+            habitTitle TEXT NULL,
+            habitDescription TEXT NULL,
+            habitIcon TEXT NULL
             )    
           """);
     await batch.commit();
