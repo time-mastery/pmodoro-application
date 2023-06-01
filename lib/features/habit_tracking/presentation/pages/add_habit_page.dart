@@ -8,7 +8,6 @@ import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/custom_form_field.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
-import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/core/utils/icon_converter.dart";
 import "package:pomodore/exports.dart";
 

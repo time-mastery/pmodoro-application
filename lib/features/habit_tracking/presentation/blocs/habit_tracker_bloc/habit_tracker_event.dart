@@ -10,7 +10,7 @@ abstract class HabitTrackerEvent extends Equatable {
 class AllHabitsFetched extends HabitTrackerEvent {}
 
 class HabitDeleted extends HabitTrackerEvent {
-  final String id;
+  final int id;
 
   const HabitDeleted(this.id);
 }

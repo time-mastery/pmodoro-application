@@ -51,10 +51,13 @@ class HabitLocalDataSource {
     }
   }
 
-  Future<bool> deleteHabit(String id) async {
+  Future<bool> deleteHabit(int id) async {
     try {
-      const query = "";
-      await db.delete(DatabaseHelper.habitTrackingTable);
+      await db.delete(
+        DatabaseHelper.habitTable,
+        where: "_id = ?",
+        whereArgs: [id],
+      );
 
       return true;
     } catch (e, s) {

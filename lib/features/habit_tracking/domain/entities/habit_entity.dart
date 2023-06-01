@@ -3,7 +3,7 @@ import "package:equatable/equatable.dart";
 class HabitEntity extends Equatable {
   final Map<DateTime, int> overviews;
   final String title, desctription, iconName;
-  final String id;
+  final int id;
   final int color;
 
   const HabitEntity({

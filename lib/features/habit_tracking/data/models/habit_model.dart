@@ -5,7 +5,7 @@ class HabitModel extends HabitEntity {
   const HabitModel({
     required Map<DateTime, int> overviews,
     required String title,
-    required String id,
+    required int id,
     required String desctription,
     required String iconName,
     required int color,
@@ -20,7 +20,7 @@ class HabitModel extends HabitEntity {
 
   factory HabitModel.fromJson(Map json) {
     return HabitModel(
-      id: json["habit"]["id"] ?? "",
+      id: json["habit"]["_id"] ?? 0,
       color: json["habit"]["habitColor"] ?? 0,
       overviews: json["overviews"] ?? {},
       title: json["habit"]["habitTitle"] ?? "",

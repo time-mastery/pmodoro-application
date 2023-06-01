@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/utils/icon_converter.dart";
 import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
+import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
 
 import "../../../../exports.dart";
 
@@ -117,17 +119,21 @@ class HabitItemWidget extends HookWidget {
                       ),
                     ),
                     10.spaceW(),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: color.withOpacity(.2),
-                        borderRadius: BorderRadius.circular(
-                          AppConstant.radius,
+                    GestureDetector(
+                      onTap: () => showDeleteConfirmationDialog(
+                          context, context.read<HabitTrackerBloc>()),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: color.withOpacity(.2),
+                          borderRadius: BorderRadius.circular(
+                            AppConstant.radius,
+                          ),
                         ),
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      child: const Icon(
-                        Icons.delete,
-                        size: AppConstant.iconSize,
+                        padding: const EdgeInsets.all(8),
+                        child: const Icon(
+                          Icons.delete,
+                          size: AppConstant.iconSize,
+                        ),
                       ),
                     ),
                   ],
@@ -137,6 +143,35 @@ class HabitItemWidget extends HookWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void showDeleteConfirmationDialog(
+      BuildContext context, HabitTrackerBloc bloc) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Delete Confirmation"),
+          content: const Text("Are you sure you want to delete this item?"),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Delete"),
+              onPressed: () {
+                bloc.add(
+                  HabitDeleted(item.id),
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
