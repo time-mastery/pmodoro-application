@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, hotfix/timer-issue]
 
 jobs:
   build_android:
