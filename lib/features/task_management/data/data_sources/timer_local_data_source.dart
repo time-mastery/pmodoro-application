@@ -38,7 +38,9 @@ class TimerLocalDataSource {
           FStorage.timerStateDateTimeKey, DateTime.now().toString());
       await FStorage.write(FStorage.timerStateBaseDurationKey,
           stateParams.baseDuration.toString());
-      await FStorage.write(FStorage.taskIdKey, stateParams.task.id);
+      if (stateParams.task != null) {
+        await FStorage.write(FStorage.taskIdKey, stateParams.task!.id);
+      }
       result = stateParams.duration;
     } catch (e) {
       rethrow;
@@ -46,7 +48,8 @@ class TimerLocalDataSource {
     return result;
   }
 
-  Future<Map<String, dynamic>> getTaskById(String id) async {
+  Future<Map<String, dynamic>?> getTaskById(String? id) async {
+    if (id == null) return null;
     final List<Map<String, dynamic>> result = await db.query(
       "tasks",
       where: "uid = ?",
@@ -64,14 +67,11 @@ class TimerLocalDataSource {
           await FStorage.read(FStorage.timerStateBaseDurationKey);
       final id = await FStorage.read(FStorage.taskIdKey);
 
-      if (state != null &&
-          dateTimeState != null &&
-          baseStateDuration != null &&
-          id != null) {
+      if (state != null && dateTimeState != null && baseStateDuration != null) {
         final DateTime restoredDateTime = DateTime.parse(dateTimeState);
         final DateTime now = DateTime.now();
         final Duration remainDuration = now.difference(restoredDateTime);
-        final Map<String, dynamic> task = await getTaskById(id);
+        final Map<String, dynamic>? task = await getTaskById(id);
 
         if (remainDuration.inSeconds < int.parse(state)) {
           result = TimerStateRestoreParams(
@@ -89,11 +89,12 @@ class TimerLocalDataSource {
           );
         }
       } else {
+        dPrint("All values are null so we can not restore timer");
         result = null;
       }
-    } catch (e) {
-      dPrint(e.toString());
-      rethrow;
+    } catch (e, s) {
+      dPrint("$e   $s");
+      result = null;
     }
 
     return result;
