@@ -125,7 +125,9 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _timerTaskSelected(TimerTaskSelected event, Emitter emit) {
     selectTask(event.taskItem);
-    emit(SelectTaskSuccess(state.duration, taskItem!));
+    if (event.taskItem != null) {
+      emit(SelectTaskSuccess(state.duration, taskItem!));
+    }
   }
 
   void _timerTaskDeSelected(TimerTaskDeSelected event, Emitter emit) {
