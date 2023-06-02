@@ -9,6 +9,7 @@ import "package:flutter_localizations/flutter_localizations.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/router/router.dart";
 import "package:pomodore/core/services/notification/local_notification.dart";
+import "package:pomodore/core/shared_widgets/global_snack.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/di.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
@@ -105,7 +106,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         BlocListener<TimerBloc, TimerState>(
           listener: (context, state) {
             final TimerBloc bloc = context.read<TimerBloc>();
-            dPrint(state.toString());
             if (state is RestoreTimerSuccess) {
               if (state.timerStateParams.timerDone) {
                 getIt.get<AppLocalNotification>().sendCustomNotification(
