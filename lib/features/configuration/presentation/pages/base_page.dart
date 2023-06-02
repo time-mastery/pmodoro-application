@@ -5,7 +5,6 @@ import "package:pomodore/features/configuration/presentation/blocs/base_bloc/bas
 import "package:pomodore/features/configuration/presentation/pages/settings_page.dart";
 
 import "../../../../exports.dart";
-import "../../../authentication/presentation/pages/user_page.dart";
 import "../../../task_management/presentation/pages/home_page.dart";
 import "../../../task_management/presentation/pages/tasks_page.dart";
 import "../../../task_management/presentation/pages/timer_page.dart";
