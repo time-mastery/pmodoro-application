@@ -314,8 +314,4 @@ class TasksLocalDataSource {
 
     return result;
   }
-
-  getTaskById(String id) {}
-
-  getCompletedTask() {}
 }

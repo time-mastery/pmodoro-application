@@ -56,7 +56,7 @@ class SaveCurrentTimerStateDialogShowed extends TimerEvent {
 }
 
 class TimerTaskSelected extends TimerEvent {
-  final TaskEntity taskItem;
+  final TaskEntity? taskItem;
 
   const TimerTaskSelected(this.taskItem);
 
