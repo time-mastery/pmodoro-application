@@ -137,7 +137,7 @@ Future inject() async {
   // habit tracking usecases
   getIt.registerSingleton(AddNewHabitUseCase(getIt()));
   getIt.registerSingleton(DeleteHabitUseCase(getIt()));
-  getIt.registerSingleton(DoneTodayHabitUseCase());
+  getIt.registerSingleton(DoneTodayHabitUseCase(getIt()));
   getIt.registerSingleton(EditHabitUseCase());
   getIt.registerSingleton(GetAllHabitUseCase(getIt()));
 

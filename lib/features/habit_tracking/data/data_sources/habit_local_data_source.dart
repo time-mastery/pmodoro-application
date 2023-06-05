@@ -2,7 +2,10 @@ import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/services/database/database_helper.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/habit_tracking/data/models/habit_model.dart";
+import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 import "package:sqflite/sqflite.dart";
+
+import "../../../../core/utils/utils.dart";
 
 class HabitLocalDataSource {
   final Database db;
@@ -64,6 +67,56 @@ class HabitLocalDataSource {
       dPrint("$e     $s");
 
       return false;
+    }
+  }
+
+  Future<Map?> getSpecificHabit(int id) async {
+    try {
+      const query = "SELECT * FROM ${DatabaseHelper.habitTable} WHERE _id = ?";
+      const habitDetailsQuery =
+          "SELECT * FROM ${DatabaseHelper.habitTrackingTable} WHERE habitId == ?";
+
+      List<Map> habit = await db.rawQuery(query, [id]);
+
+      Map<DateTime, int> overviewsMap = {};
+      List<Map> overviews = await db.rawQuery(habitDetailsQuery, [id]);
+
+      for (var element in overviews) {
+        String key = element["dateTime"];
+        overviewsMap.addAll({DateTime.parse(key): 1});
+      }
+
+      return {
+        "habit": habit.first,
+        "overviews": overviewsMap,
+      };
+    } catch (e, s) {
+      dPrint("$e  $s");
+
+      return null;
+    }
+  }
+
+  Future<Map?> completeHabit(HabitOverviewParams params) async {
+    try {
+      if (params.completedToday) {
+        await db.delete(
+          DatabaseHelper.habitTrackingTable,
+          where: "dateTime = ?",
+          whereArgs: [Utils.formatDateToYYYYMMDD(DateTime.now())],
+        );
+      } else {
+        await db.insert(DatabaseHelper.habitTrackingTable, {
+          "habitId": params.id,
+          "dateTime": Utils.formatDateToYYYYMMDD(DateTime.now()),
+        });
+      }
+
+      return await getSpecificHabit(params.id);
+    } catch (e, s) {
+      dPrint("$e     $s");
+
+      return null;
     }
   }
 }

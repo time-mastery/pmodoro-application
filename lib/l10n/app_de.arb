@@ -95,6 +95,6 @@
     "habitIcon": "Symbol",
     "habitColor": "Farbe",
     "completeHabit":"Complete",
-    "uncompleteHabit":"Uncomplete",
+    "completedHabit":"Completed",
     "noHabitMessage":"There is no habit!"
   }

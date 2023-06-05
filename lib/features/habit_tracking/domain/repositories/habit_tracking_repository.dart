@@ -8,5 +8,5 @@ abstract class HabitTrackingRepository {
   Future<Either<String, int>> deleteHabit(int id);
   Future<Either<String, bool>> updateHabit(HabitParams updatedHabit);
   Future<Either<String, bool>> addHabit(HabitParams habit);
-  Future<Either<String, bool>> doneHabit(String id);
+  Future<Either<String, HabitEntity>> doneHabit(HabitOverviewParams params);
 }

@@ -70,3 +70,17 @@ class AddHabit extends HabitTrackerState {
         error,
       ];
 }
+
+class DoneHabit extends HabitTrackerState {
+  final bool loading, error;
+  final List<HabitEntity> habits;
+
+  const DoneHabit(this.loading, this.error, this.habits);
+
+  @override
+  List<Object> get props => [
+        loading,
+        error,
+        habits,
+      ];
+}

@@ -23,9 +23,10 @@ class HabitUpdated extends HabitTrackerEvent {
 }
 
 class HabitDone extends HabitTrackerEvent {
-  final String id;
+  final HabitOverviewParams params;
+  final List<HabitEntity> habits;
 
-  const HabitDone(this.id);
+  const HabitDone(this.params, this.habits);
 }
 
 class HabitAdded extends HabitTrackerEvent {

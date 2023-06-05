@@ -11,3 +11,10 @@ class HabitParams {
     this.id,
   });
 }
+
+class HabitOverviewParams {
+  final int id;
+  final bool completedToday;
+
+  HabitOverviewParams(this.id, this.completedToday);
+}

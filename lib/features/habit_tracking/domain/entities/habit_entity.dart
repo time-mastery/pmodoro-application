@@ -17,6 +17,26 @@ class HabitEntity extends Equatable {
     this.isCompleteToday = false,
   });
 
+  HabitEntity copyWith({
+    Map<DateTime, int>? overviews,
+    String? title,
+    int? color,
+    String? desctription,
+    String? iconName,
+    int? id,
+    bool? isCompleteToday,
+  }) {
+    return HabitEntity(
+      overviews: overviews ?? this.overviews,
+      title: title ?? this.title,
+      color: color ?? this.color,
+      desctription: desctription ?? this.desctription,
+      iconName: iconName ?? this.iconName,
+      id: id ?? this.id,
+      isCompleteToday: isCompleteToday ?? this.isCompleteToday,
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,

@@ -4,6 +4,7 @@ import "package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
+import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/utils/icon_converter.dart";
 import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
@@ -83,47 +84,52 @@ class HabitItemWidget extends HookWidget {
                     colorTipCount: 10,
                   ),
                 ),
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: color.withOpacity(.2),
-                        borderRadius: BorderRadius.circular(
-                          AppConstant.radius,
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.check_circle_outline,
-                            color: color.withOpacity(.3),
-                            size: AppConstant.iconSize,
+                GestureDetector(
+                  onTap: () {
+                    context.read<HabitTrackerBloc>().add(
+                          HabitDone(
+                            HabitOverviewParams(item.id, item.isCompleteToday),
+                            habits,
                           ),
-                          10.spaceW(),
-                          Text(localization.completeHabit)
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: color.withOpacity(.2),
-                        borderRadius: BorderRadius.circular(
-                          AppConstant.radius,
+                        );
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: item.isCompleteToday
+                              ? Theme.of(context).colorScheme.primary
+                              : color.withOpacity(.2),
+                          borderRadius: BorderRadius.circular(
+                            AppConstant.radius,
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle_outline,
+                              color: item.isCompleteToday
+                                  ? Theme.of(context).colorScheme.onPrimary
+                                  : color.withOpacity(.3),
+                              size: AppConstant.iconSize,
+                            ),
+                            10.spaceW(),
+                            Text(
+                              item.isCompleteToday
+                                  ? localization.completedHabit
+                                  : localization.completeHabit,
+                              style: TextStyle(
+                                color: item.isCompleteToday
+                                    ? Theme.of(context).colorScheme.onPrimary
+                                    : null,
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      padding: const EdgeInsets.all(8),
-                      child: const Icon(
-                        Icons.edit,
-                        size: AppConstant.iconSize,
-                      ),
-                    ),
-                    10.spaceW(),
-                    GestureDetector(
-                      onTap: () => showDeleteConfirmationDialog(
-                          context, context.read<HabitTrackerBloc>()),
-                      child: Container(
+                      const Spacer(),
+                      Container(
                         decoration: BoxDecoration(
                           color: color.withOpacity(.2),
                           borderRadius: BorderRadius.circular(
@@ -132,12 +138,30 @@ class HabitItemWidget extends HookWidget {
                         ),
                         padding: const EdgeInsets.all(8),
                         child: const Icon(
-                          Icons.delete,
+                          Icons.edit,
                           size: AppConstant.iconSize,
                         ),
                       ),
-                    ),
-                  ],
+                      10.spaceW(),
+                      GestureDetector(
+                        onTap: () => showDeleteConfirmationDialog(
+                            context, context.read<HabitTrackerBloc>()),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: color.withOpacity(.2),
+                            borderRadius: BorderRadius.circular(
+                              AppConstant.radius,
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          child: const Icon(
+                            Icons.delete,
+                            size: AppConstant.iconSize,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
