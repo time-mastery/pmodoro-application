@@ -10,9 +10,10 @@ abstract class HabitTrackerEvent extends Equatable {
 class AllHabitsFetched extends HabitTrackerEvent {}
 
 class HabitDeleted extends HabitTrackerEvent {
+  final List<HabitEntity> habits;
   final int id;
 
-  const HabitDeleted(this.id);
+  const HabitDeleted(this.id, this.habits);
 }
 
 class HabitUpdated extends HabitTrackerEvent {

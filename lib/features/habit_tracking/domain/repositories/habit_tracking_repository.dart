@@ -5,7 +5,7 @@ import "../../../../core/resources/params/habit_params.dart";
 
 abstract class HabitTrackingRepository {
   Future<Either<String, List<HabitEntity>>> getAllHabits();
-  Future<Either<String, bool>> deleteHabit(int id);
+  Future<Either<String, int>> deleteHabit(int id);
   Future<Either<String, bool>> updateHabit(HabitParams updatedHabit);
   Future<Either<String, bool>> addHabit(HabitParams habit);
   Future<Either<String, bool>> doneHabit(String id);

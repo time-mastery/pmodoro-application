@@ -26,13 +26,13 @@ class HabitTrackingRepositoryImpl implements HabitTrackingRepository {
   }
 
   @override
-  Future<Either<String, bool>> deleteHabit(int id) async {
-    late Either<String, bool> result;
+  Future<Either<String, int>> deleteHabit(int id) async {
+    late Either<String, int> result;
 
     try {
-      bool data = await localDataSource.deleteHabit(id);
+      await localDataSource.deleteHabit(id);
 
-      result = Right(data);
+      result = Right(id);
     } catch (e, s) {
       dPrint("$e  $s");
       result = const Left("error");

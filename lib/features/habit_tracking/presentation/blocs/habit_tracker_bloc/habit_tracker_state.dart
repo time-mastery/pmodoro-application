@@ -29,17 +29,16 @@ class FetchHabits extends HabitTrackerState {
 
 class DeleteHabit extends HabitTrackerState {
   final bool loading, error;
+  final List<HabitEntity> habits;
 
   const DeleteHabit({
     required this.loading,
     required this.error,
+    required this.habits,
   });
 
   @override
-  List<Object> get props => [
-        loading,
-        error,
-      ];
+  List<Object> get props => [loading, error, habits];
 }
 
 class EditHabit extends HabitTrackerState {

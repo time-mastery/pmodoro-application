@@ -11,9 +11,10 @@ import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracke
 import "../../../../exports.dart";
 
 class HabitItemWidget extends HookWidget {
-  const HabitItemWidget({super.key, required this.item});
+  const HabitItemWidget({super.key, required this.item, required this.habits});
 
   final HabitEntity item;
+  final List<HabitEntity> habits;
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +166,7 @@ class HabitItemWidget extends HookWidget {
               child: const Text("Delete"),
               onPressed: () {
                 bloc.add(
-                  HabitDeleted(item.id),
+                  HabitDeleted(item.id, habits),
                 );
               },
             ),

@@ -4,6 +4,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/global_indicator.dart";
+import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 
 import "package:pomodore/features/habit_tracking/presentation/pages/add_habit_page.dart";
 import "package:pomodore/features/habit_tracking/presentation/shared_widgets/habit_item_widget.dart";
@@ -33,7 +34,7 @@ class HabitTrackingView extends StatefulWidget {
 }
 
 class _HabitTrackingViewState extends State<HabitTrackingView> {
-  List habits = [];
+  List<HabitEntity> habits = [];
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +78,16 @@ class _HabitTrackingViewState extends State<HabitTrackingView> {
             }
           }
 
+          if (state is DeleteHabit && !state.error && !state.loading) {
+            habits = state.habits;
+          }
+
           return ListView.builder(
             itemCount: habits.length,
             itemBuilder: (context, index) => ListTile(
               title: HabitItemWidget(
                 item: habits[index],
+                habits: habits,
               ),
             ),
           );

@@ -70,14 +70,29 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
                 ),
               ));
     });
-    on<HabitDeleted>((event, emit) async {
-      emit(const DeleteHabit(loading: true, error: false));
+    on<HabitDeleted>(
+      (event, emit) async {
+        emit(const DeleteHabit(habits: [], loading: true, error: false));
 
-      Either result = await deleteHabitUseCase.call(params: event.id);
+        Either<String, int> result =
+            await deleteHabitUseCase.call(params: event.id);
 
-      result.fold((l) => emit(const DeleteHabit(loading: false, error: true)),
-          (r) => emit(const DeleteHabit(loading: false, error: false)));
-    });
+        result.fold(
+            (l) => emit(
+                const DeleteHabit(habits: [], loading: false, error: true)),
+            (r) {
+          List<HabitEntity> newList = event.habits;
+          newList.removeWhere((element) => element.id == r);
+          emit(
+            DeleteHabit(
+              habits: newList,
+              loading: false,
+              error: false,
+            ),
+          );
+        });
+      },
+    );
     on<HabitUpdated>((event, emit) {});
     on<HabitDone>((event, emit) {});
   }
