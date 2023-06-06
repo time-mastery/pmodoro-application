@@ -43,15 +43,18 @@ class DeleteHabit extends HabitTrackerState {
 
 class EditHabit extends HabitTrackerState {
   final bool loading, error;
+  final List<HabitEntity> habits;
 
   const EditHabit({
     required this.loading,
     required this.error,
+    required this.habits,
   });
 
   @override
   List<Object> get props => [
         loading,
+        habits,
         error,
       ];
 }

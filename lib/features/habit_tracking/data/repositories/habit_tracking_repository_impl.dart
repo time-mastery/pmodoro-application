@@ -74,7 +74,17 @@ class HabitTrackingRepositoryImpl implements HabitTrackingRepository {
   }
 
   @override
-  Future<Either<String, bool>> updateHabit(HabitParams updatedHabit) {
-    throw UnimplementedError();
+  Future<Either<String, HabitEntity>> updateHabit(
+      HabitParams updatedHabit) async {
+    try {
+      Map? item = await localDataSource.editHabit(updatedHabit);
+
+      if (item == null) return const Left("error");
+
+      return Right(HabitModel.fromJson(item));
+    } catch (e, s) {
+      dPrint("$e    $s");
+      return const Left("error");
+    }
   }
 }

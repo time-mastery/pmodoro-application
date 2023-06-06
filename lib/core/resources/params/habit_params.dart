@@ -1,6 +1,6 @@
 class HabitParams {
   final String title, description, icon;
-  final String? id;
+  final int? id;
   final int color;
 
   const HabitParams({

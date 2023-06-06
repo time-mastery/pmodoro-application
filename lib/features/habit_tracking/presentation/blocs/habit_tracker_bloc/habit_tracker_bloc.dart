@@ -34,8 +34,28 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
     on<AllHabitsFetched>(_allHabitFetched);
     on<HabitAdded>(_habitAdded);
     on<HabitDeleted>(_habitDeleted);
-    on<HabitUpdated>((event, emit) {});
+    on<HabitUpdated>(_habitUpdated);
     on<HabitDone>(_habitDone);
+  }
+
+  _habitUpdated(HabitUpdated event, emit) async {
+    emit(const EditHabit(loading: true, error: false, habits: []));
+
+    Either result = await editHabitUseCase.call(params: event.updatedHabit);
+
+    result.fold(
+      (l) => emit(const EditHabit(loading: false, error: true, habits: [])),
+      (r) {
+        int index = event.habits
+            .indexWhere((element) => element.id == event.updatedHabit.id);
+        List<HabitEntity> newList = event.habits;
+
+        newList.removeAt(index);
+        newList.insert(index, r);
+
+        emit(EditHabit(loading: false, error: false, habits: event.habits));
+      },
+    );
   }
 
   _habitDone(HabitDone event, emit) async {

@@ -10,13 +10,17 @@ import "package:pomodore/core/shared_widgets/custom_form_field.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
 import "package:pomodore/core/utils/icon_converter.dart";
 import "package:pomodore/exports.dart";
+import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 
 import "../../../../core/shared_widgets/global_snack.dart";
 import "../../../../di.dart";
 import "../blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
 
 class AddHabitPage extends StatelessWidget {
-  const AddHabitPage({super.key});
+  const AddHabitPage({super.key, this.item, this.habits});
+
+  final HabitEntity? item;
+  final List<HabitEntity>? habits;
 
   static const routeName = "/addHabit";
 
@@ -24,13 +28,19 @@ class AddHabitPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt.get<HabitTrackerBloc>(),
-      child: const AddHabitView(),
+      child: AddHabitView(
+        item: item,
+        habits: habits,
+      ),
     );
   }
 }
 
 class AddHabitView extends HookWidget {
-  const AddHabitView({Key? key}) : super(key: key);
+  const AddHabitView({Key? key, this.item, this.habits}) : super(key: key);
+
+  final HabitEntity? item;
+  final List<HabitEntity>? habits;
 
   @override
   Widget build(BuildContext context) {
@@ -39,18 +49,36 @@ class AddHabitView extends HookWidget {
     var titleController = useTextEditingController();
     var desctiptionController = useTextEditingController();
 
+    useEffect(() {
+      if (item != null) {
+        selectedColor.value = Colors.primaries
+            .indexWhere((element) => element.value == item!.color);
+        selectedIcon.value =
+            IconConverter.icons.keys.toList().indexOf(item!.iconName);
+        titleController.text = item!.title;
+        desctiptionController.text = item!.desctription;
+      }
+      return;
+    }, [titleController, desctiptionController, selectedColor, selectedIcon]);
+
     final AppLocalizations localization = AppLocalizations.of(context)!;
 
     List iconList = IconConverter.icons.values.toList();
 
     return Scaffold(
       appBar: BaseAppBar(
-        title: localization.addHabitTitle,
+        title: item == null
+            ? localization.addHabitTitle
+            : localization.updateHabit,
         hasBackBtn: true,
       ),
       body: BlocConsumer<HabitTrackerBloc, HabitTrackerState>(
         listener: (context, state) {
           if (state is AddHabit) {
+            if (state.error) showSnackBar(context, title: "Failed!");
+            if (!state.loading && !state.error) Navigator.pop(context);
+          }
+          if (state is EditHabit) {
             if (state.error) showSnackBar(context, title: "Failed!");
             if (!state.loading && !state.error) Navigator.pop(context);
           }
@@ -154,19 +182,34 @@ class AddHabitView extends HookWidget {
                           selectedIcon.value < 0) {
                         showSnackBar(context, title: "Please fill all fields");
                       } else {
-                        context.read<HabitTrackerBloc>().add(
-                              HabitAdded(
-                                HabitParams(
-                                  title: titleController.text,
-                                  color: Colors
-                                      .primaries[selectedColor.value].value,
-                                  description: desctiptionController.text,
-                                  icon: IconConverter.findKeyByValue(
-                                    iconList[selectedIcon.value],
+                        if (item != null) {
+                          Navigator.pop(
+                              context,
+                              HabitParams(
+                                id: item!.id,
+                                title: titleController.text,
+                                color:
+                                    Colors.primaries[selectedColor.value].value,
+                                description: desctiptionController.text,
+                                icon: IconConverter.findKeyByValue(
+                                  iconList[selectedIcon.value],
+                                ),
+                              ));
+                        } else {
+                          context.read<HabitTrackerBloc>().add(
+                                HabitAdded(
+                                  HabitParams(
+                                    title: titleController.text,
+                                    color: Colors
+                                        .primaries[selectedColor.value].value,
+                                    description: desctiptionController.text,
+                                    icon: IconConverter.findKeyByValue(
+                                      iconList[selectedIcon.value],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
+                              );
+                        }
                       }
                     },
                   ),

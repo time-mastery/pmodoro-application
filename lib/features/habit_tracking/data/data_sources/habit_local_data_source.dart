@@ -97,6 +97,27 @@ class HabitLocalDataSource {
     }
   }
 
+  Future<Map?> editHabit(HabitParams newHabit) async {
+    try {
+      await db.update(
+        DatabaseHelper.habitTable,
+        {
+          "habitTitle": newHabit.title,
+          "habitDescription": newHabit.description,
+          "habitIcon": newHabit.icon,
+          "habitColor": newHabit.color,
+        },
+        where: "_id = ?",
+        whereArgs: [newHabit.id],
+      );
+
+      return await getSpecificHabit(newHabit.id!);
+    } catch (e, s) {
+      dPrint("$e  $s");
+      return null;
+    }
+  }
+
   Future<Map?> completeHabit(HabitOverviewParams params) async {
     try {
       if (params.completedToday) {

@@ -8,6 +8,7 @@ import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/utils/icon_converter.dart";
 import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
+import "package:pomodore/features/habit_tracking/presentation/pages/add_habit_page.dart";
 
 import "../../../../exports.dart";
 
@@ -84,18 +85,19 @@ class HabitItemWidget extends HookWidget {
                     colorTipCount: 10,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    context.read<HabitTrackerBloc>().add(
-                          HabitDone(
-                            HabitOverviewParams(item.id, item.isCompleteToday),
-                            habits,
-                          ),
-                        );
-                  },
-                  child: Row(
-                    children: [
-                      Container(
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        context.read<HabitTrackerBloc>().add(
+                              HabitDone(
+                                HabitOverviewParams(
+                                    item.id, item.isCompleteToday),
+                                habits,
+                              ),
+                            );
+                      },
+                      child: Container(
                         decoration: BoxDecoration(
                           color: item.isCompleteToday
                               ? Theme.of(context).colorScheme.primary
@@ -128,8 +130,28 @@ class HabitItemWidget extends HookWidget {
                           ],
                         ),
                       ),
-                      const Spacer(),
-                      Container(
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddHabitPage(
+                              item: item,
+                              habits: habits,
+                            ),
+                          ),
+                        ).then(
+                          (value) => context.read<HabitTrackerBloc>().add(
+                                HabitUpdated(
+                                  value,
+                                  habits,
+                                ),
+                              ),
+                        );
+                      },
+                      child: Container(
                         decoration: BoxDecoration(
                           color: color.withOpacity(.2),
                           borderRadius: BorderRadius.circular(
@@ -142,26 +164,26 @@ class HabitItemWidget extends HookWidget {
                           size: AppConstant.iconSize,
                         ),
                       ),
-                      10.spaceW(),
-                      GestureDetector(
-                        onTap: () => showDeleteConfirmationDialog(
-                            context, context.read<HabitTrackerBloc>()),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: color.withOpacity(.2),
-                            borderRadius: BorderRadius.circular(
-                              AppConstant.radius,
-                            ),
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          child: const Icon(
-                            Icons.delete,
-                            size: AppConstant.iconSize,
+                    ),
+                    10.spaceW(),
+                    GestureDetector(
+                      onTap: () => showDeleteConfirmationDialog(
+                          context, context.read<HabitTrackerBloc>()),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: color.withOpacity(.2),
+                          borderRadius: BorderRadius.circular(
+                            AppConstant.radius,
                           ),
                         ),
+                        padding: const EdgeInsets.all(8),
+                        child: const Icon(
+                          Icons.delete,
+                          size: AppConstant.iconSize,
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 )
               ],
             ),

@@ -86,6 +86,10 @@ class _HabitTrackingViewState extends State<HabitTrackingView> {
             habits = state.habits;
           }
 
+          if (state is EditHabit && !state.error && !state.loading) {
+            habits = state.habits;
+          }
+
           return ListView.builder(
             itemCount: habits.length,
             itemBuilder: (context, index) => ListTile(

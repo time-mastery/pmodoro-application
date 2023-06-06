@@ -96,5 +96,6 @@
     "habitColor":"Color",
     "completeHabit":"Complete",
     "completedHabit":"Completed",
-    "noHabitMessage":"There is no habit!"    
+    "noHabitMessage":"There is no habit!",
+    "updateHabit":"Update Habit" 
 }

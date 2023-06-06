@@ -18,8 +18,9 @@ class HabitDeleted extends HabitTrackerEvent {
 
 class HabitUpdated extends HabitTrackerEvent {
   final HabitParams updatedHabit;
+  final List<HabitEntity> habits;
 
-  const HabitUpdated(this.updatedHabit);
+  const HabitUpdated(this.updatedHabit, this.habits);
 }
 
 class HabitDone extends HabitTrackerEvent {
