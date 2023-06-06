@@ -103,7 +103,7 @@ class HabitItemWidget extends HookWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           color: item.isCompleteToday
-                              ? Theme.of(context).colorScheme.primary
+                              ? color
                               : color.withOpacity(.2),
                           borderRadius: BorderRadius.circular(
                             AppConstant.radius,
@@ -202,6 +202,7 @@ class HabitItemWidget extends HookWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.background,
           title: const Text("Delete Confirmation"),
           content: const Text("Are you sure you want to delete this item?"),
           actions: <Widget>[
