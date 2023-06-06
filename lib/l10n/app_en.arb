@@ -86,5 +86,16 @@
     "registerNewAccount":"Register new account!",
     "logoutButton":"Logout",
     "lastSync":"Last sync at #",
-    "profileTitle":"Profile"            
+    "profileTitle":"Profile",
+    "habitTrackingTitle":"Habit Traking",
+    "noHabitMessage":"There is no habit!\n Please define new habit",
+    "addHabitTitle":"Add Habit",
+    "habitNameHint":"Name",
+    "habitDescriptionHint":"Description",
+    "habitIcon":"Icon",
+    "habitColor":"Color",
+    "completeHabit":"Complete",
+    "completedHabit":"Completed",
+    "noHabitMessage":"There is no habit!",
+    "updateHabit":"Update Habit" 
 }

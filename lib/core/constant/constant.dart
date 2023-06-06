@@ -6,6 +6,7 @@ class AppConstant {
   /// dimens
   static const radius = 10.0;
   static const modalPadding = 15.0;
+  static const iconSize = 20.0;
 
   // strings
   static const appName = "Pmodoro";

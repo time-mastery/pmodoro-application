@@ -13,6 +13,8 @@ class DatabaseHelper {
   static const categoryTable = "categories";
   static const pomodoroTable = "pomodoros";
   static const dailyGoalTable = "dailyGoal";
+  static const habitTrackingTable = "habits";
+  static const habitTable = "habitTable";
 
   static Database? _database;
 
@@ -23,7 +25,8 @@ class DatabaseHelper {
   }
 
   static Future<Database> _initDatabase() async {
-    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    final Directory documentsDirectory =
+        await getApplicationDocumentsDirectory();
     final String path = join(documentsDirectory.path, _databaseName);
     return await openDatabase(
       path,
@@ -66,6 +69,22 @@ class DatabaseHelper {
             count TEXT NULL,
             dateTime TEXT NOT NULL
             )
+          """);
+    batch.execute("""
+          CREATE TABLE $habitTrackingTable (
+            _id INTEGER PRIMARY KEY,
+            habitId TEXT NULL,
+            dateTime TEXT NOT NULL
+            )    
+          """);
+    batch.execute("""
+          CREATE TABLE $habitTable (
+            _id INTEGER PRIMARY KEY,
+            habitTitle TEXT NULL,
+            habitDescription TEXT NULL,
+            habitIcon TEXT NULL,
+            habitColor INTEGER NULL
+            )    
           """);
     await batch.commit();
   }
