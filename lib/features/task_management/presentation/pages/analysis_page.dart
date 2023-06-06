@@ -169,6 +169,8 @@ class AnalysisView extends StatelessWidget {
                             child: Directionality(
                               textDirection: TextDirection.ltr,
                               child: HeatMap(
+                                textColor:
+                                    Theme.of(context).colorScheme.onBackground,
                                 size: 22,
                                 scrollable: true,
                                 fontSize: 9,
@@ -183,31 +185,10 @@ class AnalysisView extends StatelessWidget {
                                         : null,
                                 colorMode: ColorMode.opacity,
                                 datasets: item?.overviews,
-                                showColorTip: true,
+                                showColorTip: false,
                                 colorsets: {
                                   1: Theme.of(context).colorScheme.secondary
                                 },
-                                colorTipCount: 10,
-                                colorTipHelper: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0),
-                                    child: Text(
-                                      localization.lessTitle,
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0),
-                                    child: Text(
-                                      localization.moreTitle,
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ),
-                                ],
                                 onClick: (value) {},
                               ),
                             ),
