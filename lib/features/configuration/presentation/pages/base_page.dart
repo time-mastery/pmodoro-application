@@ -3,6 +3,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:ionicons/ionicons.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
 import "package:pomodore/features/configuration/presentation/pages/settings_page.dart";
+import "package:pomodore/features/habit_tracking/presentation/pages/habit_tracking_page.dart";
 
 import "../../../../exports.dart";
 import "../../../task_management/presentation/pages/home_page.dart";
@@ -18,6 +19,7 @@ class BasePage extends StatelessWidget {
     const HomePage(),
     const TasksPage(),
     const SettingsPage(),
+    const HabitTrackingPage(),
     const TimerPage(),
   ];
 
@@ -47,6 +49,8 @@ class BasePage extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: const Icon(Ionicons.settings_outline),
                 label: localization.settingTab),
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_month), label: ""),
             BottomNavigationBarItem(
               icon: Container(
                 width: 30,

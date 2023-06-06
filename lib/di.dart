@@ -14,6 +14,16 @@ import "package:pomodore/features/configuration/domain/usecases/get_settings_use
 import "package:pomodore/features/configuration/domain/usecases/get_theme_usecase.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
+import "package:pomodore/features/habit_tracking/data/data_sources/habit_local_data_source.dart";
+import "package:pomodore/features/habit_tracking/data/repositories/habit_tracking_repository_impl.dart";
+import "package:pomodore/features/habit_tracking/domain/repositories/habit_tracking_repository.dart";
+import "package:pomodore/features/habit_tracking/domain/usecases/add_new_habit_usecase.dart";
+import "package:pomodore/features/habit_tracking/domain/usecases/delete_habit_usecase.dart";
+import "package:pomodore/features/habit_tracking/domain/usecases/done_today_habit_usecase.dart";
+import "package:pomodore/features/habit_tracking/domain/usecases/edit_habit_usecase.dart";
+import "package:pomodore/features/habit_tracking/domain/usecases/get_all_habits_usecase.dart";
+import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
+import "package:pomodore/features/habit_tracking/presentation/pages/habit_tracking_page.dart";
 import "package:pomodore/features/task_management/data/data_sources/timer_local_data_source.dart";
 import "package:pomodore/features/task_management/data/repositories/category_repository_impl.dart";
 import "package:pomodore/features/task_management/data/repositories/task_repository_impl.dart";
@@ -82,12 +92,15 @@ Future inject() async {
   getIt.registerSingleton<TasksLocalDataSource>(TasksLocalDataSource(getIt()));
   getIt.registerSingleton<SettingsLocalDataSources>(SettingsLocalDataSources());
   getIt.registerSingleton<TimerLocalDataSource>(TimerLocalDataSource(getIt()));
+  getIt.registerSingleton<HabitLocalDataSource>(HabitLocalDataSource(getIt()));
 
   // inject repositories
   getIt.registerSingleton<TaskRepository>(TaskRepositoryImpl(getIt()));
   getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImpl(getIt()));
   getIt.registerSingleton<SettingsRepository>(SettingsRepositoryImpl(getIt()));
   getIt.registerSingleton<TimerRepository>(TimerRepositoryImpl(getIt()));
+  getIt.registerSingleton<HabitTrackingRepository>(
+      HabitTrackingRepositoryImpl(getIt()));
 
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
@@ -121,6 +134,12 @@ Future inject() async {
       .registerSingleton<SaveTimerStateUseCase>(SaveTimerStateUseCase(getIt()));
   getIt.registerSingleton<RestoreTimerStateUseCase>(
       RestoreTimerStateUseCase(getIt()));
+  // habit tracking usecases
+  getIt.registerSingleton(AddNewHabitUseCase(getIt()));
+  getIt.registerSingleton(DeleteHabitUseCase(getIt()));
+  getIt.registerSingleton(DoneTodayHabitUseCase(getIt()));
+  getIt.registerSingleton(EditHabitUseCase(getIt()));
+  getIt.registerSingleton(GetAllHabitUseCase(getIt()));
 
   // inject blocs
   // global bloc
@@ -156,4 +175,13 @@ Future inject() async {
         checkDailyGoalUseCase: getIt(),
         saveDailyGoalUseCase: getIt(),
       ));
+  getIt.registerFactory<HabitTrackerBloc>(
+    () => HabitTrackerBloc(
+      addNewHabitUseCase: getIt(),
+      deleteHabitUseCase: getIt(),
+      doneTodayHabitUseCase: getIt(),
+      editHabitUseCase: getIt(),
+      getAllHabitUseCase: getIt(),
+    ),
+  );
 }
