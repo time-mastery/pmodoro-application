@@ -1,4 +1,5 @@
 import "package:dartz/dartz.dart";
+import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/task_management/data/data_sources/timer_local_data_source.dart";
 import "package:pomodore/features/task_management/data/models/task_model.dart";
 import "package:pomodore/features/task_management/domain/repositories/timer_repository.dart";
@@ -30,23 +31,30 @@ class TimerRepositoryImpl extends TimerRepository {
   Future<Either<String, TimerStateParams>> restoreTimerState() async {
     late Either<String, TimerStateParams> result;
 
-    final TimerStateRestoreParams? restoredState =
-        await timerLocalDataSource.restoreTimerState();
+    try {
+      final TimerStateRestoreParams? restoredState =
+          await timerLocalDataSource.restoreTimerState();
 
-    if (restoredState != null) {
-      result = Right(
-        TimerStateParams(
-          duration: restoredState.duration,
-          baseDuration: restoredState.baseDuration,
-          task: TaskModel.fromJson(restoredState.task),
-          timerDone: restoredState.timerDone,
-        ),
-      );
-    } else {
+      if (restoredState != null) {
+        result = Right(
+          TimerStateParams(
+            duration: restoredState.duration,
+            baseDuration: restoredState.baseDuration,
+            task: restoredState.task != null
+                ? TaskModel.fromJson(restoredState.task!)
+                : null,
+            timerDone: restoredState.timerDone,
+          ),
+        );
+      } else {
+        result = const Left("error");
+      }
+
+      timerLocalDataSource.removeTimerState();
+    } catch (e, s) {
+      dPrint("$e   $s");
       result = const Left("error");
     }
-
-    timerLocalDataSource.removeTimerState();
 
     return result;
   }

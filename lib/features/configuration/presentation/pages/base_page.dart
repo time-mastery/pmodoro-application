@@ -19,7 +19,6 @@ class BasePage extends StatelessWidget {
     const HomePage(),
     const TasksPage(),
     const SettingsPage(),
-    // const UserPage(),
     const HabitTrackingPage(),
     const TimerPage(),
   ];
@@ -50,8 +49,6 @@ class BasePage extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: const Icon(Ionicons.settings_outline),
                 label: localization.settingTab),
-            // const BottomNavigationBarItem(
-            //     icon: Icon(Ionicons.person), label: ""),
             const BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_month), label: ""),
             BottomNavigationBarItem(
