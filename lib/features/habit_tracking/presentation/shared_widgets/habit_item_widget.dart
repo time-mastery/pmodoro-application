@@ -27,8 +27,10 @@ class HabitItemWidget extends HookWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
+        elevation: 0,
+        color: color.withOpacity(.1),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
           child: Theme(
             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
@@ -81,11 +83,12 @@ class HabitItemWidget extends HookWidget {
                     colorMode: ColorMode.opacity,
                     datasets: item.overviews,
                     showColorTip: false,
-                    colorsets: {1: Theme.of(context).colorScheme.secondary},
+                    colorsets: {1: color},
                     colorTipCount: 10,
                   ),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -100,7 +103,7 @@ class HabitItemWidget extends HookWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           color: item.isCompleteToday
-                              ? Theme.of(context).colorScheme.primary
+                              ? color
                               : color.withOpacity(.2),
                           borderRadius: BorderRadius.circular(
                             AppConstant.radius,
@@ -113,7 +116,7 @@ class HabitItemWidget extends HookWidget {
                               Icons.check_circle_outline,
                               color: item.isCompleteToday
                                   ? Theme.of(context).colorScheme.onPrimary
-                                  : color.withOpacity(.3),
+                                  : color,
                               size: AppConstant.iconSize,
                             ),
                             10.spaceW(),
@@ -131,7 +134,7 @@ class HabitItemWidget extends HookWidget {
                         ),
                       ),
                     ),
-                    const Spacer(),
+                    10.spaceW(),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -199,6 +202,7 @@ class HabitItemWidget extends HookWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.background,
           title: const Text("Delete Confirmation"),
           content: const Text("Are you sure you want to delete this item?"),
           actions: <Widget>[
