@@ -248,7 +248,7 @@ class AppConstant {
   );
 
   static final amberTheme = ThemeData(
-    scaffoldBackgroundColor: const Color(0xffFFC23C),
+    scaffoldBackgroundColor: const Color(0xffFEC260),
     fontFamily: getFontFamily(),
     cardColor: Colors.black.withOpacity(.1),
     cardTheme: const CardTheme(
@@ -268,7 +268,7 @@ class AppConstant {
       onSecondary: const Color(0xff100720),
       error: Colors.red,
       onError: Colors.white,
-      background: const Color(0xffFFC23C),
+      background: const Color(0xffFEC260),
       onBackground: const Color(0xff100720),
       surface: Colors.white.withOpacity(.001),
       onSurface: Colors.white,
