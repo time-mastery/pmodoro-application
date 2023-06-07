@@ -61,7 +61,7 @@ class HomeTaskItem extends StatelessWidget {
                   height: SizeConfig.widthMultiplier * 14,
                   onPressed: () {
                     context.read<TimerBloc>().add(TimerTaskSelected(item));
-                    context.read<BaseBloc>().add(const PageIndexChanged(3));
+                    context.read<BaseBloc>().add(const PageIndexChanged(4));
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(1000),

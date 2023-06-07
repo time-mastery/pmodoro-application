@@ -9,6 +9,7 @@ import "package:flutter_localizations/flutter_localizations.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/router/router.dart";
 import "package:pomodore/core/services/notification/local_notification.dart";
+import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/di.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
@@ -19,9 +20,6 @@ import "core/utils/responsive/size_config.dart";
 import "features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
-      .copyWith(statusBarIconBrightness: Brightness.dark));
-
   // Dependency injection
   await inject();
 
@@ -169,26 +167,31 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 themeData = state.themeData;
               }
 
-              return LayoutBuilder(builder: (context, constraints) {
-                SizeConfig().init(constraints, orientation);
-                return MaterialApp(
-                  title: AppConstant.appName,
-                  onGenerateRoute: AppRouter.onGenerationRouter,
-                  theme: themeData,
-                  debugShowCheckedModeBanner: false,
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: const [
-                    Locale("en"),
-                    Locale("de"),
-                  ],
-                  locale: locale,
-                );
-              });
+              return AnnotatedRegion<SystemUiOverlayStyle>(
+                value: themeData.brightness != Brightness.dark
+                    ? SystemUiOverlayStyle.dark
+                    : SystemUiOverlayStyle.light,
+                child: LayoutBuilder(builder: (context, constraints) {
+                  SizeConfig().init(constraints, orientation);
+                  return MaterialApp(
+                    title: AppConstant.appName,
+                    onGenerateRoute: AppRouter.onGenerationRouter,
+                    theme: themeData,
+                    debugShowCheckedModeBanner: false,
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    supportedLocales: const [
+                      Locale("en"),
+                      Locale("de"),
+                    ],
+                    locale: locale,
+                  );
+                }),
+              );
             },
           );
         },
