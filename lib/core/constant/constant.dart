@@ -195,9 +195,115 @@ class AppConstant {
     ),
   );
 
+  static final darkBlueTheme = ThemeData(
+    scaffoldBackgroundColor: const Color(0xff0C134F),
+    fontFamily: getFontFamily(),
+    cardColor: const Color(0xff1D267D),
+    cardTheme: const CardTheme(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+    ),
+    textTheme: getTextTheme(color: Colors.white),
+    colorScheme: ColorScheme(
+      brightness: Brightness.dark,
+      primary: const Color(0xffD4ADFC),
+      onPrimary: Colors.black,
+      secondary: const Color(0xffD864A9),
+      onSecondary: Colors.black,
+      error: Colors.red,
+      onError: Colors.white,
+      background: const Color(0xff0C134F),
+      onBackground: Colors.white,
+      surface: Colors.white.withOpacity(.001),
+      onSurface: Colors.white,
+    ),
+    buttonTheme: const ButtonThemeData(),
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: Color(0xffD4ADFC),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      iconTheme: IconThemeData(
+        color: Colors.white,
+      ),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Color(0xff654E92),
+      elevation: 10,
+    ),
+    switchTheme: const SwitchThemeData(),
+    inputDecorationTheme: const InputDecorationTheme(
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.white,
+        ),
+      ),
+    ),
+    iconTheme: const IconThemeData(
+      color: Colors.white,
+    ),
+  );
+
+  static final amberTheme = ThemeData(
+    scaffoldBackgroundColor: const Color(0xffFEC260),
+    fontFamily: getFontFamily(),
+    cardColor: Colors.black.withOpacity(.1),
+    cardTheme: const CardTheme(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+    ),
+    textTheme: getTextTheme(
+      color: const Color(0xff100720),
+    ),
+    colorScheme: ColorScheme(
+      brightness: Brightness.light,
+      primary: const Color(0xff232323),
+      onPrimary: const Color(0xffFFC23C),
+      secondary: const Color(0xffC07F00),
+      onSecondary: const Color(0xff100720),
+      error: Colors.red,
+      onError: Colors.white,
+      background: const Color(0xffFEC260),
+      onBackground: const Color(0xff100720),
+      surface: Colors.white.withOpacity(.001),
+      onSurface: Colors.white,
+    ),
+    buttonTheme: const ButtonThemeData(),
+    snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xff232323)),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      iconTheme: IconThemeData(
+        color: Color(0xff232323),
+      ),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Color(0xffC07F00),
+      elevation: 10,
+    ),
+    switchTheme: const SwitchThemeData(),
+    inputDecorationTheme: const InputDecorationTheme(
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Color(0xff232323),
+        ),
+      ),
+    ),
+    iconTheme: const IconThemeData(
+      color: Color(0xff232323),
+    ),
+  );
+
   static final List<ThemeParams> themes = [
-    ThemeParams("light", defaultLightTheme, "Light"),
-    ThemeParams("dark", defaultDarkTheme, "Dark"),
+    ThemeParams("light", defaultLightTheme, "Light Minimal"),
+    ThemeParams("dark", defaultDarkTheme, "Dark Minimal"),
     ThemeParams("polar", polarNightTheme, "Polar Night"),
+    ThemeParams("darkblue", darkBlueTheme, "Dark Blue"),
+    ThemeParams("amber", amberTheme, "Amber"),
   ];
 }
