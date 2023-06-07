@@ -4,7 +4,6 @@ import "package:pomodore/features/notification_management/presentation/pages/not
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:pomodore/features/task_management/presentation/pages/add_category_page.dart";
 import "package:pomodore/features/task_management/presentation/pages/add_task_page.dart";
-import "package:pomodore/features/task_management/presentation/pages/all_today_tasks_page.dart";
 import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
 import "package:pomodore/features/task_management/presentation/pages/edit_task_page.dart";
 
@@ -19,9 +18,7 @@ class AppRouter {
       case NotificationsPage.routeName:
         return MaterialPageRoute(
             builder: (context) => const NotificationsPage());
-      case AllTodayTasksPage.routeName:
-        return MaterialPageRoute(
-            builder: (context) => const AllTodayTasksPage());
+
       case AnalysisPage.routeName:
         return MaterialPageRoute(builder: (context) => const AnalysisPage());
       case AddTaskPage.routeName:
