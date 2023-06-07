@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:pomodore/core/resources/params/theme_params.dart";
 
@@ -120,6 +121,7 @@ class AppConstant {
       backgroundColor: Color(0xff01ED64),
     ),
     appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
       backgroundColor: Colors.transparent,
       elevation: 0,
       iconTheme: IconThemeData(
