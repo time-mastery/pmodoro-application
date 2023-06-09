@@ -18,7 +18,7 @@ class FStorage {
 
   static late FlutterSecureStorage flutterSecureStorage;
 
-  static initialize() async {
+  static void initialize() async {
     flutterSecureStorage = const FlutterSecureStorage();
 
     final String? init = await read(initialized);

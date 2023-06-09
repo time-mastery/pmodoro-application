@@ -124,6 +124,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   )
                   ..add(TimerDurationSet(state.timerStateParams.baseDuration));
               } else {
+                dPrint(state.timerStateParams.toString());
                 bloc
                   ..add(TimerTaskSelected(state.timerStateParams.task))
                   ..add(TimerDurationSet(state.timerStateParams.baseDuration))

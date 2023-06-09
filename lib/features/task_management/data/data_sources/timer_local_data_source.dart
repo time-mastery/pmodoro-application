@@ -59,13 +59,16 @@ class TimerLocalDataSource {
   }
 
   Future<TimerStateRestoreParams?> restoreTimerState() async {
-    TimerStateRestoreParams? result;
     try {
       final state = await FStorage.read(FStorage.timerStateKey);
       final dateTimeState = await FStorage.read(FStorage.timerStateDateTimeKey);
       final baseStateDuration =
-          await FStorage.read(FStorage.timerStateBaseDurationKey);
+      await FStorage.read(FStorage.timerStateBaseDurationKey);
       final id = await FStorage.read(FStorage.taskIdKey);
+
+      final String? init = await FStorage.read(FStorage.initialized);
+
+      if (init != "1") return null;
 
       if (state != null && dateTimeState != null && baseStateDuration != null) {
         final DateTime restoredDateTime = DateTime.parse(dateTimeState);
@@ -74,14 +77,14 @@ class TimerLocalDataSource {
         final Map<String, dynamic>? task = await getTaskById(id);
 
         if (remainDuration.inSeconds < int.parse(state)) {
-          result = TimerStateRestoreParams(
+          return TimerStateRestoreParams(
             duration: int.parse(state) - remainDuration.inSeconds,
             baseDuration: int.parse(baseStateDuration),
             task: task,
             timerDone: false,
           );
         } else {
-          result = TimerStateRestoreParams(
+          return TimerStateRestoreParams(
             duration: int.parse(state) - remainDuration.inSeconds,
             baseDuration: int.parse(baseStateDuration),
             task: task,
@@ -90,13 +93,11 @@ class TimerLocalDataSource {
         }
       } else {
         dPrint("All values are null so we can not restore timer");
-        result = null;
+        return null;
       }
     } catch (e, s) {
       dPrint("$e   $s");
-      result = null;
+      return null;
     }
-
-    return result;
   }
 }

@@ -21,6 +21,11 @@ class TimerStateParams extends Equatable {
         task,
         timerDone,
       ];
+
+  @override
+  String toString() {
+    return "TimerStateParams{duration: $duration, baseDuration: $baseDuration, task: $task, timerDone: $timerDone}";
+  }
 }
 
 class TimerStateRestoreParams extends Equatable {
