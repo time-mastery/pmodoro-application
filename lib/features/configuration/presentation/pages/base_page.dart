@@ -18,9 +18,9 @@ class BasePage extends StatelessWidget {
   final List<Widget> _pages = [
     const HomePage(),
     const TasksPage(),
-    const SettingsPage(),
     const HabitTrackingPage(),
     const TimerPage(),
+    const SettingsPage(),
   ];
 
   @override
@@ -46,15 +46,12 @@ class BasePage extends StatelessWidget {
               icon: const Icon(Ionicons.book),
               label: localization.tasksTab,
             ),
-            BottomNavigationBarItem(
-                icon: const Icon(Ionicons.settings_outline),
-                label: localization.settingTab),
             const BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_month), label: ""),
             BottomNavigationBarItem(
               icon: Container(
-                width: 30,
-                height: 30,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   shape: BoxShape.circle,
@@ -66,6 +63,9 @@ class BasePage extends StatelessWidget {
               ),
               label: localization.timerTab,
             ),
+            BottomNavigationBarItem(
+                icon: const Icon(Ionicons.settings_outline),
+                label: localization.settingTab),
           ],
           showSelectedLabels: false,
           showUnselectedLabels: false,
