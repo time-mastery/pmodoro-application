@@ -99,14 +99,15 @@ class TimerStateRestored extends TimerEvent {
 
 class CurrentPomodoroToDatabaseSaved extends TimerEvent {
   final PomodoroEntity item;
+  final bool shouldSave;
 
-  const CurrentPomodoroToDatabaseSaved(this.item);
+  const CurrentPomodoroToDatabaseSaved(this.item, this.shouldSave);
 
   @override
-  List<Object?> get props => [item];
+  List<Object?> get props => [item, shouldSave];
 
   @override
   String toString() {
-    return "CurrentPomodoroToDatabaseSaved{item: $item}";
+    return "CurrentPomodoroToDatabaseSaved{item: $item, shouldSave: $shouldSave}";
   }
 }

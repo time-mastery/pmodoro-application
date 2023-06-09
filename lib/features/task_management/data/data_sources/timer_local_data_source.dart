@@ -2,9 +2,9 @@ import "package:pomodore/core/services/database/storage.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:sqflite/sqflite.dart";
 
+import "../../../../core/resources/params/save_pomodoro_params.dart";
 import "../../../../core/resources/params/timer_state_params.dart";
 import "../../../../core/services/database/database_helper.dart";
-import "../../domain/entities/pomodoro_entity.dart";
 import "../models/pomodoro_model.dart";
 
 class TimerLocalDataSource {
@@ -13,16 +13,24 @@ class TimerLocalDataSource {
   TimerLocalDataSource(this.db);
 
   void removeTimerState() async {
-    await FStorage.delete(FStorage.timerStateKey);
-    await FStorage.delete(FStorage.timerStateDateTimeKey);
-    await FStorage.delete(FStorage.timerStateBaseDurationKey);
-    await FStorage.delete(FStorage.taskIdKey);
+    try {
+      dPrint("delete old timer state");
+      await FStorage.delete(FStorage.timerStateKey);
+      await FStorage.delete(FStorage.timerStateDateTimeKey);
+      await FStorage.delete(FStorage.timerStateBaseDurationKey);
+      await FStorage.delete(FStorage.taskIdKey);
+    } catch (e, s) {
+      dPrint("$e   $s");
+      rethrow;
+    }
   }
 
-  Future<bool> saveAPomodoroOnDb(PomodoroEntity item) async {
+  Future<bool> saveAPomodoroOnDb(SavePomodoroParams item) async {
     try {
-      final Map<String, Object?> data = PomodoroModel.toJson(item);
-      await db.insert(DatabaseHelper.pomodoroTable, data);
+      final Map<String, Object?> data = PomodoroModel.toJson(item.entity);
+      removeTimerState();
+
+      if (item.shouldSave) await db.insert(DatabaseHelper.pomodoroTable, data);
     } catch (e) {
       return false;
     }
@@ -59,13 +67,16 @@ class TimerLocalDataSource {
   }
 
   Future<TimerStateRestoreParams?> restoreTimerState() async {
-    TimerStateRestoreParams? result;
     try {
       final state = await FStorage.read(FStorage.timerStateKey);
       final dateTimeState = await FStorage.read(FStorage.timerStateDateTimeKey);
       final baseStateDuration =
-          await FStorage.read(FStorage.timerStateBaseDurationKey);
+      await FStorage.read(FStorage.timerStateBaseDurationKey);
       final id = await FStorage.read(FStorage.taskIdKey);
+
+      final String? init = await FStorage.read(FStorage.initialized);
+
+      if (init != "1") return null;
 
       if (state != null && dateTimeState != null && baseStateDuration != null) {
         final DateTime restoredDateTime = DateTime.parse(dateTimeState);
@@ -73,15 +84,17 @@ class TimerLocalDataSource {
         final Duration remainDuration = now.difference(restoredDateTime);
         final Map<String, dynamic>? task = await getTaskById(id);
 
+        removeTimerState();
+
         if (remainDuration.inSeconds < int.parse(state)) {
-          result = TimerStateRestoreParams(
+          return TimerStateRestoreParams(
             duration: int.parse(state) - remainDuration.inSeconds,
             baseDuration: int.parse(baseStateDuration),
             task: task,
             timerDone: false,
           );
         } else {
-          result = TimerStateRestoreParams(
+          return TimerStateRestoreParams(
             duration: int.parse(state) - remainDuration.inSeconds,
             baseDuration: int.parse(baseStateDuration),
             task: task,
@@ -90,13 +103,11 @@ class TimerLocalDataSource {
         }
       } else {
         dPrint("All values are null so we can not restore timer");
-        result = null;
+        return null;
       }
     } catch (e, s) {
       dPrint("$e   $s");
-      result = null;
+      return null;
     }
-
-    return result;
   }
 }

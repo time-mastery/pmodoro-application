@@ -33,9 +33,11 @@ void main() {
   final MockAddTaskUsecase mockAddTaskUsecase = MockAddTaskUsecase();
   final MockGetSpecificDateTasksUseCase mockGetSpecificDateTasksUseCase =
       MockGetSpecificDateTasksUseCase();
-  final MockCompleteTaskUseCase mockCompleteTaskUseCase = MockCompleteTaskUseCase();
+  final MockCompleteTaskUseCase mockCompleteTaskUseCase =
+      MockCompleteTaskUseCase();
   final MockDeleteTaskUseCase mockDeleteTaskUseCase = MockDeleteTaskUseCase();
-  final MockAddCategoryUsecase mockAddCategoryUsecase = MockAddCategoryUsecase();
+  final MockAddCategoryUsecase mockAddCategoryUsecase =
+      MockAddCategoryUsecase();
   final MockGetAllCategoriesUseCase mockGetAllCategoriesUseCase =
       MockGetAllCategoriesUseCase();
   final MockEditTaskUseCase mockEditTaskUseCase = MockEditTaskUseCase();
