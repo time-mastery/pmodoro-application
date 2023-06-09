@@ -6,6 +6,7 @@ import "package:dartz/dartz.dart";
 import "package:equatable/equatable.dart";
 import "package:pomodore/core/resources/params/timer_state_params.dart";
 
+import "../../../../../core/resources/params/save_pomodoro_params.dart";
 import "../../../../../core/utils/ticker.dart";
 import "../../../domain/entities/pomodoro_entity.dart";
 import "../../../domain/entities/task_entity.dart";
@@ -14,7 +15,6 @@ import "../../../domain/usecases/restore_timer_state_usecase.dart";
 import "../../../domain/usecases/save_timer_state_usecase.dart";
 
 part "timer_event.dart";
-
 part "timer_state.dart";
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
@@ -71,8 +71,12 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       CurrentPomodoroToDatabaseSaved event, Emitter emit) async {
     emit(SaveCurrentPomodoroLoading(state.duration));
 
-    final Either<String, bool> result =
-        await addPomodoroToDbUseCase.call(params: event.item);
+    final Either<String, bool> result = await addPomodoroToDbUseCase.call(
+      params: SavePomodoroParams(
+        entity: event.item,
+        shouldSave: event.shouldSave,
+      ),
+    );
     result.fold(
       (l) => emit(SaveCurrentPomodoroFailure(state.duration)),
       (r) => emit(SaveCurrentPomodoroSuccess(state.duration)),

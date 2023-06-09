@@ -27,7 +27,6 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        // provide all global blocs
         BlocProvider<TimerBloc>(
           create: (context) => getIt.get<TimerBloc>(),
         ),
@@ -120,6 +119,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                         duration: TimerBloc.getDuration,
                         dateTime: DateTime.now().toString(),
                       ),
+                      true,
                     ),
                   )
                   ..add(TimerDurationSet(state.timerStateParams.baseDuration));
@@ -139,6 +139,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     duration: TimerBloc.getDuration,
                     dateTime: DateTime.now().toString(),
                   ),
+                  true,
                 ),
               );
             } else if (state is SaveCurrentPomodoroSuccess) {
