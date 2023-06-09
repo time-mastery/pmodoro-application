@@ -94,8 +94,9 @@
     "habitDescriptionHint": "Beschreibung",
     "habitIcon": "Symbol",
     "habitColor": "Farbe",
-    "completeHabit":"Complete",
-    "completedHabit":"Completed",
-    "noHabitMessage":"There is no habit!",
-    "updateHabit":"Update Habit"
+    "completeHabit": "Abgeschlossen",
+    "completedHabit": "Abgeschlossen",
+    "noHabitMessage": "Es gibt keine Gewohnheit!",
+    "updateHabit": "Gewohnheit aktualisieren",
+    "remainTaskTitle": "Aufgaben (#) verbleiben"
   }

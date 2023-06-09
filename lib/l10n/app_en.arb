@@ -97,5 +97,6 @@
     "completeHabit":"Complete",
     "completedHabit":"Completed",
     "noHabitMessage":"There is no habit!",
-    "updateHabit":"Update Habit" 
+    "updateHabit":"Update Habit",
+    "remainTaskTitle":"Tasks ( # )"
 }
