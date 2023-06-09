@@ -51,15 +51,15 @@ class TimerView extends StatelessWidget {
             onPressed: () {
               context.read<TimerBloc>().add(
                     CurrentPomodoroToDatabaseSaved(
-                      PomodoroEntity(
-                        duration: Utils.calculatePomodoroTime(
-                          TimerBloc.getDuration,
-                          duration,
+                        PomodoroEntity(
+                          duration: Utils.calculatePomodoroTime(
+                            TimerBloc.getDuration,
+                            duration,
+                          ),
+                          dateTime: DateTime.now().toString(),
+                          taskUid: context.read<TimerBloc>().taskItem?.id,
                         ),
-                        dateTime: DateTime.now().toString(),
-                        taskUid: context.read<TimerBloc>().taskItem?.id,
-                      ),
-                    ),
+                        true),
                   );
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             },
@@ -69,6 +69,18 @@ class TimerView extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
+              context.read<TimerBloc>().add(
+                    CurrentPomodoroToDatabaseSaved(
+                        PomodoroEntity(
+                          duration: Utils.calculatePomodoroTime(
+                            TimerBloc.getDuration,
+                            duration,
+                          ),
+                          dateTime: DateTime.now().toString(),
+                          taskUid: context.read<TimerBloc>().taskItem?.id,
+                        ),
+                        false),
+                  );
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             },
             child: Text(

@@ -27,7 +27,6 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        // provide all global blocs
         BlocProvider<TimerBloc>(
           create: (context) => getIt.get<TimerBloc>(),
         ),
@@ -90,7 +89,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (state == AppLifecycleState.detached ||
         state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused) {
-      saveTimerState();
+      TimerState state = context.read<TimerBloc>().state;
+      if (state is TimerInProgress || state is TimerPause) saveTimerState();
     }
   }
 
@@ -120,10 +120,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                         duration: TimerBloc.getDuration,
                         dateTime: DateTime.now().toString(),
                       ),
+                      true,
                     ),
                   )
                   ..add(TimerDurationSet(state.timerStateParams.baseDuration));
               } else {
+                dPrint(state.timerStateParams.toString());
                 bloc
                   ..add(TimerTaskSelected(state.timerStateParams.task))
                   ..add(TimerDurationSet(state.timerStateParams.baseDuration))
@@ -138,6 +140,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     duration: TimerBloc.getDuration,
                     dateTime: DateTime.now().toString(),
                   ),
+                  true,
                 ),
               );
             } else if (state is SaveCurrentPomodoroSuccess) {
