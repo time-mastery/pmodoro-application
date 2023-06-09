@@ -89,7 +89,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (state == AppLifecycleState.detached ||
         state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused) {
-      saveTimerState();
+      TimerState state = context.read<TimerBloc>().state;
+      if (state is TimerInProgress || state is TimerPause) saveTimerState();
     }
   }
 
