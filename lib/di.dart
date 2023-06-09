@@ -23,7 +23,6 @@ import "package:pomodore/features/habit_tracking/domain/usecases/done_today_habi
 import "package:pomodore/features/habit_tracking/domain/usecases/edit_habit_usecase.dart";
 import "package:pomodore/features/habit_tracking/domain/usecases/get_all_habits_usecase.dart";
 import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
-import "package:pomodore/features/habit_tracking/presentation/pages/habit_tracking_page.dart";
 import "package:pomodore/features/task_management/data/data_sources/timer_local_data_source.dart";
 import "package:pomodore/features/task_management/data/repositories/category_repository_impl.dart";
 import "package:pomodore/features/task_management/data/repositories/task_repository_impl.dart";
@@ -56,7 +55,7 @@ import "core/services/database/storage.dart";
 import "core/utils/ticker.dart";
 import "features/task_management/data/data_sources/tasks_local_data_source.dart";
 import "features/task_management/domain/repositories/category_repository.dart";
-import "features/task_management/domain/usecases/get_today_tasks_usecase.dart";
+import "features/task_management/domain/usecases/get_tasks_usecase.dart";
 
 final getIt = GetIt.instance;
 
@@ -121,7 +120,7 @@ Future inject() async {
       .registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
   getIt.registerSingleton<GetDailyInformationUseCase>(
       GetDailyInformationUseCase(getIt()));
-  getIt.registerSingleton<GetTodayTasksUseCase>(GetTodayTasksUseCase(getIt()));
+  getIt.registerSingleton<GetTasksUseCase>(GetTasksUseCase(getIt()));
   getIt.registerSingleton<GetAnalysisUseCase>(GetAnalysisUseCase(getIt()));
   getIt.registerSingleton<ChangeLocaleUseCase>(ChangeLocaleUseCase(getIt()));
   getIt.registerSingleton<GetLocaleUseCase>(GetLocaleUseCase(getIt()));
@@ -171,7 +170,7 @@ Future inject() async {
   getIt.registerFactory<AnalysisBloc>(() => AnalysisBloc(getIt()));
   getIt.registerFactory<HomeBloc>(() => HomeBloc(
         getDailyInformationUseCase: getIt(),
-        getTodayTasksUseCase: getIt(),
+        getTasksUseCase: getIt(),
         checkDailyGoalUseCase: getIt(),
         saveDailyGoalUseCase: getIt(),
       ));

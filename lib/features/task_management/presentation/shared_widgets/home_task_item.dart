@@ -8,6 +8,7 @@ import "package:pomodore/features/task_management/domain/entities/task_entity.da
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
 import "../../../../core/utils/responsive/size_config.dart";
+import "../../../../core/utils/utils.dart";
 
 class HomeTaskItem extends StatelessWidget {
   const HomeTaskItem({Key? key, required this.item}) : super(key: key);
@@ -22,6 +23,7 @@ class HomeTaskItem extends StatelessWidget {
         width: SizeConfig.widthMultiplier * 85,
         height: SizeConfig.heightMultiplier * 12,
         child: Card(
+          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
@@ -53,9 +55,20 @@ class HomeTaskItem extends StatelessWidget {
                         item.description,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
+                      5.spaceH(),
+                      Text(
+                        Utils.calculateRemainingTime(item.deadLineTime),
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Utils.getTaskDeadlineStatusColor(
+                                item.deadLineTime,
+                              ),
+                            ),
+                      ),
                     ],
                   ),
                 ),
+                10.spaceW(),
                 GlobalButton(
                   width: SizeConfig.widthMultiplier * 14,
                   height: SizeConfig.widthMultiplier * 14,

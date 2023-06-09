@@ -9,7 +9,6 @@ import "package:flutter_localizations/flutter_localizations.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/router/router.dart";
 import "package:pomodore/core/services/notification/local_notification.dart";
-import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/di.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
@@ -125,7 +124,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   )
                   ..add(TimerDurationSet(state.timerStateParams.baseDuration));
               } else {
-                dPrint(state.timerStateParams.toString());
                 bloc
                   ..add(TimerTaskSelected(state.timerStateParams.task))
                   ..add(TimerDurationSet(state.timerStateParams.baseDuration))

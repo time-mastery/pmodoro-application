@@ -1,4 +1,4 @@
-import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:uuid/uuid.dart";
 
@@ -17,6 +17,40 @@ class Utils {
     } else {
       return localization.lastStageDailyGoalTitle;
     }
+  }
+
+  static Color? getTaskDeadlineStatusColor(DateTime dateTime) {
+    final now = DateTime.now();
+    final diff = dateTime.difference(now);
+
+    if (diff.isNegative) {
+      return Colors.red[900];
+    } else if (diff.inHours < 6) {
+      return Colors.deepOrange[900];
+    } else if (diff.inHours < 12) {
+      return Colors.green[900];
+    } else {
+      return null;
+    }
+  }
+
+  static String calculateRemainingTime(DateTime dateTime) {
+    Duration difference = dateTime.difference(DateTime.now());
+    if (difference.isNegative) {
+      return "Expired"; // if the time has already passed
+    }
+    if (difference.inSeconds < 60) {
+      return "${difference.inSeconds} seconds"; // if remaining time is less than a minute
+    }
+    if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} minutes"; // if remaining time is less than an hour
+    }
+    if (difference.inHours < 24) {
+      return "${difference.inHours} hours"; // if remaining time is less than a day
+    }
+    int days = difference.inDays;
+    int hours = difference.inHours.remainder(24);
+    return "$days days, $hours hours"; // if remaining time is more than a day
   }
 
   static String monthNameOfDateTime(String date) =>

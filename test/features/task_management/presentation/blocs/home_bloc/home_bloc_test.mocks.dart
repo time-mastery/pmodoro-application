@@ -7,6 +7,7 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:pomodore/core/resources/params/no_params.dart' as _i9;
 import 'package:pomodore/features/task_management/domain/entities/daily_information_entity.dart'
     as _i6;
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart'
@@ -14,13 +15,13 @@ import 'package:pomodore/features/task_management/domain/entities/task_entity.da
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart'
     as _i3;
 import 'package:pomodore/features/task_management/domain/usecases/check_daily_goal_usecase.dart'
-    as _i9;
+    as _i10;
 import 'package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart'
     as _i4;
-import 'package:pomodore/features/task_management/domain/usecases/get_today_tasks_usecase.dart'
+import 'package:pomodore/features/task_management/domain/usecases/get_tasks_usecase.dart'
     as _i7;
 import 'package:pomodore/features/task_management/domain/usecases/save_daily_goal_usecase.dart'
-    as _i10;
+    as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -85,18 +86,17 @@ class MockGetDailyInformationUseCase extends _i1.Mock
       ) as _i5.Future<_i2.Either<String, _i6.DailyInformationEntity>>);
 }
 
-/// A class which mocks [GetTodayTasksUseCase].
+/// A class which mocks [GetTasksUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTodayTasksUseCase extends _i1.Mock
-    implements _i7.GetTodayTasksUseCase {
-  MockGetTodayTasksUseCase() {
+class MockGetTasksUseCase extends _i1.Mock implements _i7.GetTasksUseCase {
+  MockGetTasksUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i5.Future<_i2.Either<String, List<_i8.TaskEntity>>> call(
-          {DateTime? params}) =>
+          {_i9.NoParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -155,7 +155,7 @@ class MockDailyInformationEntity extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCheckDailyGoalUseCase extends _i1.Mock
-    implements _i9.CheckDailyGoalUseCase {
+    implements _i10.CheckDailyGoalUseCase {
   MockCheckDailyGoalUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -192,7 +192,7 @@ class MockCheckDailyGoalUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSaveDailyGoalUseCase extends _i1.Mock
-    implements _i10.SaveDailyGoalUseCase {
+    implements _i11.SaveDailyGoalUseCase {
   MockSaveDailyGoalUseCase() {
     _i1.throwOnMissingStub(this);
   }
