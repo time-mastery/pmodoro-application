@@ -48,14 +48,33 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoros() async {
+  Future<Either<String, List<TaskEntity>>> getTasks() async {
+    late Either<String, List<TaskEntity>> result;
+
+    final List<Map<String, dynamic>>? rawList =
+        await localDataSource.getAllNotCompletedTasks();
+
+    if (rawList != null) {
+      final List<TaskEntity> list =
+          TaskModel.sortTasksByDateTime(TaskModel.parseRawList(rawList));
+      result = Right(list);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
+  }
+
+  @override
+  Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoro() async {
     late Either<String, List<PomodoroEntity>> result;
 
     final List<Map<String, dynamic>>? rawList =
         await localDataSource.getSpecificDateTasks(DateTime.now());
 
     if (rawList != null) {
-      final List<PomodoroEntity> convertedList = PomodoroModel.parseRawList(rawList);
+      final List<PomodoroEntity> convertedList =
+          PomodoroModel.parseRawList(rawList);
       result = Right(convertedList);
     } else {
       result = const Left("error");
@@ -102,7 +121,8 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, AnalysisEntity>> getAnalysis() async {
     late Either<String, AnalysisEntity> result;
 
-    final Map<String, dynamic>? rawData = await localDataSource.getAnalysisPageData();
+    final Map<String, dynamic>? rawData =
+        await localDataSource.getAnalysisPageData();
 
     if (rawData != null) {
       final AnalysisEntity analysis = AnalysisModel.fromJson(rawData);

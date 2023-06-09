@@ -2,7 +2,7 @@ import "package:bloc/bloc.dart";
 import "package:dartz/dartz.dart";
 import "package:equatable/equatable.dart";
 import "package:pomodore/features/task_management/domain/entities/daily_information_entity.dart";
-import "package:pomodore/features/task_management/domain/usecases/get_today_tasks_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_tasks_usecase.dart";
 
 import "../../../domain/entities/task_entity.dart";
 import "../../../domain/usecases/check_daily_goal_usecase.dart";
@@ -10,18 +10,17 @@ import "../../../domain/usecases/get_daily_information_usecase.dart";
 import "../../../domain/usecases/save_daily_goal_usecase.dart";
 
 part "home_event.dart";
-
 part "home_state.dart";
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetDailyInformationUseCase getDailyInformationUseCase;
-  final GetTodayTasksUseCase getTodayTasksUseCase;
+  final GetTasksUseCase getTasksUseCase;
   final CheckDailyGoalUseCase checkDailyGoalUseCase;
   final SaveDailyGoalUseCase saveDailyGoalUseCase;
 
   HomeBloc({
     required this.getDailyInformationUseCase,
-    required this.getTodayTasksUseCase,
+    required this.getTasksUseCase,
     required this.checkDailyGoalUseCase,
     required this.saveDailyGoalUseCase,
   }) : super(HomeInitial()) {
@@ -65,8 +64,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onFetchHomeData(HomeDataFetched event, Emitter emit) async {
     emit(FetchHomeDataLoading());
 
-    final Either<String, List<TaskEntity>> tasks =
-        await getTodayTasksUseCase.call(params: event.date);
+    final Either<String, List<TaskEntity>> tasks = await getTasksUseCase.call();
     final Either<String, DailyInformationEntity> dailyInfo =
         await getDailyInformationUseCase.call();
 

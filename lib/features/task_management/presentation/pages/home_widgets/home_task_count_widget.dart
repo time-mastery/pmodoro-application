@@ -4,8 +4,6 @@ import "package:pomodore/features/task_management/presentation/blocs/home_bloc/h
 
 import "../../../../../exports.dart";
 
-
-
 class HomeTaskCountWidget extends StatelessWidget {
   const HomeTaskCountWidget({Key? key}) : super(key: key);
 
@@ -16,7 +14,7 @@ class HomeTaskCountWidget extends StatelessWidget {
       bloc: context.read<HomeBloc>(),
       builder: (context, state) {
         return Text(
-          localization.todayTasks.replaceAll(
+          localization.remainTaskTitle.replaceAll(
               "#",
               ((state is FetchHomeDataSuccess)
                   ? state.list.length.toString()

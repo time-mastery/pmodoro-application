@@ -3,6 +3,7 @@ import "package:pomodore/features/task_management/data/models/category_model.dar
 import "package:pomodore/features/task_management/domain/entities/category_entity.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:sqflite/sqflite.dart";
+
 import "../../../../core/services/database/database_helper.dart";
 import "../../../../core/utils/utils.dart";
 import "../models/task_model.dart";
@@ -32,10 +33,10 @@ class TasksLocalDataSource {
     return true;
   }
 
-  Future<List<Map<String, dynamic>>>? getAllTasks() async {
+  Future<List<Map<String, dynamic>>>? getAllNotCompletedTasks() async {
     List<Map<String, dynamic>>? list;
     try {
-      const query = "SELECT * FROM ${DatabaseHelper.taskTable}";
+      const query = "SELECT * FROM ${DatabaseHelper.taskTable} WHERE done = 0";
       final List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;
