@@ -33,10 +33,24 @@ class TasksLocalDataSource {
     return true;
   }
 
-  Future<List<Map<String, dynamic>>>? getAllNotCompletedTasks() async {
+  Future<List<Map<String, dynamic>>>? getAllUnCompletedTasks() async {
     List<Map<String, dynamic>>? list;
     try {
       const query = "SELECT * FROM ${DatabaseHelper.taskTable} WHERE done = 0";
+      final List<Map<String, Object?>> records = await db.rawQuery(query);
+
+      list = records;
+    } catch (e) {
+      rethrow;
+    }
+
+    return list;
+  }
+
+  Future<List<Map<String, dynamic>>>? getAllTasks() async {
+    List<Map<String, dynamic>>? list;
+    try {
+      const query = "SELECT * FROM ${DatabaseHelper.taskTable}";
       final List<Map<String, Object?>> records = await db.rawQuery(query);
 
       list = records;

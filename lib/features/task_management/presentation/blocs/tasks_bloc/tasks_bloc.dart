@@ -1,6 +1,7 @@
 import "package:bloc/bloc.dart";
 import "package:dartz/dartz.dart";
 import "package:equatable/equatable.dart";
+import "package:pomodore/core/resources/enums/tasks_filter_enums.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
@@ -10,39 +11,39 @@ import "../../../domain/usecases/add_category_usecase.dart";
 import "../../../domain/usecases/add_task_usecase.dart";
 import "../../../domain/usecases/complete_task_usecase.dart";
 import "../../../domain/usecases/delete_task_usecase.dart";
-import "../../../domain/usecases/get_specific_date_tasks_usecase.dart";
+import "../../../domain/usecases/get_all_tasks.dart";
 
 part "tasks_event.dart";
-
 part "tasks_state.dart";
 
 class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final AddTaskUsecase addTaskUsecase;
   final AddCategoryUsecase addCategoryUsecase;
-  final GetSpecificDateTasksUseCase getSpecificDateTasks;
   final GetAllCategoriesUseCase getAllCategories;
   final CompleteTaskUseCase completeTaskUseCase;
   final DeleteTaskUseCase deleteTaskUseCase;
   final EditTaskUseCase editTaskUseCase;
+  final GetAllTasksUseCase getAllTasksUseCase;
 
   TasksBloc({
     required this.addTaskUsecase,
     required this.addCategoryUsecase,
-    required this.getSpecificDateTasks,
     required this.getAllCategories,
     required this.completeTaskUseCase,
     required this.deleteTaskUseCase,
     required this.editTaskUseCase,
+    required this.getAllTasksUseCase,
   }) : super(TasksInitial()) {
     on<TasksEvent>((event, emit) {});
     on<TaskAdded>(_taskAdded);
     on<CategoryAdded>(_categoryAdded);
-    on<SpecificDateTasksFetched>(_todayTasksFetched);
+    on<AllTasksFetched>(_todayTasksFetched);
     on<CategoriesFetched>(_categoriesFetched);
     on<TaskCompleted>(_taskCompleted);
     on<TaskDeleted>(_taskDeleted);
     on<DateAdded>(_dateAdded);
     on<TaskEdited>(_taskEdited);
+    on<TasksFiltered>(_taskFiltered);
   }
 
   void _dateAdded(DateAdded event, Emitter emit) {
@@ -50,8 +51,23 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     emit(AddDateSuccess(event.dateTime));
   }
 
-  // void saveCurrentPomodoroOnDatabase(PomodoroEntity item) =>
-  //     addPomodoroToDbUseCase.call(params: item);
+  _taskFiltered(TasksFiltered event, emit) {
+    List<TaskEntity> filteredList = [];
+
+    if (event.filterMode == TasksFilterEnum.all) {
+      emit(FilterTaskSuccess(list: event.list, index: 0));
+    } else if (event.filterMode == TasksFilterEnum.unCompleted) {
+      for (var element in event.list) {
+        if (!element.done) filteredList.add(element);
+      }
+      emit(FilterTaskSuccess(list: filteredList, index: 1));
+    } else {
+      for (var element in event.list) {
+        if (element.done) filteredList.add(element);
+      }
+      emit(FilterTaskSuccess(list: filteredList, index: 2));
+    }
+  }
 
   _taskEdited(TaskEdited event, Emitter emit) async {
     emit(EditTaskLoading());
@@ -91,29 +107,30 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   _categoriesFetched(CategoriesFetched event, Emitter<TasksState> emit) async {
     emit(CategoriesFetchLoading());
 
-    final Either<String, List<CategoryEntity>> result = await getAllCategories.call();
+    final Either<String, List<CategoryEntity>> result =
+        await getAllCategories.call();
     result.fold(
       (l) => emit(CategoriesFetchFailure()),
       (r) => emit(CategoriesFetchSuccess(r)),
     );
   }
 
-  _todayTasksFetched(
-      SpecificDateTasksFetched event, Emitter<TasksState> emit) async {
-    emit(SpecificDateTasksReceivedLoading());
+  _todayTasksFetched(AllTasksFetched event, Emitter<TasksState> emit) async {
+    emit(GetAllTasksLoading());
 
     final Either<String, List<TaskEntity>> result =
-        await getSpecificDateTasks.call(params: event.data);
+        await getAllTasksUseCase.call();
     result.fold(
-      (l) => emit(SpecificDateTasksReceivedFailure()),
-      (r) => emit(SpecificDateTasksReceivedSuccess(r)),
+      (l) => emit(GetAllTasksFail()),
+      (r) => emit(GetAllTasksSuccess(r)),
     );
   }
 
   _taskAdded(TaskAdded event, Emitter<TasksState> emit) async {
     emit(TaskAddLoading());
 
-    final Either<String, bool> result = await addTaskUsecase.call(params: event.data);
+    final Either<String, bool> result =
+        await addTaskUsecase.call(params: event.data);
     result.fold(
       (l) => emit(TaskAddFailure()),
       (r) => emit(TaskAddSuccess()),

@@ -9,7 +9,9 @@ abstract class TaskRepository {
 
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date);
 
-  Future<Either<String, List<TaskEntity>>> getTasks();
+  Future<Either<String, List<TaskEntity>>> getUnCompletedTasks();
+
+  Future<Either<String, List<TaskEntity>>> getAllTasks();
 
   Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoro();
 

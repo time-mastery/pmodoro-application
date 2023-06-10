@@ -25,18 +25,11 @@ class CategoryAdded extends TasksEvent {
   List<Object?> get props => [data];
 }
 
-class SpecificDateTasksFetched extends TasksEvent {
-  final DateTime data;
-
-  const SpecificDateTasksFetched(this.data);
+class AllTasksFetched extends TasksEvent {
+  const AllTasksFetched();
 
   @override
-  List<Object?> get props => [data];
-
-  @override
-  String toString() {
-    return "SpecificDateTasksFetched{data: $data}";
-  }
+  List<Object?> get props => [];
 }
 
 class CategoriesFetched extends TasksEvent {
@@ -88,4 +81,20 @@ class TaskEdited extends TasksEvent {
   String toString() {
     return "TaskEdited{item: $item}";
   }
+}
+
+class TasksFiltered extends TasksEvent {
+  final TasksFilterEnum filterMode;
+  final List<TaskEntity> list;
+
+  const TasksFiltered({
+    required this.filterMode,
+    required this.list,
+  });
+
+  @override
+  List<Object?> get props => [
+        filterMode,
+        list,
+      ];
 }

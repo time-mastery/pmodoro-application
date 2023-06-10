@@ -2,7 +2,6 @@ import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/services/database/database_helper.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/habit_tracking/data/models/habit_model.dart";
-import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 import "package:sqflite/sqflite.dart";
 
 import "../../../../core/utils/utils.dart";

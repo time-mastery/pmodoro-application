@@ -12,7 +12,7 @@ import "package:pomodore/features/task_management/domain/usecases/complete_task_
 import "package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
-import "package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_all_tasks.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
 import "tasks_bloc_test.mocks.dart";
@@ -20,7 +20,7 @@ import "tasks_bloc_test.mocks.dart";
 @GenerateMocks([
   AddTaskUsecase,
   AddCategoryUsecase,
-  GetSpecificDateTasksUseCase,
+  GetAllTasksUseCase,
   GetAllCategoriesUseCase,
   CompleteTaskUseCase,
   DeleteTaskUseCase,
@@ -31,8 +31,8 @@ import "tasks_bloc_test.mocks.dart";
 ])
 void main() {
   final MockAddTaskUsecase mockAddTaskUsecase = MockAddTaskUsecase();
-  final MockGetSpecificDateTasksUseCase mockGetSpecificDateTasksUseCase =
-      MockGetSpecificDateTasksUseCase();
+  final MockGetAllTasksUseCase mockGetAllTasksUseCase =
+      MockGetAllTasksUseCase();
   final MockCompleteTaskUseCase mockCompleteTaskUseCase =
       MockCompleteTaskUseCase();
   final MockDeleteTaskUseCase mockDeleteTaskUseCase = MockDeleteTaskUseCase();
@@ -48,7 +48,7 @@ void main() {
   TasksBloc getBlocInstance() => TasksBloc(
         addTaskUsecase: mockAddTaskUsecase,
         addCategoryUsecase: mockAddCategoryUsecase,
-        getSpecificDateTasks: mockGetSpecificDateTasksUseCase,
+        getAllTasksUseCase: mockGetAllTasksUseCase,
         getAllCategories: mockGetAllCategoriesUseCase,
         completeTaskUseCase: mockCompleteTaskUseCase,
         deleteTaskUseCase: mockDeleteTaskUseCase,

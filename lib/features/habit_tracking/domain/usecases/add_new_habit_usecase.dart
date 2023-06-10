@@ -1,6 +1,5 @@
 import "package:dartz/dartz.dart";
 import "package:pomodore/core/resources/usecase.dart";
-import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 import "package:pomodore/features/habit_tracking/domain/repositories/habit_tracking_repository.dart";
 
 import "../../../../core/resources/params/habit_params.dart";

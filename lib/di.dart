@@ -37,6 +37,7 @@ import "package:pomodore/features/task_management/domain/usecases/complete_task_
 import "package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_all_tasks.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_analysis_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart";
@@ -55,7 +56,7 @@ import "core/services/database/storage.dart";
 import "core/utils/ticker.dart";
 import "features/task_management/data/data_sources/tasks_local_data_source.dart";
 import "features/task_management/domain/repositories/category_repository.dart";
-import "features/task_management/domain/usecases/get_tasks_usecase.dart";
+import "features/task_management/domain/usecases/get_uncompleted_tasks_usecase.dart";
 
 final getIt = GetIt.instance;
 
@@ -120,7 +121,9 @@ Future inject() async {
       .registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
   getIt.registerSingleton<GetDailyInformationUseCase>(
       GetDailyInformationUseCase(getIt()));
-  getIt.registerSingleton<GetTasksUseCase>(GetTasksUseCase(getIt()));
+  getIt.registerSingleton<GetUnCompletedTasksUseCase>(
+      GetUnCompletedTasksUseCase(getIt()));
+  getIt.registerSingleton(GetAllTasksUseCase(getIt()));
   getIt.registerSingleton<GetAnalysisUseCase>(GetAnalysisUseCase(getIt()));
   getIt.registerSingleton<ChangeLocaleUseCase>(ChangeLocaleUseCase(getIt()));
   getIt.registerSingleton<GetLocaleUseCase>(GetLocaleUseCase(getIt()));
@@ -161,7 +164,7 @@ Future inject() async {
   getIt.registerFactory<TasksBloc>(() => TasksBloc(
         addTaskUsecase: getIt(),
         addCategoryUsecase: getIt(),
-        getSpecificDateTasks: getIt(),
+        getAllTasksUseCase: getIt(),
         getAllCategories: getIt(),
         completeTaskUseCase: getIt(),
         deleteTaskUseCase: getIt(),
@@ -170,7 +173,7 @@ Future inject() async {
   getIt.registerFactory<AnalysisBloc>(() => AnalysisBloc(getIt()));
   getIt.registerFactory<HomeBloc>(() => HomeBloc(
         getDailyInformationUseCase: getIt(),
-        getTasksUseCase: getIt(),
+        getUnCompletedUseCase: getIt(),
         checkDailyGoalUseCase: getIt(),
         saveDailyGoalUseCase: getIt(),
       ));
