@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:pomodore/core/resources/enums/tasks_filter_enums.dart";
+import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
 import "../../../domain/entities/task_entity.dart";
@@ -16,7 +17,10 @@ class FilterTasksWidget extends StatelessWidget {
       builder: (context, state) {
         int index = 0;
 
-        if (state is FilterTaskSuccess) index = state.index;
+        if (state is FilterTaskSuccess) {
+          dPrint("called");
+          index = state.index;
+        }
 
         return SingleChildScrollView(
           child: Row(

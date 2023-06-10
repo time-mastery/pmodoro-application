@@ -26,17 +26,10 @@ class CategoryAdded extends TasksEvent {
 }
 
 class AllTasksFetched extends TasksEvent {
-  final DateTime data;
-
-  const AllTasksFetched(this.data);
+  const AllTasksFetched();
 
   @override
-  List<Object?> get props => [data];
-
-  @override
-  String toString() {
-    return "SpecificDateTasksFetched{data: $data}";
-  }
+  List<Object?> get props => [];
 }
 
 class CategoriesFetched extends TasksEvent {
