@@ -30,6 +30,7 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
 
     final List<LanguageEntity> flags = [
       LanguageEntity("English", "en"),
+      LanguageEntity("Persian/Farsi", "fa"),
       LanguageEntity("German", "de"),
     ];
     return Padding(
@@ -74,8 +75,9 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                                 child: InkWell(
                                   onTap: () {
                                     context.read<SettingsBloc>().add(
-                                        LocaleChanged(
-                                            flags[index].languageCode));
+                                          LocaleChanged(
+                                              flags[index].languageCode),
+                                        );
                                     Navigator.pop(context);
                                   },
                                   child: Padding(
