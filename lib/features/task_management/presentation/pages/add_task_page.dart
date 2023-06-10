@@ -102,7 +102,7 @@ class AddTaskView extends HookWidget {
                     ),
                     20.spaceH(),
                     GlobalDateTimePicker(
-                      buttonTitle: "Select Deadline DateTime",
+                      buttonTitle: localization.selectDate,
                       onChanged: (time) {
                         context.read<TasksBloc>().add(DateAdded(time));
                         dateTime.value = time;
@@ -117,8 +117,10 @@ class AddTaskView extends HookWidget {
                       onPressed: () {
                         if (formKey.value.currentState!.validate()) {
                           if (dateTime.value == null) {
-                            showSnackBar(context,
-                                title: "Please select a datetime");
+                            showSnackBar(
+                              context,
+                              title: localization.selectDate,
+                            );
                           } else {
                             context.read<TasksBloc>().add(TaskAdded(TaskEntity(
                                   id: Utils.createUniqueId(),
