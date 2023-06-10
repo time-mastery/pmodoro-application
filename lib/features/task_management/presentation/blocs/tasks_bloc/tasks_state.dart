@@ -39,21 +39,21 @@ class CategoryAddFailure extends TasksState {
   List<Object?> get props => [];
 }
 
-class SpecificDateTasksReceivedSuccess extends TasksState {
+class GetAllTasksSuccess extends TasksState {
   final List<TaskEntity> list;
 
-  const SpecificDateTasksReceivedSuccess(this.list);
+  const GetAllTasksSuccess(this.list);
 
   @override
   List<Object?> get props => [list];
 }
 
-class SpecificDateTasksReceivedFailure extends TasksState {
+class GetAllTasksFail extends TasksState {
   @override
   List<Object?> get props => [];
 }
 
-class SpecificDateTasksReceivedLoading extends TasksState {
+class GetAllTasksLoading extends TasksState {
   @override
   List<Object?> get props => [];
 }
@@ -134,4 +134,14 @@ class EditTaskSuccess extends TasksState {
 class EditTaskFailure extends TasksState {
   @override
   List<Object?> get props => [];
+}
+
+class FilterTaskSuccess extends TasksState {
+  final List<TaskEntity> list;
+  final int index;
+
+  const FilterTaskSuccess({required this.list, required this.index});
+
+  @override
+  List<Object?> get props => [list, index];
 }

@@ -18,7 +18,7 @@ import 'package:pomodore/features/task_management/domain/usecases/check_daily_go
     as _i10;
 import 'package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart'
     as _i4;
-import 'package:pomodore/features/task_management/domain/usecases/get_tasks_usecase.dart'
+import 'package:pomodore/features/task_management/domain/usecases/get_uncompleted_tasks_usecase.dart'
     as _i7;
 import 'package:pomodore/features/task_management/domain/usecases/save_daily_goal_usecase.dart'
     as _i11;
@@ -86,11 +86,12 @@ class MockGetDailyInformationUseCase extends _i1.Mock
       ) as _i5.Future<_i2.Either<String, _i6.DailyInformationEntity>>);
 }
 
-/// A class which mocks [GetTasksUseCase].
+/// A class which mocks [GetUnCompletedTasksUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTasksUseCase extends _i1.Mock implements _i7.GetTasksUseCase {
-  MockGetTasksUseCase() {
+class MockGetUnCompletedTasksUseCase extends _i1.Mock
+    implements _i7.GetUnCompletedTasksUseCase {
+  MockGetUnCompletedTasksUseCase() {
     _i1.throwOnMissingStub(this);
   }
 

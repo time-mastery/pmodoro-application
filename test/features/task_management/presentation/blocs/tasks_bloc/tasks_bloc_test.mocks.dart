@@ -7,33 +7,34 @@ import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:pomodore/core/resources/params/no_params.dart' as _i11;
 import 'package:pomodore/core/resources/params/save_pomodoro_params.dart'
-    as _i15;
+    as _i16;
 import 'package:pomodore/features/task_management/domain/entities/category_entity.dart'
     as _i9;
 import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart'
-    as _i17;
+    as _i18;
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart'
     as _i7;
 import 'package:pomodore/features/task_management/domain/repositories/category_repository.dart'
-    as _i4;
-import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart'
     as _i3;
+import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart'
+    as _i4;
 import 'package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart'
     as _i8;
 import 'package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart'
-    as _i14;
+    as _i15;
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart'
     as _i5;
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart'
-    as _i12;
-import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart'
     as _i13;
+import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart'
+    as _i14;
 import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart'
-    as _i16;
+    as _i17;
 import 'package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart'
-    as _i11;
-import 'package:pomodore/features/task_management/domain/usecases/get_specific_date_tasks_usecase.dart'
+    as _i12;
+import 'package:pomodore/features/task_management/domain/usecases/get_all_tasks.dart'
     as _i10;
 
 // ignore_for_file: type=lint
@@ -57,9 +58,9 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-class _FakeTaskRepository_1 extends _i1.SmartFake
-    implements _i3.TaskRepository {
-  _FakeTaskRepository_1(
+class _FakeCategoryRepository_1 extends _i1.SmartFake
+    implements _i3.CategoryRepository {
+  _FakeCategoryRepository_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -68,9 +69,9 @@ class _FakeTaskRepository_1 extends _i1.SmartFake
         );
 }
 
-class _FakeCategoryRepository_2 extends _i1.SmartFake
-    implements _i4.CategoryRepository {
-  _FakeCategoryRepository_2(
+class _FakeTaskRepository_2 extends _i1.SmartFake
+    implements _i4.TaskRepository {
+  _FakeTaskRepository_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -146,26 +147,18 @@ class MockAddCategoryUsecase extends _i1.Mock
       ) as _i6.Future<_i2.Either<String, bool>>);
 }
 
-/// A class which mocks [GetSpecificDateTasksUseCase].
+/// A class which mocks [GetAllTasksUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetSpecificDateTasksUseCase extends _i1.Mock
-    implements _i10.GetSpecificDateTasksUseCase {
-  MockGetSpecificDateTasksUseCase() {
+class MockGetAllTasksUseCase extends _i1.Mock
+    implements _i10.GetAllTasksUseCase {
+  MockGetAllTasksUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.TaskRepository get taskRepository => (super.noSuchMethod(
-        Invocation.getter(#taskRepository),
-        returnValue: _FakeTaskRepository_1(
-          this,
-          Invocation.getter(#taskRepository),
-        ),
-      ) as _i3.TaskRepository);
-  @override
   _i6.Future<_i2.Either<String, List<_i7.TaskEntity>>> call(
-          {DateTime? params}) =>
+          {_i11.NoParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -188,19 +181,19 @@ class MockGetSpecificDateTasksUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetAllCategoriesUseCase extends _i1.Mock
-    implements _i11.GetAllCategoriesUseCase {
+    implements _i12.GetAllCategoriesUseCase {
   MockGetAllCategoriesUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.CategoryRepository get categoryRepository => (super.noSuchMethod(
+  _i3.CategoryRepository get categoryRepository => (super.noSuchMethod(
         Invocation.getter(#categoryRepository),
-        returnValue: _FakeCategoryRepository_2(
+        returnValue: _FakeCategoryRepository_1(
           this,
           Invocation.getter(#categoryRepository),
         ),
-      ) as _i4.CategoryRepository);
+      ) as _i3.CategoryRepository);
   @override
   _i6.Future<_i2.Either<String, List<_i9.CategoryEntity>>> call(
           {DateTime? params}) =>
@@ -227,7 +220,7 @@ class MockGetAllCategoriesUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCompleteTaskUseCase extends _i1.Mock
-    implements _i12.CompleteTaskUseCase {
+    implements _i13.CompleteTaskUseCase {
   MockCompleteTaskUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -255,7 +248,7 @@ class MockCompleteTaskUseCase extends _i1.Mock
 /// A class which mocks [DeleteTaskUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDeleteTaskUseCase extends _i1.Mock implements _i13.DeleteTaskUseCase {
+class MockDeleteTaskUseCase extends _i1.Mock implements _i14.DeleteTaskUseCase {
   MockDeleteTaskUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -284,14 +277,14 @@ class MockDeleteTaskUseCase extends _i1.Mock implements _i13.DeleteTaskUseCase {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAddPomodoroToDbUseCase extends _i1.Mock
-    implements _i14.AddPomodoroToDbUseCase {
+    implements _i15.AddPomodoroToDbUseCase {
   MockAddPomodoroToDbUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i6.Future<_i2.Either<String, bool>> call(
-          {_i15.SavePomodoroParams? params}) =>
+          {_i16.SavePomodoroParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -313,19 +306,19 @@ class MockAddPomodoroToDbUseCase extends _i1.Mock
 /// A class which mocks [EditTaskUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEditTaskUseCase extends _i1.Mock implements _i16.EditTaskUseCase {
+class MockEditTaskUseCase extends _i1.Mock implements _i17.EditTaskUseCase {
   MockEditTaskUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.TaskRepository get taskRepository => (super.noSuchMethod(
+  _i4.TaskRepository get taskRepository => (super.noSuchMethod(
         Invocation.getter(#taskRepository),
-        returnValue: _FakeTaskRepository_1(
+        returnValue: _FakeTaskRepository_2(
           this,
           Invocation.getter(#taskRepository),
         ),
-      ) as _i3.TaskRepository);
+      ) as _i4.TaskRepository);
   @override
   _i6.Future<_i2.Either<String, String>> call({_i7.TaskEntity? params}) =>
       (super.noSuchMethod(
@@ -397,7 +390,7 @@ class MockTaskEntity extends _i1.Mock implements _i7.TaskEntity {
 /// A class which mocks [PomodoroEntity].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPomodoroEntity extends _i1.Mock implements _i17.PomodoroEntity {
+class MockPomodoroEntity extends _i1.Mock implements _i18.PomodoroEntity {
   MockPomodoroEntity() {
     _i1.throwOnMissingStub(this);
   }

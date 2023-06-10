@@ -36,7 +36,7 @@ class DayWithoutTask extends StatelessWidget {
           onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName)
               .then((value) => context
                   .read<TasksBloc>()
-                  .add(SpecificDateTasksFetched(DateTime.now()))),
+                  .add(AllTasksFetched(DateTime.now()))),
           icon: const Icon(CupertinoIcons.add_circled_solid),
         ),
       ],
