@@ -7,8 +7,10 @@ import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/
 import "package:pomodore/features/task_management/presentation/pages/add_task_page.dart";
 import "package:pomodore/features/task_management/presentation/pages/task_widgets/day_without_task_widget.dart";
 
+import "../../../../core/resources/enums/tasks_filter_enums.dart";
 import "../../../../di.dart";
 import "../../../../exports.dart";
+import "../../domain/entities/task_entity.dart";
 import "../shared_widgets/task_item.dart";
 
 class TasksPage extends StatelessWidget {
@@ -17,15 +19,30 @@ class TasksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TasksBloc>(
-      create: (context) =>
-          getIt.get<TasksBloc>()..add(SpecificDateTasksFetched(DateTime.now())),
+      create: (context) => getIt.get<TasksBloc>()
+        ..add(
+          const AllTasksFetched(),
+        ),
       child: const TaskView(),
     );
   }
 }
 
-class TaskView extends StatelessWidget {
+class TaskView extends StatefulWidget {
   const TaskView({Key? key}) : super(key: key);
+
+  @override
+  State<TaskView> createState() => _TaskViewState();
+}
+
+class _TaskViewState extends State<TaskView> {
+  late List<TaskEntity> tasksList;
+
+  @override
+  void initState() {
+    tasksList = [];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +53,7 @@ class TaskView extends StatelessWidget {
         if (state is TaskCompleteSuccess ||
             state is EditTaskSuccess ||
             state is TaskDeleteSuccess) {
-          context
-              .read<TasksBloc>()
-              .add(SpecificDateTasksFetched(DateTime.now()));
+          context.read<TasksBloc>().add(const AllTasksFetched());
           Navigator.pop(context);
         }
 
@@ -47,43 +62,51 @@ class TaskView extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        if (state is GetAllTasksSuccess) {
+          tasksList = state.list;
+        }
+
         return Scaffold(
           appBar: BaseAppBar(
             title: localization.tasksTitle,
-            action: (state is SpecificDateTasksReceivedSuccess &&
-                    state.list.isNotEmpty)
+            action: (tasksList.isNotEmpty)
                 ? const Icon(CupertinoIcons.add_circled_solid)
                 : null,
-            onPressed: (state is SpecificDateTasksReceivedSuccess &&
-                    state.list.isNotEmpty)
-                ? () => Navigator.pushNamed(context, AddTaskPage.routeName)
-                    .then((_) => context
-                        .read<TasksBloc>()
-                        .add(SpecificDateTasksFetched(DateTime.now())))
+            onPressed: (tasksList.isNotEmpty)
+                ? () =>
+                    Navigator.pushNamed(context, AddTaskPage.routeName).then(
+                      (_) {
+                        context.read<TasksBloc>()
+                          ..add(
+                            const AllTasksFetched(),
+                          )
+                          ..add(
+                            TasksFiltered(
+                              filterMode: TasksFilterEnum.all,
+                              list: tasksList,
+                            ),
+                          );
+                      },
+                    )
                 : null,
           ),
           body: Column(
             children: [
-              if (state is SpecificDateTasksReceivedSuccess &&
-                  state.list.isEmpty)
+              if (state is GetAllTasksSuccess && state.list.isEmpty)
                 const DayWithoutTask(),
-              if (state is SpecificDateTasksReceivedSuccess)
-                Expanded(
-                  child: ListView.separated(
-                    padding: const EdgeInsets.only(top: 20),
-                    itemCount: state.list.length,
-                    itemBuilder: (context, index) =>
-                        TaskItem(task: state.list[index]),
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Container();
-                    },
-                  ),
+              if (state is GetAllTasksFail) const Center(child: Text("error")),
+              if (state is GetAllTasksLoading) const GlobalIndicator(),
+              Expanded(
+                child: ListView.separated(
+                  padding: const EdgeInsets.only(top: 20),
+                  itemCount: tasksList.length,
+                  itemBuilder: (context, index) =>
+                      TaskItem(task: tasksList[index]),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Container();
+                  },
                 ),
-              if (state is SpecificDateTasksReceivedFailure)
-                const Center(child: Text("error")),
-              if (state is SpecificDateTasksReceivedLoading)
-                const GlobalIndicator(),
-              Container(),
+              ),
             ],
           ),
         );

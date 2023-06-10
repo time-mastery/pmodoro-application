@@ -54,8 +54,7 @@ class TaskItem extends StatelessWidget {
                                         context, EditTaskPage.routeName,
                                         arguments: task)
                                     .then((value) {
-                                  bloc.add(
-                                      SpecificDateTasksFetched(DateTime.now()));
+                                  bloc.add(const AllTasksFetched());
                                   Navigator.pop(context);
                                 });
                               },

@@ -91,6 +91,10 @@ class SelectATaskToStart extends StatelessWidget {
             current is TimerInProgress);
       },
       builder: (context, state) {
+        bool ignoreTouch = (state is TimerInProgress ||
+            state is TimerPause ||
+            state is StartTimerLoading ||
+            state is SaveTimerLoading);
         TaskEntity? taskItem = context.read<TimerBloc>().taskItem;
 
         if (state is SelectTaskSuccess) {
@@ -105,48 +109,51 @@ class SelectATaskToStart extends StatelessWidget {
           return Container();
         }
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (taskItem != null)
-              SizedBox(
-                height: SizeConfig.heightMultiplier * 6,
-                child: Card(
-                  child: Center(
-                    child: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        context.read<TimerBloc>().add(TimerTaskDeSelected());
-                      },
+        return IgnorePointer(
+          ignoring: ignoreTouch,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (taskItem != null)
+                SizedBox(
+                  height: SizeConfig.heightMultiplier * 6,
+                  child: Card(
+                    child: Center(
+                      child: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          context.read<TimerBloc>().add(TimerTaskDeSelected());
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              InkWell(
+                onTap: () {
+                  if (state is! TimerInProgress) {
+                    context.read<BaseBloc>().add(const PageIndexChanged(0));
+                  }
+                },
+                child: SizedBox(
+                  width: SizeConfig.widthMultiplier *
+                      ((taskItem != null) ? 40 : 60),
+                  height: SizeConfig.heightMultiplier * 6,
+                  child: Card(
+                    child: Center(
+                      child: (taskItem != null)
+                          ? Text(
+                              taskItem.title,
+                              style: theme.titleLarge,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          : Text(localization.selectTaskTitle),
                     ),
                   ),
                 ),
               ),
-            InkWell(
-              onTap: () {
-                if (state is! TimerInProgress) {
-                  context.read<BaseBloc>().add(const PageIndexChanged(0));
-                }
-              },
-              child: SizedBox(
-                width:
-                    SizeConfig.widthMultiplier * ((taskItem != null) ? 40 : 60),
-                height: SizeConfig.heightMultiplier * 6,
-                child: Card(
-                  child: Center(
-                    child: (taskItem != null)
-                        ? Text(
-                            taskItem.title,
-                            style: theme.titleLarge,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        : Text(localization.selectTaskTitle),
-                  ),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

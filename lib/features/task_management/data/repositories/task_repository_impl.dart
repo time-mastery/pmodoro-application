@@ -48,11 +48,29 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, List<TaskEntity>>> getTasks() async {
+  Future<Either<String, List<TaskEntity>>> getAllTasks() async {
     late Either<String, List<TaskEntity>> result;
 
     final List<Map<String, dynamic>>? rawList =
-        await localDataSource.getAllNotCompletedTasks();
+        await localDataSource.getAllTasks();
+
+    if (rawList != null) {
+      final List<TaskEntity> list =
+          TaskModel.sortTasksByDateTime(TaskModel.parseRawList(rawList));
+      result = Right(list);
+    } else {
+      result = const Left("error");
+    }
+
+    return result;
+  }
+
+  @override
+  Future<Either<String, List<TaskEntity>>> getUnCompletedTasks() async {
+    late Either<String, List<TaskEntity>> result;
+
+    final List<Map<String, dynamic>>? rawList =
+        await localDataSource.getAllUnCompletedTasks();
 
     if (rawList != null) {
       final List<TaskEntity> list =

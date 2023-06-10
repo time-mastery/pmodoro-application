@@ -1,17 +1,14 @@
 import "package:bloc/bloc.dart";
 import "package:dartz/dartz.dart";
 import "package:equatable/equatable.dart";
-import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 import "package:pomodore/features/habit_tracking/domain/usecases/add_new_habit_usecase.dart";
 import "package:pomodore/features/habit_tracking/domain/usecases/delete_habit_usecase.dart";
 import "package:pomodore/features/habit_tracking/domain/usecases/done_today_habit_usecase.dart";
 import "package:pomodore/features/habit_tracking/domain/usecases/edit_habit_usecase.dart";
 import "package:pomodore/features/habit_tracking/domain/usecases/get_all_habits_usecase.dart";
-import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
 
 import "../../../../../core/resources/params/habit_params.dart";
-import "../../../../../core/utils/utils.dart";
 
 part "habit_tracker_event.dart";
 part "habit_tracker_state.dart";
