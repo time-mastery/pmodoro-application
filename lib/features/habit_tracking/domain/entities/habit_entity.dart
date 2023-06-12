@@ -2,8 +2,9 @@ import "package:equatable/equatable.dart";
 
 class HabitEntity extends Equatable {
   final Map<DateTime, int> overviews;
-  final String title, desctription, iconName;
+  final String title, description, iconName;
   final int id;
+  final String uuid;
   final int color;
   final bool isCompleteToday;
 
@@ -11,9 +12,10 @@ class HabitEntity extends Equatable {
     required this.overviews,
     required this.title,
     required this.color,
-    required this.desctription,
+    required this.description,
     required this.iconName,
     required this.id,
+    required this.uuid,
     this.isCompleteToday = false,
   });
 
@@ -21,7 +23,7 @@ class HabitEntity extends Equatable {
     Map<DateTime, int>? overviews,
     String? title,
     int? color,
-    String? desctription,
+    String? description,
     String? iconName,
     int? id,
     bool? isCompleteToday,
@@ -30,10 +32,11 @@ class HabitEntity extends Equatable {
       overviews: overviews ?? this.overviews,
       title: title ?? this.title,
       color: color ?? this.color,
-      desctription: desctription ?? this.desctription,
+      description: description ?? this.description,
       iconName: iconName ?? this.iconName,
       id: id ?? this.id,
       isCompleteToday: isCompleteToday ?? this.isCompleteToday,
+      uuid: uuid,
     );
   }
 
@@ -42,7 +45,7 @@ class HabitEntity extends Equatable {
         id,
         title,
         color,
-        desctription,
+        description,
         iconName,
         overviews,
         isCompleteToday,

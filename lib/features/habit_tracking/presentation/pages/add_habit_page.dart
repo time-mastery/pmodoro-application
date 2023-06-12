@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
-
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/resources/params/habit_params.dart";
@@ -11,6 +10,7 @@ import "package:pomodore/core/shared_widgets/global_button.dart";
 import "package:pomodore/core/utils/icon_converter.dart";
 import "package:pomodore/exports.dart";
 import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
+import "package:uuid/uuid.dart";
 
 import "../../../../core/shared_widgets/global_snack.dart";
 import "../../../../di.dart";
@@ -56,7 +56,7 @@ class AddHabitView extends HookWidget {
         selectedIcon.value =
             IconConverter.icons.keys.toList().indexOf(item!.iconName);
         titleController.text = item!.title;
-        desctiptionController.text = item!.desctription;
+        desctiptionController.text = item!.description;
       }
       return;
     }, [titleController, desctiptionController, selectedColor, selectedIcon]);
@@ -194,6 +194,7 @@ class AddHabitView extends HookWidget {
                                 icon: IconConverter.findKeyByValue(
                                   iconList[selectedIcon.value],
                                 ),
+                                uuid: item!.uuid,
                               ));
                         } else {
                           context.read<HabitTrackerBloc>().add(
@@ -206,6 +207,7 @@ class AddHabitView extends HookWidget {
                                     icon: IconConverter.findKeyByValue(
                                       iconList[selectedIcon.value],
                                     ),
+                                    uuid: const Uuid().v1(),
                                   ),
                                 ),
                               );
