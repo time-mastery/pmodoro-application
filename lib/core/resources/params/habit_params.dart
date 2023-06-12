@@ -1,10 +1,11 @@
 class HabitParams {
-  final String title, description, icon;
+  final String title, description, icon, uuid;
   final int? id;
   final int color;
 
   const HabitParams({
     required this.title,
+    required this.uuid,
     required this.description,
     required this.icon,
     required this.color,
@@ -13,8 +14,8 @@ class HabitParams {
 }
 
 class HabitOverviewParams {
-  final int id;
+  final String uuid;
   final bool completedToday;
 
-  HabitOverviewParams(this.id, this.completedToday);
+  HabitOverviewParams(this.uuid, this.completedToday);
 }

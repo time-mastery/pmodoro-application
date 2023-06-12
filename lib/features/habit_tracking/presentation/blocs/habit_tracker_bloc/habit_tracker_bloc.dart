@@ -66,8 +66,9 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
       (r) {
         List<HabitEntity> newList = [];
         newList = event.habits;
-        int index =
-            newList.indexWhere((element) => element.id == event.params.id);
+        int index = newList.indexWhere(
+          (element) => element.uuid == event.params.uuid,
+        );
         newList.removeAt(index);
         newList.insert(index, r);
         return emit(DoneHabit(false, false, newList));
