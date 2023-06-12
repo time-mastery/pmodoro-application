@@ -61,7 +61,7 @@ class HabitItemWidget extends HookWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Text(
-                          item.desctription,
+                          item.description,
                           style: Theme.of(context).textTheme.bodySmall,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

@@ -80,6 +80,7 @@ class DatabaseHelper {
     batch.execute("""
           CREATE TABLE $habitTable (
             _id INTEGER PRIMARY KEY,
+            uuid TEXT NULL,
             habitTitle TEXT NULL,
             habitDescription TEXT NULL,
             habitIcon TEXT NULL,

@@ -7,15 +7,17 @@ class HabitModel extends HabitEntity {
     required Map<DateTime, int> overviews,
     required String title,
     required int id,
-    required String desctription,
+    required String description,
     required String iconName,
+    required String uuid,
     required int color,
     required bool isCompleteToday,
   }) : super(
           overviews: overviews,
           title: title,
           id: id,
-          desctription: desctription,
+          description: description,
+          uuid: uuid,
           iconName: iconName,
           color: color,
           isCompleteToday: isCompleteToday,
@@ -28,10 +30,11 @@ class HabitModel extends HabitEntity {
 
     return HabitModel(
       id: json["habit"]["_id"] ?? 0,
+      uuid: json["habit"]["uuid"] ?? 0,
       color: json["habit"]["habitColor"] ?? 0,
       overviews: json["overviews"] ?? {},
       title: json["habit"]["habitTitle"] ?? "",
-      desctription: json["habit"]["habitDescription"] ?? "",
+      description: json["habit"]["habitDescription"] ?? "",
       iconName: json["habit"]["habitIcon"] ?? "",
       isCompleteToday: completed,
     );
@@ -39,6 +42,7 @@ class HabitModel extends HabitEntity {
 
   static Map<String, dynamic> toJson(HabitParams item) {
     return {
+      "uuid": item.uuid,
       "habitTitle": item.title,
       "habitDescription": item.description,
       "habitIcon": item.icon,
