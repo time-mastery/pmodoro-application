@@ -14,8 +14,8 @@ class HabitParams {
 }
 
 class HabitOverviewParams {
-  final int id;
+  final String uuid;
   final bool completedToday;
 
-  HabitOverviewParams(this.id, this.completedToday);
+  HabitOverviewParams(this.uuid, this.completedToday);
 }

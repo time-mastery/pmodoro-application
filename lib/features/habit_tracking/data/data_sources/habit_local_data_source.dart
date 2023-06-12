@@ -22,7 +22,7 @@ class HabitLocalDataSource {
       for (var element in data) {
         Map<DateTime, int> overviewsMap = {};
         List<Map> overviews =
-            await db.rawQuery(habitDetailsQuery, [element["_id"]]);
+            await db.rawQuery(habitDetailsQuery, [element["uuid"]]);
 
         for (var element in overviews) {
           String key = element["dateTime"];
@@ -69,9 +69,9 @@ class HabitLocalDataSource {
     }
   }
 
-  Future<Map?> getSpecificHabit(int id) async {
+  Future<Map?> getSpecificHabit(String id) async {
     try {
-      const query = "SELECT * FROM ${DatabaseHelper.habitTable} WHERE _id = ?";
+      const query = "SELECT * FROM ${DatabaseHelper.habitTable} WHERE uuid = ?";
       const habitDetailsQuery =
           "SELECT * FROM ${DatabaseHelper.habitTrackingTable} WHERE habitId == ?";
 
@@ -110,7 +110,7 @@ class HabitLocalDataSource {
         whereArgs: [newHabit.id],
       );
 
-      return await getSpecificHabit(newHabit.id!);
+      return await getSpecificHabit(newHabit.uuid);
     } catch (e, s) {
       dPrint("$e  $s");
       return null;
@@ -127,12 +127,12 @@ class HabitLocalDataSource {
         );
       } else {
         await db.insert(DatabaseHelper.habitTrackingTable, {
-          "habitId": params.id,
+          "habitId": params.uuid,
           "dateTime": Utils.formatDateToYYYYMMDD(DateTime.now()),
         });
       }
 
-      return await getSpecificHabit(params.id);
+      return await getSpecificHabit(params.uuid);
     } catch (e, s) {
       dPrint("$e     $s");
 

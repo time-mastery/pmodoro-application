@@ -95,7 +95,9 @@ class HabitItemWidget extends HookWidget {
                         context.read<HabitTrackerBloc>().add(
                               HabitDone(
                                 HabitOverviewParams(
-                                    item.id, item.isCompleteToday),
+                                  item.uuid,
+                                  item.isCompleteToday,
+                                ),
                                 habits,
                               ),
                             );
