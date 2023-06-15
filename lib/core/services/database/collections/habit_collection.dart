@@ -1,5 +1,7 @@
 import "package:isar/isar.dart";
 
+part "habit_collection.g.dart";
+
 @collection
 class HabitCollection {
   Id id = Isar.autoIncrement;
@@ -8,4 +10,5 @@ class HabitCollection {
   String? habitDescription;
   String? habitIcon;
   int? habitColor;
+  List<String>? overviews;
 }

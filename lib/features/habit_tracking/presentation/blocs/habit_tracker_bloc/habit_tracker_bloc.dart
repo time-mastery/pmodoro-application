@@ -1,6 +1,7 @@
 import "package:bloc/bloc.dart";
 import "package:dartz/dartz.dart";
 import "package:equatable/equatable.dart";
+import "package:pomodore/core/resources/params/no_params.dart";
 import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 import "package:pomodore/features/habit_tracking/domain/usecases/add_new_habit_usecase.dart";
 import "package:pomodore/features/habit_tracking/domain/usecases/delete_habit_usecase.dart";
@@ -59,7 +60,7 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
     emit(const DoneHabit(true, false, []));
 
     Either<String, HabitEntity> result =
-        await doneTodayHabitUseCase.call(params: event.params);
+        await doneTodayHabitUseCase.call(params: event.id);
 
     result.fold(
       (l) => emit(const DoneHabit(false, true, [])),
@@ -67,7 +68,7 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
         List<HabitEntity> newList = [];
         newList = event.habits;
         int index = newList.indexWhere(
-          (element) => element.uuid == event.params.uuid,
+          (element) => element.id == event.id,
         );
         newList.removeAt(index);
         newList.insert(index, r);
@@ -122,14 +123,14 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
   _habitDeleted(event, emit) async {
     emit(const DeleteHabit(habits: [], loading: true, error: false));
 
-    Either<String, int> result =
+    Either<String, NoParams> result =
         await deleteHabitUseCase.call(params: event.id);
 
     result.fold(
         (l) => emit(const DeleteHabit(habits: [], loading: false, error: true)),
         (r) {
       List<HabitEntity> newList = event.habits;
-      newList.removeWhere((element) => element.id == r);
+      newList.removeWhere((element) => element.id == event.id);
       emit(
         DeleteHabit(
           habits: newList,

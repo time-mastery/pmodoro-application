@@ -1,7 +1,13 @@
 import "package:audioplayers/audioplayers.dart";
 import "package:get_it/get_it.dart";
-import "package:hive_flutter/hive_flutter.dart";
+import "package:isar/isar.dart";
+import "package:path_provider/path_provider.dart";
 import "package:pomodore/core/services/audio/audio_service.dart";
+import "package:pomodore/core/services/database/collections/category_collection.dart";
+import "package:pomodore/core/services/database/collections/daily_goal_collection.dart";
+import "package:pomodore/core/services/database/collections/habit_collection.dart";
+import "package:pomodore/core/services/database/collections/habit_tracker_collection.dart";
+import "package:pomodore/core/services/database/collections/task_collection.dart";
 import "package:pomodore/core/services/notification/local_notification.dart";
 import "package:pomodore/features/configuration/data/data_sources/settings_local_data_source.dart";
 import "package:pomodore/features/configuration/data/repositories/settings_repository_impl.dart";
@@ -51,7 +57,9 @@ import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 import "package:sqflite/sqflite.dart";
 
+import "core/services/database/collections/pomodoro_collection.dart";
 import "core/services/database/database_helper.dart";
+import "core/services/database/isar_helper.dart";
 import "core/services/database/storage.dart";
 import "core/utils/ticker.dart";
 import "features/task_management/data/data_sources/tasks_local_data_source.dart";
@@ -61,15 +69,23 @@ import "features/task_management/domain/usecases/get_uncompleted_tasks_usecase.d
 final getIt = GetIt.instance;
 
 Future inject() async {
-  await Hive.initFlutter();
-  final Box appBox = await Hive.openBox("app_box");
-
-  getIt.registerLazySingleton<Box>(
-    () => appBox,
-    dispose: (param) => param.close(),
-  );
-
   FStorage.initialize();
+
+  // inject nosql database
+  final dir = await getApplicationDocumentsDirectory();
+  final isar = await Isar.open(
+    [
+      HabitCollectionSchema,
+      HabitTrackerCollectionSchema,
+      CategoryCollectionSchema,
+      DailyGoalCollectionSchema,
+      PomodoroCollectionSchema,
+      TaskCollectionSchema,
+    ],
+    directory: dir.path,
+  );
+  getIt.registerSingleton<Isar>(isar);
+  getIt.registerSingleton(IsarHelper(getIt()));
 
   // player
   getIt.registerSingleton(AudioPlayer());

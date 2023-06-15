@@ -19,6 +19,7 @@ import "core/utils/responsive/size_config.dart";
 import "features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // Dependency injection
   await inject();
 

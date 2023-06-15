@@ -1,3 +1,5 @@
+import "package:pomodore/core/services/database/collections/habit_collection.dart";
+
 import "../../../../core/resources/params/habit_params.dart";
 import "../../../../core/utils/utils.dart";
 import "../../domain/entities/habit_entity.dart";
@@ -49,4 +51,34 @@ class HabitModel extends HabitEntity {
       "habitColor": item.color,
     };
   }
+
+  static HabitModel collectionToModel(HabitCollection collection) {
+    Map<DateTime, int> overviewsMap = {};
+    collection.overviews?.forEach((element) {
+      overviewsMap.addAll({DateTime.parse(element): 1});
+    });
+    final completed =
+        overviewsMap.keys.any((element) => Utils.checkDateIsToday(element));
+    return HabitModel(
+      overviews: overviewsMap,
+      title: collection.habitTitle!,
+      id: collection.id,
+      description: collection.habitDescription!,
+      iconName: collection.habitIcon!,
+      uuid: collection.uuid!,
+      color: collection.habitColor!,
+      isCompleteToday: completed,
+    );
+  }
+
+  static HabitEntity getEntity(HabitModel item) => HabitEntity(
+        overviews: item.overviews,
+        title: item.title,
+        color: item.color,
+        description: item.description,
+        iconName: item.iconName,
+        id: item.id,
+        uuid: item.uuid,
+        isCompleteToday: item.isCompleteToday,
+      );
 }
