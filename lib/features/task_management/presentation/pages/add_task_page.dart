@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
@@ -9,7 +10,9 @@ import "package:pomodore/core/shared_widgets/global_snack.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
+import "../../../../core/constant/constant.dart";
 import "../../../../core/shared_widgets/global_indicator.dart";
+import "../../../../core/utils/responsive/size_config.dart";
 import "../../../../core/utils/utils.dart";
 import "../../../../di.dart";
 import "../../../../exports.dart";
@@ -100,18 +103,59 @@ class AddTaskView extends HookWidget {
                       },
                     ),
                     20.spaceH(),
-                    // todo : date picker
-                    // GlobalDateTimePicker(
-                    //   buttonTitle: localization.selectDate,
-                    //   onChanged: (time) {
-                    //     context.read<TasksBloc>().add(DateAdded(time));
-                    //     dateTime.value = time;
-                    //   },
-                    //   onConfirm: (time) {
-                    //     context.read<TasksBloc>().add(DateAdded(time));
-                    //     dateTime.value = time;
-                    //   },
-                    // ),
+                    Container(
+                      height: SizeConfig.heightMultiplier * 5,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.onBackground),
+                        borderRadius: BorderRadius.circular(AppConstant.radius),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (_) => Container(
+                              height: 500,
+                              color: Theme.of(context).colorScheme.background,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 400,
+                                    child: CupertinoDatePicker(
+                                        use24hFormat: true,
+                                        initialDateTime: DateTime.now(),
+                                        onDateTimeChanged: (val) {
+                                          context
+                                              .read<TasksBloc>()
+                                              .add(DateAdded(val));
+                                          dateTime.value = val;
+                                        }),
+                                  ),
+
+                                  // Close the modal
+                                  CupertinoButton(
+                                    child: const Text("OK"),
+                                    onPressed: () {
+                                      if (dateTime.value == null) {
+                                        context
+                                            .read<TasksBloc>()
+                                            .add(DateAdded(DateTime.now()));
+                                        dateTime.value = DateTime.now();
+                                      }
+
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Select Deadline Datetime",
+                        ),
+                      ),
+                    ),
                     20.spaceH(),
                     GlobalButton(
                       onPressed: () {
