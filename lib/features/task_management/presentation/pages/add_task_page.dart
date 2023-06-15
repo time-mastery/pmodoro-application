@@ -5,7 +5,6 @@ import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/custom_form_field.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
-import "package:pomodore/core/shared_widgets/global_datetime_picker.dart";
 import "package:pomodore/core/shared_widgets/global_snack.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
@@ -101,17 +100,18 @@ class AddTaskView extends HookWidget {
                       },
                     ),
                     20.spaceH(),
-                    GlobalDateTimePicker(
-                      buttonTitle: localization.selectDate,
-                      onChanged: (time) {
-                        context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime.value = time;
-                      },
-                      onConfirm: (time) {
-                        context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime.value = time;
-                      },
-                    ),
+                    // todo : date picker
+                    // GlobalDateTimePicker(
+                    //   buttonTitle: localization.selectDate,
+                    //   onChanged: (time) {
+                    //     context.read<TasksBloc>().add(DateAdded(time));
+                    //     dateTime.value = time;
+                    //   },
+                    //   onConfirm: (time) {
+                    //     context.read<TasksBloc>().add(DateAdded(time));
+                    //     dateTime.value = time;
+                    //   },
+                    // ),
                     20.spaceH(),
                     GlobalButton(
                       onPressed: () {

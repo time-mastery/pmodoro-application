@@ -3,7 +3,7 @@ import "package:flutter_hooks/flutter_hooks.dart";
 
 import "../constant/constant.dart";
 
-class BaseAppBar extends HookWidget with PreferredSizeWidget {
+class BaseAppBar extends HookWidget implements PreferredSizeWidget {
   const BaseAppBar({
     Key? key,
     required this.title,

@@ -6,7 +6,6 @@ import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "../../../../core/shared_widgets/base_app_bar.dart";
 import "../../../../core/shared_widgets/custom_form_field.dart";
 import "../../../../core/shared_widgets/global_button.dart";
-import "../../../../core/shared_widgets/global_datetime_picker.dart";
 import "../../../../core/shared_widgets/global_indicator.dart";
 import "../../../../core/shared_widgets/global_snack.dart";
 import "../../../../di.dart";
@@ -106,17 +105,19 @@ class EditTaskView extends HookWidget {
                       },
                     ),
                     20.spaceH(),
-                    GlobalDateTimePicker(
-                      buttonTitle: "Select Deadline DateTime",
-                      onChanged: (time) {
-                        context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime.value = time;
-                      },
-                      onConfirm: (time) {
-                        context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime.value = time;
-                      },
-                    ),
+                    // todo : date picker
+
+                    // GlobalDateTimePicker(
+                    //   buttonTitle: "Select Deadline DateTime",
+                    //   onChanged: (time) {
+                    //     context.read<TasksBloc>().add(DateAdded(time));
+                    //     dateTime.value = time;
+                    //   },
+                    //   onConfirm: (time) {
+                    //     context.read<TasksBloc>().add(DateAdded(time));
+                    //     dateTime.value = time;
+                    //   },
+                    // ),
                     20.spaceH(),
                     GlobalButton(
                       onPressed: () {
