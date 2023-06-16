@@ -1,13 +1,23 @@
 import "package:isar/isar.dart";
 import "package:pomodore/core/resources/params/habit_params.dart";
+import "package:pomodore/core/resources/params/task_params.dart";
+import "package:pomodore/core/services/database/collections/pomodoro_collection.dart";
+import "package:uuid/uuid.dart";
 
 import "../../utils/utils.dart";
+import "collections/daily_goal_collection.dart";
 import "collections/habit_collection.dart";
+import "collections/task_collection.dart";
 
 class IsarHelper {
   final Isar isar;
 
   IsarHelper(this.isar);
+
+  /*
+  *
+  * Habits
+  * */
 
   Future<List<HabitCollection>> getAllHabits() async {
     return await isar.habitCollections.where().findAll();
@@ -63,5 +73,122 @@ class IsarHelper {
       await isar.habitCollections.put(habit);
     });
     return habit;
+  }
+
+  /*
+  *
+  * Tasks
+  * */
+
+  Future<TaskCollection?> addTask(TaskParams params) async {
+    TaskCollection? taskCollection = TaskCollection()
+      ..title = params.taskTitle
+      ..description = params.taskDescription
+      ..deadLineTime = params.taskDateTimeDeadline
+      ..doneTime = params.taskDoneDatetime
+      ..uid = const Uuid().v4()
+      ..done = false;
+
+    return await isar.writeTxn(() async {
+      Id id = await isar.taskCollections.put(taskCollection);
+      return await isar.taskCollections.get(id);
+    });
+  }
+
+  Future<TaskCollection?> editTask(TaskParams task) async {
+    TaskCollection? item = await isar.taskCollections.get(task.id!);
+    if (item == null) return item;
+    item.title = task.taskTitle;
+    item.description = task.taskDescription;
+    item.done = task.taskDone;
+    await isar.writeTxn(() async {
+      isar.taskCollections.put(item);
+    });
+    return item;
+  }
+
+  Future<void> deleteTask(Id id) async {
+    await isar.writeTxn(() async {
+      await isar.taskCollections.delete(id);
+    });
+  }
+
+  Future<List<TaskCollection>> getUnCompletedTasks() async {
+    return await isar.taskCollections.filter().doneEqualTo(false).findAll();
+  }
+
+  Future<List<TaskCollection>> getAllTasks() async {
+    return await isar.taskCollections.where().findAll();
+  }
+
+  Future<List<TaskCollection>> getSpecificDateTasks(DateTime date) async {
+    return await isar.taskCollections
+        .filter()
+        .deadLineTimeEqualTo(Utils.formatDateToYYYYMMDD(date))
+        .findAll();
+  }
+
+  Future<int> getAllTodayTaskQuantity() async {
+    List items = await isar.taskCollections
+        .filter()
+        .deadLineTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+        .findAll();
+
+    return items.length;
+  }
+
+  Future<int> getCompletedTaskQuantity() async {
+    List items =
+        await isar.taskCollections.filter().doneEqualTo(true).findAll();
+
+    return items.length;
+  }
+
+  /*
+  *
+  * Pomodoro
+  * */
+
+  Future<List<PomodoroCollection>> getAllPomodoros() async {
+    return await isar.pomodoroCollections.where().findAll();
+  }
+
+  Future<List<PomodoroCollection>> getAllTodayPomodoros(DateTime date) async {
+    return await isar.pomodoroCollections
+        .filter()
+        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(date))
+        .findAll();
+  }
+
+/*
+  *
+  * Daily Goal
+  * */
+
+  Future<void> saveDailyGoal(int count) async {
+    DailyGoalCollection item = DailyGoalCollection()
+      ..dateTime = Utils.formatDateToYYYYMMDD(DateTime.now())
+      ..count = count;
+
+    await isar.writeTxn(() async {
+      await isar.dailyGoalCollections.put(item);
+    });
+  }
+
+  Future<int?> getDailyGoalQuantity() async {
+    List<DailyGoalCollection> items = await isar.dailyGoalCollections
+        .filter()
+        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+        .findAll();
+
+    return items.first.count;
+  }
+
+  Future<bool> checkDailyGoal() async {
+    List<DailyGoalCollection> items = await isar.dailyGoalCollections
+        .filter()
+        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+        .findAll();
+    return items.isNotEmpty;
   }
 }

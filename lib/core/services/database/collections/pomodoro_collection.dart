@@ -7,5 +7,5 @@ class PomodoroCollection {
   Id id = Isar.autoIncrement;
   String? taskUid;
   int? duration;
-  DateTime? dateTime;
+  String? dateTime;
 }

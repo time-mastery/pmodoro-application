@@ -8,8 +8,8 @@ class TaskCollection {
   String? uid;
   String? title;
   String? description;
-  DateTime? deadLineTime;
+  String? deadLineTime;
   String? category;
-  DateTime? doneTime;
+  String? doneTime;
   bool? done;
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of "daily_goal_collection.dart";
+part of 'daily_goal_collection.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -15,32 +15,32 @@ extension GetDailyGoalCollectionCollection on Isar {
 }
 
 const DailyGoalCollectionSchema = CollectionSchema(
-  name: r"DailyGoalCollection",
+  name: r'DailyGoalCollection',
   id: 9151664406038383939,
   properties: {
-    r"count": PropertySchema(
+    r'count': PropertySchema(
       id: 0,
-      name: r"count",
-      type: IsarType.string,
+      name: r'count',
+      type: IsarType.long,
     ),
-    r"dateTime": PropertySchema(
+    r'dateTime': PropertySchema(
       id: 1,
-      name: r"dateTime",
-      type: IsarType.dateTime,
+      name: r'dateTime',
+      type: IsarType.string,
     )
   },
   estimateSize: _dailyGoalCollectionEstimateSize,
   serialize: _dailyGoalCollectionSerialize,
   deserialize: _dailyGoalCollectionDeserialize,
   deserializeProp: _dailyGoalCollectionDeserializeProp,
-  idName: r"id",
+  idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
   getId: _dailyGoalCollectionGetId,
   getLinks: _dailyGoalCollectionGetLinks,
   attach: _dailyGoalCollectionAttach,
-  version: "3.1.0+1",
+  version: '3.1.0+1',
 );
 
 int _dailyGoalCollectionEstimateSize(
@@ -50,7 +50,7 @@ int _dailyGoalCollectionEstimateSize(
 ) {
   var bytesCount = offsets.last;
   {
-    final value = object.count;
+    final value = object.dateTime;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -64,8 +64,8 @@ void _dailyGoalCollectionSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.count);
-  writer.writeDateTime(offsets[1], object.dateTime);
+  writer.writeLong(offsets[0], object.count);
+  writer.writeString(offsets[1], object.dateTime);
 }
 
 DailyGoalCollection _dailyGoalCollectionDeserialize(
@@ -75,8 +75,8 @@ DailyGoalCollection _dailyGoalCollectionDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = DailyGoalCollection();
-  object.count = reader.readStringOrNull(offsets[0]);
-  object.dateTime = reader.readDateTimeOrNull(offsets[1]);
+  object.count = reader.readLongOrNull(offsets[0]);
+  object.dateTime = reader.readStringOrNull(offsets[1]);
   object.id = id;
   return object;
 }
@@ -89,11 +89,11 @@ P _dailyGoalCollectionDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 1:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     default:
-      throw IsarError("Unknown property with id $propertyId");
+      throw IsarError('Unknown property with id $propertyId');
   }
 }
 
@@ -197,7 +197,7 @@ extension DailyGoalCollectionQueryFilter on QueryBuilder<DailyGoalCollection,
       countIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r"count",
+        property: r'count',
       ));
     });
   }
@@ -206,143 +206,63 @@ extension DailyGoalCollectionQueryFilter on QueryBuilder<DailyGoalCollection,
       countIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r"count",
+        property: r'count',
       ));
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
-      countEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+      countEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"count",
+        property: r'count',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
       countGreaterThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"count",
+        property: r'count',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
       countLessThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"count",
+        property: r'count',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
       countBetween(
-    String? lower,
-    String? upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"count",
+        property: r'count',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
-      countStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r"count",
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
-      countEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r"count",
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
-      countContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r"count",
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
-      countMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r"count",
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
-      countIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"count",
-        value: "",
-      ));
-    });
-  }
-
-  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
-      countIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r"count",
-        value: "",
       ));
     });
   }
@@ -351,7 +271,7 @@ extension DailyGoalCollectionQueryFilter on QueryBuilder<DailyGoalCollection,
       dateTimeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r"dateTime",
+        property: r'dateTime',
       ));
     });
   }
@@ -360,63 +280,143 @@ extension DailyGoalCollectionQueryFilter on QueryBuilder<DailyGoalCollection,
       dateTimeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r"dateTime",
+        property: r'dateTime',
       ));
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
-      dateTimeEqualTo(DateTime? value) {
+      dateTimeEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"dateTime",
+        property: r'dateTime',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
       dateTimeGreaterThan(
-    DateTime? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"dateTime",
+        property: r'dateTime',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
       dateTimeLessThan(
-    DateTime? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"dateTime",
+        property: r'dateTime',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
       dateTimeBetween(
-    DateTime? lower,
-    DateTime? upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"dateTime",
+        property: r'dateTime',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
+      dateTimeStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'dateTime',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
+      dateTimeEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'dateTime',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
+      dateTimeContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'dateTime',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
+      dateTimeMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'dateTime',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
+      dateTimeIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dateTime',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterFilterCondition>
+      dateTimeIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'dateTime',
+        value: '',
       ));
     });
   }
@@ -425,7 +425,7 @@ extension DailyGoalCollectionQueryFilter on QueryBuilder<DailyGoalCollection,
       idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"id",
+        property: r'id',
         value: value,
       ));
     });
@@ -439,7 +439,7 @@ extension DailyGoalCollectionQueryFilter on QueryBuilder<DailyGoalCollection,
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"id",
+        property: r'id',
         value: value,
       ));
     });
@@ -453,7 +453,7 @@ extension DailyGoalCollectionQueryFilter on QueryBuilder<DailyGoalCollection,
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"id",
+        property: r'id',
         value: value,
       ));
     });
@@ -468,7 +468,7 @@ extension DailyGoalCollectionQueryFilter on QueryBuilder<DailyGoalCollection,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"id",
+        property: r'id',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -489,28 +489,28 @@ extension DailyGoalCollectionQuerySortBy
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       sortByCount() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"count", Sort.asc);
+      return query.addSortBy(r'count', Sort.asc);
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       sortByCountDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"count", Sort.desc);
+      return query.addSortBy(r'count', Sort.desc);
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       sortByDateTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"dateTime", Sort.asc);
+      return query.addSortBy(r'dateTime', Sort.asc);
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       sortByDateTimeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"dateTime", Sort.desc);
+      return query.addSortBy(r'dateTime', Sort.desc);
     });
   }
 }
@@ -520,42 +520,42 @@ extension DailyGoalCollectionQuerySortThenBy
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       thenByCount() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"count", Sort.asc);
+      return query.addSortBy(r'count', Sort.asc);
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       thenByCountDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"count", Sort.desc);
+      return query.addSortBy(r'count', Sort.desc);
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       thenByDateTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"dateTime", Sort.asc);
+      return query.addSortBy(r'dateTime', Sort.asc);
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       thenByDateTimeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"dateTime", Sort.desc);
+      return query.addSortBy(r'dateTime', Sort.desc);
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"id", Sort.asc);
+      return query.addSortBy(r'id', Sort.asc);
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QAfterSortBy>
       thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"id", Sort.desc);
+      return query.addSortBy(r'id', Sort.desc);
     });
   }
 }
@@ -563,16 +563,16 @@ extension DailyGoalCollectionQuerySortThenBy
 extension DailyGoalCollectionQueryWhereDistinct
     on QueryBuilder<DailyGoalCollection, DailyGoalCollection, QDistinct> {
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QDistinct>
-      distinctByCount({bool caseSensitive = true}) {
+      distinctByCount() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r"count", caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'count');
     });
   }
 
   QueryBuilder<DailyGoalCollection, DailyGoalCollection, QDistinct>
-      distinctByDateTime() {
+      distinctByDateTime({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r"dateTime");
+      return query.addDistinctBy(r'dateTime', caseSensitive: caseSensitive);
     });
   }
 }
@@ -581,20 +581,20 @@ extension DailyGoalCollectionQueryProperty
     on QueryBuilder<DailyGoalCollection, DailyGoalCollection, QQueryProperty> {
   QueryBuilder<DailyGoalCollection, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"id");
+      return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<DailyGoalCollection, String?, QQueryOperations> countProperty() {
+  QueryBuilder<DailyGoalCollection, int?, QQueryOperations> countProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"count");
+      return query.addPropertyName(r'count');
     });
   }
 
-  QueryBuilder<DailyGoalCollection, DateTime?, QQueryOperations>
+  QueryBuilder<DailyGoalCollection, String?, QQueryOperations>
       dateTimeProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"dateTime");
+      return query.addPropertyName(r'dateTime');
     });
   }
 }
