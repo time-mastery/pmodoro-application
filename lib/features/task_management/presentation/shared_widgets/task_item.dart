@@ -3,6 +3,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/extensions/datetime_extensions.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
+import "package:pomodore/core/resources/params/task_params.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
 import "package:pomodore/core/shared_widgets/global_indicator.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
@@ -104,7 +105,11 @@ class TaskItem extends StatelessWidget {
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary,
                         onPressed: () {
-                          bloc.add(TaskCompleted(task));
+                          bloc.add(TaskCompleted(
+                            TaskParams(
+                              taskDone: !task.done,
+                            ),
+                          ));
                         },
                         child: BlocBuilder(
                           bloc: bloc,

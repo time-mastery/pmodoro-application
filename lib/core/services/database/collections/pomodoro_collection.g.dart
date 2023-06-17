@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pomodoro_collection.dart';
+part of "pomodoro_collection.dart";
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -15,22 +15,22 @@ extension GetPomodoroCollectionCollection on Isar {
 }
 
 const PomodoroCollectionSchema = CollectionSchema(
-  name: r'PomodoroCollection',
+  name: r"PomodoroCollection",
   id: -8169570769239597303,
   properties: {
-    r'dateTime': PropertySchema(
+    r"dateTime": PropertySchema(
       id: 0,
-      name: r'dateTime',
+      name: r"dateTime",
       type: IsarType.string,
     ),
-    r'duration': PropertySchema(
+    r"duration": PropertySchema(
       id: 1,
-      name: r'duration',
+      name: r"duration",
       type: IsarType.long,
     ),
-    r'taskUid': PropertySchema(
+    r"taskUid": PropertySchema(
       id: 2,
-      name: r'taskUid',
+      name: r"taskUid",
       type: IsarType.string,
     )
   },
@@ -38,14 +38,14 @@ const PomodoroCollectionSchema = CollectionSchema(
   serialize: _pomodoroCollectionSerialize,
   deserialize: _pomodoroCollectionDeserialize,
   deserializeProp: _pomodoroCollectionDeserializeProp,
-  idName: r'id',
+  idName: r"id",
   indexes: {},
   links: {},
   embeddedSchemas: {},
   getId: _pomodoroCollectionGetId,
   getLinks: _pomodoroCollectionGetLinks,
   attach: _pomodoroCollectionAttach,
-  version: '3.1.0+1',
+  version: "3.1.0+1",
 );
 
 int _pomodoroCollectionEstimateSize(
@@ -108,7 +108,7 @@ P _pomodoroCollectionDeserializeProp<P>(
     case 2:
       return (reader.readStringOrNull(offset)) as P;
     default:
-      throw IsarError('Unknown property with id $propertyId');
+      throw IsarError("Unknown property with id $propertyId");
   }
 }
 
@@ -212,7 +212,7 @@ extension PomodoroCollectionQueryFilter
       dateTimeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'dateTime',
+        property: r"dateTime",
       ));
     });
   }
@@ -221,7 +221,7 @@ extension PomodoroCollectionQueryFilter
       dateTimeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'dateTime',
+        property: r"dateTime",
       ));
     });
   }
@@ -233,7 +233,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'dateTime',
+        property: r"dateTime",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -249,7 +249,7 @@ extension PomodoroCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'dateTime',
+        property: r"dateTime",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -265,7 +265,7 @@ extension PomodoroCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'dateTime',
+        property: r"dateTime",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -282,7 +282,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'dateTime',
+        property: r"dateTime",
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -299,7 +299,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'dateTime',
+        property: r"dateTime",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -313,7 +313,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'dateTime',
+        property: r"dateTime",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -324,7 +324,7 @@ extension PomodoroCollectionQueryFilter
       dateTimeContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'dateTime',
+        property: r"dateTime",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -335,7 +335,7 @@ extension PomodoroCollectionQueryFilter
       dateTimeMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'dateTime',
+        property: r"dateTime",
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -346,8 +346,8 @@ extension PomodoroCollectionQueryFilter
       dateTimeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'dateTime',
-        value: '',
+        property: r"dateTime",
+        value: "",
       ));
     });
   }
@@ -356,8 +356,8 @@ extension PomodoroCollectionQueryFilter
       dateTimeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'dateTime',
-        value: '',
+        property: r"dateTime",
+        value: "",
       ));
     });
   }
@@ -366,7 +366,7 @@ extension PomodoroCollectionQueryFilter
       durationIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'duration',
+        property: r"duration",
       ));
     });
   }
@@ -375,7 +375,7 @@ extension PomodoroCollectionQueryFilter
       durationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'duration',
+        property: r"duration",
       ));
     });
   }
@@ -384,7 +384,7 @@ extension PomodoroCollectionQueryFilter
       durationEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'duration',
+        property: r"duration",
         value: value,
       ));
     });
@@ -398,7 +398,7 @@ extension PomodoroCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'duration',
+        property: r"duration",
         value: value,
       ));
     });
@@ -412,7 +412,7 @@ extension PomodoroCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'duration',
+        property: r"duration",
         value: value,
       ));
     });
@@ -427,7 +427,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'duration',
+        property: r"duration",
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -440,7 +440,7 @@ extension PomodoroCollectionQueryFilter
       idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
+        property: r"id",
         value: value,
       ));
     });
@@ -454,7 +454,7 @@ extension PomodoroCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'id',
+        property: r"id",
         value: value,
       ));
     });
@@ -468,7 +468,7 @@ extension PomodoroCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'id',
+        property: r"id",
         value: value,
       ));
     });
@@ -483,7 +483,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
+        property: r"id",
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -496,7 +496,7 @@ extension PomodoroCollectionQueryFilter
       taskUidIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'taskUid',
+        property: r"taskUid",
       ));
     });
   }
@@ -505,7 +505,7 @@ extension PomodoroCollectionQueryFilter
       taskUidIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'taskUid',
+        property: r"taskUid",
       ));
     });
   }
@@ -517,7 +517,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'taskUid',
+        property: r"taskUid",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -533,7 +533,7 @@ extension PomodoroCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'taskUid',
+        property: r"taskUid",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -549,7 +549,7 @@ extension PomodoroCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'taskUid',
+        property: r"taskUid",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -566,7 +566,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'taskUid',
+        property: r"taskUid",
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -583,7 +583,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'taskUid',
+        property: r"taskUid",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -597,7 +597,7 @@ extension PomodoroCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'taskUid',
+        property: r"taskUid",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -608,7 +608,7 @@ extension PomodoroCollectionQueryFilter
       taskUidContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'taskUid',
+        property: r"taskUid",
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -619,7 +619,7 @@ extension PomodoroCollectionQueryFilter
       taskUidMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'taskUid',
+        property: r"taskUid",
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -630,8 +630,8 @@ extension PomodoroCollectionQueryFilter
       taskUidIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'taskUid',
-        value: '',
+        property: r"taskUid",
+        value: "",
       ));
     });
   }
@@ -640,8 +640,8 @@ extension PomodoroCollectionQueryFilter
       taskUidIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'taskUid',
-        value: '',
+        property: r"taskUid",
+        value: "",
       ));
     });
   }
@@ -658,42 +658,42 @@ extension PomodoroCollectionQuerySortBy
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       sortByDateTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'dateTime', Sort.asc);
+      return query.addSortBy(r"dateTime", Sort.asc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       sortByDateTimeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'dateTime', Sort.desc);
+      return query.addSortBy(r"dateTime", Sort.desc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       sortByDuration() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'duration', Sort.asc);
+      return query.addSortBy(r"duration", Sort.asc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       sortByDurationDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'duration', Sort.desc);
+      return query.addSortBy(r"duration", Sort.desc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       sortByTaskUid() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'taskUid', Sort.asc);
+      return query.addSortBy(r"taskUid", Sort.asc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       sortByTaskUidDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'taskUid', Sort.desc);
+      return query.addSortBy(r"taskUid", Sort.desc);
     });
   }
 }
@@ -703,56 +703,56 @@ extension PomodoroCollectionQuerySortThenBy
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       thenByDateTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'dateTime', Sort.asc);
+      return query.addSortBy(r"dateTime", Sort.asc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       thenByDateTimeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'dateTime', Sort.desc);
+      return query.addSortBy(r"dateTime", Sort.desc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       thenByDuration() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'duration', Sort.asc);
+      return query.addSortBy(r"duration", Sort.asc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       thenByDurationDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'duration', Sort.desc);
+      return query.addSortBy(r"duration", Sort.desc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(r"id", Sort.asc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(r"id", Sort.desc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       thenByTaskUid() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'taskUid', Sort.asc);
+      return query.addSortBy(r"taskUid", Sort.asc);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QAfterSortBy>
       thenByTaskUidDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'taskUid', Sort.desc);
+      return query.addSortBy(r"taskUid", Sort.desc);
     });
   }
 }
@@ -762,21 +762,21 @@ extension PomodoroCollectionQueryWhereDistinct
   QueryBuilder<PomodoroCollection, PomodoroCollection, QDistinct>
       distinctByDateTime({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'dateTime', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r"dateTime", caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QDistinct>
       distinctByDuration() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'duration');
+      return query.addDistinctBy(r"duration");
     });
   }
 
   QueryBuilder<PomodoroCollection, PomodoroCollection, QDistinct>
       distinctByTaskUid({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'taskUid', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r"taskUid", caseSensitive: caseSensitive);
     });
   }
 }
@@ -785,27 +785,27 @@ extension PomodoroCollectionQueryProperty
     on QueryBuilder<PomodoroCollection, PomodoroCollection, QQueryProperty> {
   QueryBuilder<PomodoroCollection, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r"id");
     });
   }
 
   QueryBuilder<PomodoroCollection, String?, QQueryOperations>
       dateTimeProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'dateTime');
+      return query.addPropertyName(r"dateTime");
     });
   }
 
   QueryBuilder<PomodoroCollection, int?, QQueryOperations> durationProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'duration');
+      return query.addPropertyName(r"duration");
     });
   }
 
   QueryBuilder<PomodoroCollection, String?, QQueryOperations>
       taskUidProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'taskUid');
+      return query.addPropertyName(r"taskUid");
     });
   }
 }

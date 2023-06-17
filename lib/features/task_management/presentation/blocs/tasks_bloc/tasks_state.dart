@@ -58,25 +58,6 @@ class GetAllTasksLoading extends TasksState {
   List<Object?> get props => [];
 }
 
-class CategoriesFetchSuccess extends TasksState {
-  final List<CategoryEntity> list;
-
-  const CategoriesFetchSuccess(this.list);
-
-  @override
-  List<Object?> get props => [list];
-}
-
-class CategoriesFetchFailure extends TasksState {
-  @override
-  List<Object?> get props => [];
-}
-
-class CategoriesFetchLoading extends TasksState {
-  @override
-  List<Object?> get props => [];
-}
-
 class TaskCompleteSuccess extends TasksState {
   @override
   List<Object?> get props => [];

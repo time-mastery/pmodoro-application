@@ -1,5 +1,6 @@
 import "package:isar/isar.dart";
 import "package:pomodore/core/resources/params/habit_params.dart";
+import "package:pomodore/core/resources/params/save_pomodoro_params.dart";
 import "package:pomodore/core/resources/params/task_params.dart";
 import "package:pomodore/core/services/database/collections/pomodoro_collection.dart";
 import "package:uuid/uuid.dart";
@@ -144,6 +145,11 @@ class IsarHelper {
     return items.length;
   }
 
+  Future<TaskCollection?> getTaskByUId(String uid) async {
+    List list = await isar.taskCollections.filter().uidEqualTo(uid).findAll();
+    return list.first;
+  }
+
   /*
   *
   * Pomodoro
@@ -153,11 +159,21 @@ class IsarHelper {
     return await isar.pomodoroCollections.where().findAll();
   }
 
-  Future<List<PomodoroCollection>> getAllTodayPomodoros(DateTime date) async {
+  Future<List<PomodoroCollection>> getAllTodayPomodoros() async {
     return await isar.pomodoroCollections
         .filter()
-        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(date))
+        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
         .findAll();
+  }
+
+  Future<Id?> saveAPomodoro(SavePomodoroParams item) async {
+    PomodoroCollection pomodoroCollection = PomodoroCollection()
+      ..dateTime = item.entity.dateTime
+      ..taskUid = item.entity.taskUid
+      ..duration = item.entity.duration;
+    return await isar.writeTxn(() async {
+      return await isar.pomodoroCollections.put(pomodoroCollection);
+    });
   }
 
 /*

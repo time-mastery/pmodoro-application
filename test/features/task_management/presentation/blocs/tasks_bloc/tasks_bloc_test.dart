@@ -5,13 +5,11 @@ import "package:mockito/annotations.dart";
 import "package:mockito/mockito.dart";
 import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
-import "package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart";
-import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_all_tasks.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
@@ -19,9 +17,7 @@ import "tasks_bloc_test.mocks.dart";
 
 @GenerateMocks([
   AddTaskUsecase,
-  AddCategoryUsecase,
   GetAllTasksUseCase,
-  GetAllCategoriesUseCase,
   CompleteTaskUseCase,
   DeleteTaskUseCase,
   AddPomodoroToDbUseCase,
@@ -36,10 +32,6 @@ void main() {
   final MockCompleteTaskUseCase mockCompleteTaskUseCase =
       MockCompleteTaskUseCase();
   final MockDeleteTaskUseCase mockDeleteTaskUseCase = MockDeleteTaskUseCase();
-  final MockAddCategoryUsecase mockAddCategoryUsecase =
-      MockAddCategoryUsecase();
-  final MockGetAllCategoriesUseCase mockGetAllCategoriesUseCase =
-      MockGetAllCategoriesUseCase();
   final MockEditTaskUseCase mockEditTaskUseCase = MockEditTaskUseCase();
 
   final MockTaskEntity taskEntity = MockTaskEntity();
@@ -47,9 +39,7 @@ void main() {
 
   TasksBloc getBlocInstance() => TasksBloc(
         addTaskUsecase: mockAddTaskUsecase,
-        addCategoryUsecase: mockAddCategoryUsecase,
         getAllTasksUseCase: mockGetAllTasksUseCase,
-        getAllCategories: mockGetAllCategoriesUseCase,
         completeTaskUseCase: mockCompleteTaskUseCase,
         deleteTaskUseCase: mockDeleteTaskUseCase,
         editTaskUseCase: mockEditTaskUseCase,

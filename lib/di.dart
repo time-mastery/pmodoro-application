@@ -30,19 +30,16 @@ import "package:pomodore/features/habit_tracking/domain/usecases/edit_habit_usec
 import "package:pomodore/features/habit_tracking/domain/usecases/get_all_habits_usecase.dart";
 import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
 import "package:pomodore/features/task_management/data/data_sources/timer_local_data_source.dart";
-import "package:pomodore/features/task_management/data/repositories/category_repository_impl.dart";
 import "package:pomodore/features/task_management/data/repositories/task_repository_impl.dart";
 import "package:pomodore/features/task_management/data/repositories/timer_repository_impl.dart";
 import "package:pomodore/features/task_management/domain/repositories/task_repository.dart";
 import "package:pomodore/features/task_management/domain/repositories/timer_repository.dart";
-import "package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/check_daily_goal_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart";
-import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_all_tasks.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_analysis_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart";
@@ -55,15 +52,12 @@ import "package:pomodore/features/task_management/presentation/blocs/analysis_bl
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
-import "package:sqflite/sqflite.dart";
 
 import "core/services/database/collections/pomodoro_collection.dart";
-import "core/services/database/database_helper.dart";
 import "core/services/database/isar_helper.dart";
 import "core/services/database/storage.dart";
 import "core/utils/ticker.dart";
 import "features/task_management/data/data_sources/tasks_local_data_source.dart";
-import "features/task_management/domain/repositories/category_repository.dart";
 import "features/task_management/domain/usecases/get_uncompleted_tasks_usecase.dart";
 
 final getIt = GetIt.instance;
@@ -97,9 +91,6 @@ Future inject() async {
   await appLocalNotification.initializeNotification();
   getIt.registerSingleton(appLocalNotification);
 
-  final Database db = await DatabaseHelper.database;
-  getIt.registerSingleton<Database>(db);
-
   // inject ticker
   const Ticker ticker = Ticker();
   getIt.registerSingleton<Ticker>(ticker);
@@ -112,7 +103,6 @@ Future inject() async {
 
   // inject repositories
   getIt.registerSingleton<TaskRepository>(TaskRepositoryImpl(getIt()));
-  getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImpl(getIt()));
   getIt.registerSingleton<SettingsRepository>(SettingsRepositoryImpl(getIt()));
   getIt.registerSingleton<TimerRepository>(TimerRepositoryImpl(getIt()));
   getIt.registerSingleton<HabitTrackingRepository>(
@@ -120,11 +110,8 @@ Future inject() async {
 
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
-  getIt.registerSingleton<AddCategoryUsecase>(AddCategoryUsecase(getIt()));
   getIt.registerSingleton<GetSpecificDateTasksUseCase>(
       GetSpecificDateTasksUseCase(getIt()));
-  getIt.registerSingleton<GetAllCategoriesUseCase>(
-      GetAllCategoriesUseCase(getIt()));
   getIt.registerSingleton<CompleteTaskUseCase>(CompleteTaskUseCase(getIt()));
   getIt.registerSingleton<DeleteTaskUseCase>(DeleteTaskUseCase(getIt()));
   getIt.registerSingleton<AddPomodoroToDbUseCase>(
@@ -179,9 +166,7 @@ Future inject() async {
   // local bloc
   getIt.registerFactory<TasksBloc>(() => TasksBloc(
         addTaskUsecase: getIt(),
-        addCategoryUsecase: getIt(),
         getAllTasksUseCase: getIt(),
-        getAllCategories: getIt(),
         completeTaskUseCase: getIt(),
         deleteTaskUseCase: getIt(),
         editTaskUseCase: getIt(),

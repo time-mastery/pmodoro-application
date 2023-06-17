@@ -57,7 +57,7 @@ class TimerView extends StatelessWidget {
                             duration,
                           ),
                           dateTime: DateTime.now().toString(),
-                          taskUid: context.read<TimerBloc>().taskItem?.id,
+                          taskUid: context.read<TimerBloc>().taskItem?.uid,
                         ),
                         true),
                   );
@@ -77,7 +77,7 @@ class TimerView extends StatelessWidget {
                             duration,
                           ),
                           dateTime: DateTime.now().toString(),
-                          taskUid: context.read<TimerBloc>().taskItem?.id,
+                          taskUid: context.read<TimerBloc>().taskItem?.uid,
                         ),
                         false),
                   );
@@ -109,7 +109,7 @@ class TimerView extends StatelessWidget {
             ..showMaterialBanner(_showMaterialBanner(
               context,
               duration: state.duration,
-              taskUid: context.read<TimerBloc>().taskItem?.id,
+              taskUid: context.read<TimerBloc>().taskItem?.uid,
             ));
         }
       },

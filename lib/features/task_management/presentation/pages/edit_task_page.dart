@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
+import "package:pomodore/core/resources/params/task_params.dart";
 
 import "../../../../core/constant/constant.dart";
 import "../../../../core/shared_widgets/base_app_bar.dart";
@@ -170,14 +171,16 @@ class EditTaskView extends HookWidget {
                           } else {
                             context.read<TasksBloc>().add(
                                   TaskEdited(
-                                    TaskEntity(
+                                    TaskParams(
+                                      uid: task.uid,
+                                      taskDateTimeDeadline:
+                                          task.deadLineTime.toString(),
+                                      taskDescription: task.description,
+                                      taskTitle: task.title,
+                                      taskDone: false,
                                       id: task.id,
-                                      title: titleController.text,
-                                      description: descriptionController.text,
-                                      deadLineTime: dateTime.value!,
-                                      doneTime: task.doneTime,
-                                      done: false,
-                                      category: task.category,
+                                      taskDoneDatetime:
+                                          task.doneTime.toString(),
                                     ),
                                   ),
                                 );

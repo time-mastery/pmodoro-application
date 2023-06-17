@@ -1,164 +1,104 @@
+import "package:pomodore/core/resources/params/task_params.dart";
+import "package:pomodore/core/services/database/collections/pomodoro_collection.dart";
+import "package:pomodore/core/services/database/collections/task_collection.dart";
+import "package:pomodore/core/services/database/isar_helper.dart";
 import "package:pomodore/core/utils/debug_print.dart";
-import "package:pomodore/features/task_management/data/models/category_model.dart";
-import "package:pomodore/features/task_management/domain/entities/category_entity.dart";
-import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
-import "package:sqflite/sqflite.dart";
+import "package:pomodore/features/task_management/data/models/pomodoro_model.dart";
 
-import "../../../../core/services/database/database_helper.dart";
-import "../../../../core/utils/utils.dart";
 import "../models/task_model.dart";
 
 class TasksLocalDataSource {
-  final Database db;
+  final IsarHelper db;
 
   TasksLocalDataSource(this.db);
 
-  Future<bool> addTask(TaskEntity task) async {
+  Future<TaskModel?> addTask(TaskParams params) async {
     try {
-      final Map<String, Object?> data = TaskModel.toJson(task);
-      await db.insert(DatabaseHelper.taskTable, data);
+      TaskCollection? task = await db.addTask(params);
+      if (task == null) return null;
+      return TaskModel.collectionToModel(task);
     } catch (e) {
-      return false;
+      dPrint(e.toString());
+      rethrow;
     }
-    return true;
   }
 
-  Future<bool> addCategory(CategoryEntity category) async {
+  Future<List<TaskModel>>? getAllUnCompletedTasks() async {
     try {
-      final Map<String, Object?> data = CategoryModel.toJson(category);
-      await db.insert(DatabaseHelper.categoryTable, data);
+      final List<TaskCollection> tasks = await db.getUnCompletedTasks();
+
+      return tasks.map((e) => TaskModel.collectionToModel(e)).toList();
     } catch (e) {
-      return false;
+      dPrint(e.toString());
+      rethrow;
     }
-    return true;
   }
 
-  Future<List<Map<String, dynamic>>>? getAllUnCompletedTasks() async {
-    List<Map<String, dynamic>>? list;
+  Future<List<TaskModel>>? getAllTasks() async {
     try {
-      const query = "SELECT * FROM ${DatabaseHelper.taskTable} WHERE done = 0";
-      final List<Map<String, Object?>> records = await db.rawQuery(query);
+      final List<TaskCollection> tasks = await db.getAllTasks();
 
-      list = records;
+      return tasks.map((e) => TaskModel.collectionToModel(e)).toList();
     } catch (e) {
       rethrow;
     }
-
-    return list;
   }
 
-  Future<List<Map<String, dynamic>>>? getAllTasks() async {
-    List<Map<String, dynamic>>? list;
+  Future<List<TaskModel>>? getSpecificDateTasks(DateTime time) async {
     try {
-      const query = "SELECT * FROM ${DatabaseHelper.taskTable}";
-      final List<Map<String, Object?>> records = await db.rawQuery(query);
+      final List<TaskCollection> tasks = await db.getSpecificDateTasks(time);
 
-      list = records;
+      return tasks.map((e) => TaskModel.collectionToModel(e)).toList();
     } catch (e) {
       rethrow;
     }
-
-    return list;
   }
 
-  Future<List<Map<String, dynamic>>>? getSpecificDateTasks(
-      DateTime time) async {
-    List<Map<String, dynamic>>? list;
+  Future<List<PomodoroModel>>? getAllPomodoroFromDb() async {
     try {
-      const query = """
-      SELECT * FROM ${DatabaseHelper.taskTable}
-      WHERE deadLineTime >= ? AND deadLineTime < ?
-      """;
+      final List<PomodoroCollection> records = await db.getAllPomodoros();
 
-      final List<Map<String, Object?>> records = await db.rawQuery(query, [
-        Utils.formatDateToYYYYMMDD(time),
-        Utils.formatDateToYYYYMMDD(time.add(const Duration(days: 1))),
-      ]);
+      return records
+          .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
+          .toList();
+    } catch (e) {
+      dPrint(e.toString());
+      rethrow;
+    }
+  }
 
-      list = records;
+  Future<List<PomodoroModel>>? getAllTodayPomodoroFromDb() async {
+    try {
+      final List<PomodoroCollection> records = await db.getAllTodayPomodoros();
+
+      return records
+          .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
+          .toList();
     } catch (e) {
       rethrow;
     }
-
-    return list;
-  }
-
-  Future<List<Map<String, dynamic>>>? getAllCategories() async {
-    List<Map<String, dynamic>>? list;
-    try {
-      const query = "SELECT * FROM ${DatabaseHelper.categoryTable}";
-      final List<Map<String, Object?>> records = await db.rawQuery(query);
-
-      list = records;
-    } catch (e) {
-      rethrow;
-    }
-
-    return list;
-  }
-
-  Future<List<Map<String, dynamic>>>? getAllPomodoroFromDb() async {
-    List<Map<String, dynamic>>? list;
-    try {
-      const query = "SELECT * FROM ${DatabaseHelper.pomodoroTable}";
-      final List<Map<String, Object?>> records = await db.rawQuery(query);
-
-      list = records;
-    } catch (e) {
-      rethrow;
-    }
-
-    return list;
-  }
-
-  Future<List<Map<String, dynamic>>>? getAllTodayPomodoroFromDb(
-      DateTime time) async {
-    List<Map<String, dynamic>>? list;
-    try {
-      const query = """
-      SELECT * FROM ${DatabaseHelper.pomodoroTable}
-      WHERE dateTime >= ? AND dateTime < ?
-      """;
-
-      final List<Map<String, Object?>> records = await db.rawQuery(query, [
-        Utils.formatDateToYYYYMMDD(time),
-        Utils.formatDateToYYYYMMDD(time.add(const Duration(days: 1))),
-      ]);
-
-      list = records;
-    } catch (e) {
-      rethrow;
-    }
-
-    return list;
   }
 
   Future<int> getAllTodayTaskQuantity() async {
-    late int quantity;
+    late int count;
 
     try {
-      final List<Map<String, dynamic>>? tasks =
-          await getSpecificDateTasks(DateTime.now());
+      final int tasks = await db.getAllTodayTaskQuantity();
 
-      quantity = tasks == null ? 0 : tasks.length;
+      count = tasks;
     } catch (e) {
       rethrow;
     }
-    return quantity;
+    return count;
   }
 
   Future<int> getCompletedTaskQuantity() async {
     late int quantity;
 
     try {
-      final List<Map<String, Object?>> records = await db.query(
-        DatabaseHelper.taskTable,
-        columns: ["_id"],
-        where: "done = ?",
-        whereArgs: [1],
-      );
+      final int records = await db.getCompletedTaskQuantity();
 
-      quantity = records.length;
+      quantity = records;
     } catch (e) {
       rethrow;
     }
@@ -168,8 +108,7 @@ class TasksLocalDataSource {
   Future<List<double>?> getWeeklySpendingPomodoro() async {
     List<double>? list;
     try {
-      final List<Map<String, dynamic>>? allPomodoroList =
-          await getAllPomodoroFromDb();
+      final List<PomodoroModel>? allPomodoroList = await getAllPomodoroFromDb();
 
       if (allPomodoroList == null) {
         return null;
@@ -177,9 +116,8 @@ class TasksLocalDataSource {
 
       final List<double> weeklySpendingPomodoro = [];
       for (int i = 0; i < 7; i++) {
-        final DateTime date = DateTime.now().subtract(Duration(days: i));
-        final List<Map<String, dynamic>>? todayPomodoroList =
-            await getAllTodayPomodoroFromDb(date);
+        final List<PomodoroModel>? todayPomodoroList =
+            await getAllTodayPomodoroFromDb();
         final pomodoroCount = todayPomodoroList?.length ?? 0;
 
         weeklySpendingPomodoro.insert(0, pomodoroCount.toDouble());
@@ -197,10 +135,9 @@ class TasksLocalDataSource {
     late Map<String, dynamic>? item;
     try {
       final int todayCompletedTask = await getCompletedTaskQuantity();
-      final List<Map<String, dynamic>>? allPomodoroList =
-          await getAllPomodoroFromDb();
-      final List<Map<String, dynamic>>? todayPomodoroList =
-          await getAllTodayPomodoroFromDb(DateTime.now());
+      final List<PomodoroModel>? allPomodoroList = await getAllPomodoroFromDb();
+      final List<PomodoroModel>? todayPomodoroList =
+          await getAllTodayPomodoroFromDb();
       final int todayPomodoroCount = todayPomodoroList?.length ?? 0;
       final List<double>? weeklyList = await getWeeklySpendingPomodoro();
 
@@ -221,112 +158,60 @@ class TasksLocalDataSource {
 
   Future<bool> saveDailyGoal(int count) async {
     try {
-      final Map<String, Object?> data = {
-        "count": count,
-        "dateTime": DateTime.now().toString()
-      };
-      await db.insert(DatabaseHelper.dailyGoalTable, data);
+      await db.saveDailyGoal(count);
+      return true;
     } catch (e) {
       return false;
     }
-    return true;
   }
 
   Future<int?> getDailyGoalQuantity() async {
-    int? count;
     try {
-      const query = """
-      SELECT * FROM ${DatabaseHelper.dailyGoalTable}
-      WHERE dateTime >= ? AND dateTime < ?
-      """;
+      final int? records = await db.getDailyGoalQuantity();
 
-      final List<Map<String, dynamic>> records = await db.rawQuery(query, [
-        Utils.formatDateToYYYYMMDD(DateTime.now()),
-        Utils.formatDateToYYYYMMDD(DateTime.now().add(const Duration(days: 1))),
-      ]);
-
-      if (records.isNotEmpty) {
-        count = int.parse(records.first["count"]);
-      }
+      return records;
     } catch (e) {
       rethrow;
     }
-
-    return count;
   }
 
   Future<bool?> checkDailyGoal() async {
-    bool? result;
     try {
-      const query = """
-      SELECT * FROM ${DatabaseHelper.dailyGoalTable}
-      WHERE dateTime >= ? AND dateTime < ?
-      """;
+      final bool state = await db.checkDailyGoal();
 
-      final List<Map<String, dynamic>> records = await db.rawQuery(query, [
-        Utils.formatDateToYYYYMMDD(DateTime.now()),
-        Utils.formatDateToYYYYMMDD(DateTime.now().add(const Duration(days: 1))),
-      ]);
-
-      result = records.isNotEmpty;
+      return state;
     } catch (e) {
       dPrint(e.toString());
       rethrow;
     }
-
-    return result;
   }
 
-  Future<String?> editTask(TaskEntity task) async {
-    String? result;
+  Future<TaskModel?> editTask(TaskParams params) async {
     try {
-      await db.update(
-        DatabaseHelper.taskTable,
-        TaskModel.toJson(task),
-        where: "uid = ?",
-        whereArgs: [task.id],
-      );
+      TaskCollection? task = await db.editTask(params);
 
-      result = task.id;
+      return TaskModel.collectionToModel(task!);
     } catch (e) {
       rethrow;
     }
-
-    return result;
   }
 
-  Future<String?> completeTask(TaskEntity task) async {
-    String? result;
+  Future<TaskModel?> completeTask(TaskParams params) async {
     try {
-      await db.update(
-        DatabaseHelper.taskTable,
-        TaskModel.toJson(task, isCompleted: true),
-        where: "uid = ?",
-        whereArgs: [task.id],
-      );
+      TaskCollection? task = await db.editTask(params);
 
-      result = task.id;
+      return TaskModel.collectionToModel(task!);
     } catch (e) {
       rethrow;
     }
-
-    return result;
   }
 
-  Future<String?> deleteTask(String id) async {
-    String? result;
+  Future<int?> deleteTask(int id) async {
     try {
-      await db.delete(
-        DatabaseHelper.taskTable,
-        where: "uid = ?",
-        whereArgs: [id],
-      );
-
-      result = id;
+      await db.deleteTask(id);
+      return id;
     } catch (e) {
-      rethrow;
+      return null;
     }
-
-    return result;
   }
 }

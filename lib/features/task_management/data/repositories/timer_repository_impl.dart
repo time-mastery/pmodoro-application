@@ -1,7 +1,6 @@
 import "package:dartz/dartz.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/task_management/data/data_sources/timer_local_data_source.dart";
-import "package:pomodore/features/task_management/data/models/task_model.dart";
 import "package:pomodore/features/task_management/domain/repositories/timer_repository.dart";
 
 import "../../../../core/resources/params/save_pomodoro_params.dart";
@@ -40,9 +39,7 @@ class TimerRepositoryImpl extends TimerRepository {
           TimerStateParams(
             duration: restoredState.duration,
             baseDuration: restoredState.baseDuration,
-            task: restoredState.task != null
-                ? TaskModel.fromJson(restoredState.task!)
-                : null,
+            task: restoredState.task,
             timerDone: restoredState.timerDone,
           ),
         );
