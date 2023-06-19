@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of "habit_collection.dart";
+part of 'habit_collection.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -14,37 +14,37 @@ extension GetHabitCollectionCollection on Isar {
 }
 
 const HabitCollectionSchema = CollectionSchema(
-  name: r"HabitCollection",
+  name: r'HabitCollection',
   id: -9048742641665595188,
   properties: {
-    r"habitColor": PropertySchema(
+    r'habitColor': PropertySchema(
       id: 0,
-      name: r"habitColor",
+      name: r'habitColor',
       type: IsarType.long,
     ),
-    r"habitDescription": PropertySchema(
+    r'habitDescription': PropertySchema(
       id: 1,
-      name: r"habitDescription",
+      name: r'habitDescription',
       type: IsarType.string,
     ),
-    r"habitIcon": PropertySchema(
+    r'habitIcon': PropertySchema(
       id: 2,
-      name: r"habitIcon",
+      name: r'habitIcon',
       type: IsarType.string,
     ),
-    r"habitTitle": PropertySchema(
+    r'habitTitle': PropertySchema(
       id: 3,
-      name: r"habitTitle",
+      name: r'habitTitle',
       type: IsarType.string,
     ),
-    r"overviews": PropertySchema(
+    r'overviews': PropertySchema(
       id: 4,
-      name: r"overviews",
+      name: r'overviews',
       type: IsarType.stringList,
     ),
-    r"uuid": PropertySchema(
+    r'uuid': PropertySchema(
       id: 5,
-      name: r"uuid",
+      name: r'uuid',
       type: IsarType.string,
     )
   },
@@ -52,14 +52,14 @@ const HabitCollectionSchema = CollectionSchema(
   serialize: _habitCollectionSerialize,
   deserialize: _habitCollectionDeserialize,
   deserializeProp: _habitCollectionDeserializeProp,
-  idName: r"id",
+  idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
   getId: _habitCollectionGetId,
   getLinks: _habitCollectionGetLinks,
   attach: _habitCollectionAttach,
-  version: "3.1.0+1",
+  version: '3.1.0+1',
 );
 
 int _habitCollectionEstimateSize(
@@ -158,7 +158,7 @@ P _habitCollectionDeserializeProp<P>(
     case 5:
       return (reader.readStringOrNull(offset)) as P;
     default:
-      throw IsarError("Unknown property with id $propertyId");
+      throw IsarError('Unknown property with id $propertyId');
   }
 }
 
@@ -261,7 +261,7 @@ extension HabitCollectionQueryFilter
       habitColorIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r"habitColor",
+        property: r'habitColor',
       ));
     });
   }
@@ -270,7 +270,7 @@ extension HabitCollectionQueryFilter
       habitColorIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r"habitColor",
+        property: r'habitColor',
       ));
     });
   }
@@ -279,7 +279,7 @@ extension HabitCollectionQueryFilter
       habitColorEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"habitColor",
+        property: r'habitColor',
         value: value,
       ));
     });
@@ -293,7 +293,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"habitColor",
+        property: r'habitColor',
         value: value,
       ));
     });
@@ -307,7 +307,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"habitColor",
+        property: r'habitColor',
         value: value,
       ));
     });
@@ -322,7 +322,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"habitColor",
+        property: r'habitColor',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -335,7 +335,7 @@ extension HabitCollectionQueryFilter
       habitDescriptionIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r"habitDescription",
+        property: r'habitDescription',
       ));
     });
   }
@@ -344,7 +344,7 @@ extension HabitCollectionQueryFilter
       habitDescriptionIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r"habitDescription",
+        property: r'habitDescription',
       ));
     });
   }
@@ -356,7 +356,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"habitDescription",
+        property: r'habitDescription',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -372,7 +372,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"habitDescription",
+        property: r'habitDescription',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -388,7 +388,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"habitDescription",
+        property: r'habitDescription',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -405,7 +405,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"habitDescription",
+        property: r'habitDescription',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -422,7 +422,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r"habitDescription",
+        property: r'habitDescription',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -436,7 +436,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r"habitDescription",
+        property: r'habitDescription',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -447,7 +447,7 @@ extension HabitCollectionQueryFilter
       habitDescriptionContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r"habitDescription",
+        property: r'habitDescription',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -458,7 +458,7 @@ extension HabitCollectionQueryFilter
       habitDescriptionMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r"habitDescription",
+        property: r'habitDescription',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -469,8 +469,8 @@ extension HabitCollectionQueryFilter
       habitDescriptionIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"habitDescription",
-        value: "",
+        property: r'habitDescription',
+        value: '',
       ));
     });
   }
@@ -479,8 +479,8 @@ extension HabitCollectionQueryFilter
       habitDescriptionIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r"habitDescription",
-        value: "",
+        property: r'habitDescription',
+        value: '',
       ));
     });
   }
@@ -489,7 +489,7 @@ extension HabitCollectionQueryFilter
       habitIconIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r"habitIcon",
+        property: r'habitIcon',
       ));
     });
   }
@@ -498,7 +498,7 @@ extension HabitCollectionQueryFilter
       habitIconIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r"habitIcon",
+        property: r'habitIcon',
       ));
     });
   }
@@ -510,7 +510,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"habitIcon",
+        property: r'habitIcon',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -526,7 +526,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"habitIcon",
+        property: r'habitIcon',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -542,7 +542,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"habitIcon",
+        property: r'habitIcon',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -559,7 +559,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"habitIcon",
+        property: r'habitIcon',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -576,7 +576,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r"habitIcon",
+        property: r'habitIcon',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -590,7 +590,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r"habitIcon",
+        property: r'habitIcon',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -601,7 +601,7 @@ extension HabitCollectionQueryFilter
       habitIconContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r"habitIcon",
+        property: r'habitIcon',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -612,7 +612,7 @@ extension HabitCollectionQueryFilter
       habitIconMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r"habitIcon",
+        property: r'habitIcon',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -623,8 +623,8 @@ extension HabitCollectionQueryFilter
       habitIconIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"habitIcon",
-        value: "",
+        property: r'habitIcon',
+        value: '',
       ));
     });
   }
@@ -633,8 +633,8 @@ extension HabitCollectionQueryFilter
       habitIconIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r"habitIcon",
-        value: "",
+        property: r'habitIcon',
+        value: '',
       ));
     });
   }
@@ -643,7 +643,7 @@ extension HabitCollectionQueryFilter
       habitTitleIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r"habitTitle",
+        property: r'habitTitle',
       ));
     });
   }
@@ -652,7 +652,7 @@ extension HabitCollectionQueryFilter
       habitTitleIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r"habitTitle",
+        property: r'habitTitle',
       ));
     });
   }
@@ -664,7 +664,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"habitTitle",
+        property: r'habitTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -680,7 +680,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"habitTitle",
+        property: r'habitTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -696,7 +696,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"habitTitle",
+        property: r'habitTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -713,7 +713,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"habitTitle",
+        property: r'habitTitle',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -730,7 +730,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r"habitTitle",
+        property: r'habitTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -744,7 +744,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r"habitTitle",
+        property: r'habitTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -755,7 +755,7 @@ extension HabitCollectionQueryFilter
       habitTitleContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r"habitTitle",
+        property: r'habitTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -766,7 +766,7 @@ extension HabitCollectionQueryFilter
       habitTitleMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r"habitTitle",
+        property: r'habitTitle',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -777,8 +777,8 @@ extension HabitCollectionQueryFilter
       habitTitleIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"habitTitle",
-        value: "",
+        property: r'habitTitle',
+        value: '',
       ));
     });
   }
@@ -787,8 +787,8 @@ extension HabitCollectionQueryFilter
       habitTitleIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r"habitTitle",
-        value: "",
+        property: r'habitTitle',
+        value: '',
       ));
     });
   }
@@ -797,7 +797,7 @@ extension HabitCollectionQueryFilter
       idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"id",
+        property: r'id',
         value: value,
       ));
     });
@@ -811,7 +811,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"id",
+        property: r'id',
         value: value,
       ));
     });
@@ -825,7 +825,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"id",
+        property: r'id',
         value: value,
       ));
     });
@@ -840,7 +840,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"id",
+        property: r'id',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -853,7 +853,7 @@ extension HabitCollectionQueryFilter
       overviewsIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r"overviews",
+        property: r'overviews',
       ));
     });
   }
@@ -862,7 +862,7 @@ extension HabitCollectionQueryFilter
       overviewsIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r"overviews",
+        property: r'overviews',
       ));
     });
   }
@@ -874,7 +874,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"overviews",
+        property: r'overviews',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -890,7 +890,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"overviews",
+        property: r'overviews',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -906,7 +906,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"overviews",
+        property: r'overviews',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -923,7 +923,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"overviews",
+        property: r'overviews',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -940,7 +940,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r"overviews",
+        property: r'overviews',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -954,7 +954,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r"overviews",
+        property: r'overviews',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -965,7 +965,7 @@ extension HabitCollectionQueryFilter
       overviewsElementContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r"overviews",
+        property: r'overviews',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -976,7 +976,7 @@ extension HabitCollectionQueryFilter
       overviewsElementMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r"overviews",
+        property: r'overviews',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -987,8 +987,8 @@ extension HabitCollectionQueryFilter
       overviewsElementIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"overviews",
-        value: "",
+        property: r'overviews',
+        value: '',
       ));
     });
   }
@@ -997,8 +997,8 @@ extension HabitCollectionQueryFilter
       overviewsElementIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r"overviews",
-        value: "",
+        property: r'overviews',
+        value: '',
       ));
     });
   }
@@ -1007,7 +1007,7 @@ extension HabitCollectionQueryFilter
       overviewsLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
-        r"overviews",
+        r'overviews',
         length,
         true,
         length,
@@ -1020,7 +1020,7 @@ extension HabitCollectionQueryFilter
       overviewsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
-        r"overviews",
+        r'overviews',
         0,
         true,
         0,
@@ -1033,7 +1033,7 @@ extension HabitCollectionQueryFilter
       overviewsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
-        r"overviews",
+        r'overviews',
         0,
         false,
         999999,
@@ -1049,7 +1049,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
-        r"overviews",
+        r'overviews',
         0,
         true,
         length,
@@ -1065,7 +1065,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
-        r"overviews",
+        r'overviews',
         length,
         include,
         999999,
@@ -1083,7 +1083,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
-        r"overviews",
+        r'overviews',
         lower,
         includeLower,
         upper,
@@ -1096,7 +1096,7 @@ extension HabitCollectionQueryFilter
       uuidIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r"uuid",
+        property: r'uuid',
       ));
     });
   }
@@ -1105,7 +1105,7 @@ extension HabitCollectionQueryFilter
       uuidIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r"uuid",
+        property: r'uuid',
       ));
     });
   }
@@ -1117,7 +1117,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"uuid",
+        property: r'uuid',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -1133,7 +1133,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"uuid",
+        property: r'uuid',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -1149,7 +1149,7 @@ extension HabitCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"uuid",
+        property: r'uuid',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -1166,7 +1166,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"uuid",
+        property: r'uuid',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1183,7 +1183,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r"uuid",
+        property: r'uuid',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -1197,7 +1197,7 @@ extension HabitCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r"uuid",
+        property: r'uuid',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -1208,7 +1208,7 @@ extension HabitCollectionQueryFilter
       uuidContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r"uuid",
+        property: r'uuid',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -1219,7 +1219,7 @@ extension HabitCollectionQueryFilter
       uuidMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r"uuid",
+        property: r'uuid',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -1230,8 +1230,8 @@ extension HabitCollectionQueryFilter
       uuidIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"uuid",
-        value: "",
+        property: r'uuid',
+        value: '',
       ));
     });
   }
@@ -1240,8 +1240,8 @@ extension HabitCollectionQueryFilter
       uuidIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r"uuid",
-        value: "",
+        property: r'uuid',
+        value: '',
       ));
     });
   }
@@ -1258,69 +1258,69 @@ extension HabitCollectionQuerySortBy
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       sortByHabitColor() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitColor", Sort.asc);
+      return query.addSortBy(r'habitColor', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       sortByHabitColorDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitColor", Sort.desc);
+      return query.addSortBy(r'habitColor', Sort.desc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       sortByHabitDescription() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitDescription", Sort.asc);
+      return query.addSortBy(r'habitDescription', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       sortByHabitDescriptionDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitDescription", Sort.desc);
+      return query.addSortBy(r'habitDescription', Sort.desc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       sortByHabitIcon() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitIcon", Sort.asc);
+      return query.addSortBy(r'habitIcon', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       sortByHabitIconDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitIcon", Sort.desc);
+      return query.addSortBy(r'habitIcon', Sort.desc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       sortByHabitTitle() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitTitle", Sort.asc);
+      return query.addSortBy(r'habitTitle', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       sortByHabitTitleDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitTitle", Sort.desc);
+      return query.addSortBy(r'habitTitle', Sort.desc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy> sortByUuid() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"uuid", Sort.asc);
+      return query.addSortBy(r'uuid', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       sortByUuidDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"uuid", Sort.desc);
+      return query.addSortBy(r'uuid', Sort.desc);
     });
   }
 }
@@ -1330,81 +1330,81 @@ extension HabitCollectionQuerySortThenBy
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       thenByHabitColor() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitColor", Sort.asc);
+      return query.addSortBy(r'habitColor', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       thenByHabitColorDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitColor", Sort.desc);
+      return query.addSortBy(r'habitColor', Sort.desc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       thenByHabitDescription() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitDescription", Sort.asc);
+      return query.addSortBy(r'habitDescription', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       thenByHabitDescriptionDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitDescription", Sort.desc);
+      return query.addSortBy(r'habitDescription', Sort.desc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       thenByHabitIcon() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitIcon", Sort.asc);
+      return query.addSortBy(r'habitIcon', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       thenByHabitIconDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitIcon", Sort.desc);
+      return query.addSortBy(r'habitIcon', Sort.desc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       thenByHabitTitle() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitTitle", Sort.asc);
+      return query.addSortBy(r'habitTitle', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       thenByHabitTitleDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"habitTitle", Sort.desc);
+      return query.addSortBy(r'habitTitle', Sort.desc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"id", Sort.asc);
+      return query.addSortBy(r'id', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"id", Sort.desc);
+      return query.addSortBy(r'id', Sort.desc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy> thenByUuid() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"uuid", Sort.asc);
+      return query.addSortBy(r'uuid', Sort.asc);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QAfterSortBy>
       thenByUuidDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"uuid", Sort.desc);
+      return query.addSortBy(r'uuid', Sort.desc);
     });
   }
 }
@@ -1414,14 +1414,14 @@ extension HabitCollectionQueryWhereDistinct
   QueryBuilder<HabitCollection, HabitCollection, QDistinct>
       distinctByHabitColor() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r"habitColor");
+      return query.addDistinctBy(r'habitColor');
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QDistinct>
       distinctByHabitDescription({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r"habitDescription",
+      return query.addDistinctBy(r'habitDescription',
           caseSensitive: caseSensitive);
     });
   }
@@ -1429,28 +1429,28 @@ extension HabitCollectionQueryWhereDistinct
   QueryBuilder<HabitCollection, HabitCollection, QDistinct> distinctByHabitIcon(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r"habitIcon", caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'habitIcon', caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QDistinct>
       distinctByHabitTitle({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r"habitTitle", caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'habitTitle', caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QDistinct>
       distinctByOverviews() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r"overviews");
+      return query.addDistinctBy(r'overviews');
     });
   }
 
   QueryBuilder<HabitCollection, HabitCollection, QDistinct> distinctByUuid(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r"uuid", caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'uuid', caseSensitive: caseSensitive);
     });
   }
 }
@@ -1459,46 +1459,46 @@ extension HabitCollectionQueryProperty
     on QueryBuilder<HabitCollection, HabitCollection, QQueryProperty> {
   QueryBuilder<HabitCollection, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"id");
+      return query.addPropertyName(r'id');
     });
   }
 
   QueryBuilder<HabitCollection, int?, QQueryOperations> habitColorProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"habitColor");
+      return query.addPropertyName(r'habitColor');
     });
   }
 
   QueryBuilder<HabitCollection, String?, QQueryOperations>
       habitDescriptionProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"habitDescription");
+      return query.addPropertyName(r'habitDescription');
     });
   }
 
   QueryBuilder<HabitCollection, String?, QQueryOperations> habitIconProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"habitIcon");
+      return query.addPropertyName(r'habitIcon');
     });
   }
 
   QueryBuilder<HabitCollection, String?, QQueryOperations>
       habitTitleProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"habitTitle");
+      return query.addPropertyName(r'habitTitle');
     });
   }
 
   QueryBuilder<HabitCollection, List<String>?, QQueryOperations>
       overviewsProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"overviews");
+      return query.addPropertyName(r'overviews');
     });
   }
 
   QueryBuilder<HabitCollection, String?, QQueryOperations> uuidProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"uuid");
+      return query.addPropertyName(r'uuid');
     });
   }
 }

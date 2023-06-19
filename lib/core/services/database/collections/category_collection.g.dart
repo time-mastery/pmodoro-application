@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of "category_collection.dart";
+part of 'category_collection.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -15,12 +15,12 @@ extension GetCategoryCollectionCollection on Isar {
 }
 
 const CategoryCollectionSchema = CollectionSchema(
-  name: r"CategoryCollection",
+  name: r'CategoryCollection',
   id: 8175446950304347596,
   properties: {
-    r"title": PropertySchema(
+    r'title': PropertySchema(
       id: 0,
-      name: r"title",
+      name: r'title',
       type: IsarType.string,
     )
   },
@@ -28,14 +28,14 @@ const CategoryCollectionSchema = CollectionSchema(
   serialize: _categoryCollectionSerialize,
   deserialize: _categoryCollectionDeserialize,
   deserializeProp: _categoryCollectionDeserializeProp,
-  idName: r"id",
+  idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
   getId: _categoryCollectionGetId,
   getLinks: _categoryCollectionGetLinks,
   attach: _categoryCollectionAttach,
-  version: "3.1.0+1",
+  version: '3.1.0+1',
 );
 
 int _categoryCollectionEstimateSize(
@@ -84,7 +84,7 @@ P _categoryCollectionDeserializeProp<P>(
     case 0:
       return (reader.readStringOrNull(offset)) as P;
     default:
-      throw IsarError("Unknown property with id $propertyId");
+      throw IsarError('Unknown property with id $propertyId');
   }
 }
 
@@ -188,7 +188,7 @@ extension CategoryCollectionQueryFilter
       idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"id",
+        property: r'id',
         value: value,
       ));
     });
@@ -202,7 +202,7 @@ extension CategoryCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"id",
+        property: r'id',
         value: value,
       ));
     });
@@ -216,7 +216,7 @@ extension CategoryCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"id",
+        property: r'id',
         value: value,
       ));
     });
@@ -231,7 +231,7 @@ extension CategoryCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"id",
+        property: r'id',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -244,7 +244,7 @@ extension CategoryCollectionQueryFilter
       titleIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r"title",
+        property: r'title',
       ));
     });
   }
@@ -253,7 +253,7 @@ extension CategoryCollectionQueryFilter
       titleIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r"title",
+        property: r'title',
       ));
     });
   }
@@ -265,7 +265,7 @@ extension CategoryCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"title",
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -281,7 +281,7 @@ extension CategoryCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r"title",
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -297,7 +297,7 @@ extension CategoryCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r"title",
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -314,7 +314,7 @@ extension CategoryCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r"title",
+        property: r'title',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -331,7 +331,7 @@ extension CategoryCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r"title",
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -345,7 +345,7 @@ extension CategoryCollectionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r"title",
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -356,7 +356,7 @@ extension CategoryCollectionQueryFilter
       titleContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r"title",
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -367,7 +367,7 @@ extension CategoryCollectionQueryFilter
       titleMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r"title",
+        property: r'title',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -378,8 +378,8 @@ extension CategoryCollectionQueryFilter
       titleIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r"title",
-        value: "",
+        property: r'title',
+        value: '',
       ));
     });
   }
@@ -388,8 +388,8 @@ extension CategoryCollectionQueryFilter
       titleIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r"title",
-        value: "",
+        property: r'title',
+        value: '',
       ));
     });
   }
@@ -406,14 +406,14 @@ extension CategoryCollectionQuerySortBy
   QueryBuilder<CategoryCollection, CategoryCollection, QAfterSortBy>
       sortByTitle() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"title", Sort.asc);
+      return query.addSortBy(r'title', Sort.asc);
     });
   }
 
   QueryBuilder<CategoryCollection, CategoryCollection, QAfterSortBy>
       sortByTitleDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"title", Sort.desc);
+      return query.addSortBy(r'title', Sort.desc);
     });
   }
 }
@@ -423,28 +423,28 @@ extension CategoryCollectionQuerySortThenBy
   QueryBuilder<CategoryCollection, CategoryCollection, QAfterSortBy>
       thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"id", Sort.asc);
+      return query.addSortBy(r'id', Sort.asc);
     });
   }
 
   QueryBuilder<CategoryCollection, CategoryCollection, QAfterSortBy>
       thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"id", Sort.desc);
+      return query.addSortBy(r'id', Sort.desc);
     });
   }
 
   QueryBuilder<CategoryCollection, CategoryCollection, QAfterSortBy>
       thenByTitle() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"title", Sort.asc);
+      return query.addSortBy(r'title', Sort.asc);
     });
   }
 
   QueryBuilder<CategoryCollection, CategoryCollection, QAfterSortBy>
       thenByTitleDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r"title", Sort.desc);
+      return query.addSortBy(r'title', Sort.desc);
     });
   }
 }
@@ -454,7 +454,7 @@ extension CategoryCollectionQueryWhereDistinct
   QueryBuilder<CategoryCollection, CategoryCollection, QDistinct>
       distinctByTitle({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r"title", caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'title', caseSensitive: caseSensitive);
     });
   }
 }
@@ -463,13 +463,13 @@ extension CategoryCollectionQueryProperty
     on QueryBuilder<CategoryCollection, CategoryCollection, QQueryProperty> {
   QueryBuilder<CategoryCollection, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"id");
+      return query.addPropertyName(r'id');
     });
   }
 
   QueryBuilder<CategoryCollection, String?, QQueryOperations> titleProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r"title");
+      return query.addPropertyName(r'title');
     });
   }
 }

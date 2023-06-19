@@ -5,8 +5,8 @@ class TaskEntity extends Equatable {
   final String uid;
   final String title, description;
   final String category;
-  final DateTime deadLineTime;
-  final DateTime? doneTime;
+  final String deadLineTime;
+  final String? doneTime;
   final bool done;
 
   const TaskEntity({

@@ -48,7 +48,7 @@ class EditTaskView extends HookWidget {
     final descriptionController =
         useTextEditingController(text: task.description);
     final formKey = useState(GlobalKey<FormState>());
-    final dateTime = useState<DateTime?>(task.doneTime);
+    final dateTime = useState<DateTime?>(DateTime.parse(task.deadLineTime));
 
     return BlocConsumer(
       bloc: context.read<TasksBloc>(),

@@ -7,25 +7,24 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:pomodore/core/resources/params/no_params.dart' as _i8;
+import 'package:pomodore/core/resources/params/no_params.dart' as _i9;
 import 'package:pomodore/core/resources/params/save_pomodoro_params.dart'
-    as _i12;
-import 'package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart'
-    as _i14;
+    as _i13;
+import 'package:pomodore/core/resources/params/task_params.dart' as _i6;
 import 'package:pomodore/features/task_management/domain/entities/task_entity.dart'
-    as _i6;
+    as _i8;
 import 'package:pomodore/features/task_management/domain/repositories/task_repository.dart'
     as _i3;
 import 'package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart'
-    as _i11;
+    as _i12;
 import 'package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart'
     as _i4;
 import 'package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart'
-    as _i9;
-import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart'
     as _i10;
+import 'package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart'
+    as _i11;
 import 'package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart'
-    as _i13;
+    as _i14;
 import 'package:pomodore/features/task_management/domain/usecases/get_all_tasks.dart'
     as _i7;
 
@@ -61,16 +60,6 @@ class _FakeTaskRepository_1 extends _i1.SmartFake
         );
 }
 
-class _FakeDateTime_2 extends _i1.SmartFake implements DateTime {
-  _FakeDateTime_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [AddTaskUsecase].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -80,7 +69,7 @@ class MockAddTaskUsecase extends _i1.Mock implements _i4.AddTaskUsecase {
   }
 
   @override
-  _i5.Future<_i2.Either<String, bool>> call({_i6.TaskEntity? params}) =>
+  _i5.Future<_i2.Either<String, bool>> call({_i6.TaskParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -109,16 +98,16 @@ class MockGetAllTasksUseCase extends _i1.Mock
   }
 
   @override
-  _i5.Future<_i2.Either<String, List<_i6.TaskEntity>>> call(
-          {_i8.NoParams? params}) =>
+  _i5.Future<_i2.Either<String, List<_i8.TaskEntity>>> call(
+          {_i9.NoParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
           {#params: params},
         ),
-        returnValue: _i5.Future<_i2.Either<String, List<_i6.TaskEntity>>>.value(
-            _FakeEither_0<String, List<_i6.TaskEntity>>(
+        returnValue: _i5.Future<_i2.Either<String, List<_i8.TaskEntity>>>.value(
+            _FakeEither_0<String, List<_i8.TaskEntity>>(
           this,
           Invocation.method(
             #call,
@@ -126,20 +115,20 @@ class MockGetAllTasksUseCase extends _i1.Mock
             {#params: params},
           ),
         )),
-      ) as _i5.Future<_i2.Either<String, List<_i6.TaskEntity>>>);
+      ) as _i5.Future<_i2.Either<String, List<_i8.TaskEntity>>>);
 }
 
 /// A class which mocks [CompleteTaskUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCompleteTaskUseCase extends _i1.Mock
-    implements _i9.CompleteTaskUseCase {
+    implements _i10.CompleteTaskUseCase {
   MockCompleteTaskUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.Either<String, String>> call({_i6.TaskEntity? params}) =>
+  _i5.Future<_i2.Either<String, String>> call({_i6.TaskParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -161,13 +150,13 @@ class MockCompleteTaskUseCase extends _i1.Mock
 /// A class which mocks [DeleteTaskUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDeleteTaskUseCase extends _i1.Mock implements _i10.DeleteTaskUseCase {
+class MockDeleteTaskUseCase extends _i1.Mock implements _i11.DeleteTaskUseCase {
   MockDeleteTaskUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.Either<String, String>> call({String? params}) =>
+  _i5.Future<_i2.Either<String, String>> call({int? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -190,14 +179,14 @@ class MockDeleteTaskUseCase extends _i1.Mock implements _i10.DeleteTaskUseCase {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAddPomodoroToDbUseCase extends _i1.Mock
-    implements _i11.AddPomodoroToDbUseCase {
+    implements _i12.AddPomodoroToDbUseCase {
   MockAddPomodoroToDbUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i5.Future<_i2.Either<String, bool>> call(
-          {_i12.SavePomodoroParams? params}) =>
+          {_i13.SavePomodoroParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -219,7 +208,7 @@ class MockAddPomodoroToDbUseCase extends _i1.Mock
 /// A class which mocks [EditTaskUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEditTaskUseCase extends _i1.Mock implements _i13.EditTaskUseCase {
+class MockEditTaskUseCase extends _i1.Mock implements _i14.EditTaskUseCase {
   MockEditTaskUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -233,7 +222,7 @@ class MockEditTaskUseCase extends _i1.Mock implements _i13.EditTaskUseCase {
         ),
       ) as _i3.TaskRepository);
   @override
-  _i5.Future<_i2.Either<String, String>> call({_i6.TaskEntity? params}) =>
+  _i5.Future<_i2.Either<String, String>> call({_i6.TaskParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -252,70 +241,11 @@ class MockEditTaskUseCase extends _i1.Mock implements _i13.EditTaskUseCase {
       ) as _i5.Future<_i2.Either<String, String>>);
 }
 
-/// A class which mocks [TaskEntity].
+/// A class which mocks [TaskParams].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTaskEntity extends _i1.Mock implements _i6.TaskEntity {
-  MockTaskEntity() {
+class MockTaskParams extends _i1.Mock implements _i6.TaskParams {
+  MockTaskParams() {
     _i1.throwOnMissingStub(this);
   }
-
-  @override
-  String get id => (super.noSuchMethod(
-        Invocation.getter(#id),
-        returnValue: '',
-      ) as String);
-  @override
-  String get title => (super.noSuchMethod(
-        Invocation.getter(#title),
-        returnValue: '',
-      ) as String);
-  @override
-  String get description => (super.noSuchMethod(
-        Invocation.getter(#description),
-        returnValue: '',
-      ) as String);
-  @override
-  String get category => (super.noSuchMethod(
-        Invocation.getter(#category),
-        returnValue: '',
-      ) as String);
-  @override
-  DateTime get deadLineTime => (super.noSuchMethod(
-        Invocation.getter(#deadLineTime),
-        returnValue: _FakeDateTime_2(
-          this,
-          Invocation.getter(#deadLineTime),
-        ),
-      ) as DateTime);
-  @override
-  bool get done => (super.noSuchMethod(
-        Invocation.getter(#done),
-        returnValue: false,
-      ) as bool);
-  @override
-  List<Object?> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object?>[],
-      ) as List<Object?>);
-}
-
-/// A class which mocks [PomodoroEntity].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockPomodoroEntity extends _i1.Mock implements _i14.PomodoroEntity {
-  MockPomodoroEntity() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  String get dateTime => (super.noSuchMethod(
-        Invocation.getter(#dateTime),
-        returnValue: '',
-      ) as String);
-  @override
-  List<Object?> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object?>[],
-      ) as List<Object?>);
 }

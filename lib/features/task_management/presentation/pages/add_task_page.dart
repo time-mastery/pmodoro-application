@@ -82,12 +82,13 @@ class AddTaskView extends HookWidget {
                       hint: localization.taskDescription,
                     ),
                     20.spaceH(),
-                    BlocBuilder<TasksBloc, TasksState>(
-                      builder: (context, state) {
+                    BlocConsumer<TasksBloc, TasksState>(
+                      listener: (context, state) {
                         if (state is AddDateSuccess) {
                           dateTime.value = state.dateTime;
                         }
-
+                      },
+                      builder: (context, state) {
                         if (dateTime.value != null) {
                           return Row(
                             children: [
