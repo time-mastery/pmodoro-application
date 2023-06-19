@@ -22,7 +22,7 @@ class TaskRepositoryImpl implements TaskRepository {
 
     final TaskModel? state = await localDataSource.addTask(task);
 
-    if (state != null) {
+    if (state == null) {
       result = const Left("error");
     } else {
       result = const Right(true);
