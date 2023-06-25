@@ -3,6 +3,7 @@ import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/resources/params/save_pomodoro_params.dart";
 import "package:pomodore/core/resources/params/task_params.dart";
 import "package:pomodore/core/services/database/collections/pomodoro_collection.dart";
+import "package:pomodore/core/utils/debug_print.dart";
 import "package:uuid/uuid.dart";
 
 import "../../utils/utils.dart";
@@ -66,7 +67,7 @@ class IsarHelper {
     if (newList.contains(Utils.formatDateToYYYYMMDD(DateTime.now()))) {
       newList.remove(Utils.formatDateToYYYYMMDD(DateTime.now()));
     } else {
-      newList.add(Utils.formatDateToYYYYMMDD(DateTime.now()));
+      newList.add(Utils.formatDateToYYYYMMDD(DateTime.now())!);
     }
     habit.overviews = newList;
 
@@ -85,8 +86,13 @@ class IsarHelper {
     TaskCollection? taskCollection = TaskCollection()
       ..title = params.taskTitle
       ..description = params.taskDescription
-      ..deadLineTime = params.taskDateTimeDeadline
-      ..doneTime = params.taskDoneDatetime
+      ..deadLineTime = params.taskDateTimeDeadline == null
+          ? null
+          : Utils.formatDateToYYYYMMDD(
+              DateTime.parse(params.taskDateTimeDeadline!))
+      ..doneTime = params.taskDoneDatetime == null
+          ? null
+          : Utils.formatDateToYYYYMMDD(DateTime.parse(params.taskDoneDatetime!))
       ..uid = const Uuid().v4()
       ..done = false;
 
@@ -97,15 +103,21 @@ class IsarHelper {
   }
 
   Future<TaskCollection?> editTask(TaskParams task) async {
-    TaskCollection? item = await isar.taskCollections.get(task.id!);
-    if (item == null) return item;
-    item.title = task.taskTitle;
-    item.description = task.taskDescription;
-    item.done = task.taskDone;
-    await isar.writeTxn(() async {
-      isar.taskCollections.put(item);
-    });
-    return item;
+    try {
+      TaskCollection? item = await isar.taskCollections.get(task.id!);
+      if (item == null) return item;
+      item.title = task.taskTitle;
+      item.description = task.taskDescription;
+      item.done = task.taskDone;
+      await isar.writeTxn(() async {
+        isar.taskCollections.put(item);
+      });
+      return item;
+    } catch (e, s) {
+      dPrint(e);
+      dPrint(s);
+      return Future.error(e);
+    }
   }
 
   Future<void> deleteTask(Id id) async {

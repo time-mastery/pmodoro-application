@@ -109,16 +109,14 @@ class TasksLocalDataSource {
   }
 
   Future<int> getCompletedTaskQuantity() async {
-    late int quantity;
-
     try {
       final int records = await db.getCompletedTaskQuantity();
 
-      quantity = records;
+      return records;
     } catch (e) {
+      dPrint(e);
       rethrow;
     }
-    return quantity;
   }
 
   Future<List<double>?> getWeeklySpendingPomodoro() async {

@@ -61,7 +61,8 @@ class Utils {
     return DateTime(dateTime.year, dateTime.month, dateTime.day);
   }
 
-  static String formatDateToYYYYMMDD(DateTime time) {
+  static String? formatDateToYYYYMMDD(DateTime? time) {
+    if (time == null) return null;
     final String formattedDate = DateFormat("yyyy-MM-dd").format(time);
     return formattedDate;
   }
