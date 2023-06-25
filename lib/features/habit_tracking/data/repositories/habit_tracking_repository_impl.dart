@@ -1,9 +1,10 @@
+import "package:dartz/dartz.dart";
 import "package:pomodore/core/resources/params/habit_params.dart";
+import "package:pomodore/core/resources/params/no_params.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/habit_tracking/data/data_sources/habit_local_data_source.dart";
 import "package:pomodore/features/habit_tracking/data/models/habit_model.dart";
 import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
-import "package:dartz/dartz.dart";
 import "package:pomodore/features/habit_tracking/domain/repositories/habit_tracking_repository.dart";
 
 class HabitTrackingRepositoryImpl implements HabitTrackingRepository {
@@ -12,27 +13,25 @@ class HabitTrackingRepositoryImpl implements HabitTrackingRepository {
   const HabitTrackingRepositoryImpl(this.localDataSource);
 
   @override
-  Future<Either<String, bool>> addHabit(HabitParams habit) async {
-    late Either<String, bool> result;
+  Future<Either<String, int>> addHabit(HabitParams habit) async {
     try {
-      bool addState = await localDataSource.addHabit(habit);
-      result = Right(addState);
+      int? addState = await localDataSource.addHabit(habit);
+      if (addState == null) return const Left("error");
+      return Right(addState);
     } catch (e, s) {
       dPrint("$e    $s");
-      result = const Left("error");
+      return const Left("error");
     }
-
-    return result;
   }
 
   @override
-  Future<Either<String, int>> deleteHabit(int id) async {
-    late Either<String, int> result;
+  Future<Either<String, NoParams>> deleteHabit(int id) async {
+    late Either<String, NoParams> result;
 
     try {
       await localDataSource.deleteHabit(id);
 
-      result = Right(id);
+      result = Right(NoParams());
     } catch (e, s) {
       dPrint("$e  $s");
       result = const Left("error");
@@ -42,12 +41,11 @@ class HabitTrackingRepositoryImpl implements HabitTrackingRepository {
   }
 
   @override
-  Future<Either<String, HabitEntity>> doneHabit(
-      HabitOverviewParams params) async {
+  Future<Either<String, HabitEntity>> completeHabit(int id) async {
     try {
-      Map? rawItem = await localDataSource.completeHabit(params);
-      if (rawItem == null) return const Left("error");
-      HabitEntity habit = HabitModel.fromJson(rawItem);
+      HabitModel? habitModel = await localDataSource.completeHabit(id);
+      if (habitModel == null) return const Left("error");
+      HabitEntity habit = HabitModel.getEntity(habitModel);
 
       return Right(habit);
     } catch (e, s) {
@@ -60,11 +58,11 @@ class HabitTrackingRepositoryImpl implements HabitTrackingRepository {
   Future<Either<String, List<HabitEntity>>> getAllHabits() async {
     late Either<String, List<HabitEntity>> result;
     try {
-      List<Map>? data = await localDataSource.getAllHabits();
+      List<HabitModel>? data = await localDataSource.getAllHabits();
 
       if (data == null) result = const Left("error");
 
-      result = Right(data!.map((e) => HabitModel.fromJson(e)).toList());
+      result = Right(data!.map((e) => HabitModel.getEntity(e)).toList());
     } catch (e, s) {
       dPrint("$e  $s");
       result = const Left("error");
@@ -77,11 +75,11 @@ class HabitTrackingRepositoryImpl implements HabitTrackingRepository {
   Future<Either<String, HabitEntity>> updateHabit(
       HabitParams updatedHabit) async {
     try {
-      Map? item = await localDataSource.editHabit(updatedHabit);
+      HabitModel? item = await localDataSource.editHabit(updatedHabit);
 
       if (item == null) return const Left("error");
 
-      return Right(HabitModel.fromJson(item));
+      return Right(HabitModel.getEntity(item));
     } catch (e, s) {
       dPrint("$e    $s");
       return const Left("error");

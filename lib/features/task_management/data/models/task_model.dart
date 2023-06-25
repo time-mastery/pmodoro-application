@@ -1,16 +1,19 @@
+import "package:pomodore/core/services/database/collections/task_collection.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 
 class TaskModel extends TaskEntity {
   const TaskModel(
-    String id,
+    int id,
+    String uid,
     String title,
     String description,
     DateTime deadLineTime,
-    DateTime doneTime,
+    DateTime? doneTime,
     String category,
     bool done,
   ) : super(
           id: id,
+          uid: uid,
           title: title,
           category: category,
           description: description,
@@ -19,8 +22,22 @@ class TaskModel extends TaskEntity {
           done: done,
         );
 
-  static Map<String, Object> toJson(TaskEntity item, {bool isCompleted = false}) => {
-        "uid": item.id,
+  static TaskModel collectionToModel(TaskCollection item) => TaskModel(
+        item.id,
+        item.uid ?? "",
+        item.title ?? "",
+        item.description ?? "",
+        DateTime.parse(item.deadLineTime!),
+        item.doneTime == null ? null : DateTime.parse(item.doneTime!),
+        item.category ?? "",
+        item.done ?? false,
+      );
+
+  static Map<String, Object> toJson(TaskEntity item,
+          {bool isCompleted = false}) =>
+      {
+        "id": item.id,
+        "uid": item.uid,
         "title": item.title,
         "description": item.description,
         "category": item.category,
@@ -38,16 +55,21 @@ class TaskModel extends TaskEntity {
         title: item["title"],
         description: item["description"],
         category: item["category"],
-        deadLineTime: DateTime.parse(item["deadLineTime"]),
-        doneTime: DateTime.parse(item["doneTime"]),
+        deadLineTime: item["deadLineTime"],
+        doneTime: item["doneTime"],
         done: item["done"] == 1 ? true : false,
+        uid: item["uid"],
       );
 
-  static List<TaskEntity> parseRawList(List<Map<String, dynamic>> items) {
-    late List<TaskEntity> list;
-    list = items.map<TaskEntity>((e) => fromJson(e)).toList();
-    return list;
-  }
+  static TaskEntity fromModelToEntity(TaskModel model) => TaskEntity(
+        id: model.id,
+        title: model.title,
+        description: model.description,
+        deadLineTime: model.deadLineTime,
+        category: model.category,
+        done: model.done,
+        uid: model.uid,
+      );
 
   static List<TaskEntity> sortTasksByDateTime(List<TaskEntity> item) {
     item.sort((a, b) => a.deadLineTime.compareTo(b.deadLineTime));

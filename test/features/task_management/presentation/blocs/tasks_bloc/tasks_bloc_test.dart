@@ -3,15 +3,12 @@ import "package:dartz/dartz.dart";
 import "package:flutter_test/flutter_test.dart";
 import "package:mockito/annotations.dart";
 import "package:mockito/mockito.dart";
-import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
-import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
-import "package:pomodore/features/task_management/domain/usecases/add_category_usecase.dart";
+import "package:pomodore/core/resources/params/task_params.dart";
 import "package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/add_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/complete_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/delete_task_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/edit_task_usecase.dart";
-import "package:pomodore/features/task_management/domain/usecases/get_all_categories_usecase.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_all_tasks.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
@@ -19,15 +16,12 @@ import "tasks_bloc_test.mocks.dart";
 
 @GenerateMocks([
   AddTaskUsecase,
-  AddCategoryUsecase,
   GetAllTasksUseCase,
-  GetAllCategoriesUseCase,
   CompleteTaskUseCase,
   DeleteTaskUseCase,
   AddPomodoroToDbUseCase,
   EditTaskUseCase,
-  TaskEntity,
-  PomodoroEntity,
+  TaskParams,
 ])
 void main() {
   final MockAddTaskUsecase mockAddTaskUsecase = MockAddTaskUsecase();
@@ -36,20 +30,13 @@ void main() {
   final MockCompleteTaskUseCase mockCompleteTaskUseCase =
       MockCompleteTaskUseCase();
   final MockDeleteTaskUseCase mockDeleteTaskUseCase = MockDeleteTaskUseCase();
-  final MockAddCategoryUsecase mockAddCategoryUsecase =
-      MockAddCategoryUsecase();
-  final MockGetAllCategoriesUseCase mockGetAllCategoriesUseCase =
-      MockGetAllCategoriesUseCase();
   final MockEditTaskUseCase mockEditTaskUseCase = MockEditTaskUseCase();
 
-  final MockTaskEntity taskEntity = MockTaskEntity();
-  final MockPomodoroEntity pomodoroEntity = MockPomodoroEntity();
+  final MockTaskParams taskEntity = MockTaskParams();
 
   TasksBloc getBlocInstance() => TasksBloc(
         addTaskUsecase: mockAddTaskUsecase,
-        addCategoryUsecase: mockAddCategoryUsecase,
         getAllTasksUseCase: mockGetAllTasksUseCase,
-        getAllCategories: mockGetAllCategoriesUseCase,
         completeTaskUseCase: mockCompleteTaskUseCase,
         deleteTaskUseCase: mockDeleteTaskUseCase,
         editTaskUseCase: mockEditTaskUseCase,
@@ -127,11 +114,11 @@ void main() {
       blocTest(
         "emit TaskDeleteLoading and TaskDeleteSuccess state",
         build: () {
-          when(mockDeleteTaskUseCase.call(params: "xx2"))
+          when(mockDeleteTaskUseCase.call(params: 2))
               .thenAnswer((_) async => Future.value(const Right("1")));
           return getBlocInstance();
         },
-        act: (bloc) => bloc.add(const TaskDeleted("xx2")),
+        act: (bloc) => bloc.add(const TaskDeleted(2)),
         expect: () => [
           TaskDeleteLoading(),
           TaskDeleteSuccess(),
@@ -142,11 +129,11 @@ void main() {
       blocTest(
         "emit TaskDeleteLoading and TaskDeleteFail state",
         build: () {
-          when(mockDeleteTaskUseCase.call(params: "xx2"))
+          when(mockDeleteTaskUseCase.call(params: 2))
               .thenAnswer((_) async => Future.value(const Left("error")));
           return getBlocInstance();
         },
-        act: (bloc) => bloc.add(const TaskDeleted("xx2")),
+        act: (bloc) => bloc.add(const TaskDeleted(2)),
         expect: () => [
           TaskDeleteLoading(),
           TaskDeleteFailure(),
@@ -154,36 +141,4 @@ void main() {
       );
     });
   });
-  // group("CurrentPomodoroToDatabaseSaved Event Test", () {
-  //   group("CurrentPomodoroToDatabaseSaved Success Event Test", () {
-  //     blocTest(
-  //       "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroSuccess state",
-  //       build: () {
-  //         when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
-  //             .thenAnswer((_) async => Future.value(const Right(true)));
-  //         return getBlocInstance();
-  //       },
-  //       act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
-  //       expect: () => [
-  //         const SaveCurrentPomodoroLoading(),
-  //         const SaveCurrentPomodoroSuccess(),
-  //       ],
-  //     );
-  //   });
-  //   group("CurrentPomodoroToDatabaseSaved Fail Event Test", () {
-  //     blocTest(
-  //       "emit SaveCurrentPomodoroLoading and SaveCurrentPomodoroFail state",
-  //       build: () {
-  //         when(mockAddPomodoroToDbUseCase.call(params: pomodoroEntity))
-  //             .thenAnswer((_) async => Future.value(const Left("error")));
-  //         return getBlocInstance();
-  //       },
-  //       act: (bloc) => bloc.add(CurrentPomodoroToDatabaseSaved(pomodoroEntity)),
-  //       expect: () => [
-  //         const SaveCurrentPomodoroLoading(),
-  //         const SaveCurrentPomodoroFailure(),
-  //       ],
-  //     );
-  //   });
-  // });
 }

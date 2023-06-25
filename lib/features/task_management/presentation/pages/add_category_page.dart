@@ -3,7 +3,6 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
-import "package:pomodore/features/task_management/domain/entities/category_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
 import "../../../../core/shared_widgets/custom_form_field.dart";
@@ -67,10 +66,7 @@ class AddCategoryView extends HookWidget {
                     20.spaceH(),
                     GlobalButton(
                       onPressed: () {
-                        if (formKey.value.currentState!.validate()) {
-                          context.read<TasksBloc>().add(CategoryAdded(
-                              CategoryEntity(title: titleController.text)));
-                        }
+                        if (formKey.value.currentState!.validate()) {}
                       },
                       backgroundColor: Theme.of(context).secondaryHeaderColor,
                       child: (state is CategoryAddLoading)

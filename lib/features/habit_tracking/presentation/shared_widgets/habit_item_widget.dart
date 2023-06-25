@@ -4,7 +4,6 @@ import "package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
-import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/utils/icon_converter.dart";
 import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
@@ -94,10 +93,7 @@ class HabitItemWidget extends HookWidget {
                       onTap: () {
                         context.read<HabitTrackerBloc>().add(
                               HabitDone(
-                                HabitOverviewParams(
-                                  item.uuid,
-                                  item.isCompleteToday,
-                                ),
+                                item.id,
                                 habits,
                               ),
                             );

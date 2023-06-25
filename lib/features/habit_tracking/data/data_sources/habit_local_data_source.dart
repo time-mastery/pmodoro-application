@@ -1,94 +1,50 @@
 import "package:pomodore/core/resources/params/habit_params.dart";
-import "package:pomodore/core/services/database/database_helper.dart";
+import "package:pomodore/core/services/database/collections/habit_collection.dart";
+import "package:pomodore/core/services/database/isar_helper.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/habit_tracking/data/models/habit_model.dart";
-import "package:sqflite/sqflite.dart";
-
-import "../../../../core/utils/utils.dart";
 
 class HabitLocalDataSource {
-  final Database db;
+  final IsarHelper db;
 
   HabitLocalDataSource(this.db);
 
-  Future<List<Map>?> getAllHabits() async {
-    List<Map> result = [];
+  Future<List<HabitModel>?> getAllHabits() async {
     try {
-      const habitQuery = "SELECT * FROM ${DatabaseHelper.habitTable}";
-      const habitDetailsQuery =
-          "SELECT * FROM ${DatabaseHelper.habitTrackingTable} WHERE habitId == ?";
-      List<Map> data = await db.rawQuery(habitQuery);
+      List<HabitCollection?> habits = await db.getAllHabits();
 
-      for (var element in data) {
-        Map<DateTime, int> overviewsMap = {};
-        List<Map> overviews =
-            await db.rawQuery(habitDetailsQuery, [element["uuid"]]);
-
-        for (var element in overviews) {
-          String key = element["dateTime"];
-          overviewsMap.addAll({DateTime.parse(key): 1});
-        }
-
-        result.add({"habit": element, "overviews": overviewsMap});
-      }
-
-      return result;
+      return habits.map((e) => HabitModel.collectionToModel(e!)).toList();
     } catch (e, s) {
       dPrint("$e + $s");
       return null;
     }
   }
 
-  Future<bool> addHabit(HabitParams item) async {
+  Future<int?> addHabit(HabitParams item) async {
     try {
-      await db.insert(
-        DatabaseHelper.habitTable,
-        HabitModel.toJson(item),
-      );
-      return true;
+      int? id = await db.addHabit(item);
+      return id;
     } catch (e, s) {
       dPrint("$e     $s");
 
-      return false;
+      return null;
     }
   }
 
-  Future<bool> deleteHabit(int id) async {
+  Future<void> deleteHabit(int id) async {
     try {
-      await db.delete(
-        DatabaseHelper.habitTable,
-        where: "_id = ?",
-        whereArgs: [id],
-      );
-
-      return true;
+      await db.deleteHabit(id);
     } catch (e, s) {
       dPrint("$e     $s");
-
-      return false;
+      Future.error(e);
     }
   }
 
-  Future<Map?> getSpecificHabit(String id) async {
+  Future<HabitModel?> getSpecificHabit(int id) async {
     try {
-      const query = "SELECT * FROM ${DatabaseHelper.habitTable} WHERE uuid = ?";
-      const habitDetailsQuery =
-          "SELECT * FROM ${DatabaseHelper.habitTrackingTable} WHERE habitId == ?";
+      HabitCollection? habit = await db.getSpecificHabit(id);
 
-      List<Map> habit = await db.rawQuery(query, [id]);
-
-      Map<DateTime, int> overviewsMap = {};
-      List<Map> overviews = await db.rawQuery(habitDetailsQuery, [id]);
-
-      for (var element in overviews) {
-        String key = element["dateTime"];
-        overviewsMap.addAll({DateTime.parse(key): 1});
-      }
-
-      return {
-        "habit": habit.first,
-        "overviews": overviewsMap,
-      };
+      return habit == null ? null : HabitModel.collectionToModel(habit);
     } catch (e, s) {
       dPrint("$e  $s");
 
@@ -96,43 +52,21 @@ class HabitLocalDataSource {
     }
   }
 
-  Future<Map?> editHabit(HabitParams newHabit) async {
+  Future<HabitModel?> editHabit(HabitParams newHabit) async {
     try {
-      await db.update(
-        DatabaseHelper.habitTable,
-        {
-          "habitTitle": newHabit.title,
-          "habitDescription": newHabit.description,
-          "habitIcon": newHabit.icon,
-          "habitColor": newHabit.color,
-        },
-        where: "_id = ?",
-        whereArgs: [newHabit.id],
-      );
+      HabitCollection? habit = await db.updateHabit(newHabit);
 
-      return await getSpecificHabit(newHabit.uuid);
+      return habit == null ? null : HabitModel.collectionToModel(habit);
     } catch (e, s) {
       dPrint("$e  $s");
       return null;
     }
   }
 
-  Future<Map?> completeHabit(HabitOverviewParams params) async {
+  Future<HabitModel?> completeHabit(int id) async {
     try {
-      if (params.completedToday) {
-        await db.delete(
-          DatabaseHelper.habitTrackingTable,
-          where: "dateTime = ?",
-          whereArgs: [Utils.formatDateToYYYYMMDD(DateTime.now())],
-        );
-      } else {
-        await db.insert(DatabaseHelper.habitTrackingTable, {
-          "habitId": params.uuid,
-          "dateTime": Utils.formatDateToYYYYMMDD(DateTime.now()),
-        });
-      }
-
-      return await getSpecificHabit(params.uuid);
+      HabitCollection? habit = await db.completeHabit(id);
+      return habit == null ? null : HabitModel.collectionToModel(habit);
     } catch (e, s) {
       dPrint("$e     $s");
 

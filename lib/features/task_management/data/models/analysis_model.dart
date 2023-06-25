@@ -1,3 +1,4 @@
+import "package:pomodore/features/task_management/data/models/pomodoro_model.dart";
 import "package:pomodore/features/task_management/domain/entities/analysis_entity.dart";
 
 import "../../../../core/utils/utils.dart";
@@ -31,11 +32,11 @@ class AnalysisModel extends AnalysisEntity {
     );
   }
 
-  static Map<DateTime, int> createOverview(List<Map<String, dynamic>> mapList) {
+  static Map<DateTime, int> createOverview(List<PomodoroModel> mapList) {
     final Map<DateTime, int> overviews = {};
     for (var element in mapList) {
       final DateTime dateTime =
-          Utils.createOverviewItemDateTime(element["dateTime"]);
+          Utils.createOverviewItemDateTime(element.dateTime);
       if (overviews.containsKey(dateTime)) {
         overviews.update(dateTime, (value) => value + 1);
       } else {
@@ -47,11 +48,11 @@ class AnalysisModel extends AnalysisEntity {
   }
 
   static List<YearlyAnalyzeItemModel> createYearlyAnalysis(
-      List<Map<String, dynamic>>? mapList) {
+      List<PomodoroModel>? mapList) {
     final Map<String, int> yearMap = {};
     if (mapList == null) return [];
     for (var element in mapList) {
-      final String monthName = Utils.monthNameOfDateTime(element["dateTime"]);
+      final String monthName = Utils.monthNameOfDateTime(element.dateTime);
       if (yearMap.containsKey(monthName)) {
         yearMap.update(monthName, (value) => value + 1);
       } else {

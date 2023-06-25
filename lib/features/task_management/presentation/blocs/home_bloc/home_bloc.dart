@@ -10,6 +10,7 @@ import "../../../domain/usecases/get_daily_information_usecase.dart";
 import "../../../domain/usecases/save_daily_goal_usecase.dart";
 
 part "home_event.dart";
+
 part "home_state.dart";
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {

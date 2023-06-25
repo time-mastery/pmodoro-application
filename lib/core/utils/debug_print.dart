@@ -1,6 +1,6 @@
 import "package:flutter/foundation.dart";
 
-void dPrint(String item) {
+void dPrint(Object? item) {
   if (kDebugMode) {
     print(item);
   }

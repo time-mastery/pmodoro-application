@@ -4,12 +4,13 @@ import "package:pomodore/features/habit_tracking/domain/repositories/habit_track
 
 import "../../../../core/resources/params/habit_params.dart";
 
-class AddNewHabitUseCase extends UseCase<Either<String, bool>, HabitParams> {
+class AddNewHabitUseCase extends UseCase<Either<String, int>, HabitParams> {
   final HabitTrackingRepository repository;
 
   AddNewHabitUseCase(this.repository);
+
   @override
-  Future<Either<String, bool>> call({HabitParams? params}) {
+  Future<Either<String, int>> call({HabitParams? params}) {
     return repository.addHabit(params!);
   }
 }

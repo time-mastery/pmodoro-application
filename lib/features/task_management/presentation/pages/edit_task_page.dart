@@ -1,14 +1,17 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
+import "package:pomodore/core/resources/params/task_params.dart";
 
+import "../../../../core/constant/constant.dart";
 import "../../../../core/shared_widgets/base_app_bar.dart";
 import "../../../../core/shared_widgets/custom_form_field.dart";
 import "../../../../core/shared_widgets/global_button.dart";
-import "../../../../core/shared_widgets/global_datetime_picker.dart";
 import "../../../../core/shared_widgets/global_indicator.dart";
 import "../../../../core/shared_widgets/global_snack.dart";
+import "../../../../core/utils/responsive/size_config.dart";
 import "../../../../di.dart";
 import "../../../../exports.dart";
 import "../../domain/entities/task_entity.dart";
@@ -45,7 +48,7 @@ class EditTaskView extends HookWidget {
     final descriptionController =
         useTextEditingController(text: task.description);
     final formKey = useState(GlobalKey<FormState>());
-    final dateTime = useState<DateTime?>(task.doneTime);
+    final dateTime = useState<DateTime?>(task.deadLineTime);
 
     return BlocConsumer(
       bloc: context.read<TasksBloc>(),
@@ -85,12 +88,13 @@ class EditTaskView extends HookWidget {
                       hint: localization.taskDescription,
                     ),
                     20.spaceH(),
-                    BlocBuilder<TasksBloc, TasksState>(
-                      builder: (context, state) {
+                    BlocConsumer<TasksBloc, TasksState>(
+                      listener: (context, state) {
                         if (state is AddDateSuccess) {
                           dateTime.value = state.dateTime;
                         }
-
+                      },
+                      builder: (context, state) {
                         if (dateTime.value != null) {
                           return Row(
                             children: [
@@ -106,16 +110,57 @@ class EditTaskView extends HookWidget {
                       },
                     ),
                     20.spaceH(),
-                    GlobalDateTimePicker(
-                      buttonTitle: "Select Deadline DateTime",
-                      onChanged: (time) {
-                        context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime.value = time;
-                      },
-                      onConfirm: (time) {
-                        context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime.value = time;
-                      },
+                    Container(
+                      height: SizeConfig.heightMultiplier * 5,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.onBackground),
+                        borderRadius: BorderRadius.circular(AppConstant.radius),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (_) => Container(
+                              height: 500,
+                              color: Theme.of(context).colorScheme.background,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 400,
+                                    child: CupertinoDatePicker(
+                                        use24hFormat: true,
+                                        initialDateTime: DateTime.now(),
+                                        onDateTimeChanged: (val) {
+                                          context
+                                              .read<TasksBloc>()
+                                              .add(DateAdded(val));
+                                          dateTime.value = val;
+                                        }),
+                                  ),
+
+                                  // Close the modal
+                                  CupertinoButton(
+                                    child: const Text("OK"),
+                                    onPressed: () {
+                                      if (dateTime.value == null) {
+                                        context
+                                            .read<TasksBloc>()
+                                            .add(DateAdded(DateTime.now()));
+                                        dateTime.value = DateTime.now();
+                                      }
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Select Deadline Datetime",
+                        ),
+                      ),
                     ),
                     20.spaceH(),
                     GlobalButton(
@@ -127,14 +172,14 @@ class EditTaskView extends HookWidget {
                           } else {
                             context.read<TasksBloc>().add(
                                   TaskEdited(
-                                    TaskEntity(
+                                    TaskParams(
+                                      uid: task.uid,
+                                      taskDateTimeDeadline: task.deadLineTime,
+                                      taskDescription: task.description,
+                                      taskTitle: task.title,
+                                      taskDone: false,
                                       id: task.id,
-                                      title: titleController.text,
-                                      description: descriptionController.text,
-                                      deadLineTime: dateTime.value!,
-                                      doneTime: task.doneTime,
-                                      done: false,
-                                      category: task.category,
+                                      taskDoneDatetime: task.doneTime,
                                     ),
                                   ),
                                 );

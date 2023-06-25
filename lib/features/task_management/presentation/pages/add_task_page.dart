@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
@@ -5,13 +6,15 @@ import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/custom_form_field.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
-import "package:pomodore/core/shared_widgets/global_datetime_picker.dart";
 import "package:pomodore/core/shared_widgets/global_snack.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
+import "package:uuid/uuid.dart";
 
+import "../../../../core/constant/constant.dart";
+import "../../../../core/resources/params/task_params.dart";
 import "../../../../core/shared_widgets/global_indicator.dart";
-import "../../../../core/utils/utils.dart";
+import "../../../../core/utils/responsive/size_config.dart";
 import "../../../../di.dart";
 import "../../../../exports.dart";
 
@@ -25,8 +28,7 @@ class AddTaskPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) =>
-            getIt.get<TasksBloc>()..add(CategoriesFetched()),
+        create: (BuildContext context) => getIt.get<TasksBloc>(),
         child: const AddTaskView());
   }
 }
@@ -80,12 +82,13 @@ class AddTaskView extends HookWidget {
                       hint: localization.taskDescription,
                     ),
                     20.spaceH(),
-                    BlocBuilder<TasksBloc, TasksState>(
-                      builder: (context, state) {
+                    BlocConsumer<TasksBloc, TasksState>(
+                      listener: (context, state) {
                         if (state is AddDateSuccess) {
                           dateTime.value = state.dateTime;
                         }
-
+                      },
+                      builder: (context, state) {
                         if (dateTime.value != null) {
                           return Row(
                             children: [
@@ -101,16 +104,58 @@ class AddTaskView extends HookWidget {
                       },
                     ),
                     20.spaceH(),
-                    GlobalDateTimePicker(
-                      buttonTitle: localization.selectDate,
-                      onChanged: (time) {
-                        context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime.value = time;
-                      },
-                      onConfirm: (time) {
-                        context.read<TasksBloc>().add(DateAdded(time));
-                        dateTime.value = time;
-                      },
+                    Container(
+                      height: SizeConfig.heightMultiplier * 5,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.onBackground),
+                        borderRadius: BorderRadius.circular(AppConstant.radius),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (_) => Container(
+                              height: 500,
+                              color: Theme.of(context).colorScheme.background,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 400,
+                                    child: CupertinoDatePicker(
+                                        use24hFormat: true,
+                                        initialDateTime: DateTime.now(),
+                                        onDateTimeChanged: (val) {
+                                          context
+                                              .read<TasksBloc>()
+                                              .add(DateAdded(val));
+                                          dateTime.value = val;
+                                        }),
+                                  ),
+
+                                  // Close the modal
+                                  CupertinoButton(
+                                    child: const Text("OK"),
+                                    onPressed: () {
+                                      if (dateTime.value == null) {
+                                        context
+                                            .read<TasksBloc>()
+                                            .add(DateAdded(DateTime.now()));
+                                        dateTime.value = DateTime.now();
+                                      }
+
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Select Deadline Datetime",
+                        ),
+                      ),
                     ),
                     20.spaceH(),
                     GlobalButton(
@@ -122,15 +167,15 @@ class AddTaskView extends HookWidget {
                               title: localization.selectDate,
                             );
                           } else {
-                            context.read<TasksBloc>().add(TaskAdded(TaskEntity(
-                                  id: Utils.createUniqueId(),
-                                  title: titleController.text,
-                                  description: descriptionController.text,
-                                  deadLineTime: dateTime.value!,
-                                  doneTime: DateTime.now(),
-                                  done: false,
-                                  category: "cate",
-                                )));
+                            context.read<TasksBloc>().add(TaskAdded(
+                                  TaskParams(
+                                    uid: const Uuid().v4(),
+                                    taskDateTimeDeadline: dateTime.value,
+                                    taskDescription: descriptionController.text,
+                                    taskTitle: titleController.text,
+                                    taskDone: false,
+                                  ),
+                                ));
                           }
                         }
                       },
