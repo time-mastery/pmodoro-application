@@ -107,7 +107,13 @@ class TaskItem extends StatelessWidget {
                         onPressed: () {
                           bloc.add(TaskCompleted(
                             TaskParams(
+                              id: task.id,
                               taskDone: !task.done,
+                              uid: task.uid,
+                              taskDoneDatetime: task.doneTime,
+                              taskTitle: task.title,
+                              taskDescription: task.description,
+                              taskDateTimeDeadline: task.deadLineTime,
                             ),
                           ));
                         },

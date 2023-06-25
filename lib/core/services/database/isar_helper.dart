@@ -139,8 +139,11 @@ class IsarHelper {
   }
 
   Future<int> getCompletedTaskQuantity() async {
-    List items =
-        await isar.taskCollections.filter().doneEqualTo(true).findAll();
+    List items = await isar.taskCollections
+        .filter()
+        .deadLineTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+        .doneEqualTo(true)
+        .findAll();
 
     return items.length;
   }
@@ -160,15 +163,28 @@ class IsarHelper {
   }
 
   Future<List<PomodoroCollection>> getAllTodayPomodoros() async {
+    try {
+      return await isar.pomodoroCollections
+          .filter()
+          .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+          .findAll();
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future<List<PomodoroCollection>> getSpecificDatePomodoros(
+      DateTime date) async {
     return await isar.pomodoroCollections
         .filter()
-        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(date))
         .findAll();
   }
 
   Future<Id?> saveAPomodoro(SavePomodoroParams item) async {
     PomodoroCollection pomodoroCollection = PomodoroCollection()
-      ..dateTime = item.entity.dateTime
+      ..dateTime =
+          Utils.formatDateToYYYYMMDD(DateTime.parse(item.entity.dateTime))
       ..taskUid = item.entity.taskUid
       ..duration = item.entity.duration;
     return await isar.writeTxn(() async {

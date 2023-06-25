@@ -28,8 +28,9 @@ class TasksLocalDataSource {
       final List<TaskCollection> tasks = await db.getUnCompletedTasks();
 
       return tasks.map((e) => TaskModel.collectionToModel(e)).toList();
-    } catch (e) {
+    } catch (e, s) {
       dPrint(e.toString());
+      dPrint(s.toString());
       rethrow;
     }
   }
@@ -74,6 +75,21 @@ class TasksLocalDataSource {
       return records
           .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
           .toList();
+    } catch (e, s) {
+      dPrint(e.toString());
+      dPrint(s.toString());
+      rethrow;
+    }
+  }
+
+  Future<List<PomodoroModel>>? getSpecificDatePomodoro(DateTime date) async {
+    try {
+      final List<PomodoroCollection> records =
+          await db.getSpecificDatePomodoros(date);
+
+      return records
+          .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
+          .toList();
     } catch (e) {
       rethrow;
     }
@@ -108,23 +124,22 @@ class TasksLocalDataSource {
   Future<List<double>?> getWeeklySpendingPomodoro() async {
     List<double>? list;
     try {
-      final List<PomodoroModel>? allPomodoroList = await getAllPomodoroFromDb();
-
-      if (allPomodoroList == null) {
-        return null;
-      }
-
       final List<double> weeklySpendingPomodoro = [];
       for (int i = 0; i < 7; i++) {
+        final DateTime date = DateTime.now().subtract(Duration(days: i));
         final List<PomodoroModel>? todayPomodoroList =
-            await getAllTodayPomodoroFromDb();
+            await getSpecificDatePomodoro(date);
         final pomodoroCount = todayPomodoroList?.length ?? 0;
-
         weeklySpendingPomodoro.insert(0, pomodoroCount.toDouble());
       }
 
+      dPrint("inja");
+      dPrint(await getSpecificDatePomodoro(DateTime.now()));
+
       list = weeklySpendingPomodoro;
-    } catch (e) {
+    } catch (e, s) {
+      dPrint(e);
+      dPrint(s);
       rethrow;
     }
 

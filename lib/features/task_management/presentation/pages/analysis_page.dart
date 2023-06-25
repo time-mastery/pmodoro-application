@@ -3,7 +3,6 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/global_indicator.dart";
-import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/presentation/blocs/analysis_bloc/analysis_bloc.dart";
 import "package:pomodore/features/task_management/presentation/pages/analysis_widgets/bar_chart_widget.dart";
@@ -60,7 +59,6 @@ class AnalysisView extends StatelessWidget {
             }
 
             if (state is FetchAnalysisSuccess) {
-              dPrint(state.item.toString());
               item = state.item;
             }
 
@@ -124,9 +122,8 @@ class AnalysisView extends StatelessWidget {
                                   tooltipBehavior:
                                       TooltipBehavior(enable: true),
                                   enableAxisAnimation: true,
-                                  series: <
-                                      LineSeries<YearlyAnalyzeItemEntity,
-                                          String>>[
+                                  series: <LineSeries<YearlyAnalyzeItemEntity,
+                                      String>>[
                                     LineSeries<YearlyAnalyzeItemEntity, String>(
                                       color: Theme.of(context)
                                           .colorScheme

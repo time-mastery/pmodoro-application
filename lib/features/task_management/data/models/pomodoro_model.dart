@@ -29,7 +29,7 @@ class PomodoroModel extends PomodoroEntity {
         collection.id,
         collection.duration ?? 0,
         collection.taskUid,
-        collection.dateTime ?? "",
+        collection.dateTime!,
       );
 
   static PomodoroEntity pomodoroModelToEntity(PomodoroModel model) =>

@@ -25,10 +25,10 @@ class TaskModel extends TaskEntity {
   static TaskModel collectionToModel(TaskCollection item) => TaskModel(
         item.id,
         item.uid ?? "",
-        item.title!,
-        item.description!,
+        item.title ?? "",
+        item.description ?? "",
         item.deadLineTime ?? "",
-        item.doneTime,
+        item.doneTime ?? "",
         item.category ?? "",
         item.done ?? false,
       );
