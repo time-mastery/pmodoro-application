@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     CurrentPomodoroToDatabaseSaved(
                       PomodoroEntity(
                         duration: TimerBloc.getDuration,
-                        dateTime: DateTime.now().toString(),
+                        dateTime: DateTime.now(),
                       ),
                       true,
                     ),
@@ -137,7 +137,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 CurrentPomodoroToDatabaseSaved(
                   PomodoroEntity(
                     duration: TimerBloc.getDuration,
-                    dateTime: DateTime.now().toString(),
+                    dateTime: DateTime.now(),
                   ),
                   true,
                 ),

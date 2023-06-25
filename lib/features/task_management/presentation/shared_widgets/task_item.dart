@@ -149,7 +149,7 @@ class TaskItem extends StatelessWidget {
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
         child: Row(
           children: [
-            Text(DateTime.parse(task.deadLineTime).taskTimeFormat()),
+            Text(task.deadLineTime.taskTimeFormat()),
             (SizeConfig.heightMultiplier * 2).spaceW(),
             Expanded(
               child: Card(
@@ -184,7 +184,7 @@ class TaskItem extends StatelessWidget {
                       ),
                       (SizeConfig.heightMultiplier * 1).spaceH(),
                       Text(
-                        DateTime.parse(task.deadLineTime).taskDateFormat(),
+                        task.deadLineTime.taskDateFormat(),
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
                               decoration:
                                   task.done ? TextDecoration.lineThrough : null,

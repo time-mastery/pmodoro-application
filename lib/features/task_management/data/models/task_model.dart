@@ -7,8 +7,8 @@ class TaskModel extends TaskEntity {
     String uid,
     String title,
     String description,
-    String deadLineTime,
-    String? doneTime,
+    DateTime deadLineTime,
+    DateTime? doneTime,
     String category,
     bool done,
   ) : super(
@@ -27,8 +27,8 @@ class TaskModel extends TaskEntity {
         item.uid ?? "",
         item.title ?? "",
         item.description ?? "",
-        item.deadLineTime ?? "",
-        item.doneTime ?? "",
+        DateTime.parse(item.deadLineTime!),
+        item.doneTime == null ? null : DateTime.parse(item.doneTime!),
         item.category ?? "",
         item.done ?? false,
       );

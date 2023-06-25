@@ -57,14 +57,11 @@ class HomeTaskItem extends StatelessWidget {
                       ),
                       5.spaceH(),
                       Text(
-                        Utils.calculateRemainingTime(
-                          DateTime.parse(item.deadLineTime),
-                        ),
+                        Utils.calculateRemainingTime(item.deadLineTime),
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Utils.getTaskDeadlineStatusColor(
-                                DateTime.parse(item.deadLineTime),
-                              ),
+                                  item.deadLineTime),
                             ),
                       ),
                     ],

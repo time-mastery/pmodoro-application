@@ -53,11 +53,10 @@ class Utils {
     return "$days days, $hours hours"; // if remaining time is more than a day
   }
 
-  static String monthNameOfDateTime(String date) =>
-      DateFormat("MMMM").format(DateTime.parse(date));
+  static String monthNameOfDateTime(DateTime date) =>
+      DateFormat("MMMM").format(date);
 
-  static DateTime createOverviewItemDateTime(String date) {
-    final DateTime dateTime = DateTime.parse(date);
+  static DateTime createOverviewItemDateTime(DateTime dateTime) {
     return DateTime(dateTime.year, dateTime.month, dateTime.day);
   }
 

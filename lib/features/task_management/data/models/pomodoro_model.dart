@@ -6,7 +6,7 @@ class PomodoroModel extends PomodoroEntity {
     int id,
     int duration,
     String? taskUid,
-    String datetime,
+    DateTime datetime,
   ) : super(
           id: id,
           duration: duration,
@@ -29,7 +29,7 @@ class PomodoroModel extends PomodoroEntity {
         collection.id,
         collection.duration ?? 0,
         collection.taskUid,
-        collection.dateTime!,
+        DateTime.parse(collection.dateTime!),
       );
 
   static PomodoroEntity pomodoroModelToEntity(PomodoroModel model) =>

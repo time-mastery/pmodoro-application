@@ -88,11 +88,10 @@ class IsarHelper {
       ..description = params.taskDescription
       ..deadLineTime = params.taskDateTimeDeadline == null
           ? null
-          : Utils.formatDateToYYYYMMDD(
-              DateTime.parse(params.taskDateTimeDeadline!))
+          : Utils.formatDateToYYYYMMDD(params.taskDateTimeDeadline!)
       ..doneTime = params.taskDoneDatetime == null
           ? null
-          : Utils.formatDateToYYYYMMDD(DateTime.parse(params.taskDoneDatetime!))
+          : Utils.formatDateToYYYYMMDD(params.taskDoneDatetime!)
       ..uid = const Uuid().v4()
       ..done = false;
 
@@ -195,8 +194,7 @@ class IsarHelper {
 
   Future<Id?> saveAPomodoro(SavePomodoroParams item) async {
     PomodoroCollection pomodoroCollection = PomodoroCollection()
-      ..dateTime =
-          Utils.formatDateToYYYYMMDD(DateTime.parse(item.entity.dateTime))
+      ..dateTime = Utils.formatDateToYYYYMMDD(item.entity.dateTime)
       ..taskUid = item.entity.taskUid
       ..duration = item.entity.duration;
     return await isar.writeTxn(() async {

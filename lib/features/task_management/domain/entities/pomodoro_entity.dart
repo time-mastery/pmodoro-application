@@ -3,7 +3,7 @@ import "package:equatable/equatable.dart";
 class PomodoroEntity extends Equatable {
   final int? id, duration;
   final String? taskUid;
-  final String dateTime;
+  final DateTime dateTime;
 
   const PomodoroEntity({
     this.id,

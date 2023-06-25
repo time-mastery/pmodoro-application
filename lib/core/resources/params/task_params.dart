@@ -1,8 +1,8 @@
 class TaskParams {
   final int? id;
   final String? taskTitle, taskDescription, uid;
-  final String? taskDateTimeDeadline;
-  final String? taskDoneDatetime;
+  final DateTime? taskDateTimeDeadline;
+  final DateTime? taskDoneDatetime;
   final bool? taskDone;
 
   TaskParams({

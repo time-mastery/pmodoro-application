@@ -170,8 +170,7 @@ class AddTaskView extends HookWidget {
                             context.read<TasksBloc>().add(TaskAdded(
                                   TaskParams(
                                     uid: const Uuid().v4(),
-                                    taskDateTimeDeadline:
-                                        dateTime.value.toString(),
+                                    taskDateTimeDeadline: dateTime.value,
                                     taskDescription: descriptionController.text,
                                     taskTitle: titleController.text,
                                     taskDone: false,
