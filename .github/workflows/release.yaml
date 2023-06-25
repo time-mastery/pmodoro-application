@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [main, develop]
+    branches: [ main, develop ]
 
 jobs:
   build_android:
@@ -19,7 +19,7 @@ jobs:
       - name: Install and set flutter version
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.7.0"
+          flutter-version: "3.10.3"
           channel: "stable"
 
       - name: Check dir
