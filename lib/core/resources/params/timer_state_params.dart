@@ -31,7 +31,7 @@ class TimerStateParams extends Equatable {
 class TimerStateRestoreParams extends Equatable {
   final int duration;
   final int baseDuration;
-  final Map<String, dynamic>? task;
+  final TaskEntity? task;
   final bool timerDone;
 
   const TimerStateRestoreParams({

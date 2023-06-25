@@ -4,14 +4,13 @@ import "package:pomodore/core/utils/utils.dart";
 void main() {
   group("Utils", () {
     test("Test month name function", () {
-      final monthName =
-          Utils.monthNameOfDateTime(DateTime(1998, 4, 1).toString());
+      final monthName = Utils.monthNameOfDateTime(DateTime(1998, 4, 1));
       expect(monthName, "April");
     });
 
     test("Test create overview function", () {
       final overviewDate =
-          Utils.createOverviewItemDateTime(DateTime(1998, 4, 1).toString());
+          Utils.createOverviewItemDateTime(DateTime(1998, 4, 1));
       expect(overviewDate, DateTime(1998, 4, 1));
     });
 

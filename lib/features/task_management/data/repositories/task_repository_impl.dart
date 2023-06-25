@@ -1,4 +1,5 @@
 import "package:dartz/dartz.dart";
+import "package:pomodore/core/resources/params/task_params.dart";
 import "package:pomodore/features/task_management/data/data_sources/tasks_local_data_source.dart";
 import "package:pomodore/features/task_management/data/models/pomodoro_model.dart";
 import "package:pomodore/features/task_management/data/models/task_model.dart";
@@ -16,12 +17,12 @@ class TaskRepositoryImpl implements TaskRepository {
   TaskRepositoryImpl(this.localDataSource);
 
   @override
-  Future<Either<String, bool>> addTask(TaskEntity task) async {
+  Future<Either<String, bool>> addTask(TaskParams task) async {
     late Either<String, bool> result;
 
-    final bool state = await localDataSource.addTask(task);
+    final TaskModel? state = await localDataSource.addTask(task);
 
-    if (!state) {
+    if (state == null) {
       result = const Left("error");
     } else {
       result = const Right(true);
@@ -33,12 +34,12 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date) async {
     late Either<String, List<TaskEntity>> result;
 
-    final List<Map<String, dynamic>>? rawList =
+    final List<TaskModel>? rawList =
         await localDataSource.getSpecificDateTasks(date);
 
     if (rawList != null) {
-      final List<TaskEntity> list =
-          TaskModel.sortTasksByDateTime(TaskModel.parseRawList(rawList));
+      final List<TaskEntity> list = TaskModel.sortTasksByDateTime(
+          rawList.map((e) => TaskModel.fromModelToEntity(e)).toList());
       result = Right(list);
     } else {
       result = const Left("error");
@@ -51,12 +52,11 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<TaskEntity>>> getAllTasks() async {
     late Either<String, List<TaskEntity>> result;
 
-    final List<Map<String, dynamic>>? rawList =
-        await localDataSource.getAllTasks();
+    final List<TaskModel>? rawList = await localDataSource.getAllTasks();
 
     if (rawList != null) {
-      final List<TaskEntity> list =
-          TaskModel.sortTasksByDateTime(TaskModel.parseRawList(rawList));
+      final List<TaskEntity> list = TaskModel.sortTasksByDateTime(
+          rawList.map((e) => TaskModel.fromModelToEntity(e)).toList());
       result = Right(list);
     } else {
       result = const Left("error");
@@ -69,12 +69,12 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<TaskEntity>>> getUnCompletedTasks() async {
     late Either<String, List<TaskEntity>> result;
 
-    final List<Map<String, dynamic>>? rawList =
+    final List<TaskModel>? rawList =
         await localDataSource.getAllUnCompletedTasks();
 
     if (rawList != null) {
-      final List<TaskEntity> list =
-          TaskModel.sortTasksByDateTime(TaskModel.parseRawList(rawList));
+      final List<TaskEntity> list = TaskModel.sortTasksByDateTime(
+          rawList.map((e) => TaskModel.fromModelToEntity(e)).toList());
       result = Right(list);
     } else {
       result = const Left("error");
@@ -87,12 +87,12 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoro() async {
     late Either<String, List<PomodoroEntity>> result;
 
-    final List<Map<String, dynamic>>? rawList =
-        await localDataSource.getSpecificDateTasks(DateTime.now());
+    final List<PomodoroModel>? rawList =
+        await localDataSource.getAllTodayPomodoroFromDb();
 
     if (rawList != null) {
       final List<PomodoroEntity> convertedList =
-          PomodoroModel.parseRawList(rawList);
+          rawList.map((e) => PomodoroModel.pomodoroModelToEntity(e)).toList();
       result = Right(convertedList);
     } else {
       result = const Left("error");
@@ -181,13 +181,13 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, String>> deleteTask(String id) async {
+  Future<Either<String, String>> deleteTask(int id) async {
     late Either<String, String> result;
 
-    final String? status = await localDataSource.deleteTask(id);
+    int? status = await localDataSource.deleteTask(id);
 
     if (status != null) {
-      result = Right(status);
+      result = Right(status.toString());
     } else {
       result = const Left("error");
     }
@@ -196,13 +196,13 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, String>> completeTask(TaskEntity taskEntity) async {
+  Future<Either<String, String>> completeTask(TaskParams params) async {
     late Either<String, String> result;
 
-    final String? status = await localDataSource.completeTask(taskEntity);
+    final TaskModel? status = await localDataSource.completeTask(params);
 
     if (status != null) {
-      result = Right(status);
+      result = Right(status.uid);
     } else {
       result = const Left("error");
     }
@@ -211,13 +211,13 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<String, String>> editTask(TaskEntity task) async {
+  Future<Either<String, String>> editTask(TaskParams task) async {
     late Either<String, String> result;
 
-    final String? status = await localDataSource.editTask(task);
+    final TaskModel? status = await localDataSource.editTask(task);
 
     if (status != null) {
-      result = Right(status);
+      result = Right(status.uid);
     } else {
       result = const Left("error");
     }

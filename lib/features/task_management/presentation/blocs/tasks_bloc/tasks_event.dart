@@ -5,7 +5,7 @@ abstract class TasksEvent extends Equatable {
 }
 
 class TaskAdded extends TasksEvent {
-  final TaskEntity data;
+  final TaskParams data;
 
   const TaskAdded(this.data);
 
@@ -16,15 +16,6 @@ class TaskAdded extends TasksEvent {
   String toString() => "Task Added : $data";
 }
 
-class CategoryAdded extends TasksEvent {
-  final CategoryEntity data;
-
-  const CategoryAdded(this.data);
-
-  @override
-  List<Object?> get props => [data];
-}
-
 class AllTasksFetched extends TasksEvent {
   const AllTasksFetched();
 
@@ -32,13 +23,8 @@ class AllTasksFetched extends TasksEvent {
   List<Object?> get props => [];
 }
 
-class CategoriesFetched extends TasksEvent {
-  @override
-  List<Object?> get props => [];
-}
-
 class TaskCompleted extends TasksEvent {
-  final TaskEntity taskEntity;
+  final TaskParams taskEntity;
 
   const TaskCompleted(this.taskEntity);
 
@@ -52,7 +38,7 @@ class TaskCompleted extends TasksEvent {
 }
 
 class TaskDeleted extends TasksEvent {
-  final String id;
+  final int id;
 
   const TaskDeleted(this.id);
 
@@ -70,7 +56,7 @@ class DateAdded extends TasksEvent {
 }
 
 class TaskEdited extends TasksEvent {
-  final TaskEntity item;
+  final TaskParams item;
 
   const TaskEdited(this.item);
 

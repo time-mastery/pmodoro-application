@@ -61,8 +61,7 @@ class HomeTaskItem extends StatelessWidget {
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Utils.getTaskDeadlineStatusColor(
-                                item.deadLineTime,
-                              ),
+                                  item.deadLineTime),
                             ),
                       ),
                     ],
