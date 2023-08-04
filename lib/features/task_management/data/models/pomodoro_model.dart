@@ -15,7 +15,13 @@ class PomodoroModel extends PomodoroEntity {
         );
 
   static PomodoroModel fromJson(Map<String, dynamic> item) => PomodoroModel(
-      item["_id"], item["duration"], item["taskUid"], item["datetime"]);
+        item["_id"],
+        item["duration"],
+        item["taskUid"],
+        DateTime.parse(
+          item["datetime"],
+        ),
+      );
 
   static Map<String, Object?> toJson(PomodoroEntity item) => {
         "taskUid": item.taskUid,

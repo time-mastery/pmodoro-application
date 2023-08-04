@@ -14,7 +14,8 @@ void main() {
           TaskModel.fromJson(jsonDecode(data) as Map<String, dynamic>);
 
       expect(task.done, true);
-      expect(task.id, "test-uid");
+      expect(task.id, 1);
+      expect(task.uid, "test-uid");
       expect(task.title, "test-title");
       expect(task.description, "test-description");
       expect(task.category, "test-category");
@@ -28,7 +29,8 @@ void main() {
       final TaskEntity task =
           TaskModel.fromJson(jsonDecode(data) as Map<String, dynamic>);
 
-      final Map<String, dynamic> json = TaskModel.toJson(task, isCompleted: true);
+      final Map<String, dynamic> json =
+          TaskModel.toJson(task, isCompleted: true);
 
       expect(json["done"], 1);
       expect(json["uid"], "test-uid");
