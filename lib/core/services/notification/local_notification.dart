@@ -42,7 +42,7 @@ class AppLocalNotification {
       });
 
       AwesomeNotifications().initialize(
-        "resource://drawable/app_icon",
+        null,
         [
           NotificationChannel(
             channelGroupKey: defaultChannelGroupKey,
