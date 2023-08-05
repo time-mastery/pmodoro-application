@@ -11,6 +11,7 @@ import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/
 import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
 import "package:pomodore/features/task_management/presentation/shared_widgets/timer_task.dart";
 
+import "../../../../core/services/notification/local_notification.dart";
 import "../../../../di.dart";
 import "../../../../exports.dart";
 import "../shared_widgets/timer_duration_selector.dart";
@@ -104,6 +105,7 @@ class TimerView extends StatelessWidget {
       },
       listener: (context, state) {
         if (state is SaveCurrentTimeStateDialog) {
+          getIt.get<AppLocalNotification>().closeBackgroundNotification(0);
           ScaffoldMessenger.of(context)
             ..removeCurrentMaterialBanner()
             ..showMaterialBanner(_showMaterialBanner(

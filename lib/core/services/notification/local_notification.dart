@@ -1,8 +1,24 @@
+import "dart:math";
+
 import "package:awesome_notifications/awesome_notifications.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:pomodore/core/services/database/storage.dart";
 import "package:pomodore/core/services/notification/notification_custom_controller.dart";
+
+import "../../utils/utils.dart";
+
+const defaultChannelGroupKey = "basic_channel_group";
+const channelGroupName = "Basic group";
+const channelKey = "basic_channel";
+const channelName = "Basic notifications";
+const channelDescription = "Notification channel for basic tests";
+
+const backgroundChannelGroupKey = "background_channel_group";
+const backgroundGroupName = "background group";
+const backgroundChannelKey = "background_channel";
+const backgroundChannelName = "background notification";
+const backgroundChannelDescription = "notification for background channel";
 
 class AppLocalNotification {
   Future notificationIsAllowedByUserOrNot() async {
@@ -26,21 +42,37 @@ class AppLocalNotification {
       });
 
       AwesomeNotifications().initialize(
-        "resource://drawable/app_icon",
+        null,
         [
           NotificationChannel(
-            channelGroupKey: "basic_channel_group",
-            channelKey: "basic_channel",
-            channelName: "Basic notifications",
-            channelDescription: "Notification channel for basic tests",
+            channelGroupKey: defaultChannelGroupKey,
+            channelKey: channelKey,
+            channelName: channelName,
+            channelDescription: channelDescription,
             importance: NotificationImportance.High,
             ledColor: Colors.white,
-          )
+            enableVibration: true,
+            playSound: true,
+          ),
+          NotificationChannel(
+            channelKey: backgroundChannelKey,
+            channelName: backgroundChannelName,
+            channelDescription: backgroundChannelDescription,
+            importance: NotificationImportance.Low,
+            playSound: false,
+            onlyAlertOnce: true,
+            enableVibration: false,
+          ),
         ],
         channelGroups: [
           NotificationChannelGroup(
-              channelGroupKey: "basic_channel_group",
-              channelGroupName: "Basic group")
+            channelGroupKey: defaultChannelGroupKey,
+            channelGroupName: channelGroupName,
+          ),
+          NotificationChannelGroup(
+            channelGroupKey: backgroundChannelGroupKey,
+            channelGroupName: backgroundGroupName,
+          )
         ],
         debug: kDebugMode,
       );
@@ -63,8 +95,8 @@ class AppLocalNotification {
     if (showNotification) {
       AwesomeNotifications().createNotification(
         content: NotificationContent(
-          id: 10,
-          channelKey: "basic_channel",
+          id: Random().nextInt(100),
+          channelKey: channelKey,
           title: title,
           body: body,
           autoDismissible: true,
@@ -72,5 +104,28 @@ class AppLocalNotification {
         ),
       );
     }
+  }
+
+  void sendBackgroundNotification(int duration) async {
+    final bool showNotification = (await notificationIsAllowedByUserOrNot());
+    if (showNotification) {
+      AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: 0,
+          channelKey: backgroundChannelKey,
+          groupKey: backgroundChannelGroupKey,
+          title: "Timer in progress",
+          body:
+              Utils.formatSecToMinSecForBgNotification(timeInSecond: duration),
+          autoDismissible: true,
+          notificationLayout: NotificationLayout.ProgressBar,
+          actionType: ActionType.KeepOnTop,
+        ),
+      );
+    }
+  }
+
+  void closeBackgroundNotification(int id) async {
+    await AwesomeNotifications().cancel(id);
   }
 }
