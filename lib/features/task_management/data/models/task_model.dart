@@ -51,14 +51,15 @@ class TaskModel extends TaskEntity {
       };
 
   static TaskEntity fromJson(Map<String, dynamic> item) => TaskEntity(
-        id: item["uid"],
+        id: item["id"],
+        uid: item["uid"],
         title: item["title"],
         description: item["description"],
         category: item["category"],
-        deadLineTime: item["deadLineTime"],
-        doneTime: item["doneTime"],
+        deadLineTime: DateTime.parse(item["deadLineTime"]),
+        doneTime:
+            item["doneTime"] == null ? null : DateTime.parse(item["doneTime"]),
         done: item["done"] == 1 ? true : false,
-        uid: item["uid"],
       );
 
   static TaskEntity fromModelToEntity(TaskModel model) => TaskEntity(
