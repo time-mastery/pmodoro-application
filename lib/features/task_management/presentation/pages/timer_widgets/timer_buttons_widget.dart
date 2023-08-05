@@ -77,13 +77,17 @@ class TimerButtons extends StatelessWidget {
             ),
             (SizeConfig.heightMultiplier * 2).spaceH(),
             GestureDetector(
-              onTap: () => context.read<TimerBloc>()
-                ..add(SaveCurrentTimerStateDialogShowed(
-                  duration: state.duration,
-                  taskItem: context.read<TimerBloc>().taskItem,
-                ))
-                ..add(TimerTaskDeSelected())
-                ..add(TimerReset()),
+              onTap: () {
+                if (state is TimerInProgress || state is TimerPause) {
+                  context.read<TimerBloc>()
+                    ..add(SaveCurrentTimerStateDialogShowed(
+                      duration: state.duration,
+                      taskItem: context.read<TimerBloc>().taskItem,
+                    ))
+                    ..add(TimerTaskDeSelected())
+                    ..add(TimerReset());
+                }
+              },
               child: Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(

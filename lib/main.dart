@@ -148,6 +148,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               bloc
                 ..add(TimerReset())
                 ..add(TimerTaskDeSelected());
+            } else if (state is TimerInProgress) {
+              getIt
+                  .get<AppLocalNotification>()
+                  .sendBackgroundNotification(state.duration);
             }
           },
         ),
