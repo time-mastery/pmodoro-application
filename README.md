@@ -3,8 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/time-mastery/pmodoro-application?style=social">&nbsp;
-<img src="https://img.shields.io/badge/-Dart-0175C2?style=flat-square&logo=dart&logoColor=white">&nbsp;
+  <img src="https://img.shields.io/badge/-Dart-0175C2?style=flat-square&logo=dart&logoColor=white">&nbsp;
   <img src="https://img.shields.io/badge/-Flutter-02569B?style=flat-square&logo=flutter&logoColor=white">
 </p>
 
