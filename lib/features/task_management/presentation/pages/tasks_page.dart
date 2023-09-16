@@ -8,7 +8,7 @@ import "package:pomodore/features/task_management/presentation/pages/add_task_pa
 import "package:pomodore/features/task_management/presentation/pages/task_widgets/day_without_task_widget.dart";
 
 import "../../../../core/resources/enums/tasks_filter_enums.dart";
-import "../../../../di.dart";
+import '../../../../dependency_injection/di.dart';
 import "../../../../exports.dart";
 import "../../domain/entities/task_entity.dart";
 import "../shared_widgets/task_item.dart";

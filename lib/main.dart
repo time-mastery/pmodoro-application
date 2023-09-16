@@ -1,6 +1,3 @@
-import "dart:io";
-
-import "package:bitsdojo_window/bitsdojo_window.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
@@ -9,15 +6,18 @@ import "package:flutter_localizations/flutter_localizations.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/router/router.dart";
 import "package:pomodore/core/services/notification/local_notification.dart";
-import "package:pomodore/core/shared_widgets/injector_widget.dart";
-import "package:pomodore/di.dart";
+import "package:pomodore/dependency_injection/injector_widget.dart";
+
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
 import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
 
 import "core/utils/responsive/size_config.dart";
+import "dependency_injection/di.dart";
 import "features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const InjectorWidget(child: MyApp()));
 }
 

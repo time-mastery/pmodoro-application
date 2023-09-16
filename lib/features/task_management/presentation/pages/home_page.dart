@@ -8,7 +8,7 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
 import "package:pomodore/features/task_management/presentation/shared_widgets/daily_goal_dialog.dart";
 
-import "../../../../di.dart";
+import '../../../../dependency_injection/di.dart';
 import "../../../../exports.dart";
 import "../../../notification_management/presentation/pages/notifications_page.dart";
 import "home_widgets/home_goal_widget.dart";

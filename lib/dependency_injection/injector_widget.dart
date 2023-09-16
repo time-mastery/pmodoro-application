@@ -5,8 +5,11 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/observers/bloc_observer.dart";
-import "package:pomodore/core/shared_widgets/injector_error_widget.dart";
-import "package:pomodore/di.dart";
+import "package:pomodore/dependency_injection/di.dart";
+
+import "package:pomodore/dependency_injection/injector_error_widget.dart";
+
+import "package:pomodore/exports.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
@@ -28,7 +31,6 @@ class _InjectorWidgetState extends State<InjectorWidget> {
 
     injectFutureInstance = inject();
 
-    WidgetsFlutterBinding.ensureInitialized();
     Bloc.observer = MyBlocObserver();
 
     if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
@@ -49,7 +51,11 @@ class _InjectorWidgetState extends State<InjectorWidget> {
     return FutureBuilder(
       future: injectFutureInstance,
       builder: (context, snapshot) {
-        if (snapshot.hasError) return const InjectorErrorWidget();
+        if (snapshot.hasError) {
+          return InjectorErrorWidget(
+            error: AppLocalizations.of(context)?.injectErrorMessage ?? "",
+          );
+        }
 
         if (snapshot.connectionState == ConnectionState.done) {
           return MultiBlocProvider(

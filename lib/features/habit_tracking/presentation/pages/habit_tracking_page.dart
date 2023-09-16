@@ -9,7 +9,7 @@ import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.da
 import "package:pomodore/features/habit_tracking/presentation/pages/add_habit_page.dart";
 import "package:pomodore/features/habit_tracking/presentation/shared_widgets/habit_item_widget.dart";
 
-import "../../../../di.dart";
+import '../../../../dependency_injection/di.dart';
 import "../../../../exports.dart";
 import "../blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
 

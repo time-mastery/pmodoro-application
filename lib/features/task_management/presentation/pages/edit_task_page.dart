@@ -12,7 +12,7 @@ import "../../../../core/shared_widgets/global_button.dart";
 import "../../../../core/shared_widgets/global_indicator.dart";
 import "../../../../core/shared_widgets/global_snack.dart";
 import "../../../../core/utils/responsive/size_config.dart";
-import "../../../../di.dart";
+import '../../../../dependency_injection/di.dart';
 import "../../../../exports.dart";
 import "../../domain/entities/task_entity.dart";
 import "../blocs/tasks_bloc/tasks_bloc.dart";

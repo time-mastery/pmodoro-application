@@ -13,7 +13,7 @@ import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.da
 import "package:uuid/uuid.dart";
 
 import "../../../../core/shared_widgets/global_snack.dart";
-import "../../../../di.dart";
+import '../../../../dependency_injection/di.dart';
 import "../blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
 
 class AddHabitPage extends StatelessWidget {

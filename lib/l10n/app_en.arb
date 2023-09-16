@@ -99,5 +99,6 @@
     "noHabitMessage":"There is no habit!",
     "updateHabit":"Update Habit",
     "remainTaskTitle":"Tasks ( # )",
-    "selectDate":"Select Deadline Datetime"
+    "selectDate":"Select Deadline Datetime",
+    "injectErrorMessage":"The app has crashed. Please restart the app to continue."
 }

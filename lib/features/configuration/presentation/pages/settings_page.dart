@@ -7,7 +7,7 @@ import "package:pomodore/features/configuration/presentation/blocs/settings_bloc
 
 import "../../../../core/resources/params/settings_params.dart";
 import "../../../../core/services/database/storage.dart";
-import "../../../../di.dart";
+import '../../../../dependency_injection/di.dart';
 import "../../../../exports.dart";
 import "../../domain/entities/settings_entity.dart";
 import "../widgets/change_language_bottom_sheet.dart";

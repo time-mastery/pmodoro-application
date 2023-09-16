@@ -10,7 +10,7 @@ import "package:pomodore/features/task_management/presentation/shared_widgets/de
 import "package:syncfusion_flutter_charts/charts.dart";
 
 import "../../../../core/shared_widgets/base_app_bar.dart";
-import "../../../../di.dart";
+import '../../../../dependency_injection/di.dart';
 import "../../../../exports.dart";
 import "../../domain/entities/analysis_entity.dart";
 

@@ -1,6 +1,6 @@
 import "package:audioplayers/audioplayers.dart";
 
-import "../../../di.dart";
+import '../../../dependency_injection/di.dart';
 import "../database/storage.dart";
 
 class AudioService {

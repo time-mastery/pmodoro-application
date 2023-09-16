@@ -53,12 +53,12 @@ import "package:pomodore/features/task_management/presentation/blocs/home_bloc/h
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
-import "core/services/database/collections/pomodoro_collection.dart";
-import "core/services/database/isar_helper.dart";
-import "core/services/database/storage.dart";
-import "core/utils/ticker.dart";
-import "features/task_management/data/data_sources/tasks_local_data_source.dart";
-import "features/task_management/domain/usecases/get_uncompleted_tasks_usecase.dart";
+import "../core/services/database/collections/pomodoro_collection.dart";
+import "../core/services/database/isar_helper.dart";
+import "../core/services/database/storage.dart";
+import "../core/utils/ticker.dart";
+import "../features/task_management/data/data_sources/tasks_local_data_source.dart";
+import "../features/task_management/domain/usecases/get_uncompleted_tasks_usecase.dart";
 
 final getIt = GetIt.instance;
 

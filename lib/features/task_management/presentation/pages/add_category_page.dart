@@ -9,7 +9,7 @@ import "../../../../core/shared_widgets/custom_form_field.dart";
 import "../../../../core/shared_widgets/global_button.dart";
 import "../../../../core/shared_widgets/global_indicator.dart";
 import "../../../../core/shared_widgets/global_snack.dart";
-import "../../../../di.dart";
+import '../../../../dependency_injection/di.dart';
 import "../../../../exports.dart";
 
 class AddCategoryPage extends StatelessWidget {

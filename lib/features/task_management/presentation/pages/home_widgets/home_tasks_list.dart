@@ -7,7 +7,7 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
 
-import "../../../../../di.dart";
+import '../../../../../dependency_injection/di.dart';
 import "../../../../../exports.dart";
 import "../../../domain/entities/task_entity.dart";
 import "../../shared_widgets/home_task_item.dart";

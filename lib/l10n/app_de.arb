@@ -99,5 +99,6 @@
     "noHabitMessage": "Es gibt keine Gewohnheit!",
     "updateHabit": "Gewohnheit aktualisieren",
     "remainTaskTitle": "Aufgaben (#) verbleiben",
-    "selectDate":"Auswählen des Fälligkeitsdatums"
+    "selectDate":"Auswählen des Fälligkeitsdatums",
+    "injectErrorMessage":"Die App ist abgestürzt. Bitte starten Sie die App neu, um fortzufahren."    
   }

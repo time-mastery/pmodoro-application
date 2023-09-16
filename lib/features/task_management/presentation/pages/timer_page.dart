@@ -12,7 +12,7 @@ import "package:pomodore/features/task_management/presentation/pages/analysis_pa
 import "package:pomodore/features/task_management/presentation/shared_widgets/timer_task.dart";
 
 import "../../../../core/services/notification/local_notification.dart";
-import "../../../../di.dart";
+import '../../../../dependency_injection/di.dart';
 import "../../../../exports.dart";
 import "../shared_widgets/timer_duration_selector.dart";
 import "timer_widgets/timer_bar_widgets.dart";
