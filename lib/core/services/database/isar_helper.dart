@@ -12,69 +12,70 @@ import "collections/habit_collection.dart";
 import "collections/task_collection.dart";
 
 class IsarHelper {
-  final Isar isar;
-
-  IsarHelper(this.isar);
-
   /*
   *
   * Habits
   * */
 
   Future<List<HabitCollection>> getAllHabits() async {
-    return await isar.habitCollections.where().findAll();
+    // return await isar.habitCollections.where().findAll();
+    return [];
   }
 
   Future<Id> addHabit(HabitParams params) async {
-    final newHabit = HabitCollection()
-      ..uuid = params.uuid
-      ..habitColor = params.color
-      ..habitDescription = params.description
-      ..habitIcon = params.icon
-      ..habitTitle = params.title
-      ..overviews = [];
-    return await isar.writeTxn(() async {
-      return await isar.habitCollections.put(newHabit);
-    });
+    // final newHabit = HabitCollection()
+    //   ..uuid = params.uuid
+    //   ..habitColor = params.color
+    //   ..habitDescription = params.description
+    //   ..habitIcon = params.icon
+    //   ..habitTitle = params.title
+    //   ..overviews = [];
+    // return await isar.writeTxn(() async {
+    //   return await isar.habitCollections.put(newHabit);
+    // });
+    return 1;
   }
 
   Future<void> deleteHabit(Id id) async {
-    await isar.writeTxn(() async {
-      await isar.habitCollections.delete(id);
-    });
+    // await isar.writeTxn(() async {
+    //   await isar.habitCollections.delete(id);
+    // });
+    return Future.value();
   }
 
   Future<HabitCollection?> getSpecificHabit(Id id) async {
-    return await isar.habitCollections.get(id);
+    // return await isar.habitCollections.get(id);
+    return null;
   }
 
   Future<HabitCollection?> updateHabit(HabitParams newHabit) async {
-    HabitCollection? habit = await isar.habitCollections.get(newHabit.id!);
-    habit?.habitTitle = newHabit.title;
-    habit?.habitIcon = newHabit.icon;
-    habit?.habitDescription = newHabit.description;
-    habit?.habitColor = newHabit.color;
-    await isar.writeTxn(() async {
-      await isar.habitCollections.put(habit!);
-    });
-    return habit;
+    // HabitCollection? habit = await isar.habitCollections.get(newHabit.id!);
+    // habit.habitTitle = newHabit.title;
+    // habit.habitIcon = newHabit.icon;
+    // habit.habitDescription = newHabit.description;
+    // habit.habitColor = newHabit.color;
+    // await isar.writeTxn(() async {
+    //   await isar.habitCollections.put(habit);
+    // });
+    // return habit;
+    return null;
   }
 
   Future<HabitCollection?> completeHabit(Id id) async {
-    HabitCollection? habit = await isar.habitCollections.get(id);
-    if (habit == null) return null;
-    List<String> newList = habit.overviews?.toList(growable: true) ?? [];
-    if (newList.contains(Utils.formatDateToYYYYMMDD(DateTime.now()))) {
-      newList.remove(Utils.formatDateToYYYYMMDD(DateTime.now()));
-    } else {
-      newList.add(Utils.formatDateToYYYYMMDD(DateTime.now())!);
-    }
-    habit.overviews = newList;
+    return null;
+    // HabitCollection? habit = await isar.habitCollections.get(id);
+    // List<String> newList = habit.overviews?.toList(growable: true) ?? [];
+    // if (newList.contains(Utils.formatDateToYYYYMMDD(DateTime.now()))) {
+    //   newList.remove(Utils.formatDateToYYYYMMDD(DateTime.now()));
+    // } else {
+    //   newList.add(Utils.formatDateToYYYYMMDD(DateTime.now())!);
+    // }
+    // habit.overviews = newList;
 
-    await isar.writeTxn(() async {
-      await isar.habitCollections.put(habit);
-    });
-    return habit;
+    // await isar.writeTxn(() async {
+    //   await isar.habitCollections.put(habit);
+    // });
+    // return habit;
   }
 
   /*
@@ -83,85 +84,98 @@ class IsarHelper {
   * */
 
   Future<TaskCollection?> addTask(TaskParams params) async {
-    TaskCollection? taskCollection = TaskCollection()
-      ..title = params.taskTitle
-      ..description = params.taskDescription
-      ..deadLineTime = params.taskDateTimeDeadline == null
-          ? null
-          : Utils.formatDateToYYYYMMDD(params.taskDateTimeDeadline!)
-      ..doneTime = params.taskDoneDatetime == null
-          ? null
-          : Utils.formatDateToYYYYMMDD(params.taskDoneDatetime!)
-      ..uid = const Uuid().v4()
-      ..done = false;
+    return null;
+    // TaskCollection? taskCollection = TaskCollection()
+    //   ..title = params.taskTitle
+    //   ..description = params.taskDescription
+    //   ..deadLineTime = params.taskDateTimeDeadline == null
+    //       ? null
+    //       : Utils.formatDateToYYYYMMDD(params.taskDateTimeDeadline!)
+    //   ..doneTime = params.taskDoneDatetime == null
+    //       ? null
+    //       : Utils.formatDateToYYYYMMDD(params.taskDoneDatetime!)
+    //   ..uid = const Uuid().v4()
+    //   ..done = false;
 
-    return await isar.writeTxn(() async {
-      Id id = await isar.taskCollections.put(taskCollection);
-      return await isar.taskCollections.get(id);
-    });
+    // return await isar.writeTxn(() async {
+    //   Id id = await isar.taskCollections.put(taskCollection);
+    //   return await isar.taskCollections.get(id);
+    // });
   }
 
   Future<TaskCollection?> editTask(TaskParams task) async {
-    try {
-      TaskCollection? item = await isar.taskCollections.get(task.id!);
-      if (item == null) return item;
-      item.title = task.taskTitle;
-      item.description = task.taskDescription;
-      item.done = task.taskDone;
-      await isar.writeTxn(() async {
-        isar.taskCollections.put(item);
-      });
-      return item;
-    } catch (e, s) {
-      dPrint(e);
-      dPrint(s);
-      return Future.error(e);
-    }
+    // try {
+    //   TaskCollection? item = await isar.taskCollections.get(task.id!);
+    //   item.title = task.taskTitle;
+    //   item.description = task.taskDescription;
+    //   item.done = task.taskDone;
+    //   await isar.writeTxn(() async {
+    //     isar.taskCollections.put(item);
+    //   });
+    //   return item;
+    // } catch (e, s) {
+    //   dPrint(e);
+    //   dPrint(s);
+    //   return Future.error(e);
+    // }
+
+    return null;
   }
 
   Future<void> deleteTask(Id id) async {
-    await isar.writeTxn(() async {
-      await isar.taskCollections.delete(id);
-    });
+    // await isar.writeTxn(() async {
+    //   await isar.taskCollections.delete(id);
+    // });
+
+    return Future.value();
   }
 
   Future<List<TaskCollection>> getUnCompletedTasks() async {
-    return await isar.taskCollections.filter().doneEqualTo(false).findAll();
+    // return await isar.taskCollections.filter().doneEqualTo(false).findAll();
+    return [];
   }
 
   Future<List<TaskCollection>> getAllTasks() async {
-    return await isar.taskCollections.where().findAll();
+    // return await isar.taskCollections.where().findAll();
+    return [];
   }
 
   Future<List<TaskCollection>> getSpecificDateTasks(DateTime date) async {
-    return await isar.taskCollections
-        .filter()
-        .deadLineTimeEqualTo(Utils.formatDateToYYYYMMDD(date))
-        .findAll();
+    // return await isar.taskCollections
+    //     .filter()
+    //     .deadLineTimeEqualTo(Utils.formatDateToYYYYMMDD(date))
+    //     .findAll();
+
+    return [];
   }
 
   Future<int> getAllTodayTaskQuantity() async {
-    List items = await isar.taskCollections
-        .filter()
-        .deadLineTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
-        .findAll();
+    // List items = await isar.taskCollections
+    //     .filter()
+    //     .deadLineTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+    //     .findAll();
 
-    return items.length;
+    // return items.length;
+    return 1;
   }
 
   Future<int> getCompletedTaskQuantity() async {
-    List items = await isar.taskCollections
-        .filter()
-        .deadLineTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
-        .doneEqualTo(true)
-        .findAll();
+    // List items = await isar.taskCollections
+    //     .filter()
+    //     .deadLineTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+    //     .doneEqualTo(true)
+    //     .findAll();
 
-    return items.length;
+    // return items.length;
+
+    return 1;
   }
 
   Future<TaskCollection?> getTaskByUId(String uid) async {
-    List list = await isar.taskCollections.filter().uidEqualTo(uid).findAll();
-    return list.first;
+    // List list = await isar.taskCollections.filter().uidEqualTo(uid).findAll();
+    // return list.first;
+
+    return null;
   }
 
   /*
@@ -170,36 +184,41 @@ class IsarHelper {
   * */
 
   Future<List<PomodoroCollection>> getAllPomodoros() async {
-    return await isar.pomodoroCollections.where().findAll();
+    // return await isar.pomodoroCollections.where().findAll();
+    return [];
   }
 
   Future<List<PomodoroCollection>> getAllTodayPomodoros() async {
-    try {
-      return await isar.pomodoroCollections
-          .filter()
-          .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
-          .findAll();
-    } catch (e) {
-      return Future.error(e);
-    }
+    // try {
+    //   return await isar.pomodoroCollections
+    //       .filter()
+    //       .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+    //       .findAll();
+    // } catch (e) {
+    //   return Future.error(e);
+    // }
+    return [];
   }
 
   Future<List<PomodoroCollection>> getSpecificDatePomodoros(
       DateTime date) async {
-    return await isar.pomodoroCollections
-        .filter()
-        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(date))
-        .findAll();
+    // return await isar.pomodoroCollections
+    //     .filter()
+    //     .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(date))
+    //     .findAll();
+    return [];
   }
 
   Future<Id?> saveAPomodoro(SavePomodoroParams item) async {
-    PomodoroCollection pomodoroCollection = PomodoroCollection()
-      ..dateTime = Utils.formatDateToYYYYMMDD(item.entity.dateTime)
-      ..taskUid = item.entity.taskUid
-      ..duration = item.entity.duration;
-    return await isar.writeTxn(() async {
-      return await isar.pomodoroCollections.put(pomodoroCollection);
-    });
+    // PomodoroCollection pomodoroCollection = PomodoroCollection()
+    //   ..dateTime = Utils.formatDateToYYYYMMDD(item.entity.dateTime)
+    //   ..taskUid = item.entity.taskUid
+    //   ..duration = item.entity.duration;
+    // return await isar.writeTxn(() async {
+    //   return await isar.pomodoroCollections.put(pomodoroCollection);
+    // });
+
+    return 1;
   }
 
 /*
@@ -208,29 +227,33 @@ class IsarHelper {
   * */
 
   Future<void> saveDailyGoal(int count) async {
-    DailyGoalCollection item = DailyGoalCollection()
-      ..dateTime = Utils.formatDateToYYYYMMDD(DateTime.now())
-      ..count = count;
+    // DailyGoalCollection item = DailyGoalCollection()
+    //   ..dateTime = Utils.formatDateToYYYYMMDD(DateTime.now())
+    //   ..count = count;
 
-    await isar.writeTxn(() async {
-      await isar.dailyGoalCollections.put(item);
-    });
+    // await isar.writeTxn(() async {
+    //   await isar.dailyGoalCollections.put(item);
+    // });
+
+    return Future.value();
   }
 
   Future<int?> getDailyGoalQuantity() async {
-    List<DailyGoalCollection> items = await isar.dailyGoalCollections
-        .filter()
-        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
-        .findAll();
+    // List<DailyGoalCollection> items = await isar.dailyGoalCollections
+    //     .filter()
+    //     .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+    //     .findAll();
 
-    return items.first.count;
+    // return items.first.count;
+    return 2;
   }
 
   Future<bool> checkDailyGoal() async {
-    List<DailyGoalCollection> items = await isar.dailyGoalCollections
-        .filter()
-        .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
-        .findAll();
-    return items.isNotEmpty;
+    // List<DailyGoalCollection> items = await isar.dailyGoalCollections
+    //     .filter()
+    //     .dateTimeEqualTo(Utils.formatDateToYYYYMMDD(DateTime.now()))
+    //     .findAll();
+    // return items.isNotEmpty;
+    return false;
   }
 }

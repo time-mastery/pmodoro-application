@@ -1,13 +1,7 @@
 import "package:audioplayers/audioplayers.dart";
 import "package:get_it/get_it.dart";
-import "package:isar/isar.dart";
 import "package:path_provider/path_provider.dart";
 import "package:pomodore/core/services/audio/audio_service.dart";
-import "package:pomodore/core/services/database/collections/category_collection.dart";
-import "package:pomodore/core/services/database/collections/daily_goal_collection.dart";
-import "package:pomodore/core/services/database/collections/habit_collection.dart";
-import "package:pomodore/core/services/database/collections/habit_tracker_collection.dart";
-import "package:pomodore/core/services/database/collections/task_collection.dart";
 import "package:pomodore/core/services/notification/local_notification.dart";
 import "package:pomodore/features/configuration/data/data_sources/settings_local_data_source.dart";
 import "package:pomodore/features/configuration/data/repositories/settings_repository_impl.dart";
@@ -52,8 +46,6 @@ import "package:pomodore/features/task_management/presentation/blocs/analysis_bl
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
-
-import "core/services/database/collections/pomodoro_collection.dart";
 import "core/services/database/isar_helper.dart";
 import "core/services/database/storage.dart";
 import "core/utils/ticker.dart";
@@ -66,20 +58,21 @@ Future inject() async {
   FStorage.initialize();
 
   // inject nosql database
-  final dir = await getApplicationDocumentsDirectory();
-  final isar = await Isar.open(
-    [
-      HabitCollectionSchema,
-      HabitTrackerCollectionSchema,
-      CategoryCollectionSchema,
-      DailyGoalCollectionSchema,
-      PomodoroCollectionSchema,
-      TaskCollectionSchema,
-    ],
-    directory: dir.path,
-  );
-  getIt.registerSingleton<Isar>(isar);
-  getIt.registerSingleton(IsarHelper(getIt()));
+  // final dir = await getApplicationDocumentsDirectory();
+  // TODO shelagh me later
+  // final isar = await Isar.open(
+  //   [
+  //     HabitCollectionSchema,
+  //     HabitTrackerCollectionSchema,
+  //     CategoryCollectionSchema,
+  //     DailyGoalCollectionSchema,
+  //     PomodoroCollectionSchema,
+  //     TaskCollectionSchema,
+  //   ],
+  //   directory: dir.path,
+  // );
+  // getIt.registerSingleton<Isar>(isar);
+  getIt.registerSingleton(IsarHelper());
 
   // player
   getIt.registerSingleton(AudioPlayer());

@@ -45,8 +45,6 @@ class BarChartWidget extends HookWidget {
                     BarChartData(
                       barTouchData: BarTouchData(
                         touchTooltipData: BarTouchTooltipData(
-                          tooltipBgColor:
-                              Theme.of(context).colorScheme.secondary,
                           tooltipHorizontalAlignment:
                               FLHorizontalAlignment.right,
                           tooltipMargin: 20,
@@ -98,7 +96,7 @@ class BarChartWidget extends HookWidget {
                           sideTitles: SideTitles(
                             showTitles: true,
                             getTitlesWidget: (value, meta) => SideTitleWidget(
-                              axisSide: meta.axisSide,
+                              meta: meta,
                               space: 16,
                               child: Text(
                                 xDayNamesList[value.toInt()],
@@ -163,7 +161,7 @@ class BarChartWidget extends HookWidget {
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
             toY: 20,
-            color: Theme.of(context).colorScheme.onBackground.withOpacity(.2),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(.2),
           ),
         ),
       ],

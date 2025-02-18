@@ -1,9 +1,16 @@
 import "package:isar/isar.dart";
 
-part "category_collection.g.dart";
+// part "category_collection.g.dart";
 
-@collection
+// @collection
+// class CategoryCollection {
+//   Id id = Isar.autoIncrement;
+//   String? title;
+// }
+
 class CategoryCollection {
-  Id id = Isar.autoIncrement;
-  String? title;
+  final int id;
+  final String? title;
+
+  CategoryCollection({required this.id, required this.title});
 }
