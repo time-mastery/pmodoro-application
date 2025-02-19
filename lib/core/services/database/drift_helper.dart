@@ -1,4 +1,5 @@
 import "dart:convert";
+import "dart:developer";
 
 import "package:drift/drift.dart";
 import "package:drift/native.dart";
@@ -276,14 +277,19 @@ class AppDatabase extends _$AppDatabase {
     final items = await (select(dailyGoals)
           ..where((tbl) => tbl.goalDateTime.equals(today)))
         .get();
+
     return items.isNotEmpty ? items.first.count : null;
   }
 
   Future<bool> checkDailyGoal() async {
-    final today = DateTime.now().toString();
+    final today = DateTime.now();
+    final todayStr =
+        "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
+
     final items = await (select(dailyGoals)
-          ..where((tbl) => tbl.goalDateTime.equals(today)))
+          ..where((tbl) => tbl.goalDateTime.like("$todayStr%")))
         .get();
+
     return items.isNotEmpty;
   }
 }
