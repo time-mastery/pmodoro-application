@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 class GlobalButton extends StatelessWidget {
   const GlobalButton({
-    Key? key,
+    super.key,
     this.child,
     required this.onPressed,
     this.width,
@@ -13,7 +13,7 @@ class GlobalButton extends StatelessWidget {
     this.backgroundColor,
     this.title,
     this.titleStyle,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
   final Widget? child;
@@ -33,9 +33,13 @@ class GlobalButton extends StatelessWidget {
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 10),
       shape: shape ??
           const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
       elevation: elevation ?? 5,
-      backgroundColor: backgroundColor,
+      backgroundColor:
+          backgroundColor ?? Theme.of(context).colorScheme.secondary,
     );
 
     return ElevatedButton(

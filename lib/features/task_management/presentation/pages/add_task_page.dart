@@ -19,7 +19,7 @@ import "../../../../di.dart";
 import "../../../../exports.dart";
 
 class AddTaskPage extends StatelessWidget {
-  const AddTaskPage({Key? key, this.editItem}) : super(key: key);
+  const AddTaskPage({super.key, this.editItem});
 
   static const routeName = "/addTask";
 
@@ -34,7 +34,7 @@ class AddTaskPage extends StatelessWidget {
 }
 
 class AddTaskView extends HookWidget {
-  const AddTaskView({Key? key}) : super(key: key);
+  const AddTaskView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,7 @@ class AddTaskView extends HookWidget {
                       height: SizeConfig.heightMultiplier * 5,
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: Theme.of(context).colorScheme.onBackground),
+                            color: Theme.of(context).colorScheme.onSurface),
                         borderRadius: BorderRadius.circular(AppConstant.radius),
                       ),
                       child: TextButton(
@@ -117,7 +117,7 @@ class AddTaskView extends HookWidget {
                             context: context,
                             builder: (_) => Container(
                               height: 500,
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context).colorScheme.surface,
                               child: Column(
                                 children: [
                                   SizedBox(

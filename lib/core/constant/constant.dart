@@ -4,13 +4,15 @@ import "package:google_fonts/google_fonts.dart";
 import "package:pomodore/core/resources/params/theme_params.dart";
 
 class AppConstant {
+  static final _poppinsFont = GoogleFonts.poppins().fontFamily;
+
   /// dimens
   static const radius = 10.0;
   static const modalPadding = 15.0;
   static const iconSize = 20.0;
 
   // strings
-  static const appName = "Pmodoro";
+  static const appName = "Pomodoro";
   static const fontFamily = "inter";
 
   // Hero tags
@@ -22,10 +24,20 @@ class AppConstant {
           ? "assets/images/logov2_light_mode.png"
           : "assets/images/logov2.png";
 
-  static String? getFontFamily() => GoogleFonts.poppins().fontFamily;
+  static String? getFontFamily() => _poppinsFont;
 
-  static TextStyle getTextStyle({double? fontSize, Color? color}) =>
-      TextStyle(color: color, fontSize: fontSize);
+  static TextStyle getTextStyle({
+    double? fontSize,
+    Color? color,
+    FontWeight? fontWeight,
+    double? letterSpacing,
+  }) =>
+      TextStyle(
+        color: color,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        letterSpacing: letterSpacing,
+      );
 
   static TextTheme getTextTheme({Color? color}) => TextTheme(
         bodyLarge: getTextStyle(color: color),
@@ -66,11 +78,15 @@ class AppConstant {
       onError: Colors.white,
       surface: Colors.black12,
       onSurface: Colors.black,
+      surfaceTint: Colors.black12,
+      surfaceContainerHighest: Colors.black12,
+      inverseSurface: Colors.white,
     ),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Colors.black,
     ),
     appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle.light,
       backgroundColor: Colors.transparent,
       elevation: 0,
       iconTheme: IconThemeData(
@@ -110,6 +126,9 @@ class AppConstant {
       onError: Colors.white,
       surface: Colors.white10,
       onSurface: Colors.white,
+      surfaceTint: Colors.white10,
+      surfaceContainerHighest: Colors.white24,
+      inverseSurface: Colors.black,
     ),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Color(0xff01ED64),
@@ -160,11 +179,15 @@ class AppConstant {
       onError: Colors.white,
       surface: Colors.white10,
       onSurface: Colors.white,
+      surfaceTint: Colors.white10,
+      surfaceContainerHighest: Colors.white24,
+      inverseSurface: Color(0xff2e3440),
     ),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Color(0xff8fbcbb),
     ),
     appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle.light,
       backgroundColor: Colors.transparent,
       elevation: 0,
       iconTheme: IconThemeData(
@@ -209,11 +232,15 @@ class AppConstant {
       onError: Colors.white,
       surface: Colors.white10,
       onSurface: Colors.white,
+      surfaceTint: Colors.white10,
+      surfaceContainerHighest: Colors.white24,
+      inverseSurface: Color(0xff0C134F),
     ),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Color(0xffD4ADFC),
     ),
     appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle.light,
       backgroundColor: Colors.transparent,
       elevation: 0,
       iconTheme: IconThemeData(
@@ -237,7 +264,7 @@ class AppConstant {
     ),
   );
 
-  static final List<ThemeParams> themes = [
+  static List<ThemeParams> themes = [
     ThemeParams("light", defaultLightTheme, "Light Minimal"),
     ThemeParams("dark", defaultDarkTheme, "Dark Minimal"),
     ThemeParams("polar", polarNightTheme, "Polar Night"),

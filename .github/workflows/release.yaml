@@ -2,51 +2,60 @@ name: Release
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build_android:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
-      - name: Setup java to compile android project
-        uses: actions/setup-java@v1
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          java-version: "12.x"
+          distribution: "zulu"
+          java-version: "17"
 
-      - name: Install and set flutter version
+      - name: Install and set Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.10.3"
+          flutter-version: "3.19.2"
           channel: "stable"
+          cache: true
 
-      - name: Check dir
+      - name: Check directory
         run: ls /home/runner/work
 
-      - name: Create the keystore
+      - name: Create keystore
         run: echo "${{ secrets.KEY }}" | base64 -d > ./android/key.jks
 
-      - name: Create the properties
+      - name: Create properties
         run: echo "${{ secrets.PROPERTIES }}" | base64 -d > ./android/key.properties
 
-      - name: Get packages
+      - name: Install dependencies
         run: flutter pub get
 
       - name: Run tests
         run: flutter test
 
-      - name: Build android app
+      - name: Build Android APK
         run: |
           flutter build apk --split-per-abi --release
           ls -lh build/app/outputs/apk/release/
 
-      - name: Setup Telegram Action
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apks
+          path: build/app/outputs/apk/release/*-release.apk
+          retention-days: 5
+
+      - name: Send to Telegram
         uses: appleboy/telegram-action@master
         with:
           token: ${{ secrets.BOT_ID }}
           to: ${{ secrets.CHAT_ID }}
-          message: "New Pmodoro release is available!"
+          message: "🚀 New Pomodoro release is available!"
           document: |
             build/app/outputs/apk/release/*-release.apk
