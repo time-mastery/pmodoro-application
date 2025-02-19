@@ -1,4 +1,4 @@
-import "package:pomodore/core/services/database/collections/pomodoro_collection.dart";
+import "package:pomodore/core/services/database/drift_helper.dart";
 import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
 
 class PomodoroModel extends PomodoroEntity {
@@ -29,13 +29,12 @@ class PomodoroModel extends PomodoroEntity {
         "dateTime": item.dateTime,
       };
 
-  static PomodoroModel pomodoroCollectionToModel(
-          PomodoroCollection collection) =>
+  static PomodoroModel pomodoroCollectionToModel(Pomodoro collection) =>
       PomodoroModel(
         collection.id,
         collection.duration ?? 0,
         collection.taskUid,
-        DateTime.parse(collection.dateTime!),
+        DateTime.parse(collection.creationDateTime!),
       );
 
   static PomodoroEntity pomodoroModelToEntity(PomodoroModel model) =>

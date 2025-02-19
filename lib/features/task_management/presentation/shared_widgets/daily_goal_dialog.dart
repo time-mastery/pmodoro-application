@@ -17,7 +17,7 @@ Future<void> showDailyGoalDialog(
       barrierDismissible: false,
       builder: (BuildContext context) {
         return SimpleDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: Text(localization.dailyGoalTitle),
           children: <Widget>[
             (SizeConfig.heightMultiplier * 2).spaceH(),

@@ -1,4 +1,4 @@
-import "package:pomodore/core/services/database/collections/task_collection.dart";
+import "package:pomodore/core/services/database/drift_helper.dart";
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 
 class TaskModel extends TaskEntity {
@@ -22,7 +22,7 @@ class TaskModel extends TaskEntity {
           done: done,
         );
 
-  static TaskModel collectionToModel(TaskCollection item) => TaskModel(
+  static TaskModel collectionToModel(Task item) => TaskModel(
         item.id,
         item.uid ?? "",
         item.title ?? "",

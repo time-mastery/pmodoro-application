@@ -1,17 +1,18 @@
 import "package:pomodore/core/resources/params/habit_params.dart";
-import "package:pomodore/core/services/database/collections/habit_collection.dart";
-import "package:pomodore/core/services/database/isar_helper.dart";
+
+import "package:pomodore/core/services/database/drift_helper.dart";
+
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/habit_tracking/data/models/habit_model.dart";
 
 class HabitLocalDataSource {
-  final IsarHelper db;
+  final AppDatabase db;
 
   HabitLocalDataSource(this.db);
 
   Future<List<HabitModel>?> getAllHabits() async {
     try {
-      List<HabitCollection?> habits = await db.getAllHabits();
+      List<Habit?> habits = await db.getAllHabits();
 
       return habits.map((e) => HabitModel.collectionToModel(e!)).toList();
     } catch (e, s) {
@@ -42,7 +43,7 @@ class HabitLocalDataSource {
 
   Future<HabitModel?> getSpecificHabit(int id) async {
     try {
-      HabitCollection? habit = await db.getSpecificHabit(id);
+      Habit? habit = await db.getSpecificHabit(id);
 
       return habit == null ? null : HabitModel.collectionToModel(habit);
     } catch (e, s) {
@@ -54,7 +55,7 @@ class HabitLocalDataSource {
 
   Future<HabitModel?> editHabit(HabitParams newHabit) async {
     try {
-      HabitCollection? habit = await db.updateHabit(newHabit);
+      Habit? habit = await db.updateHabit(newHabit);
 
       return habit == null ? null : HabitModel.collectionToModel(habit);
     } catch (e, s) {
@@ -65,7 +66,7 @@ class HabitLocalDataSource {
 
   Future<HabitModel?> completeHabit(int id) async {
     try {
-      HabitCollection? habit = await db.completeHabit(id);
+      Habit? habit = await db.completeHabit(id);
       return habit == null ? null : HabitModel.collectionToModel(habit);
     } catch (e, s) {
       dPrint("$e     $s");

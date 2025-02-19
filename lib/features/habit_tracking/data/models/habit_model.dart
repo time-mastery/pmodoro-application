@@ -1,4 +1,6 @@
-import "package:pomodore/core/services/database/collections/habit_collection.dart";
+
+
+import "package:pomodore/core/services/database/drift_helper.dart";
 
 import "../../../../core/resources/params/habit_params.dart";
 import "../../../../core/utils/utils.dart";
@@ -52,7 +54,7 @@ class HabitModel extends HabitEntity {
     };
   }
 
-  static HabitModel collectionToModel(HabitCollection collection) {
+  static HabitModel collectionToModel(Habit collection) {
     Map<DateTime, int> overviewsMap = {};
     collection.overviews?.forEach((element) {
       overviewsMap.addAll({DateTime.parse(element): 1});

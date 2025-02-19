@@ -46,6 +46,7 @@ class AppConstant {
       );
 
   static final defaultLightTheme = ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: Colors.white,
     fontFamily: getFontFamily(),
     cardColor: Colors.white,
@@ -56,20 +57,16 @@ class AppConstant {
       ),
     ),
     textTheme: getTextTheme(color: Colors.black),
-    colorScheme: ColorScheme(
-      brightness: Brightness.light,
+    colorScheme: const ColorScheme.light(
       primary: Colors.black,
       onPrimary: Colors.white,
-      secondary: const Color(0xff01ED64),
+      secondary: Color(0xff01ED64),
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      background: Colors.white,
-      onBackground: Colors.black,
-      surface: Colors.black.withOpacity(.001),
-      onSurface: Colors.white,
+      surface: Colors.black12,
+      onSurface: Colors.black,
     ),
-    buttonTheme: const ButtonThemeData(),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Colors.black,
     ),
@@ -93,9 +90,10 @@ class AppConstant {
   );
 
   static final defaultDarkTheme = ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: Colors.black,
     fontFamily: getFontFamily(),
-    cardColor: Colors.white.withOpacity(.1),
+    cardColor: Colors.white10,
     cardTheme: const CardTheme(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -103,20 +101,16 @@ class AppConstant {
       ),
     ),
     textTheme: getTextTheme(color: Colors.white),
-    colorScheme: ColorScheme(
-      brightness: Brightness.dark,
-      primary: const Color(0xff01ED64),
+    colorScheme: const ColorScheme.dark(
+      primary: Color(0xff01ED64),
       onPrimary: Colors.black,
-      secondary: const Color(0xff01ED64),
+      secondary: Color(0xff01ED64),
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      background: Colors.black,
-      onBackground: Colors.white,
-      surface: Colors.white.withOpacity(.001),
+      surface: Colors.white10,
       onSurface: Colors.white,
     ),
-    buttonTheme: const ButtonThemeData(),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Color(0xff01ED64),
     ),
@@ -146,9 +140,10 @@ class AppConstant {
   );
 
   static final polarNightTheme = ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: const Color(0xff2e3440),
     fontFamily: getFontFamily(),
-    cardColor: Colors.white.withOpacity(.1),
+    cardColor: Colors.white10,
     cardTheme: const CardTheme(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -156,20 +151,16 @@ class AppConstant {
       ),
     ),
     textTheme: getTextTheme(color: Colors.white),
-    colorScheme: ColorScheme(
-      brightness: Brightness.dark,
-      primary: const Color(0xffd8dee9),
+    colorScheme: const ColorScheme.dark(
+      primary: Color(0xffd8dee9),
       onPrimary: Colors.black,
-      secondary: const Color(0xff8fbcbb),
+      secondary: Color(0xff8fbcbb),
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      background: const Color(0xff2e3440),
-      onBackground: Colors.white,
-      surface: Colors.white.withOpacity(.001),
+      surface: Colors.white10,
       onSurface: Colors.white,
     ),
-    buttonTheme: const ButtonThemeData(),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Color(0xff8fbcbb),
     ),
@@ -198,6 +189,7 @@ class AppConstant {
   );
 
   static final darkBlueTheme = ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: const Color(0xff0C134F),
     fontFamily: getFontFamily(),
     cardColor: const Color(0xff1D267D),
@@ -208,20 +200,16 @@ class AppConstant {
       ),
     ),
     textTheme: getTextTheme(color: Colors.white),
-    colorScheme: ColorScheme(
-      brightness: Brightness.dark,
-      primary: const Color(0xffD4ADFC),
+    colorScheme: const ColorScheme.dark(
+      primary: Color(0xffD4ADFC),
       onPrimary: Colors.black,
-      secondary: const Color(0xffD864A9),
+      secondary: Color(0xffD864A9),
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      background: const Color(0xff0C134F),
-      onBackground: Colors.white,
-      surface: Colors.white.withOpacity(.001),
+      surface: Colors.white10,
       onSurface: Colors.white,
     ),
-    buttonTheme: const ButtonThemeData(),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Color(0xffD4ADFC),
     ),

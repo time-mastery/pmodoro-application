@@ -1,20 +1,18 @@
 import "package:pomodore/core/resources/params/task_params.dart";
-import "package:pomodore/core/services/database/collections/pomodoro_collection.dart";
-import "package:pomodore/core/services/database/collections/task_collection.dart";
-import "package:pomodore/core/services/database/isar_helper.dart";
+import "package:pomodore/core/services/database/drift_helper.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/task_management/data/models/pomodoro_model.dart";
 
 import "../models/task_model.dart";
 
 class TasksLocalDataSource {
-  final IsarHelper db;
+  final AppDatabase db;
 
   TasksLocalDataSource(this.db);
 
   Future<TaskModel?> addTask(TaskParams params) async {
     try {
-      TaskCollection? task = await db.addTask(params);
+      Task? task = await db.addTask(params);
       if (task == null) return null;
       return TaskModel.collectionToModel(task);
     } catch (e) {
@@ -25,7 +23,7 @@ class TasksLocalDataSource {
 
   Future<List<TaskModel>>? getAllUnCompletedTasks() async {
     try {
-      final List<TaskCollection> tasks = await db.getUnCompletedTasks();
+      final List<Task> tasks = await db.getUnCompletedTasks();
 
       return tasks.map((e) => TaskModel.collectionToModel(e)).toList();
     } catch (e, s) {
@@ -37,7 +35,7 @@ class TasksLocalDataSource {
 
   Future<List<TaskModel>>? getAllTasks() async {
     try {
-      final List<TaskCollection> tasks = await db.getAllTasks();
+      final List<Task> tasks = await db.getAllTasks();
 
       return tasks.map((e) => TaskModel.collectionToModel(e)).toList();
     } catch (e) {
@@ -47,7 +45,7 @@ class TasksLocalDataSource {
 
   Future<List<TaskModel>>? getSpecificDateTasks(DateTime time) async {
     try {
-      final List<TaskCollection> tasks = await db.getSpecificDateTasks(time);
+      final List<Task> tasks = await db.getSpecificDateTasks(time);
 
       return tasks.map((e) => TaskModel.collectionToModel(e)).toList();
     } catch (e) {
@@ -57,7 +55,7 @@ class TasksLocalDataSource {
 
   Future<List<PomodoroModel>>? getAllPomodoroFromDb() async {
     try {
-      final List<PomodoroCollection> records = await db.getAllPomodoros();
+      final List<Pomodoro> records = await db.getAllPomodoros();
 
       return records
           .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
@@ -70,7 +68,7 @@ class TasksLocalDataSource {
 
   Future<List<PomodoroModel>>? getAllTodayPomodoroFromDb() async {
     try {
-      final List<PomodoroCollection> records = await db.getAllTodayPomodoros();
+      final List<Pomodoro> records = await db.getAllTodayPomodoros();
 
       return records
           .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
@@ -84,8 +82,7 @@ class TasksLocalDataSource {
 
   Future<List<PomodoroModel>>? getSpecificDatePomodoro(DateTime date) async {
     try {
-      final List<PomodoroCollection> records =
-          await db.getSpecificDatePomodoros(date);
+      final List<Pomodoro> records = await db.getSpecificDatePomodoros(date);
 
       return records
           .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
@@ -201,7 +198,7 @@ class TasksLocalDataSource {
 
   Future<TaskModel?> editTask(TaskParams params) async {
     try {
-      TaskCollection? task = await db.editTask(params);
+      Task? task = await db.editTask(params);
 
       return TaskModel.collectionToModel(task!);
     } catch (e) {
@@ -211,7 +208,7 @@ class TasksLocalDataSource {
 
   Future<TaskModel?> completeTask(TaskParams params) async {
     try {
-      TaskCollection? task = await db.editTask(params);
+      Task? task = await db.editTask(params);
 
       return TaskModel.collectionToModel(task!);
     } catch (e) {
