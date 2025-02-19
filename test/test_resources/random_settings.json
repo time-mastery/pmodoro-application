@@ -1,8 +1,0 @@
-{
-  "notification": true,
-  "sound": true,
-  "appUpdates": true,
-  "newTips": true,
-  "vibration": true,
-  "ads": true
-}
