@@ -1,20 +1,34 @@
+import "dart:developer";
+
 import "package:dio/dio.dart";
+import "package:flutter/material.dart";
 import "package:flutter_dotenv/flutter_dotenv.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:awesome_dio_interceptor/awesome_dio_interceptor.dart";
 
 part "rest_api.g.dart";
 
-@riverpod
+@Riverpod(keepAlive: true)
 RestApi restApi(Ref ref) {
   final baseUrl = dotenv.env["API"] ?? "";
+  log(baseUrl);
   return RestApi(baseUrl);
 }
 
 class RestApi {
   final Dio _dio;
 
-  RestApi(String baseUrl) : _dio = Dio(BaseOptions(baseUrl: baseUrl));
+  RestApi(String baseUrl) : _dio = Dio(BaseOptions(baseUrl: baseUrl)) {
+    _dio.interceptors.add(
+      AwesomeDioInterceptor(
+        logRequestTimeout: false,
+        logRequestHeaders: false,
+        logResponseHeaders: false,
+        logger: debugPrint,
+      ),
+    );
+  }
 
   Future<Response<T>> get<T>(String endpoint,
       {Map<String, dynamic>? queryParameters}) async {
