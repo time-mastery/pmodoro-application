@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pinput/pinput.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
+import "package:pomodore/features/authentication/views/otp_timer_widget.dart";
 
 class VerifyOtpPage extends ConsumerWidget {
   const VerifyOtpPage({super.key, required this.email});
@@ -66,6 +67,10 @@ class VerifyOtpPage extends ConsumerWidget {
                 },
                 child: const Text("Submit"),
               ),
+              const Spacer(
+                flex: 1,
+              ),
+              const OtpTimerWidget(email: "asdf"),
               const Spacer(
                 flex: 4,
               ),

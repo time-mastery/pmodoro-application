@@ -26,6 +26,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final asyncData = ref.watch(generateOTPProvider);
     ref.listen<AsyncValue<bool>>(
       generateOTPProvider,
       (_, state) {
@@ -97,7 +98,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         .generateOTP(emailController.text);
                   }
                 },
-                child: const Text("Submit"),
+                child: asyncData.isLoading
+                    ? const CircularProgressIndicator()
+                    : const Text("Submit"),
               ),
               const Spacer(
                 flex: 4,
