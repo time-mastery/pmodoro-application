@@ -4,8 +4,10 @@ import "package:bitsdojo_window/bitsdojo_window.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_dotenv/flutter_dotenv.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/router/router.dart";
 import "package:pomodore/core/services/notification/local_notification.dart";
@@ -21,6 +23,7 @@ import "features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Dependency injection
+  await dotenv.load(fileName: ".env");
   await inject();
 
   Bloc.observer = MyBlocObserver();
@@ -40,7 +43,7 @@ void main() async {
             ),
         ),
       ],
-      child: const MyApp(),
+      child: const ProviderScope(child: MyApp()),
     ),
   );
 
