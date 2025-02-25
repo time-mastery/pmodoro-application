@@ -84,4 +84,11 @@ class FStorage {
 
     return accessTokenValue != null && refreshTokenValue != null;
   }
+
+  static Future<void> logout() async {
+    await deleteAccessToken();
+    await deleteRefreshToken();
+    await deleteUuid();
+    await deleteEmail();
+  }
 }

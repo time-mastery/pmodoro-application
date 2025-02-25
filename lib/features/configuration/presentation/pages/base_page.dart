@@ -11,7 +11,7 @@ import "../../../task_management/presentation/pages/tasks_page.dart";
 import "../../../task_management/presentation/pages/timer_page.dart";
 
 class BasePage extends StatelessWidget {
-  BasePage({Key? key}) : super(key: key);
+  BasePage({super.key});
 
   static const routeName = "/base";
 

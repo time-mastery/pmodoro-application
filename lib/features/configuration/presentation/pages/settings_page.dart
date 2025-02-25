@@ -1,9 +1,13 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
+import "package:pomodore/core/shared_widgets/global_button.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/features/authentication/views/login_page.dart";
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
+import "package:pomodore/features/configuration/presentation/pages/settings_provider.dart";
 
 import "../../../../core/resources/params/settings_params.dart";
 import "../../../../core/services/database/storage.dart";
@@ -14,7 +18,7 @@ import "../widgets/change_language_bottom_sheet.dart";
 import "../widgets/change_theme_bottom_sheet.dart";
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class SettingsPage extends StatelessWidget {
 }
 
 class SettingsView extends StatelessWidget {
-  const SettingsView({Key? key}) : super(key: key);
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +100,25 @@ class SettingsView extends StatelessWidget {
                 ),
                 (SizeConfig.heightMultiplier * .5).spaceH(),
                 const ChangeLanguageBottomSheet(),
+                (SizeConfig.heightMultiplier * .5).spaceH(),
+                Consumer(
+                  builder: (context, ref, child) {
+                    return GlobalButton(
+                      onPressed: () {
+                        ref.read(logoutProvider.future).then(
+                          (value) {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              LoginPage.routeName,
+                              (route) => false,
+                            );
+                          },
+                        );
+                      },
+                      title: "Logout",
+                    );
+                  },
+                ),
               ],
             );
           },
