@@ -4,38 +4,38 @@
 
 import "dart:convert";
 
-VerifyOtpModel verifyOtpModelFromJson(String str) =>
+VerifyOtpModel? verifyOtpModelFromJson(String str) =>
     VerifyOtpModel.fromJson(json.decode(str));
 
 String verifyOtpModelToJson(VerifyOtpModel data) => json.encode(data.toJson());
 
 class VerifyOtpModel {
-  final Tokens tokens;
-  final User user;
+  final Tokens? tokens;
+  final User? user;
 
   VerifyOtpModel({
-    required this.tokens,
-    required this.user,
+    this.tokens,
+    this.user,
   });
 
   factory VerifyOtpModel.fromJson(Map<String, dynamic> json) => VerifyOtpModel(
-        tokens: Tokens.fromJson(json["tokens"]),
-        user: User.fromJson(json["user"]),
+        tokens: json["tokens"] != null ? Tokens.fromJson(json["tokens"]) : null,
+        user: json["user"] != null ? User.fromJson(json["user"]) : null,
       );
 
   Map<String, dynamic> toJson() => {
-        "tokens": tokens.toJson(),
-        "user": user.toJson(),
+        "tokens": tokens?.toJson(),
+        "user": user?.toJson(),
       };
 }
 
 class Tokens {
-  final String accessToken;
-  final String refreshToken;
+  final String? accessToken;
+  final String? refreshToken;
 
   Tokens({
-    required this.accessToken,
-    required this.refreshToken,
+    this.accessToken,
+    this.refreshToken,
   });
 
   factory Tokens.fromJson(Map<String, dynamic> json) => Tokens(
@@ -50,28 +50,28 @@ class Tokens {
 }
 
 class User {
-  final String uuid;
-  final String name;
-  final String email;
+  final String? uuid;
+  final String? name;
+  final String? email;
   final dynamic googleId;
-  final DateTime lastLogin;
+  final DateTime? lastLogin;
   final dynamic bio;
-  final String role;
-  final int dailyGoal;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String? role;
+  final int? dailyGoal;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   User({
-    required this.uuid,
-    required this.name,
-    required this.email,
-    required this.googleId,
-    required this.lastLogin,
-    required this.bio,
-    required this.role,
-    required this.dailyGoal,
-    required this.createdAt,
-    required this.updatedAt,
+    this.uuid,
+    this.name,
+    this.email,
+    this.googleId,
+    this.lastLogin,
+    this.bio,
+    this.role,
+    this.dailyGoal,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -79,12 +79,12 @@ class User {
         name: json["Name"],
         email: json["Email"],
         googleId: json["GoogleID"],
-        lastLogin: DateTime.parse(json["LastLogin"]),
+        lastLogin: json["LastLogin"] != null ? DateTime.parse(json["LastLogin"]) : null,
         bio: json["Bio"],
         role: json["Role"],
         dailyGoal: json["DailyGoal"],
-        createdAt: DateTime.parse(json["CreatedAt"]),
-        updatedAt: DateTime.parse(json["UpdatedAt"]),
+        createdAt: json["CreatedAt"] != null ? DateTime.parse(json["CreatedAt"]) : null,
+        updatedAt: json["UpdatedAt"] != null ? DateTime.parse(json["UpdatedAt"]) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,11 +92,11 @@ class User {
         "Name": name,
         "Email": email,
         "GoogleID": googleId,
-        "LastLogin": lastLogin.toIso8601String(),
+        "LastLogin": lastLogin?.toIso8601String(),
         "Bio": bio,
         "Role": role,
         "DailyGoal": dailyGoal,
-        "CreatedAt": createdAt.toIso8601String(),
-        "UpdatedAt": updatedAt.toIso8601String(),
+        "CreatedAt": createdAt?.toIso8601String(),
+        "UpdatedAt": updatedAt?.toIso8601String(),
       };
 }

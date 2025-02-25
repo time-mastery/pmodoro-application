@@ -54,7 +54,7 @@ final generateOTPProvider =
 );
 
 typedef _$GenerateOTP = AutoDisposeAsyncNotifier<bool>;
-String _$verifyOtpHash() => r'39e744736ca408364df153994f8de20e0d1e952c';
+String _$verifyOtpHash() => r'5d21f4ba500e381f403528a50ebfd2cd5ab11ec5';
 
 /// See also [VerifyOtp].
 @ProviderFor(VerifyOtp)

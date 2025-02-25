@@ -1,5 +1,6 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pomodore/core/resources/enums/api_path_enums.dart";
+import "package:pomodore/core/services/database/storage.dart";
 import "package:pomodore/core/services/rest_api/rest_api.dart";
 import "package:pomodore/features/authentication/models/verify_otp_model.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -31,7 +32,7 @@ class AuthenticationRepository {
     }
   }
 
-  Future<VerifyOtpModel> verifyOTP(String email, String otp) async {
+  Future<void> verifyOTP(String email, String otp) async {
     try {
       final response = await restApi
           .post(ApiPath.verifyOtp.value, data: {"email": email, "otp": otp});
@@ -40,7 +41,18 @@ class AuthenticationRepository {
         throw Exception("Failed to verify OTP");
       }
 
-      return VerifyOtpModel.fromJson(response.data);
+      final data = VerifyOtpModel.fromJson(response.data);
+      if (data.tokens?.accessToken != null &&
+          data.tokens?.refreshToken != null) {
+        await Future.wait([
+          FStorage.writeAccessToken(data.tokens!.accessToken!),
+          FStorage.writeRefreshToken(data.tokens!.refreshToken!),
+          FStorage.writeEmail(data.user!.email!),
+          FStorage.writeUuid(data.user!.uuid!),
+        ]);
+      }
+    } on ApiException catch (e) {
+      throw Exception(e.error);
     } catch (e) {
       rethrow;
     }

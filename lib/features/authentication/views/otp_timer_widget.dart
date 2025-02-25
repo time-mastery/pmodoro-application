@@ -34,7 +34,7 @@ class TryAgainOtp extends ConsumerWidget {
           onTap: () {
             ref.read(generateOTPProvider.notifier).generateOTP(email).then(
               (value) {
-                ref.invalidate(expirationTimerProvider);
+                ref.refresh(expirationTimerProvider.future);
               },
             );
           },

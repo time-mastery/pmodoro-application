@@ -57,18 +57,62 @@ class AppConstant {
         titleSmall: getTextStyle(color: color),
       );
 
-  static final defaultLightTheme = ThemeData(
-    useMaterial3: true,
-    scaffoldBackgroundColor: Colors.white,
-    fontFamily: getFontFamily(),
-    cardColor: Colors.white,
-    cardTheme: const CardTheme(
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+  static ThemeData _baseTheme({
+    required Color scaffoldColor,
+    required Color cardColor,
+    required ColorScheme colorScheme,
+    required TextTheme textTheme,
+    required Color snackBarColor,
+    required Color iconColor,
+    required SystemUiOverlayStyle systemOverlay,
+    required Color bottomNavColor,
+    required Color? borderColor,
+  }) {
+    return ThemeData(
+      useMaterial3: true,
+      scaffoldBackgroundColor: scaffoldColor,
+      fontFamily: getFontFamily(),
+      cardColor: cardColor,
+      cardTheme: const CardTheme(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
       ),
-    ),
-    textTheme: getTextTheme(color: Colors.black),
+      textTheme: textTheme,
+      colorScheme: colorScheme,
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: snackBarColor,
+      ),
+      appBarTheme: AppBarTheme(
+        systemOverlayStyle: systemOverlay,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: iconColor,
+        ),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: bottomNavColor,
+        elevation: 10,
+      ),
+      switchTheme: const SwitchThemeData(),
+      inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: borderColor ?? iconColor,
+          ),
+        ),
+      ),
+      iconTheme: IconThemeData(
+        color: iconColor,
+      ),
+    );
+  }
+
+  static final defaultLightTheme = _baseTheme(
+    scaffoldColor: Colors.white,
+    cardColor: Colors.white,
     colorScheme: const ColorScheme.light(
       primary: Colors.black,
       onPrimary: Colors.white,
@@ -82,41 +126,17 @@ class AppConstant {
       surfaceContainerHighest: Colors.black12,
       inverseSurface: Colors.white,
     ),
-    snackBarTheme: const SnackBarThemeData(
-      backgroundColor: Colors.black,
-    ),
-    appBarTheme: const AppBarTheme(
-      systemOverlayStyle: SystemUiOverlayStyle.light,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      iconTheme: IconThemeData(
-        color: Colors.black,
-      ),
-    ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      elevation: 10,
-    ),
-    switchTheme: const SwitchThemeData(),
-    inputDecorationTheme:
-        const InputDecorationTheme(enabledBorder: UnderlineInputBorder()),
-    iconTheme: const IconThemeData(
-      color: Colors.black,
-    ),
+    textTheme: getTextTheme(color: Colors.black),
+    snackBarColor: Colors.black,
+    iconColor: Colors.black,
+    systemOverlay: SystemUiOverlayStyle.light,
+    bottomNavColor: Colors.white,
+    borderColor: null,
   );
 
-  static final defaultDarkTheme = ThemeData(
-    useMaterial3: true,
-    scaffoldBackgroundColor: Colors.black,
-    fontFamily: getFontFamily(),
+  static final defaultDarkTheme = _baseTheme(
+    scaffoldColor: Colors.black,
     cardColor: Colors.white10,
-    cardTheme: const CardTheme(
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-    ),
-    textTheme: getTextTheme(color: Colors.white),
     colorScheme: const ColorScheme.dark(
       primary: Color(0xff01ED64),
       onPrimary: Colors.black,
@@ -130,46 +150,17 @@ class AppConstant {
       surfaceContainerHighest: Colors.white24,
       inverseSurface: Colors.black,
     ),
-    snackBarTheme: const SnackBarThemeData(
-      backgroundColor: Color(0xff01ED64),
-    ),
-    appBarTheme: const AppBarTheme(
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      iconTheme: IconThemeData(
-        color: Colors.white,
-      ),
-    ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Colors.black,
-      elevation: 10,
-    ),
-    switchTheme: const SwitchThemeData(),
-    inputDecorationTheme: const InputDecorationTheme(
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.white,
-        ),
-      ),
-    ),
-    iconTheme: const IconThemeData(
-      color: Colors.white,
-    ),
+    textTheme: getTextTheme(color: Colors.white),
+    snackBarColor: const Color(0xff01ED64),
+    iconColor: Colors.white,
+    systemOverlay: SystemUiOverlayStyle.dark,
+    bottomNavColor: Colors.black,
+    borderColor: Colors.white,
   );
 
-  static final polarNightTheme = ThemeData(
-    useMaterial3: true,
-    scaffoldBackgroundColor: const Color(0xff2e3440),
-    fontFamily: getFontFamily(),
+  static final polarNightTheme = _baseTheme(
+    scaffoldColor: const Color(0xff2e3440),
     cardColor: Colors.white10,
-    cardTheme: const CardTheme(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-    ),
-    textTheme: getTextTheme(color: Colors.white),
     colorScheme: const ColorScheme.dark(
       primary: Color(0xffd8dee9),
       onPrimary: Colors.black,
@@ -183,46 +174,17 @@ class AppConstant {
       surfaceContainerHighest: Colors.white24,
       inverseSurface: Color(0xff2e3440),
     ),
-    snackBarTheme: const SnackBarThemeData(
-      backgroundColor: Color(0xff8fbcbb),
-    ),
-    appBarTheme: const AppBarTheme(
-      systemOverlayStyle: SystemUiOverlayStyle.light,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      iconTheme: IconThemeData(
-        color: Colors.white,
-      ),
-    ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color(0xff434c5e),
-      elevation: 10,
-    ),
-    switchTheme: const SwitchThemeData(),
-    inputDecorationTheme: const InputDecorationTheme(
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.white,
-        ),
-      ),
-    ),
-    iconTheme: const IconThemeData(
-      color: Colors.white,
-    ),
+    textTheme: getTextTheme(color: Colors.white),
+    snackBarColor: const Color(0xff8fbcbb),
+    iconColor: Colors.white,
+    systemOverlay: SystemUiOverlayStyle.light,
+    bottomNavColor: const Color(0xff434c5e),
+    borderColor: Colors.white,
   );
 
-  static final darkBlueTheme = ThemeData(
-    useMaterial3: true,
-    scaffoldBackgroundColor: const Color(0xff0C134F),
-    fontFamily: getFontFamily(),
+  static final darkBlueTheme = _baseTheme(
+    scaffoldColor: const Color(0xff0C134F),
     cardColor: const Color(0xff1D267D),
-    cardTheme: const CardTheme(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-    ),
-    textTheme: getTextTheme(color: Colors.white),
     colorScheme: const ColorScheme.dark(
       primary: Color(0xffD4ADFC),
       onPrimary: Colors.black,
@@ -236,32 +198,12 @@ class AppConstant {
       surfaceContainerHighest: Colors.white24,
       inverseSurface: Color(0xff0C134F),
     ),
-    snackBarTheme: const SnackBarThemeData(
-      backgroundColor: Color(0xffD4ADFC),
-    ),
-    appBarTheme: const AppBarTheme(
-      systemOverlayStyle: SystemUiOverlayStyle.light,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      iconTheme: IconThemeData(
-        color: Colors.white,
-      ),
-    ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color(0xff654E92),
-      elevation: 10,
-    ),
-    switchTheme: const SwitchThemeData(),
-    inputDecorationTheme: const InputDecorationTheme(
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.white,
-        ),
-      ),
-    ),
-    iconTheme: const IconThemeData(
-      color: Colors.white,
-    ),
+    textTheme: getTextTheme(color: Colors.white),
+    snackBarColor: const Color(0xffD4ADFC),
+    iconColor: Colors.white,
+    systemOverlay: SystemUiOverlayStyle.light,
+    bottomNavColor: const Color(0xff654E92),
+    borderColor: Colors.white,
   );
 
   static List<ThemeParams> themes = [

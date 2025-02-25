@@ -176,32 +176,27 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 themeData = state.themeData;
               }
 
-              return AnnotatedRegion<SystemUiOverlayStyle>(
-                value: themeData.brightness != Brightness.dark
-                    ? SystemUiOverlayStyle.dark
-                    : SystemUiOverlayStyle.light,
-                child: LayoutBuilder(builder: (context, constraints) {
-                  SizeConfig().init(constraints, orientation);
-                  return MaterialApp(
-                    title: AppConstant.appName,
-                    onGenerateRoute: AppRouter.onGenerationRouter,
-                    theme: themeData,
-                    debugShowCheckedModeBanner: false,
-                    localizationsDelegates: const [
-                      AppLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
-                    supportedLocales: const [
-                      Locale("en"),
-                      Locale("de"),
-                      Locale("fa"),
-                    ],
-                    locale: locale,
-                  );
-                }),
-              );
+              return LayoutBuilder(builder: (context, constraints) {
+                SizeConfig().init(constraints, orientation);
+                return MaterialApp(
+                  title: AppConstant.appName,
+                  onGenerateRoute: AppRouter.onGenerationRouter,
+                  theme: themeData,
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: const [
+                    Locale("en"),
+                    Locale("de"),
+                    Locale("fa"),
+                  ],
+                  locale: locale,
+                );
+              });
             },
           );
         },

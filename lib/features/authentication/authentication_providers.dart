@@ -1,4 +1,7 @@
+import "dart:developer";
+
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pomodore/core/services/database/storage.dart";
 import "package:pomodore/features/authentication/authentication_repository.dart";
 
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -45,5 +48,20 @@ class VerifyOtp extends _$VerifyOtp {
   @override
   FutureOr<bool> build() async {
     return false;
+  }
+
+  Future<void> submitRecievedOTP(String email, String otp) async {
+    try {
+      state = const AsyncValue.loading();
+
+      final repo = ref.read(authRepositoryProvider);
+      await repo.verifyOTP(email, otp);
+
+      state = const AsyncValue.data(true);
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+      state = AsyncValue.error(e, s);
+    }
   }
 }

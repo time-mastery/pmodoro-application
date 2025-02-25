@@ -16,6 +16,12 @@ class FStorage {
   static const timerStateDateTimeKey = "_tdtState_";
   static const taskIdKey = "_taskId_";
 
+  // user info keys
+  static const accessToken = "_access_token_";
+  static const refreshToken = "_refresh_token_";
+  static const uuid = "_uuid_";
+  static const email = "_email_";
+
   static late FlutterSecureStorage flutterSecureStorage;
 
   static void initialize() async {
@@ -43,4 +49,39 @@ class FStorage {
 
   static Future<String?> read(String key) async =>
       await flutterSecureStorage.read(key: key);
+
+  // User info methods
+  static Future<void> writeAccessToken(String value) async =>
+      await write(accessToken, value);
+
+  static Future<void> writeRefreshToken(String value) async =>
+      await write(refreshToken, value);
+
+  static Future<void> writeUuid(String value) async => await write(uuid, value);
+
+  static Future<void> writeEmail(String value) async =>
+      await write(email, value);
+
+  static Future<void> deleteAccessToken() async => await delete(accessToken);
+
+  static Future<void> deleteRefreshToken() async => await delete(refreshToken);
+
+  static Future<void> deleteUuid() async => await delete(uuid);
+
+  static Future<void> deleteEmail() async => await delete(email);
+
+  static Future<String?> readAccessToken() async => await read(accessToken);
+
+  static Future<String?> readRefreshToken() async => await read(refreshToken);
+
+  static Future<String?> readUuid() async => await read(uuid);
+
+  static Future<String?> readEmail() async => await read(email);
+
+  static Future<bool> checkUserAuthState() async {
+    final String? accessTokenValue = await readAccessToken();
+    final String? refreshTokenValue = await readRefreshToken();
+
+    return accessTokenValue != null && refreshTokenValue != null;
+  }
 }
