@@ -3,9 +3,9 @@ import "package:ionicons/ionicons.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
-import "package:pomodore/features/notification_management/presentation/widgets/notificaiton_item.dart";
+import "package:pomodore/features/notification_management/views/notificaiton_item.dart";
 
-import "../../../../exports.dart";
+import "../../../exports.dart";
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);

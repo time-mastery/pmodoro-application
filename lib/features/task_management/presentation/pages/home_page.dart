@@ -10,7 +10,7 @@ import "package:pomodore/features/task_management/presentation/shared_widgets/da
 
 import "../../../../di.dart";
 import "../../../../exports.dart";
-import "../../../notification_management/presentation/pages/notifications_page.dart";
+import "../../../notification_management/views/notifications_page.dart";
 import "home_widgets/home_goal_widget.dart";
 import "home_widgets/home_task_count_widget.dart";
 import "home_widgets/home_tasks_list.dart";

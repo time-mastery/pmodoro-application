@@ -102,6 +102,28 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ? const CircularProgressIndicator()
                     : const Text("Submit"),
               ),
+              const SizedBox(height: 16.0),
+              InkWell(
+                onTap: () {
+                  ref
+                      .read(googleAuthProvider.notifier)
+                      .build()
+                      .then(
+                        (value) {},
+                      )
+                      .catchError((e) {
+                    print(e);
+                  });
+                },
+                child: const Center(
+                  child: Text(
+                    "👙",
+                    style: TextStyle(
+                      fontSize: 100,
+                    ),
+                  ),
+                ),
+              ),
               const Spacer(
                 flex: 4,
               ),
