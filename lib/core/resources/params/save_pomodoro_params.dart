@@ -1,7 +1,7 @@
-import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
+import "package:pomodore/features/task_management/models/pomodoro_model.dart";
 
 class SavePomodoroParams {
-  final PomodoroEntity entity;
+  final PomodoroModel entity;
   final bool shouldSave;
 
   SavePomodoroParams({

@@ -1,10 +1,10 @@
 import "package:equatable/equatable.dart";
-import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/models/task_model.dart";
 
 class TimerStateParams extends Equatable {
   final int duration;
   final int baseDuration;
-  final TaskEntity? task;
+  final TaskModel? task;
   final bool timerDone;
 
   const TimerStateParams({
@@ -31,7 +31,7 @@ class TimerStateParams extends Equatable {
 class TimerStateRestoreParams extends Equatable {
   final int duration;
   final int baseDuration;
-  final TaskEntity? task;
+  final TaskModel? task;
   final bool timerDone;
 
   const TimerStateRestoreParams({

@@ -69,7 +69,7 @@ final verifyOtpProvider =
 );
 
 typedef _$VerifyOtp = AutoDisposeAsyncNotifier<bool>;
-String _$googleAuthHash() => r'01c7918eaf25e038faec0ccb252369ed9ca5fb8c';
+String _$googleAuthHash() => r'e76d5f3e54aee7ec00b54cf3c60bddaee34def1c';
 
 /// See also [GoogleAuth].
 @ProviderFor(GoogleAuth)

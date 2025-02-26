@@ -6,9 +6,9 @@ import "package:pomodore/features/configuration/presentation/pages/settings_page
 import "package:pomodore/features/habit_tracking/presentation/pages/habit_tracking_page.dart";
 
 import "../../../../exports.dart";
-import "../../../task_management/presentation/pages/home_page.dart";
-import "../../../task_management/presentation/pages/tasks_page.dart";
-import "../../../task_management/presentation/pages/timer_page.dart";
+import "../../../task_management/views/home_page.dart";
+import "../../../task_management/views/tasks_page.dart";
+import "../../../task_management/views/timer_page.dart";
 
 class BasePage extends StatelessWidget {
   BasePage({super.key});

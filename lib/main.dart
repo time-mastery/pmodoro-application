@@ -10,15 +10,12 @@ import "package:flutter_localizations/flutter_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/router/router.dart";
-import "package:pomodore/core/services/notification/local_notification.dart";
 import "package:pomodore/di.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
-import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
 
 import "core/observers/bloc_observer.dart";
 import "core/utils/responsive/size_config.dart";
-import "features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,11 +25,12 @@ void main() async {
 
   Bloc.observer = MyBlocObserver();
   runApp(
-    MultiBlocProvider(
+    ProviderScope(
+        child: MultiBlocProvider(
       providers: [
-        BlocProvider<TimerBloc>(
-          create: (context) => getIt.get<TimerBloc>(),
-        ),
+        // BlocProvider<TimerBloc>(
+        //   create: (context) => getIt.get<TimerBloc>(),
+        // ),
         BlocProvider<BaseBloc>(
           create: (context) => getIt.get<BaseBloc>(),
         ),
@@ -43,8 +41,8 @@ void main() async {
             ),
         ),
       ],
-      child: const ProviderScope(child: MyApp()),
-    ),
+      child: const MyApp(),
+    )),
   );
 
   // some setting to config Desktop version
@@ -92,72 +90,74 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (state == AppLifecycleState.detached ||
         state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused) {
-      TimerState state = context.read<TimerBloc>().state;
-      if (state is TimerInProgress || state is TimerPause) saveTimerState();
+      // TimerState state = context.read<TimerBloc>().state;
+      // if (state is TimerInProgress || state is TimerPause) saveTimerState();
+      //TODO: save timer state when user minimize the app
     }
   }
 
   void saveTimerState() {
-    context.read<TimerBloc>().add(const TimerStateSaved());
+    // context.read<TimerBloc>().add(const TimerStateSaved());
+    //TODO: save timer state when user minimize the app
   }
 
   void restoreTimerState() {
-    context.read<TimerBloc>().add(const TimerStateRestored());
+    // context.read<TimerBloc>().add(const TimerStateRestored());
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
-      listeners: [
-        BlocListener<TimerBloc, TimerState>(
-          listener: (context, state) {
-            final TimerBloc bloc = context.read<TimerBloc>();
-            if (state is RestoreTimerSuccess) {
-              if (state.timerStateParams.timerDone) {
-                getIt.get<AppLocalNotification>().sendCustomNotification(
-                    "hohoo! 🥰", "You completed a pomodoro");
-                bloc
-                  ..add(
-                    CurrentPomodoroToDatabaseSaved(
-                      PomodoroEntity(
-                        duration: TimerBloc.getDuration,
-                        dateTime: DateTime.now(),
-                      ),
-                      true,
-                    ),
-                  )
-                  ..add(TimerDurationSet(state.timerStateParams.baseDuration));
-              } else {
-                bloc
-                  ..add(TimerTaskSelected(state.timerStateParams.task))
-                  ..add(TimerDurationSet(state.timerStateParams.baseDuration))
-                  ..add(TimerStarted(state.timerStateParams.duration));
-              }
-            } else if (state is TimerCompleted) {
-              getIt.get<AppLocalNotification>().sendCustomNotification(
-                  "Nice Job! 😎", "You completed a pomodoro");
-              bloc.add(
-                CurrentPomodoroToDatabaseSaved(
-                  PomodoroEntity(
-                    duration: TimerBloc.getDuration,
-                    dateTime: DateTime.now(),
-                  ),
-                  true,
-                ),
-              );
-            } else if (state is SaveCurrentPomodoroSuccess) {
-              getIt.get<AppLocalNotification>().sendCustomNotification(
-                  "Yay! 🥳", "Another Pomodoro for today!");
-              bloc
-                ..add(TimerReset())
-                ..add(TimerTaskDeSelected());
-            } else if (state is TimerInProgress) {
-              getIt
-                  .get<AppLocalNotification>()
-                  .sendBackgroundNotification(state.duration);
-            }
-          },
-        ),
+      listeners: const [
+        // BlocListener<TimerBloc, TimerState>(
+        //   listener: (context, state) {
+        //     final TimerBloc bloc = context.read<TimerBloc>();
+        //     if (state is RestoreTimerSuccess) {
+        //       if (state.timerStateParams.timerDone) {
+        //         getIt.get<AppLocalNotification>().sendCustomNotification(
+        //             "hohoo! 🥰", "You completed a pomodoro");
+        //         bloc
+        //           ..add(
+        //             CurrentPomodoroToDatabaseSaved(
+        //               PomodoroEntity(
+        //                 duration: TimerBloc.getDuration,
+        //                 dateTime: DateTime.now(),
+        //               ),
+        //               true,
+        //             ),
+        //           )
+        //           ..add(TimerDurationSet(state.timerStateParams.baseDuration));
+        //       } else {
+        //         bloc
+        //           ..add(TimerTaskSelected(state.timerStateParams.task))
+        //           ..add(TimerDurationSet(state.timerStateParams.baseDuration))
+        //           ..add(TimerStarted(state.timerStateParams.duration));
+        //       }
+        //     } else if (state is TimerCompleted) {
+        //       getIt.get<AppLocalNotification>().sendCustomNotification(
+        //           "Nice Job! 😎", "You completed a pomodoro");
+        //       bloc.add(
+        //         CurrentPomodoroToDatabaseSaved(
+        //           PomodoroEntity(
+        //             duration: TimerBloc.getDuration,
+        //             dateTime: DateTime.now(),
+        //           ),
+        //           true,
+        //         ),
+        //       );
+        //     } else if (state is SaveCurrentPomodoroSuccess) {
+        //       getIt.get<AppLocalNotification>().sendCustomNotification(
+        //           "Yay! 🥳", "Another Pomodoro for today!");
+        //       bloc
+        //         ..add(TimerReset())
+        //         ..add(TimerTaskDeSelected());
+        //     } else if (state is TimerInProgress) {
+        //       getIt
+        //           .get<AppLocalNotification>()
+        //           .sendBackgroundNotification(state.duration);
+        //     }
+        //   },
+        // ),
       ],
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {

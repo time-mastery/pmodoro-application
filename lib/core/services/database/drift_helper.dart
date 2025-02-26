@@ -3,11 +3,13 @@ import "dart:developer";
 
 import "package:drift/drift.dart";
 import "package:drift/native.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 
 // Replace these imports with your actual parameter classes
 import "package:pomodore/core/resources/params/habit_params.dart";
 import "package:pomodore/core/resources/params/task_params.dart";
 import "package:pomodore/core/resources/params/save_pomodoro_params.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "drift_helper.g.dart";
 
@@ -132,7 +134,7 @@ class AppDatabase extends _$AppDatabase {
       habitDescription: Value(params.description),
       habitIcon: Value(params.icon),
       habitTitle: Value(params.title),
-      overviews: Value(null), // Convert List<String> -> JSON if needed
+      overviews: const Value(null), // Convert List<String> -> JSON if needed
     ));
   }
 

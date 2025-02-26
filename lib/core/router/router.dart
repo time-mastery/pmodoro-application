@@ -3,11 +3,11 @@ import "package:pomodore/features/authentication/views/login_page.dart";
 import "package:pomodore/features/authentication/views/verify_otp_page.dart";
 import "package:pomodore/features/habit_tracking/presentation/pages/add_habit_page.dart";
 import "package:pomodore/features/notification_management/views/notifications_page.dart";
-import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
-import "package:pomodore/features/task_management/presentation/pages/add_category_page.dart";
-import "package:pomodore/features/task_management/presentation/pages/add_task_page.dart";
-import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
-import "package:pomodore/features/task_management/presentation/pages/edit_task_page.dart";
+import "package:pomodore/features/task_management/models/task_model.dart";
+import "package:pomodore/features/task_management/views/add_category_page.dart";
+import "package:pomodore/features/task_management/views/add_task_page.dart";
+import "package:pomodore/features/task_management/views/analysis_page.dart";
+import "package:pomodore/features/task_management/views/edit_task_page.dart";
 
 import "../../features/configuration/presentation/pages/base_page.dart";
 import "../../features/configuration/presentation/pages/splash_page.dart";
@@ -40,7 +40,7 @@ class AppRouter {
       case EditTaskPage.routeName:
         return MaterialPageRoute(
             builder: (context) =>
-                EditTaskPage(task: routeSettings.arguments as TaskEntity));
+                EditTaskPage(task: routeSettings.arguments as TaskModel));
       default:
         return MaterialPageRoute(builder: (context) => const SplashPage());
     }
