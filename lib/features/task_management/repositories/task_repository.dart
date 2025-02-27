@@ -33,6 +33,7 @@ abstract class TaskRepository {
   Future<AnalysisModel> getAnalysis();
 
   Future<bool> checkDailyGoal();
+  Future<int> getDailyGoal();
 
   Future<bool> saveDailyGoal(int count);
 
@@ -201,6 +202,17 @@ class TaskRepositoryImpl implements TaskRepository {
     try {
       final TaskModel? status = await localDataSource.editTask(task);
       return status != null ? status.uid : "error";
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<int> getDailyGoal() async {
+    try {
+      final int dailyGoal = await localDataSource.getDailyGoalQuantity() ?? 1;
+      return dailyGoal;
     } catch (e, s) {
       log(e.toString(), stackTrace: s);
       rethrow;

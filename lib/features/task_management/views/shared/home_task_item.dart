@@ -1,22 +1,24 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:ionicons/ionicons.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
-import "package:pomodore/features/task_management/models/task_entity.dart";
-import "package:pomodore/features/task_management/blocs/timer_bloc/timer_bloc.dart";
+
+import "package:pomodore/features/task_management/models/task_model.dart";
+import "package:pomodore/features/task_management/providers/task_management_providers.dart";
 
 import "../../../../core/utils/responsive/size_config.dart";
 import "../../../../core/utils/utils.dart";
 
-class HomeTaskItem extends StatelessWidget {
-  const HomeTaskItem({Key? key, required this.item}) : super(key: key);
+class HomeTaskItem extends ConsumerWidget {
+  const HomeTaskItem({super.key, required this.item});
 
-  final TaskEntity item;
+  final TaskModel item;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: SizedBox(
@@ -72,7 +74,8 @@ class HomeTaskItem extends StatelessWidget {
                   width: SizeConfig.widthMultiplier * 14,
                   height: SizeConfig.widthMultiplier * 14,
                   onPressed: () {
-                    context.read<TimerBloc>().add(TimerTaskSelected(item));
+                    ref.read(timerTaskProvider.notifier).updateTask(item);
+
                     context.read<BaseBloc>().add(const PageIndexChanged(3));
                   },
                   shape: RoundedRectangleBorder(

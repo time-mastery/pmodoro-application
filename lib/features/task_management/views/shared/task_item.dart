@@ -1,36 +1,37 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pomodore/core/constant/constant.dart";
 import "package:pomodore/core/extensions/datetime_extensions.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/resources/params/task_params.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
 import "package:pomodore/core/shared_widgets/global_indicator.dart";
-import "package:pomodore/features/task_management/models/task_entity.dart";
 import "package:pomodore/features/task_management/blocs/tasks_bloc/tasks_bloc.dart";
+import "package:pomodore/features/task_management/models/task_model.dart";
+import "package:pomodore/features/task_management/providers/task_management_providers.dart";
 import "package:pomodore/features/task_management/views/edit_task_page.dart";
 
 import "../../../../core/utils/responsive/size_config.dart";
 import "../../../../exports.dart";
 
-class TaskItem extends StatelessWidget {
+class TaskItem extends ConsumerWidget {
   const TaskItem({
-    Key? key,
+    super.key,
     required this.task,
-  }) : super(key: key);
+  });
 
-  final TaskEntity task;
+  final TaskModel task;
 
   @override
-  Widget build(BuildContext context) {
-    final TasksBloc bloc = context.read<TasksBloc>();
+  Widget build(BuildContext context, WidgetRef ref) {
     final AppLocalizations localization = AppLocalizations.of(context)!;
 
     return InkWell(
       onTap: () {
         showModalBottomSheet(
           context: context,
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           elevation: 20,
           isScrollControlled: true,
           builder: (context) {
@@ -55,7 +56,8 @@ class TaskItem extends StatelessWidget {
                                         context, EditTaskPage.routeName,
                                         arguments: task)
                                     .then((value) {
-                                  bloc.add(const AllTasksFetched());
+                                  //TODO ref invalidate
+                                  ref.refresh(tasksProvider.future);
                                   Navigator.pop(context);
                                 });
                               },
@@ -74,7 +76,9 @@ class TaskItem extends StatelessWidget {
                         Expanded(
                           child: GlobalButton(
                             onPressed: () {
+                              // TODO delete task
                               bloc.add(TaskDeleted(task.id));
+                              
                             },
                             child: BlocBuilder(
                               bloc: bloc,
@@ -105,6 +109,7 @@ class TaskItem extends StatelessWidget {
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary,
                         onPressed: () {
+                          // TODO complete task
                           bloc.add(TaskCompleted(
                             TaskParams(
                               id: task.id,

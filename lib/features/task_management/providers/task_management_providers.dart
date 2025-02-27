@@ -30,3 +30,42 @@ FutureOr<List<TaskModel>> uncompletedTasks(Ref ref) {
   final repo = ref.read(taskRepositoryProvider);
   return repo.getUnCompletedTasks();
 }
+
+@riverpod
+class DailyGoal extends _$DailyGoal {
+  @override
+  FutureOr<int> build() async {
+    final repo = ref.read(taskRepositoryProvider);
+    return await repo.getDailyGoal();
+  }
+
+  Future<void> updateValue(int count) async {
+    state = AsyncData(count);
+  }
+}
+
+@riverpod
+FutureOr<void> saveDailyGoal(Ref ref, int dailyGoal) async {
+  final repo = ref.read(taskRepositoryProvider);
+  await repo.saveDailyGoal(dailyGoal);
+}
+
+@riverpod
+class TimerTask extends _$TimerTask {
+  @override
+  TaskModel? build() {
+    return null;
+  }
+
+  void updateTask(TaskModel task) {
+    state = task;
+  }
+}
+
+@riverpod
+class Tasks extends _$Tasks {
+  @override
+  FutureOr<List<TaskModel>> build() async {
+    return ref.read(taskRepositoryProvider).getAllTasks();
+  }
+}
