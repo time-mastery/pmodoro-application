@@ -26,6 +26,7 @@ class TaskItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AppLocalizations localization = AppLocalizations.of(context)!;
+    final asyncDeleteTask = ref.watch(deleteTaskProvider);
 
     return InkWell(
       onTap: () {
@@ -76,28 +77,21 @@ class TaskItem extends ConsumerWidget {
                         Expanded(
                           child: GlobalButton(
                             onPressed: () {
-                              // TODO delete task
-                              bloc.add(TaskDeleted(task.id));
-                              
+                              ref
+                                  .read(deleteTaskProvider.notifier)
+                                  .deleteTask(task.id);
                             },
-                            child: BlocBuilder(
-                              bloc: bloc,
-                              builder: (context, state) {
-                                if (state is TaskDeleteLoading) {
-                                  return const Center(
-                                    child: GlobalIndicator(),
-                                  );
-                                }
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(localization.deleteTaskTitle),
-                                    (SizeConfig.heightMultiplier * 2).spaceW(),
-                                    const Icon(Icons.delete),
-                                  ],
-                                );
-                              },
-                            ),
+                            child: asyncDeleteTask.isLoading
+                                ? const GlobalIndicator()
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(localization.deleteTaskTitle),
+                                      (SizeConfig.heightMultiplier * 2)
+                                          .spaceW(),
+                                      const Icon(Icons.delete),
+                                    ],
+                                  ),
                           ),
                         ),
                       ],
@@ -109,38 +103,27 @@ class TaskItem extends ConsumerWidget {
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary,
                         onPressed: () {
-                          // TODO complete task
-                          bloc.add(TaskCompleted(
-                            TaskParams(
-                              id: task.id,
-                              taskDone: !task.done,
-                              uid: task.uid,
-                              taskDoneDatetime: task.doneTime,
-                              taskTitle: task.title,
-                              taskDescription: task.description,
-                              taskDateTimeDeadline: task.deadLineTime,
-                            ),
-                          ));
+                          ref
+                              .read(editTaskProvider.notifier)
+                              .editTask(TaskParams(
+                                id: task.id,
+                                taskDone: !task.done,
+                                uid: task.uid,
+                                taskDoneDatetime: task.doneTime,
+                                taskTitle: task.title,
+                                taskDescription: task.description,
+                                taskDateTimeDeadline: task.deadLineTime,
+                              ));
                         },
-                        child: BlocBuilder(
-                          bloc: bloc,
-                          builder: (context, state) {
-                            if (state is TaskDeleteLoading) {
-                              return const Center(
-                                child: GlobalIndicator(),
-                              );
-                            }
-                            return Text(
-                              localization.completeTaskTitle,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSecondary),
-                            );
-                          },
+                        child: Text(
+                          localization.completeTaskTitle,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondary),
                         ),
                       ),
                   ],

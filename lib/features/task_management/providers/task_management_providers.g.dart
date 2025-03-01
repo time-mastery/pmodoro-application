@@ -280,5 +280,20 @@ final editTaskProvider =
 );
 
 typedef _$EditTask = AutoDisposeAsyncNotifier<bool>;
+String _$deleteTaskHash() => r'a8c11a9e65aebad9482c2eef208dc8a1b781e8c2';
+
+/// See also [DeleteTask].
+@ProviderFor(DeleteTask)
+final deleteTaskProvider =
+    AutoDisposeAsyncNotifierProvider<DeleteTask, bool>.internal(
+  DeleteTask.new,
+  name: r'deleteTaskProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$deleteTaskHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$DeleteTask = AutoDisposeAsyncNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

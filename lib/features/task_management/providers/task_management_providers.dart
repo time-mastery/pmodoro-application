@@ -110,3 +110,23 @@ class EditTask extends _$EditTask {
     }
   }
 }
+
+@riverpod
+class DeleteTask extends _$DeleteTask {
+  @override
+  FutureOr<bool> build() async {
+    return false;
+  }
+
+  Future<void> deleteTask(int taskId) async {
+    state = const AsyncLoading();
+    try {
+      await ref.read(taskRepositoryProvider).deleteTask(taskId);
+      state = const AsyncData(true);
+      // Refresh the tasks list after deleting a task
+      ref.invalidate(tasksProvider);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+    }
+  }
+}
