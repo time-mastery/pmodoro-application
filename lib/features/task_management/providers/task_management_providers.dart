@@ -1,4 +1,5 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pomodore/core/resources/params/task_params.dart";
 import "package:pomodore/features/task_management/models/analysis_model.dart";
 import "package:pomodore/features/task_management/models/daily_information_model.dart";
 import "package:pomodore/features/task_management/models/task_model.dart";
@@ -67,5 +68,25 @@ class Tasks extends _$Tasks {
   @override
   FutureOr<List<TaskModel>> build() async {
     return ref.read(taskRepositoryProvider).getAllTasks();
+  }
+}
+
+@riverpod
+class AddTask extends _$AddTask {
+  @override
+  FutureOr<bool> build() async {
+    return false;
+  }
+
+  Future<void> addTask(TaskParams params) async {
+    state = const AsyncLoading();
+    try {
+      await ref.read(taskRepositoryProvider).addTask(params);
+      state = const AsyncData(true);
+      // Refresh the tasks list after adding a new task
+      ref.invalidate(tasksProvider);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+    }
   }
 }
