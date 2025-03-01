@@ -90,3 +90,23 @@ class AddTask extends _$AddTask {
     }
   }
 }
+
+@riverpod
+class EditTask extends _$EditTask {
+  @override
+  FutureOr<bool> build() async {
+    return false;
+  }
+
+  Future<void> editTask(TaskParams params) async {
+    state = const AsyncLoading();
+    try {
+      await ref.read(taskRepositoryProvider).editTask(params);
+      state = const AsyncData(true);
+      // Refresh the tasks list after editing a task
+      ref.invalidate(tasksProvider);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+    }
+  }
+}
