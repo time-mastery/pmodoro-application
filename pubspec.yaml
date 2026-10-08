@@ -64,6 +64,9 @@ dependencies:
   vibration: ^3.1.3
   audioplayers: ^6.1.2
 
+  # state management (transitive, used directly for BlocBuilder in a few blocs)
+  bloc: ^9.0.0
+
 dev_dependencies:
   drift_dev: ^2.25.2
   test: ^1.16.0
