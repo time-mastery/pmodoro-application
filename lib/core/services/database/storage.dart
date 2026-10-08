@@ -19,7 +19,12 @@ class FStorage {
   static late FlutterSecureStorage flutterSecureStorage;
 
   static void initialize() async {
-    flutterSecureStorage = const FlutterSecureStorage();
+    flutterSecureStorage = const FlutterSecureStorage(
+      // Data-protection keychain requires a real signing Team ID; local
+      // ad-hoc builds don't have one, so SecItemAdd fails with
+      // errSecMissingEntitlement (-34018). Fall back to the legacy keychain.
+      mOptions: MacOsOptions(useDataProtectionKeyChain: false),
+    );
 
     final String? init = await read(initialized);
     if (init != "1") {
