@@ -27,7 +27,7 @@ class HabitItemWidget extends HookWidget {
       width: double.infinity,
       child: Card(
         elevation: 0,
-        color: color.withOpacity(.1),
+        color: color.withValues(alpha: .1),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
           child: Theme(
@@ -40,7 +40,7 @@ class HabitItemWidget extends HookWidget {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: color.withOpacity(.2),
+                      color: color.withValues(alpha: .2),
                       borderRadius: BorderRadius.circular(AppConstant.radius),
                     ),
                     child: Center(
@@ -78,7 +78,7 @@ class HabitItemWidget extends HookWidget {
                     scrollable: true,
                     fontSize: 0,
                     showText: false,
-                    defaultColor: color.withOpacity(.2),
+                    defaultColor: color.withValues(alpha: .2),
                     colorMode: ColorMode.opacity,
                     datasets: item.overviews,
                     showColorTip: false,
@@ -100,7 +100,7 @@ class HabitItemWidget extends HookWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: item.isCompleteToday ? color : color.withOpacity(.2),
+                          color: item.isCompleteToday ? color : color.withValues(alpha: .2),
                           borderRadius: BorderRadius.circular(
                             AppConstant.radius,
                           ),
@@ -142,17 +142,15 @@ class HabitItemWidget extends HookWidget {
                             ),
                           ),
                         ).then(
-                          (value) => context.read<HabitTrackerBloc>().add(
-                                HabitUpdated(
-                                  value,
-                                  habits,
-                                ),
-                              ),
+                          (value) {
+                            if (!context.mounted) return;
+                            context.read<HabitTrackerBloc>().add(HabitUpdated(value, habits));
+                          },
                         );
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: color.withOpacity(.2),
+                          color: color.withValues(alpha: .2),
                           borderRadius: BorderRadius.circular(
                             AppConstant.radius,
                           ),
@@ -170,7 +168,7 @@ class HabitItemWidget extends HookWidget {
                           showDeleteConfirmationDialog(context, context.read<HabitTrackerBloc>()),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: color.withOpacity(.2),
+                          color: color.withValues(alpha: .2),
                           borderRadius: BorderRadius.circular(
                             AppConstant.radius,
                           ),
@@ -197,7 +195,7 @@ class HabitItemWidget extends HookWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: const Text("Delete Confirmation"),
           content: const Text("Are you sure you want to delete this item?"),
           actions: <Widget>[

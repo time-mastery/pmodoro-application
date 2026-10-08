@@ -11,7 +11,7 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/core/utils/utils.dart";
 
 class HomeTaskItem extends StatelessWidget {
-  const HomeTaskItem({Key? key, required this.item}) : super(key: key);
+  const HomeTaskItem({super.key, required this.item});
 
   final TaskEntity item;
 

@@ -5,7 +5,7 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
 class TimerButtons extends StatelessWidget {
-  const TimerButtons({Key? key}) : super(key: key);
+  const TimerButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class TimerButtons extends StatelessWidget {
                       value: context.select((TimerBloc bloc) => bloc.state.duration) /
                           TimerBloc.getDuration,
                       strokeWidth: 5,
-                      backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
+                      backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: .1),
                     ),
                   ),
                 ),
@@ -53,7 +53,7 @@ class TimerButtons extends StatelessWidget {
                           height: height - 20,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Theme.of(context).colorScheme.onBackground.withOpacity(.2),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .2),
                           ),
                           child: Icon(
                             (state is TimerInProgress) ? Icons.pause : Icons.play_arrow,
@@ -83,11 +83,11 @@ class TimerButtons extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Theme.of(context).colorScheme.onBackground,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
                 child: Icon(
                   Icons.stop,
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   size: 30,
                 ),
               ),

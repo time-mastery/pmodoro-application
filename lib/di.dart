@@ -1,6 +1,5 @@
 import "package:audioplayers/audioplayers.dart";
 import "package:get_it/get_it.dart";
-import "package:path_provider/path_provider.dart";
 import "package:pomodore/core/services/audio/audio_service.dart";
 import "package:pomodore/core/services/database/drift_helper.dart";
 import "package:pomodore/core/services/notification/local_notification.dart";

@@ -13,7 +13,7 @@ import "package:pomodore/features/task_management/domain/entities/task_entity.da
 import "package:pomodore/features/task_management/presentation/shared_widgets/home_task_item.dart";
 
 class HomeTasksList extends StatelessWidget {
-  const HomeTasksList({Key? key}) : super(key: key);
+  const HomeTasksList({super.key});
 
   @override
   Widget build(BuildContext context) {

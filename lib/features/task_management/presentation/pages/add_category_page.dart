@@ -13,7 +13,7 @@ import "package:pomodore/di.dart";
 import "package:pomodore/exports.dart";
 
 class AddCategoryPage extends StatelessWidget {
-  const AddCategoryPage({Key? key}) : super(key: key);
+  const AddCategoryPage({super.key});
 
   static const routeName = "/addCategory";
 
@@ -27,7 +27,7 @@ class AddCategoryPage extends StatelessWidget {
 }
 
 class AddCategoryView extends HookWidget {
-  const AddCategoryView({Key? key}) : super(key: key);
+  const AddCategoryView({super.key});
 
   @override
   Widget build(BuildContext context) {

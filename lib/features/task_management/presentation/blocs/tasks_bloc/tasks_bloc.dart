@@ -43,7 +43,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     emit(AddDateSuccess(event.dateTime));
   }
 
-  _taskFiltered(TasksFiltered event, emit) {
+  void _taskFiltered(TasksFiltered event, emit) {
     List<TaskEntity> filteredList = [];
 
     if (event.filterMode == TasksFilterEnum.all) {
@@ -61,7 +61,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     }
   }
 
-  _taskEdited(TaskEdited event, Emitter emit) async {
+  Future<void> _taskEdited(TaskEdited event, Emitter emit) async {
     emit(EditTaskLoading());
 
     final Either<String, String> result = await editTaskUseCase.call(params: event.item);
@@ -72,7 +72,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     );
   }
 
-  _taskDeleted(TaskDeleted event, Emitter<TasksState> emit) async {
+  Future<void> _taskDeleted(TaskDeleted event, Emitter<TasksState> emit) async {
     emit(TaskDeleteLoading());
 
     final Either<String, String> result = await deleteTaskUseCase.call(params: event.id);
@@ -82,7 +82,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     );
   }
 
-  _taskCompleted(TaskCompleted event, Emitter<TasksState> emit) async {
+  Future<void> _taskCompleted(TaskCompleted event, Emitter<TasksState> emit) async {
     emit(TaskCompleteLoading());
 
     final Either<String, String> result = await completeTaskUseCase.call(params: event.taskEntity);
@@ -93,7 +93,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     );
   }
 
-  _todayTasksFetched(AllTasksFetched event, Emitter<TasksState> emit) async {
+  Future<void> _todayTasksFetched(AllTasksFetched event, Emitter<TasksState> emit) async {
     emit(GetAllTasksLoading());
 
     final Either<String, List<TaskEntity>> result = await getAllTasksUseCase.call();
@@ -103,7 +103,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     );
   }
 
-  _taskAdded(TaskAdded event, Emitter<TasksState> emit) async {
+  Future<void> _taskAdded(TaskAdded event, Emitter<TasksState> emit) async {
     emit(TaskAddLoading());
 
     final Either<String, bool> result = await addTaskUsecase.call(params: event.data);

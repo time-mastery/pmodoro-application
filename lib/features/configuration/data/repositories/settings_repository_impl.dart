@@ -1,5 +1,5 @@
 import "package:dartz/dartz.dart";
-import "package:flutter/src/material/theme_data.dart";
+import "package:flutter/material.dart";
 import "package:pomodore/core/resources/params/settings_params.dart";
 import "package:pomodore/core/resources/params/theme_params.dart";
 import "package:pomodore/core/utils/debug_print.dart";

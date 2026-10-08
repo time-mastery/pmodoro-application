@@ -37,7 +37,7 @@ class AddHabitPage extends StatelessWidget {
 }
 
 class AddHabitView extends HookWidget {
-  const AddHabitView({Key? key, this.item, this.habits}) : super(key: key);
+  const AddHabitView({super.key, this.item, this.habits});
 
   final HabitEntity? item;
   final List<HabitEntity>? habits;
@@ -52,7 +52,7 @@ class AddHabitView extends HookWidget {
     useEffect(() {
       if (item != null) {
         selectedColor.value =
-            Colors.primaries.indexWhere((element) => element.value == item!.color);
+            Colors.primaries.indexWhere((element) => element.toARGB32() == item!.color);
         selectedIcon.value = IconConverter.icons.keys.toList().indexOf(item!.iconName);
         titleController.text = item!.title;
         desctiptionController.text = item!.description;
@@ -113,14 +113,14 @@ class AddHabitView extends HookWidget {
                               AppConstant.radius,
                             ),
                             color: selectedIcon.value == index
-                                ? Theme.of(context).colorScheme.onBackground
+                                ? Theme.of(context).colorScheme.onSurface
                                 : Colors.transparent,
                           ),
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
                             iconList[index],
                             color: selectedIcon.value == index
-                                ? Theme.of(context).colorScheme.background
+                                ? Theme.of(context).colorScheme.surface
                                 : null,
                           ),
                         ),
@@ -147,7 +147,7 @@ class AddHabitView extends HookWidget {
                               AppConstant.radius,
                             ),
                             color: selectedColor.value == index
-                                ? Theme.of(context).colorScheme.onBackground
+                                ? Theme.of(context).colorScheme.onSurface
                                 : Colors.transparent,
                           ),
                           child: Padding(
@@ -185,7 +185,7 @@ class AddHabitView extends HookWidget {
                               HabitParams(
                                 id: item!.id,
                                 title: titleController.text,
-                                color: Colors.primaries[selectedColor.value].value,
+                                color: Colors.primaries[selectedColor.value].toARGB32(),
                                 description: desctiptionController.text,
                                 icon: IconConverter.findKeyByValue(
                                   iconList[selectedIcon.value],
@@ -197,7 +197,7 @@ class AddHabitView extends HookWidget {
                                 HabitAdded(
                                   HabitParams(
                                     title: titleController.text,
-                                    color: Colors.primaries[selectedColor.value].value,
+                                    color: Colors.primaries[selectedColor.value].toARGB32(),
                                     description: desctiptionController.text,
                                     icon: IconConverter.findKeyByValue(
                                       iconList[selectedIcon.value],

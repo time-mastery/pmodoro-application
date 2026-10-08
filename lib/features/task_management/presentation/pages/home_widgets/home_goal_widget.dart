@@ -9,7 +9,7 @@ import "package:pomodore/core/utils/utils.dart";
 import "package:pomodore/exports.dart";
 
 class HomeGoalWidget extends StatelessWidget {
-  const HomeGoalWidget({Key? key}) : super(key: key);
+  const HomeGoalWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class HomeGoalWidget extends StatelessWidget {
                               height: SizeConfig.widthMultiplier * 20,
                               child: CircularProgressIndicator(
                                 backgroundColor:
-                                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                                    Theme.of(context).colorScheme.primary.withValues(alpha: .2),
                                 value: dailyItem?.processPercentage ?? 0,
                                 strokeWidth: 10,
                               ),

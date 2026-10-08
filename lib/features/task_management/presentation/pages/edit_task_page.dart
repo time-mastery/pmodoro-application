@@ -17,7 +17,7 @@ import "package:pomodore/features/task_management/domain/entities/task_entity.da
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
 class EditTaskPage extends StatelessWidget {
-  const EditTaskPage({Key? key, required this.task}) : super(key: key);
+  const EditTaskPage({super.key, required this.task});
 
   static const routeName = "/editTask";
 
@@ -35,7 +35,7 @@ class EditTaskPage extends StatelessWidget {
 }
 
 class EditTaskView extends HookWidget {
-  const EditTaskView({Key? key, required this.task}) : super(key: key);
+  const EditTaskView({super.key, required this.task});
 
   final TaskEntity task;
 
@@ -174,7 +174,7 @@ class _DeadlinePickerButton extends StatelessWidget {
     return Container(
       height: SizeConfig.heightMultiplier * 5,
       decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).colorScheme.onBackground),
+        border: Border.all(color: Theme.of(context).colorScheme.onSurface),
         borderRadius: BorderRadius.circular(AppConstant.radius),
       ),
       child: TextButton(
@@ -191,7 +191,7 @@ class _DeadlinePickerButton extends StatelessWidget {
       context: context,
       builder: (_) => Container(
         height: 500,
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         child: Column(
           children: [
             SizedBox(

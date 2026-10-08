@@ -6,24 +6,15 @@ import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.da
 
 class HabitModel extends HabitEntity {
   const HabitModel({
-    required Map<DateTime, int> overviews,
-    required String title,
-    required int id,
-    required String description,
-    required String iconName,
-    required String uuid,
-    required int color,
-    required bool isCompleteToday,
-  }) : super(
-          overviews: overviews,
-          title: title,
-          id: id,
-          description: description,
-          uuid: uuid,
-          iconName: iconName,
-          color: color,
-          isCompleteToday: isCompleteToday,
-        );
+    required super.overviews,
+    required super.title,
+    required super.id,
+    required super.description,
+    required super.iconName,
+    required super.uuid,
+    required super.color,
+    required super.isCompleteToday,
+  });
 
   factory HabitModel.fromJson(Map json) {
     final overviews = json["overviews"] as Map<DateTime, int>;

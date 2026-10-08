@@ -41,7 +41,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<ThemeChanged>(_themeChanged);
   }
 
-  _themeChanged(ThemeChanged event, Emitter emit) async {
+  Future<void> _themeChanged(ThemeChanged event, Emitter emit) async {
     emit(ChangeThemeLoading());
     final Either<String, ThemeData>? theme =
         await changeThemeUseCase.call(params: event.themeParams);
@@ -56,7 +56,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     }
   }
 
-  _localeFetched(InitDataFetched event, Emitter emit) async {
+  Future<void> _localeFetched(InitDataFetched event, Emitter emit) async {
     final Either<String, String> result = await getLocaleUseCase.call();
     final Either<String, ThemeData> themeResult = await getThemeUseCase.call();
     result.fold((l) => emit(InitDataFetchFailure()), (r) {
@@ -69,7 +69,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     });
   }
 
-  _settingsChanged(SettingsChanged event, Emitter emit) async {
+  Future<void> _settingsChanged(SettingsChanged event, Emitter emit) async {
     emit(SettingFetchingLoading());
     final Either<String, SettingsEntity> result =
         await changeSettingsUseCase.call(params: event.params);
@@ -79,7 +79,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     );
   }
 
-  _settingsFromDeviceFetched(SettingsFromDeviceFetched event, Emitter emit) async {
+  Future<void> _settingsFromDeviceFetched(SettingsFromDeviceFetched event, Emitter emit) async {
     emit(SettingFetchingLoading());
 
     final Either<String, SettingsEntity> result = await getSettingUseCase.call();
@@ -90,7 +90,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     );
   }
 
-  _languageChanged(LocaleChanged event, Emitter emit) async {
+  Future<void> _languageChanged(LocaleChanged event, Emitter emit) async {
     await changeLocaleUseCase.call(params: event.local);
     emit(ChangeLanguageSuccess(Locale(event.local)));
   }

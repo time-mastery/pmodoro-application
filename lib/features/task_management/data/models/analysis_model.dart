@@ -5,17 +5,13 @@ import "package:pomodore/core/utils/utils.dart";
 
 class AnalysisModel extends AnalysisEntity {
   const AnalysisModel({
-    required Map<DateTime, int> overviews,
-    required List<YearlyAnalyzeItemEntity> yearlyAnalyze,
+    required super.overviews,
+    required super.yearlyAnalyze,
     required int todayPomodoroCount,
-    required int todayCompletedTask,
-    required List<double> weeklySpendingPomodoro,
+    required super.todayCompletedTask,
+    required super.weeklySpendingPomodoro,
   }) : super(
-          yearlyAnalyze: yearlyAnalyze,
           todayCompletedPomodoroCount: todayPomodoroCount,
-          overviews: overviews,
-          todayCompletedTask: todayCompletedTask,
-          weeklySpendingPomodoro: weeklySpendingPomodoro,
         );
 
   factory AnalysisModel.fromJson(Map<String, dynamic> item) {
@@ -66,12 +62,9 @@ class AnalysisModel extends AnalysisEntity {
 
 class YearlyAnalyzeItemModel extends YearlyAnalyzeItemEntity {
   const YearlyAnalyzeItemModel({
-    required String month,
-    required int count,
-  }) : super(
-          count: count,
-          month: month,
-        );
+    required super.month,
+    required super.count,
+  });
 
   factory YearlyAnalyzeItemModel.fromJson(Map<String, dynamic> item) => YearlyAnalyzeItemModel(
         month: item["dateTime"],

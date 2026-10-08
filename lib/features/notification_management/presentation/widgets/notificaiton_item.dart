@@ -4,12 +4,12 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem({
-    Key? key,
+    super.key,
     required this.color,
     required this.icon,
     required this.title,
     required this.description,
-  }) : super(key: key);
+  });
 
   final IconData icon;
   final Color color;
@@ -31,7 +31,7 @@ class NotificationItem extends StatelessWidget {
               height: SizeConfig.widthMultiplier * 20,
               width: SizeConfig.widthMultiplier * 20,
               decoration: BoxDecoration(
-                color: color.withOpacity(.08),
+                color: color.withValues(alpha: .08),
                 shape: BoxShape.circle,
               ),
               child: Icon(icon),

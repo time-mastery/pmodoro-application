@@ -36,7 +36,7 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
     on<HabitDone>(_habitDone);
   }
 
-  _habitUpdated(HabitUpdated event, emit) async {
+  Future<void> _habitUpdated(HabitUpdated event, emit) async {
     emit(const EditHabit(loading: true, error: false, habits: []));
 
     Either result = await editHabitUseCase.call(params: event.updatedHabit);
@@ -55,7 +55,7 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
     );
   }
 
-  _habitDone(HabitDone event, emit) async {
+  Future<void> _habitDone(HabitDone event, emit) async {
     emit(const DoneHabit(true, false, []));
 
     Either<String, HabitEntity> result = await doneTodayHabitUseCase.call(params: event.id);
@@ -75,7 +75,7 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
     );
   }
 
-  _allHabitFetched(event, emit) async {
+  Future<void> _allHabitFetched(event, emit) async {
     emit(const FetchHabits(habits: [], loading: true, error: false));
 
     Either result = await getAllHabitUseCase.call();
@@ -98,7 +98,7 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
     );
   }
 
-  _habitAdded(event, emit) async {
+  Future<void> _habitAdded(event, emit) async {
     emit(const AddHabit(loading: true, error: false));
 
     Either result = await addNewHabitUseCase.call(params: event.params);
@@ -118,7 +118,7 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
             ));
   }
 
-  _habitDeleted(event, emit) async {
+  Future<void> _habitDeleted(event, emit) async {
     emit(const DeleteHabit(habits: [], loading: true, error: false));
 
     Either<String, NoParams> result = await deleteHabitUseCase.call(params: event.id);

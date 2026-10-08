@@ -29,8 +29,8 @@ class TimerLocalDataSource {
       removeTimerState();
 
       if (item.shouldSave) {
-        int? id = await db.saveAPomodoro(item);
-        return (id != null);
+        await db.saveAPomodoro(item);
+        return true;
       }
     } catch (e) {
       return false;

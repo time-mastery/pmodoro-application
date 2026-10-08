@@ -8,7 +8,7 @@ import "package:pomodore/exports.dart";
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
 
 class ChangeThemeBottomSheet extends StatelessWidget {
-  const ChangeThemeBottomSheet({Key? key}) : super(key: key);
+  const ChangeThemeBottomSheet({super.key});
 
   Future<void> bottomSheet(BuildContext context, Widget? child) => showModalBottomSheet<void>(
         context: context,
@@ -16,7 +16,7 @@ class ChangeThemeBottomSheet extends StatelessWidget {
           return Container(
               height: SizeConfig.heightMultiplier * 90,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
               ),
               child: child ?? Container());
         },

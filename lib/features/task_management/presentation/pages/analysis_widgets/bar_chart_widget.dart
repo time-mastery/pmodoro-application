@@ -86,10 +86,10 @@ class BarChartWidget extends HookWidget {
                       ),
                       titlesData: FlTitlesData(
                         show: true,
-                        rightTitles: AxisTitles(
+                        rightTitles: const AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
                         ),
-                        topTitles: AxisTitles(
+                        topTitles: const AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
                         ),
                         bottomTitles: AxisTitles(
@@ -105,7 +105,7 @@ class BarChartWidget extends HookWidget {
                             reservedSize: 38,
                           ),
                         ),
-                        leftTitles: AxisTitles(
+                        leftTitles: const AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: false,
                           ),
@@ -122,9 +122,9 @@ class BarChartWidget extends HookWidget {
                                 y: weeklySpendingPomodoro[i],
                                 isTouched: i == touchedIndex.value,
                               )),
-                      gridData: FlGridData(show: false),
+                      gridData: const FlGridData(show: false),
                     ),
-                    swapAnimationDuration: animDuration,
+                    duration: animDuration,
                   ),
                 ),
               ),
@@ -156,12 +156,12 @@ class BarChartWidget extends HookWidget {
               : Theme.of(context).colorScheme.secondary,
           width: width,
           borderSide: isTouched
-              ? BorderSide(color: Colors.white.withOpacity(.3))
+              ? BorderSide(color: Colors.white.withValues(alpha: .3))
               : const BorderSide(color: Colors.white, width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
             toY: 20,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(.2),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .2),
           ),
         ),
       ],

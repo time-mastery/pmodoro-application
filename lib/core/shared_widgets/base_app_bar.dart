@@ -5,13 +5,13 @@ import "package:pomodore/core/constant/constant.dart";
 
 class BaseAppBar extends HookWidget implements PreferredSizeWidget {
   const BaseAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.action,
     this.onPressed,
     this.hasBackBtn = false,
     this.customColor,
-  }) : super(key: key);
+  });
 
   final String title;
   final Widget? action;

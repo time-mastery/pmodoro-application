@@ -32,7 +32,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<DailyGoalUpdated>(_dailyGoalUpdated);
   }
 
-  _dailyGoalUpdated(DailyGoalUpdated event, Emitter emit) async {
+  Future<void> _dailyGoalUpdated(DailyGoalUpdated event, Emitter emit) async {
     emit(UpdateDailyGoalLoading());
     int value = event.value;
     if (value < 1) {
@@ -41,7 +41,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(UpdateDailyGoalSuccess(value));
   }
 
-  _dailyGoalSaved(DailyGoalSaved event, Emitter emit) async {
+  Future<void> _dailyGoalSaved(DailyGoalSaved event, Emitter emit) async {
     emit(SaveDailyGoalLoading());
     final Either<String, bool> result = await saveDailyGoalUseCase.call(params: event.count);
 
@@ -51,7 +51,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
   }
 
-  _dailyGoalChecked(DailyGoalChecked event, Emitter emit) async {
+  Future<void> _dailyGoalChecked(DailyGoalChecked event, Emitter emit) async {
     emit(CheckDailyGoalLoading());
     final Either<String, bool> result = await checkDailyGoalUseCase.call();
 
@@ -61,7 +61,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
   }
 
-  _onFetchHomeData(HomeDataFetched event, Emitter emit) async {
+  Future<void> _onFetchHomeData(HomeDataFetched event, Emitter emit) async {
     emit(FetchHomeDataLoading());
 
     final Either<String, List<TaskEntity>> tasks = await getUnCompletedUseCase.call();

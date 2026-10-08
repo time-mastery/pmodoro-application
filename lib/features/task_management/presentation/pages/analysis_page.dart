@@ -14,7 +14,7 @@ import "package:pomodore/features/task_management/presentation/shared_widgets/de
 import "package:syncfusion_flutter_charts/charts.dart";
 
 class AnalysisPage extends StatelessWidget {
-  const AnalysisPage({Key? key}) : super(key: key);
+  const AnalysisPage({super.key});
 
   static const routeName = "/analyze";
 
@@ -28,7 +28,7 @@ class AnalysisPage extends StatelessWidget {
 }
 
 class AnalysisView extends StatelessWidget {
-  const AnalysisView({Key? key}) : super(key: key);
+  const AnalysisView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class AnalysisView extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(30),
           ),
@@ -150,7 +150,7 @@ class _YearlyChart extends StatelessWidget {
             child: Directionality(
               textDirection: TextDirection.ltr,
               child: SfCartesianChart(
-                  primaryXAxis: CategoryAxis(),
+                  primaryXAxis: const CategoryAxis(),
                   tooltipBehavior: TooltipBehavior(enable: true),
                   enableAxisAnimation: true,
                   series: <LineSeries<YearlyAnalyzeItemEntity, String>>[
@@ -200,13 +200,13 @@ class _DailyActivityHeatmap extends StatelessWidget {
             child: Directionality(
               textDirection: TextDirection.ltr,
               child: HeatMap(
-                textColor: Theme.of(context).colorScheme.onBackground,
+                textColor: Theme.of(context).colorScheme.onSurface,
                 size: 22,
                 scrollable: true,
                 fontSize: 9,
                 showText: true,
                 defaultColor: Theme.of(context).colorScheme.brightness == Brightness.dark
-                    ? Theme.of(context).colorScheme.onBackground.withOpacity(.1)
+                    ? Theme.of(context).colorScheme.onSurface.withValues(alpha: .1)
                     : null,
                 colorMode: ColorMode.opacity,
                 datasets: item?.overviews,

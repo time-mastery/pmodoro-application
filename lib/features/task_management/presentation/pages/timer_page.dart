@@ -19,7 +19,7 @@ import "package:pomodore/features/task_management/presentation/pages/timer_widge
 import "package:pomodore/features/task_management/presentation/pages/timer_widgets/timer_buttons_widget.dart";
 
 class TimerPage extends StatelessWidget {
-  const TimerPage({Key? key}) : super(key: key);
+  const TimerPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class TimerPage extends StatelessWidget {
 }
 
 class TimerView extends StatelessWidget {
-  const TimerView({Key? key}) : super(key: key);
+  const TimerView({super.key});
 
   MaterialBanner _showMaterialBanner(BuildContext context,
       {required int duration, String? taskUid}) {

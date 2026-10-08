@@ -10,9 +10,9 @@ class BaseBloc extends Bloc<BaseEvent, BaseState> {
     on<PageIndexChanged>(_pageIndexChanged);
   }
 
-  _baseEvent(BaseEvent event, Emitter<BaseState> emit) {}
+  void _baseEvent(BaseEvent event, Emitter<BaseState> emit) {}
 
-  _pageIndexChanged(PageIndexChanged event, Emitter<BaseState> emit) {
+  void _pageIndexChanged(PageIndexChanged event, Emitter<BaseState> emit) {
     emit(PageChangeSuccess(event.index));
   }
 }

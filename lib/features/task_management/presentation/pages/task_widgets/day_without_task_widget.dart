@@ -10,7 +10,7 @@ import "package:pomodore/features/task_management/presentation/pages/add_task_pa
 import "package:pomodore/exports.dart";
 
 class DayWithoutTask extends StatelessWidget {
-  const DayWithoutTask({Key? key}) : super(key: key);
+  const DayWithoutTask({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,10 @@ class DayWithoutTask extends StatelessWidget {
         ),
         (SizeConfig.heightMultiplier * 2).spaceH(),
         IconButton(
-          onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName)
-              .then((value) => context.read<TasksBloc>().add(const AllTasksFetched())),
+          onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName).then((value) {
+            if (!context.mounted) return;
+            context.read<TasksBloc>().add(const AllTasksFetched());
+          }),
           icon: const Icon(CupertinoIcons.add_circled_solid),
         ),
       ],

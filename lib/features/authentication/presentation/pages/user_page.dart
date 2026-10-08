@@ -9,7 +9,7 @@ import "package:pomodore/core/shared_widgets/global_button.dart";
 import "package:pomodore/exports.dart";
 
 class UserPage extends StatelessWidget {
-  const UserPage({Key? key}) : super(key: key);
+  const UserPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class UserPage extends StatelessWidget {
 }
 
 class ProfileView extends HookWidget {
-  const ProfileView({Key? key}) : super(key: key);
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class ProfileView extends HookWidget {
 }
 
 class AuthView extends HookWidget {
-  const AuthView({Key? key}) : super(key: key);
+  const AuthView({super.key});
 
   @override
   Widget build(BuildContext context) {

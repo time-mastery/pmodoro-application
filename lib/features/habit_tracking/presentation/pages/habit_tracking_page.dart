@@ -45,9 +45,10 @@ class _HabitTrackingViewState extends State<HabitTrackingView> {
         action: IconButton(
           onPressed: () {
             Navigator.pushNamed(context, AddHabitPage.routeName).then(
-              (value) => context.read<HabitTrackerBloc>().add(
-                    AllHabitsFetched(),
-                  ),
+              (value) {
+                if (!context.mounted) return;
+                context.read<HabitTrackerBloc>().add(AllHabitsFetched());
+              },
             );
           },
           icon: const Icon(CupertinoIcons.add_circled_solid),

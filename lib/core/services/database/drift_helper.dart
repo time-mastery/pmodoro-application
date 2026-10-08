@@ -1,5 +1,4 @@
 import "dart:convert";
-import "dart:developer";
 
 import "package:drift/drift.dart";
 import "package:drift/native.dart";
@@ -132,7 +131,7 @@ class AppDatabase extends _$AppDatabase {
       habitDescription: Value(params.description),
       habitIcon: Value(params.icon),
       habitTitle: Value(params.title),
-      overviews: Value(null), // Convert List<String> -> JSON if needed
+      overviews: const Value(null), // Convert List<String> -> JSON if needed
     ));
   }
 

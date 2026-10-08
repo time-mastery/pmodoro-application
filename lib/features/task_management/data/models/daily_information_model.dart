@@ -2,16 +2,11 @@ import "package:pomodore/features/task_management/domain/entities/daily_informat
 
 class DailyInformationModel extends DailyInformationEntity {
   const DailyInformationModel({
-    required int taskQuantity,
-    required int completedTaskQuantity,
-    required int dailyGoalQuantity,
-    required double processPercentage,
-  }) : super(
-          taskQuantity: taskQuantity,
-          completedTaskQuantity: completedTaskQuantity,
-          processPercentage: processPercentage,
-          dailyGoalQuantity: dailyGoalQuantity,
-        );
+    required super.taskQuantity,
+    required super.completedTaskQuantity,
+    required super.dailyGoalQuantity,
+    required super.processPercentage,
+  });
 
   static DailyInformationModel fromJson(Map<String, dynamic> item) => DailyInformationModel(
         taskQuantity: item["taskQuantity"],

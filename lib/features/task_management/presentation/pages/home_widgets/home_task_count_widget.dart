@@ -5,7 +5,7 @@ import "package:pomodore/features/task_management/presentation/blocs/home_bloc/h
 import "package:pomodore/exports.dart";
 
 class HomeTaskCountWidget extends StatelessWidget {
-  const HomeTaskCountWidget({Key? key}) : super(key: key);
+  const HomeTaskCountWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

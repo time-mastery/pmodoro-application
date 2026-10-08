@@ -2,10 +2,10 @@ import "package:flutter/material.dart";
 
 class DetailRichTextWidget extends StatelessWidget {
   const DetailRichTextWidget({
-    Key? key,
+    super.key,
     required this.count,
     required this.title,
-  }) : super(key: key);
+  });
 
   final String title, count;
 

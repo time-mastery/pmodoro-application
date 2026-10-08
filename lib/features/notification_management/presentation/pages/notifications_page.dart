@@ -8,7 +8,7 @@ import "package:pomodore/features/notification_management/presentation/widgets/n
 import "package:pomodore/exports.dart";
 
 class NotificationsPage extends StatelessWidget {
-  const NotificationsPage({Key? key}) : super(key: key);
+  const NotificationsPage({super.key});
 
   static const routeName = "/notifications";
 

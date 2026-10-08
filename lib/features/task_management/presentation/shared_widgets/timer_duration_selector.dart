@@ -5,7 +5,7 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
 class TimerDurationSelector extends StatefulWidget {
-  const TimerDurationSelector({Key? key}) : super(key: key);
+  const TimerDurationSelector({super.key});
 
   @override
   State<TimerDurationSelector> createState() => _TimerDurationSelectorState();
@@ -109,7 +109,7 @@ class _TimerDurationSelectorState extends State<TimerDurationSelector> {
                                 width: 2,
                                 color: (listOfTimerDuration[index] == TimerBloc.getDuration / 60)
                                     ? Colors.transparent
-                                    : Theme.of(context).colorScheme.onBackground,
+                                    : Theme.of(context).colorScheme.onSurface,
                               ),
                             ),
                             child: Center(

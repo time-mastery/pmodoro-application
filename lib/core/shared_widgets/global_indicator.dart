@@ -3,8 +3,7 @@ import "package:flutter_spinkit/flutter_spinkit.dart";
 
 
 class GlobalIndicator extends StatelessWidget {
-  const GlobalIndicator({Key? key, this.color, this.size, this.width})
-      : super(key: key);
+  const GlobalIndicator({super.key, this.color, this.size, this.width});
   final Color? color;
   final double? size, width;
 

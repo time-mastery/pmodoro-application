@@ -14,9 +14,9 @@ import "package:pomodore/features/task_management/presentation/pages/edit_task_p
 
 class TaskItem extends StatelessWidget {
   const TaskItem({
-    Key? key,
+    super.key,
     required this.task,
-  }) : super(key: key);
+  });
 
   final TaskEntity task;
 
@@ -31,7 +31,7 @@ class TaskItem extends StatelessWidget {
   void _showActionsSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       elevation: 20,
       isScrollControlled: true,
       builder: (context) => _TaskActionsSheet(task: task),
@@ -71,6 +71,7 @@ class _TaskActionsSheet extends StatelessWidget {
                         Navigator.pushNamed(context, EditTaskPage.routeName, arguments: task)
                             .then((value) {
                           bloc.add(const AllTasksFetched());
+                          if (!context.mounted) return;
                           Navigator.pop(context);
                         });
                       },

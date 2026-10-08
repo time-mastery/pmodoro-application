@@ -6,7 +6,7 @@ import "package:pomodore/exports.dart";
 
 class CustomFormField extends HookWidget {
   const CustomFormField({
-    Key? key,
+    super.key,
     this.editController,
     this.textInputType,
     this.onChanged,
@@ -17,7 +17,7 @@ class CustomFormField extends HookWidget {
     this.maxLength,
     this.isPasswordField = false,
     this.formatter,
-  }) : super(key: key);
+  });
 
   final TextEditingController? editController;
   final TextInputType? textInputType;
