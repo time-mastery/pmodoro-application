@@ -23,12 +23,10 @@ class TimerButtons extends StatelessWidget {
                     width: width,
                     height: height,
                     child: CircularProgressIndicator(
-                      value: context
-                              .select((TimerBloc bloc) => bloc.state.duration) /
+                      value: context.select((TimerBloc bloc) => bloc.state.duration) /
                           TimerBloc.getDuration,
                       strokeWidth: 5,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.primary.withOpacity(.1),
+                      backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
                     ),
                   ),
                 ),
@@ -38,9 +36,7 @@ class TimerButtons extends StatelessWidget {
                       context.read<TimerBloc>().add(TimerPaused());
                     } else {
                       if (state.duration == TimerBloc.getDuration) {
-                        context
-                            .read<TimerBloc>()
-                            .add(TimerStarted(TimerBloc.getDuration));
+                        context.read<TimerBloc>().add(TimerStarted(TimerBloc.getDuration));
                       } else {
                         context.read<TimerBloc>().add(TimerResumed());
                       }
@@ -57,15 +53,10 @@ class TimerButtons extends StatelessWidget {
                           height: height - 20,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onBackground
-                                .withOpacity(.2),
+                            color: Theme.of(context).colorScheme.onBackground.withOpacity(.2),
                           ),
                           child: Icon(
-                            (state is TimerInProgress)
-                                ? Icons.pause
-                                : Icons.play_arrow,
+                            (state is TimerInProgress) ? Icons.pause : Icons.play_arrow,
                             size: 50,
                           ),
                         ),

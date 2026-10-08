@@ -3,7 +3,7 @@ import "package:dartz/dartz.dart";
 import "package:equatable/equatable.dart";
 import "package:pomodore/features/task_management/domain/entities/analysis_entity.dart";
 
-import "../../../domain/usecases/get_analysis_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_analysis_usecase.dart";
 
 part "analysis_event.dart";
 
@@ -20,10 +20,8 @@ class AnalysisBloc extends Bloc<AnalysisEvent, AnalysisState> {
   void _analysisFetched(AnalysisFetched event, Emitter emit) async {
     emit(FetchAnalysisLoading());
 
-    final Either<String, AnalysisEntity> result =
-        await getAnalysisUseCase.call();
+    final Either<String, AnalysisEntity> result = await getAnalysisUseCase.call();
 
-    result.fold((l) => emit(FetchAnalysisFailure()),
-        (r) => emit(FetchAnalysisSuccess(r)));
+    result.fold((l) => emit(FetchAnalysisFailure()), (r) => emit(FetchAnalysisSuccess(r)));
   }
 }

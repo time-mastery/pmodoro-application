@@ -7,8 +7,8 @@ import "package:pomodore/features/configuration/presentation/blocs/base_bloc/bas
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
-import "../../../../core/utils/responsive/size_config.dart";
-import "../../../../core/utils/utils.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/core/utils/utils.dart";
 
 class HomeTaskItem extends StatelessWidget {
   const HomeTaskItem({Key? key, required this.item}) : super(key: key);
@@ -30,8 +30,7 @@ class HomeTaskItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Material(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   child: const Padding(
                     padding: EdgeInsets.all(11.0),
                     child: Icon(
@@ -60,8 +59,7 @@ class HomeTaskItem extends StatelessWidget {
                         Utils.calculateRemainingTime(item.deadLineTime),
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: Utils.getTaskDeadlineStatusColor(
-                                  item.deadLineTime),
+                              color: Utils.getTaskDeadlineStatusColor(item.deadLineTime),
                             ),
                       ),
                     ],

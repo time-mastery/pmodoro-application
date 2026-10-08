@@ -8,8 +8,8 @@ import "package:pomodore/features/task_management/domain/entities/daily_informat
 import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
 import "package:pomodore/features/task_management/domain/repositories/task_repository.dart";
 
-import "../../domain/entities/task_entity.dart";
-import "../models/analysis_model.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/data/models/analysis_model.dart";
 
 class TaskRepositoryImpl implements TaskRepository {
   final TasksLocalDataSource localDataSource;
@@ -34,8 +34,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<TaskEntity>>> getTaskByDate(DateTime date) async {
     late Either<String, List<TaskEntity>> result;
 
-    final List<TaskModel>? rawList =
-        await localDataSource.getSpecificDateTasks(date);
+    final List<TaskModel>? rawList = await localDataSource.getSpecificDateTasks(date);
 
     if (rawList != null) {
       final List<TaskEntity> list = TaskModel.sortTasksByDateTime(
@@ -69,8 +68,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<TaskEntity>>> getUnCompletedTasks() async {
     late Either<String, List<TaskEntity>> result;
 
-    final List<TaskModel>? rawList =
-        await localDataSource.getAllUnCompletedTasks();
+    final List<TaskModel>? rawList = await localDataSource.getAllUnCompletedTasks();
 
     if (rawList != null) {
       final List<TaskEntity> list = TaskModel.sortTasksByDateTime(
@@ -87,8 +85,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, List<PomodoroEntity>>> getAllTodayPomodoro() async {
     late Either<String, List<PomodoroEntity>> result;
 
-    final List<PomodoroModel>? rawList =
-        await localDataSource.getAllTodayPomodoroFromDb();
+    final List<PomodoroModel>? rawList = await localDataSource.getAllTodayPomodoroFromDb();
 
     if (rawList != null) {
       final List<PomodoroEntity> convertedList =
@@ -105,8 +102,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, DailyInformationEntity>> getDailyInformation() async {
     late Either<String, DailyInformationEntity> result;
 
-    final int completedTasksQuantity =
-        await localDataSource.getCompletedTaskQuantity();
+    final int completedTasksQuantity = await localDataSource.getCompletedTaskQuantity();
     final int tasksQuantity = await localDataSource.getAllTodayTaskQuantity();
     final int dailyGoal = await localDataSource.getDailyGoalQuantity() ?? 1;
     double processPercentage = 0;
@@ -116,8 +112,7 @@ class TaskRepositoryImpl implements TaskRepository {
     } else if (dailyGoal < completedTasksQuantity) {
       processPercentage = 1;
     } else {
-      processPercentage =
-          double.parse((completedTasksQuantity / dailyGoal).toStringAsFixed(1));
+      processPercentage = double.parse((completedTasksQuantity / dailyGoal).toStringAsFixed(1));
     }
 
     final DailyInformationEntity item = DailyInformationEntity(
@@ -139,8 +134,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<String, AnalysisEntity>> getAnalysis() async {
     late Either<String, AnalysisEntity> result;
 
-    final Map<String, dynamic>? rawData =
-        await localDataSource.getAnalysisPageData();
+    final Map<String, dynamic>? rawData = await localDataSource.getAnalysisPageData();
 
     if (rawData != null) {
       final AnalysisEntity analysis = AnalysisModel.fromJson(rawData);

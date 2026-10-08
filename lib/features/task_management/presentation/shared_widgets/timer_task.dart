@@ -6,8 +6,8 @@ import "package:pomodore/features/configuration/presentation/blocs/base_bloc/bas
 import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
-import "../../../../core/utils/responsive/size_config.dart";
-import "../../../../exports.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/exports.dart";
 
 class TimerTask extends StatelessWidget {
   const TimerTask(
@@ -36,8 +36,7 @@ class TimerTask extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Material(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: const Padding(
               padding: EdgeInsets.all(11.0),
               child: Icon(
@@ -66,10 +65,7 @@ class TimerTask extends StatelessWidget {
           ),
           Text(
             "$count / $targetCount",
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(fontWeight: FontWeight.w300),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w300),
           ),
         ],
       ),
@@ -135,8 +131,7 @@ class SelectATaskToStart extends StatelessWidget {
                   }
                 },
                 child: SizedBox(
-                  width: SizeConfig.widthMultiplier *
-                      ((taskItem != null) ? 40 : 60),
+                  width: SizeConfig.widthMultiplier * ((taskItem != null) ? 40 : 60),
                   height: SizeConfig.heightMultiplier * 6,
                   child: Card(
                     child: Center(

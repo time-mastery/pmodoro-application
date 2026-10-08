@@ -3,7 +3,7 @@ import "package:pomodore/core/services/database/drift_helper.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/task_management/data/models/pomodoro_model.dart";
 
-import "../models/task_model.dart";
+import "package:pomodore/features/task_management/data/models/task_model.dart";
 
 class TasksLocalDataSource {
   final AppDatabase db;
@@ -57,9 +57,7 @@ class TasksLocalDataSource {
     try {
       final List<Pomodoro> records = await db.getAllPomodoros();
 
-      return records
-          .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
-          .toList();
+      return records.map((e) => PomodoroModel.pomodoroCollectionToModel(e)).toList();
     } catch (e) {
       dPrint(e.toString());
       rethrow;
@@ -70,9 +68,7 @@ class TasksLocalDataSource {
     try {
       final List<Pomodoro> records = await db.getAllTodayPomodoros();
 
-      return records
-          .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
-          .toList();
+      return records.map((e) => PomodoroModel.pomodoroCollectionToModel(e)).toList();
     } catch (e, s) {
       dPrint(e.toString());
       dPrint(s.toString());
@@ -84,9 +80,7 @@ class TasksLocalDataSource {
     try {
       final List<Pomodoro> records = await db.getSpecificDatePomodoros(date);
 
-      return records
-          .map((e) => PomodoroModel.pomodoroCollectionToModel(e))
-          .toList();
+      return records.map((e) => PomodoroModel.pomodoroCollectionToModel(e)).toList();
     } catch (e) {
       rethrow;
     }
@@ -122,8 +116,7 @@ class TasksLocalDataSource {
       final List<double> weeklySpendingPomodoro = [];
       for (int i = 0; i < 7; i++) {
         final DateTime date = DateTime.now().subtract(Duration(days: i));
-        final List<PomodoroModel>? todayPomodoroList =
-            await getSpecificDatePomodoro(date);
+        final List<PomodoroModel>? todayPomodoroList = await getSpecificDatePomodoro(date);
         final pomodoroCount = todayPomodoroList?.length ?? 0;
         weeklySpendingPomodoro.insert(0, pomodoroCount.toDouble());
       }
@@ -146,8 +139,7 @@ class TasksLocalDataSource {
     try {
       final int todayCompletedTask = await getCompletedTaskQuantity();
       final List<PomodoroModel>? allPomodoroList = await getAllPomodoroFromDb();
-      final List<PomodoroModel>? todayPomodoroList =
-          await getAllTodayPomodoroFromDb();
+      final List<PomodoroModel>? todayPomodoroList = await getAllTodayPomodoroFromDb();
       final int todayPomodoroCount = todayPomodoroList?.length ?? 0;
       final List<double>? weeklyList = await getWeeklySpendingPomodoro();
 

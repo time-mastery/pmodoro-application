@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:uuid/uuid.dart";
 
-import "../../exports.dart";
+import "package:pomodore/exports.dart";
 
 class Utils {
   static String getProcessTitle(BuildContext context, double value) {
@@ -53,8 +53,7 @@ class Utils {
     return "$days days, $hours hours"; // if remaining time is more than a day
   }
 
-  static String monthNameOfDateTime(DateTime date) =>
-      DateFormat("MMMM").format(date);
+  static String monthNameOfDateTime(DateTime date) => DateFormat("MMMM").format(date);
 
   static DateTime createOverviewItemDateTime(DateTime dateTime) {
     return DateTime(dateTime.year, dateTime.month, dateTime.day);
@@ -74,8 +73,7 @@ class Utils {
     return "$minute\n$second";
   }
 
-  static String formatSecToMinSecForBgNotification(
-      {required int timeInSecond}) {
+  static String formatSecToMinSecForBgNotification({required int timeInSecond}) {
     final int sec = timeInSecond % 60;
     final int min = (timeInSecond / 60).floor();
     final String minute = min.toString().length <= 1 ? "0$min" : "$min";
@@ -90,8 +88,7 @@ class Utils {
 
   static bool checkDateIsToday(DateTime date) {
     return (DateTime(date.year, date.month, date.day)
-            .difference(DateTime(
-                DateTime.now().year, DateTime.now().month, DateTime.now().day))
+            .difference(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day))
             .inDays ==
         0);
   }
@@ -99,6 +96,5 @@ class Utils {
   static int calculatePomodoroTime(int defaultDuration, int timerDuration) =>
       defaultDuration - timerDuration;
 
-  static bool convertStringFromStorageToBool(String item) =>
-      item == "1" ? true : false;
+  static bool convertStringFromStorageToBool(String item) => item == "1" ? true : false;
 }

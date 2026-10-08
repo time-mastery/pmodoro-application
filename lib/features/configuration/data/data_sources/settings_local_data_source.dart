@@ -1,8 +1,8 @@
 import "package:pomodore/core/resources/params/settings_params.dart";
 import "package:pomodore/features/configuration/domain/entities/settings_entity.dart";
 
-import "../../../../core/services/database/storage.dart";
-import "../../../../core/utils/utils.dart";
+import "package:pomodore/core/services/database/storage.dart";
+import "package:pomodore/core/utils/utils.dart";
 
 class SettingsLocalDataSources {
   Future<SettingsEntity> getAllSettings() async {
@@ -32,7 +32,7 @@ class SettingsLocalDataSources {
   }
 
   Future<String> changeLocale(String langCode) async {
-     await FStorage.write(FStorage.localeKey, langCode);
+    await FStorage.write(FStorage.localeKey, langCode);
     return langCode;
   }
 

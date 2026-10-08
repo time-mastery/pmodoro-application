@@ -1,4 +1,3 @@
-
 import "package:bloc/bloc.dart";
 import "package:dartz/dartz.dart";
 import "package:equatable/equatable.dart";
@@ -7,12 +6,12 @@ import "package:pomodore/core/resources/params/settings_params.dart";
 import "package:pomodore/features/configuration/domain/entities/settings_entity.dart";
 import "package:pomodore/features/configuration/domain/usecases/change_theme_usecase.dart";
 
-import "../../../../../core/resources/params/theme_params.dart";
-import "../../../domain/usecases/change_locale_usecase.dart";
-import "../../../domain/usecases/change_settings_usecase.dart";
-import "../../../domain/usecases/get_locale_usecase.dart";
-import "../../../domain/usecases/get_settings_usecase.dart";
-import "../../../domain/usecases/get_theme_usecase.dart";
+import "package:pomodore/core/resources/params/theme_params.dart";
+import "package:pomodore/features/configuration/domain/usecases/change_locale_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/change_settings_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/get_locale_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/get_settings_usecase.dart";
+import "package:pomodore/features/configuration/domain/usecases/get_theme_usecase.dart";
 
 part "settings_event.dart";
 
@@ -80,8 +79,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     );
   }
 
-  _settingsFromDeviceFetched(
-      SettingsFromDeviceFetched event, Emitter emit) async {
+  _settingsFromDeviceFetched(SettingsFromDeviceFetched event, Emitter emit) async {
     emit(SettingFetchingLoading());
 
     final Either<String, SettingsEntity> result = await getSettingUseCase.call();

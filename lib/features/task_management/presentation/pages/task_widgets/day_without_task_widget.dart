@@ -7,7 +7,7 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 import "package:pomodore/features/task_management/presentation/pages/add_task_page.dart";
 
-import "../../../../../exports.dart";
+import "package:pomodore/exports.dart";
 
 class DayWithoutTask extends StatelessWidget {
   const DayWithoutTask({Key? key}) : super(key: key);
@@ -24,8 +24,7 @@ class DayWithoutTask extends StatelessWidget {
           size: 150,
         ),
         (SizeConfig.heightMultiplier * 5).spaceH(),
-        Text(localization.emptyTaskListTitle,
-            style: Theme.of(context).textTheme.headlineSmall),
+        Text(localization.emptyTaskListTitle, style: Theme.of(context).textTheme.headlineSmall),
         (SizeConfig.heightMultiplier * 2).spaceH(),
         Text(
           localization.emptyTaskListHint,
@@ -34,8 +33,7 @@ class DayWithoutTask extends StatelessWidget {
         (SizeConfig.heightMultiplier * 2).spaceH(),
         IconButton(
           onPressed: () => Navigator.pushNamed(context, AddTaskPage.routeName)
-              .then(
-                  (value) => context.read<TasksBloc>().add(const AllTasksFetched())),
+              .then((value) => context.read<TasksBloc>().add(const AllTasksFetched())),
           icon: const Icon(CupertinoIcons.add_circled_solid),
         ),
       ],

@@ -9,7 +9,7 @@ import "package:pomodore/features/habit_tracking/domain/usecases/done_today_habi
 import "package:pomodore/features/habit_tracking/domain/usecases/edit_habit_usecase.dart";
 import "package:pomodore/features/habit_tracking/domain/usecases/get_all_habits_usecase.dart";
 
-import "../../../../../core/resources/params/habit_params.dart";
+import "package:pomodore/core/resources/params/habit_params.dart";
 
 part "habit_tracker_event.dart";
 part "habit_tracker_state.dart";
@@ -44,8 +44,7 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
     result.fold(
       (l) => emit(const EditHabit(loading: false, error: true, habits: [])),
       (r) {
-        int index = event.habits
-            .indexWhere((element) => element.id == event.updatedHabit.id);
+        int index = event.habits.indexWhere((element) => element.id == event.updatedHabit.id);
         List<HabitEntity> newList = event.habits;
 
         newList.removeAt(index);
@@ -59,8 +58,7 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
   _habitDone(HabitDone event, emit) async {
     emit(const DoneHabit(true, false, []));
 
-    Either<String, HabitEntity> result =
-        await doneTodayHabitUseCase.call(params: event.id);
+    Either<String, HabitEntity> result = await doneTodayHabitUseCase.call(params: event.id);
 
     result.fold(
       (l) => emit(const DoneHabit(false, true, [])),
@@ -123,12 +121,9 @@ class HabitTrackerBloc extends Bloc<HabitTrackerEvent, HabitTrackerState> {
   _habitDeleted(event, emit) async {
     emit(const DeleteHabit(habits: [], loading: true, error: false));
 
-    Either<String, NoParams> result =
-        await deleteHabitUseCase.call(params: event.id);
+    Either<String, NoParams> result = await deleteHabitUseCase.call(params: event.id);
 
-    result.fold(
-        (l) => emit(const DeleteHabit(habits: [], loading: false, error: true)),
-        (r) {
+    result.fold((l) => emit(const DeleteHabit(habits: [], loading: false, error: true)), (r) {
       List<HabitEntity> newList = event.habits;
       newList.removeWhere((element) => element.id == event.id);
       emit(

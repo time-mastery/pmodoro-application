@@ -6,7 +6,7 @@ import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/shared_widgets/custom_form_field.dart";
 import "package:pomodore/core/shared_widgets/global_button.dart";
 
-import "../../../../exports.dart";
+import "package:pomodore/exports.dart";
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -62,8 +62,7 @@ class ProfileView extends HookWidget {
                             ),
                             10.spaceW(),
                             Text(
-                              localization.lastSync
-                                  .replaceAll("#", "12-9-2023"),
+                              localization.lastSync.replaceAll("#", "12-9-2023"),
                               style: Theme.of(context).textTheme.bodySmall,
                             )
                           ],
@@ -151,9 +150,7 @@ class AuthView extends HookWidget {
               ),
               30.spaceH(),
               GlobalButton(
-                title: isSignUp.value
-                    ? localization.signUpBtn
-                    : localization.signInBtn,
+                title: isSignUp.value ? localization.signUpBtn : localization.signInBtn,
                 height: 60,
                 width: double.infinity,
                 padding: EdgeInsets.zero,
@@ -165,9 +162,7 @@ class AuthView extends HookWidget {
                   isSignUp.value = !isSignUp.value;
                 },
                 child: Text(
-                  isSignUp.value
-                      ? localization.doYouHaveAcc
-                      : localization.registerNewAccount,
+                  isSignUp.value ? localization.doYouHaveAcc : localization.registerNewAccount,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         decoration: TextDecoration.underline,
                       ),

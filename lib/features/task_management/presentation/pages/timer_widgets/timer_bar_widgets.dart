@@ -4,8 +4,6 @@ import "package:google_fonts/google_fonts.dart";
 import "package:pomodore/core/utils/utils.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
-
-
 class TimerBar extends StatelessWidget {
   const TimerBar({super.key});
 

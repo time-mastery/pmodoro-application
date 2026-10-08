@@ -4,10 +4,10 @@ import "package:equatable/equatable.dart";
 import "package:pomodore/features/task_management/domain/entities/daily_information_entity.dart";
 import "package:pomodore/features/task_management/domain/usecases/get_uncompleted_tasks_usecase.dart";
 
-import "../../../domain/entities/task_entity.dart";
-import "../../../domain/usecases/check_daily_goal_usecase.dart";
-import "../../../domain/usecases/get_daily_information_usecase.dart";
-import "../../../domain/usecases/save_daily_goal_usecase.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/domain/usecases/check_daily_goal_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_daily_information_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/save_daily_goal_usecase.dart";
 
 part "home_event.dart";
 
@@ -43,8 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   _dailyGoalSaved(DailyGoalSaved event, Emitter emit) async {
     emit(SaveDailyGoalLoading());
-    final Either<String, bool> result =
-        await saveDailyGoalUseCase.call(params: event.count);
+    final Either<String, bool> result = await saveDailyGoalUseCase.call(params: event.count);
 
     result.fold(
       (l) => emit(SaveDailyGoalFailure()),
@@ -65,8 +64,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onFetchHomeData(HomeDataFetched event, Emitter emit) async {
     emit(FetchHomeDataLoading());
 
-    final Either<String, List<TaskEntity>> tasks =
-        await getUnCompletedUseCase.call();
+    final Either<String, List<TaskEntity>> tasks = await getUnCompletedUseCase.call();
     final Either<String, DailyInformationEntity> dailyInfo =
         await getDailyInformationUseCase.call();
 

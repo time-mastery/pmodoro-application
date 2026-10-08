@@ -3,8 +3,8 @@ import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/task_management/data/data_sources/timer_local_data_source.dart";
 import "package:pomodore/features/task_management/domain/repositories/timer_repository.dart";
 
-import "../../../../core/resources/params/save_pomodoro_params.dart";
-import "../../../../core/resources/params/timer_state_params.dart";
+import "package:pomodore/core/resources/params/save_pomodoro_params.dart";
+import "package:pomodore/core/resources/params/timer_state_params.dart";
 
 class TimerRepositoryImpl extends TimerRepository {
   final TimerLocalDataSource timerLocalDataSource;
@@ -31,8 +31,7 @@ class TimerRepositoryImpl extends TimerRepository {
     late Either<String, TimerStateParams> result;
 
     try {
-      final TimerStateRestoreParams? restoredState =
-          await timerLocalDataSource.restoreTimerState();
+      final TimerStateRestoreParams? restoredState = await timerLocalDataSource.restoreTimerState();
 
       if (restoredState != null) {
         result = Right(

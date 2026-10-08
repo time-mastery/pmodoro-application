@@ -6,7 +6,7 @@ import "package:flutter/material.dart";
 import "package:pomodore/core/services/database/storage.dart";
 import "package:pomodore/core/services/notification/notification_custom_controller.dart";
 
-import "../../utils/utils.dart";
+import "package:pomodore/core/utils/utils.dart";
 
 const defaultChannelGroupKey = "basic_channel_group";
 const channelGroupName = "Basic group";
@@ -78,14 +78,10 @@ class AppLocalNotification {
       );
 
       AwesomeNotifications().setListeners(
-        onActionReceivedMethod:
-            NotificationCustomController.onActionReceivedMethod,
-        onNotificationCreatedMethod:
-            NotificationCustomController.onNotificationCreatedMethod,
-        onNotificationDisplayedMethod:
-            NotificationCustomController.onNotificationDisplayedMethod,
-        onDismissActionReceivedMethod:
-            NotificationCustomController.onDismissActionReceivedMethod,
+        onActionReceivedMethod: NotificationCustomController.onActionReceivedMethod,
+        onNotificationCreatedMethod: NotificationCustomController.onNotificationCreatedMethod,
+        onNotificationDisplayedMethod: NotificationCustomController.onNotificationDisplayedMethod,
+        onDismissActionReceivedMethod: NotificationCustomController.onDismissActionReceivedMethod,
       );
     }
   }
@@ -115,8 +111,7 @@ class AppLocalNotification {
           channelKey: backgroundChannelKey,
           groupKey: backgroundChannelGroupKey,
           title: "Timer in progress",
-          body:
-              Utils.formatSecToMinSecForBgNotification(timeInSecond: duration),
+          body: Utils.formatSecToMinSecForBgNotification(timeInSecond: duration),
           autoDismissible: true,
           notificationLayout: NotificationLayout.ProgressBar,
           actionType: ActionType.KeepOnTop,

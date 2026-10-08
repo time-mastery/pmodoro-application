@@ -9,9 +9,9 @@ import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.da
 import "package:pomodore/features/habit_tracking/presentation/pages/add_habit_page.dart";
 import "package:pomodore/features/habit_tracking/presentation/shared_widgets/habit_item_widget.dart";
 
-import "../../../../di.dart";
-import "../../../../exports.dart";
-import "../blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
+import "package:pomodore/di.dart";
+import "package:pomodore/exports.dart";
+import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
 
 class HabitTrackingPage extends StatelessWidget {
   const HabitTrackingPage({super.key});
@@ -19,8 +19,7 @@ class HabitTrackingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt.get<HabitTrackerBloc>()..add(AllHabitsFetched()),
+      create: (context) => getIt.get<HabitTrackerBloc>()..add(AllHabitsFetched()),
       child: const HabitTrackingView(),
     );
   }

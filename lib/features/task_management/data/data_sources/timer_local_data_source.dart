@@ -3,8 +3,8 @@ import "package:pomodore/core/services/database/storage.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/task_management/data/models/task_model.dart";
 
-import "../../../../core/resources/params/save_pomodoro_params.dart";
-import "../../../../core/resources/params/timer_state_params.dart";
+import "package:pomodore/core/resources/params/save_pomodoro_params.dart";
+import "package:pomodore/core/resources/params/timer_state_params.dart";
 
 class TimerLocalDataSource {
   final AppDatabase db;
@@ -41,12 +41,9 @@ class TimerLocalDataSource {
   Future<int?> saveTimerState(TimerStateParams stateParams) async {
     int? result;
     try {
-      await FStorage.write(
-          FStorage.timerStateKey, stateParams.duration.toString());
-      await FStorage.write(
-          FStorage.timerStateDateTimeKey, DateTime.now().toString());
-      await FStorage.write(FStorage.timerStateBaseDurationKey,
-          stateParams.baseDuration.toString());
+      await FStorage.write(FStorage.timerStateKey, stateParams.duration.toString());
+      await FStorage.write(FStorage.timerStateDateTimeKey, DateTime.now().toString());
+      await FStorage.write(FStorage.timerStateBaseDurationKey, stateParams.baseDuration.toString());
       if (stateParams.task != null) {
         await FStorage.write(FStorage.taskIdKey, stateParams.task!.uid);
       }
@@ -72,8 +69,7 @@ class TimerLocalDataSource {
     try {
       final state = await FStorage.read(FStorage.timerStateKey);
       final dateTimeState = await FStorage.read(FStorage.timerStateDateTimeKey);
-      final baseStateDuration =
-          await FStorage.read(FStorage.timerStateBaseDurationKey);
+      final baseStateDuration = await FStorage.read(FStorage.timerStateBaseDurationKey);
       final id = await FStorage.read(FStorage.taskIdKey);
 
       final String? init = await FStorage.read(FStorage.initialized);

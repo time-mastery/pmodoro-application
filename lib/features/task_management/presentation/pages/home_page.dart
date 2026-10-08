@@ -8,12 +8,12 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
 import "package:pomodore/features/task_management/presentation/shared_widgets/daily_goal_dialog.dart";
 
-import "../../../../di.dart";
-import "../../../../exports.dart";
-import "../../../notification_management/presentation/pages/notifications_page.dart";
-import "home_widgets/home_goal_widget.dart";
-import "home_widgets/home_task_count_widget.dart";
-import "home_widgets/home_tasks_list.dart";
+import "package:pomodore/di.dart";
+import "package:pomodore/exports.dart";
+import "package:pomodore/features/notification_management/presentation/pages/notifications_page.dart";
+import "package:pomodore/features/task_management/presentation/pages/home_widgets/home_goal_widget.dart";
+import "package:pomodore/features/task_management/presentation/pages/home_widgets/home_task_count_widget.dart";
+import "package:pomodore/features/task_management/presentation/pages/home_widgets/home_tasks_list.dart";
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -37,8 +37,7 @@ class HomeView extends StatelessWidget {
       appBar: BaseAppBar(
         title: localization.homeTitle,
         action: const Icon(Ionicons.notifications),
-        onPressed: () =>
-            Navigator.pushNamed(context, NotificationsPage.routeName),
+        onPressed: () => Navigator.pushNamed(context, NotificationsPage.routeName),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -56,11 +55,9 @@ class HomeView extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state is CheckDailyGoalLoading ||
-                state is FetchHomeDataLoading) {
+            if (state is CheckDailyGoalLoading || state is FetchHomeDataLoading) {
               return Center(
-                child: GlobalIndicator(
-                    color: Theme.of(context).colorScheme.primary),
+                child: GlobalIndicator(color: Theme.of(context).colorScheme.primary),
               );
             }
             return Column(

@@ -48,10 +48,10 @@ import "package:pomodore/features/task_management/presentation/blocs/home_bloc/h
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
-import "core/services/database/storage.dart";
-import "core/utils/ticker.dart";
-import "features/task_management/data/data_sources/tasks_local_data_source.dart";
-import "features/task_management/domain/usecases/get_uncompleted_tasks_usecase.dart";
+import "package:pomodore/core/services/database/storage.dart";
+import "package:pomodore/core/utils/ticker.dart";
+import "package:pomodore/features/task_management/data/data_sources/tasks_local_data_source.dart";
+import "package:pomodore/features/task_management/domain/usecases/get_uncompleted_tasks_usecase.dart";
 
 final getIt = GetIt.instance;
 
@@ -84,27 +84,20 @@ Future inject() async {
   getIt.registerSingleton<TaskRepository>(TaskRepositoryImpl(getIt()));
   getIt.registerSingleton<SettingsRepository>(SettingsRepositoryImpl(getIt()));
   getIt.registerSingleton<TimerRepository>(TimerRepositoryImpl(getIt()));
-  getIt.registerSingleton<HabitTrackingRepository>(
-      HabitTrackingRepositoryImpl(getIt()));
+  getIt.registerSingleton<HabitTrackingRepository>(HabitTrackingRepositoryImpl(getIt()));
 
   // inject use-cases
   getIt.registerSingleton<AddTaskUsecase>(AddTaskUsecase(getIt()));
-  getIt.registerSingleton<GetSpecificDateTasksUseCase>(
-      GetSpecificDateTasksUseCase(getIt()));
+  getIt.registerSingleton<GetSpecificDateTasksUseCase>(GetSpecificDateTasksUseCase(getIt()));
   getIt.registerSingleton<CompleteTaskUseCase>(CompleteTaskUseCase(getIt()));
   getIt.registerSingleton<DeleteTaskUseCase>(DeleteTaskUseCase(getIt()));
-  getIt.registerSingleton<AddPomodoroToDbUseCase>(
-      AddPomodoroToDbUseCase(getIt()));
-  getIt.registerSingleton<GetTodayPomodorosUseCase>(
-      GetTodayPomodorosUseCase(getIt()));
+  getIt.registerSingleton<AddPomodoroToDbUseCase>(AddPomodoroToDbUseCase(getIt()));
+  getIt.registerSingleton<GetTodayPomodorosUseCase>(GetTodayPomodorosUseCase(getIt()));
   getIt.registerSingleton<GetSettingsUseCase>(GetSettingsUseCase(getIt()));
   getIt.registerSingleton<EditTaskUseCase>(EditTaskUseCase(getIt()));
-  getIt
-      .registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
-  getIt.registerSingleton<GetDailyInformationUseCase>(
-      GetDailyInformationUseCase(getIt()));
-  getIt.registerSingleton<GetUnCompletedTasksUseCase>(
-      GetUnCompletedTasksUseCase(getIt()));
+  getIt.registerSingleton<ChangeSettingsUseCase>(ChangeSettingsUseCase(getIt()));
+  getIt.registerSingleton<GetDailyInformationUseCase>(GetDailyInformationUseCase(getIt()));
+  getIt.registerSingleton<GetUnCompletedTasksUseCase>(GetUnCompletedTasksUseCase(getIt()));
   getIt.registerSingleton(GetAllTasksUseCase(getIt()));
   getIt.registerSingleton<GetAnalysisUseCase>(GetAnalysisUseCase(getIt()));
   getIt.registerSingleton<ChangeLocaleUseCase>(ChangeLocaleUseCase(getIt()));
@@ -112,12 +105,9 @@ Future inject() async {
   getIt.registerSingleton<GetThemeUseCase>(GetThemeUseCase(getIt()));
   getIt.registerSingleton<ChangeThemeUseCase>(ChangeThemeUseCase(getIt()));
   getIt.registerSingleton<SaveDailyGoalUseCase>(SaveDailyGoalUseCase(getIt()));
-  getIt
-      .registerSingleton<CheckDailyGoalUseCase>(CheckDailyGoalUseCase(getIt()));
-  getIt
-      .registerSingleton<SaveTimerStateUseCase>(SaveTimerStateUseCase(getIt()));
-  getIt.registerSingleton<RestoreTimerStateUseCase>(
-      RestoreTimerStateUseCase(getIt()));
+  getIt.registerSingleton<CheckDailyGoalUseCase>(CheckDailyGoalUseCase(getIt()));
+  getIt.registerSingleton<SaveTimerStateUseCase>(SaveTimerStateUseCase(getIt()));
+  getIt.registerSingleton<RestoreTimerStateUseCase>(RestoreTimerStateUseCase(getIt()));
   // habit tracking usecases
   getIt.registerSingleton(AddNewHabitUseCase(getIt()));
   getIt.registerSingleton(DeleteHabitUseCase(getIt()));

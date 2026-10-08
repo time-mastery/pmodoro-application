@@ -5,8 +5,8 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/task_management/domain/entities/daily_information_entity.dart";
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
 
-import "../../../../../core/utils/utils.dart";
-import "../../../../../exports.dart";
+import "package:pomodore/core/utils/utils.dart";
+import "package:pomodore/exports.dart";
 
 class HomeGoalWidget extends StatelessWidget {
   const HomeGoalWidget({Key? key}) : super(key: key);
@@ -41,10 +41,8 @@ class HomeGoalWidget extends StatelessWidget {
                               width: SizeConfig.widthMultiplier * 20,
                               height: SizeConfig.widthMultiplier * 20,
                               child: CircularProgressIndicator(
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withOpacity(.2),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary.withOpacity(.2),
                                 value: dailyItem?.processPercentage ?? 0,
                                 strokeWidth: 10,
                               ),
@@ -67,8 +65,7 @@ class HomeGoalWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            Utils.getProcessTitle(
-                                context, dailyItem?.processPercentage ?? 0),
+                            Utils.getProcessTitle(context, dailyItem?.processPercentage ?? 0),
                             style: Theme.of(context).textTheme.titleLarge,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,

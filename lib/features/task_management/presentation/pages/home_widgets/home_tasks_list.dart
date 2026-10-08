@@ -7,10 +7,10 @@ import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/configuration/presentation/blocs/base_bloc/base_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
 
-import "../../../../../di.dart";
-import "../../../../../exports.dart";
-import "../../../domain/entities/task_entity.dart";
-import "../../shared_widgets/home_task_item.dart";
+import "package:pomodore/di.dart";
+import "package:pomodore/exports.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/presentation/shared_widgets/home_task_item.dart";
 
 class HomeTasksList extends StatelessWidget {
   const HomeTasksList({Key? key}) : super(key: key);
@@ -45,8 +45,7 @@ class HomeTasksList extends StatelessWidget {
                 ),
                 (SizeConfig.heightMultiplier * 2).spaceH(),
                 IconButton(
-                  onPressed: () =>
-                      getIt.get<BaseBloc>().add(const PageIndexChanged(1)),
+                  onPressed: () => getIt.get<BaseBloc>().add(const PageIndexChanged(1)),
                   icon: const Icon(CupertinoIcons.add_circled_solid),
                 ),
               ],

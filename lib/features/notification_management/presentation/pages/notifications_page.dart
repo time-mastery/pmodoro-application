@@ -5,7 +5,7 @@ import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/notification_management/presentation/widgets/notificaiton_item.dart";
 
-import "../../../../exports.dart";
+import "package:pomodore/exports.dart";
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -29,8 +29,7 @@ class NotificationsPage extends StatelessWidget {
               itemCount: 100,
               itemBuilder: (context, index) => NotificationItem(
                 title: "Notification $index",
-                description:
-                    "This is a description for this notification $index",
+                description: "This is a description for this notification $index",
                 color: Colors.primaries[index % 17],
                 icon: Icons.notifications_sharp,
               ),

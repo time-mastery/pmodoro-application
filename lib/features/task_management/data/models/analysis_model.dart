@@ -1,7 +1,7 @@
 import "package:pomodore/features/task_management/data/models/pomodoro_model.dart";
 import "package:pomodore/features/task_management/domain/entities/analysis_entity.dart";
 
-import "../../../../core/utils/utils.dart";
+import "package:pomodore/core/utils/utils.dart";
 
 class AnalysisModel extends AnalysisEntity {
   const AnalysisModel({
@@ -19,8 +19,7 @@ class AnalysisModel extends AnalysisEntity {
         );
 
   factory AnalysisModel.fromJson(Map<String, dynamic> item) {
-    final List<YearlyAnalyzeItemModel> yearlyAnalyze =
-        createYearlyAnalysis(item["yearlyAnalyze"]);
+    final List<YearlyAnalyzeItemModel> yearlyAnalyze = createYearlyAnalysis(item["yearlyAnalyze"]);
     final Map<DateTime, int> overviews = createOverview(item["overviews"]);
 
     return AnalysisModel(
@@ -35,8 +34,7 @@ class AnalysisModel extends AnalysisEntity {
   static Map<DateTime, int> createOverview(List<PomodoroModel> mapList) {
     final Map<DateTime, int> overviews = {};
     for (var element in mapList) {
-      final DateTime dateTime =
-          Utils.createOverviewItemDateTime(element.dateTime);
+      final DateTime dateTime = Utils.createOverviewItemDateTime(element.dateTime);
       if (overviews.containsKey(dateTime)) {
         overviews.update(dateTime, (value) => value + 1);
       } else {
@@ -47,8 +45,7 @@ class AnalysisModel extends AnalysisEntity {
     return overviews;
   }
 
-  static List<YearlyAnalyzeItemModel> createYearlyAnalysis(
-      List<PomodoroModel>? mapList) {
+  static List<YearlyAnalyzeItemModel> createYearlyAnalysis(List<PomodoroModel>? mapList) {
     final Map<String, int> yearMap = {};
     if (mapList == null) return [];
     for (var element in mapList) {
@@ -60,9 +57,8 @@ class AnalysisModel extends AnalysisEntity {
       }
     }
 
-    final List<YearlyAnalyzeItemModel> yearlyAnalyze = yearMap.entries
-        .map((e) => YearlyAnalyzeItemModel(month: e.key, count: e.value))
-        .toList();
+    final List<YearlyAnalyzeItemModel> yearlyAnalyze =
+        yearMap.entries.map((e) => YearlyAnalyzeItemModel(month: e.key, count: e.value)).toList();
 
     return yearlyAnalyze;
   }
@@ -77,8 +73,7 @@ class YearlyAnalyzeItemModel extends YearlyAnalyzeItemEntity {
           month: month,
         );
 
-  factory YearlyAnalyzeItemModel.fromJson(Map<String, dynamic> item) =>
-      YearlyAnalyzeItemModel(
+  factory YearlyAnalyzeItemModel.fromJson(Map<String, dynamic> item) => YearlyAnalyzeItemModel(
         month: item["dateTime"],
         count: item["count"],
       );

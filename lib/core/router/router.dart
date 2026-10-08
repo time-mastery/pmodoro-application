@@ -7,8 +7,8 @@ import "package:pomodore/features/task_management/presentation/pages/add_task_pa
 import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
 import "package:pomodore/features/task_management/presentation/pages/edit_task_page.dart";
 
-import "../../features/configuration/presentation/pages/base_page.dart";
-import "../../features/configuration/presentation/pages/splash_page.dart";
+import "package:pomodore/features/configuration/presentation/pages/base_page.dart";
+import "package:pomodore/features/configuration/presentation/pages/splash_page.dart";
 
 class AppRouter {
   static Route<dynamic> onGenerationRouter(RouteSettings routeSettings) {
@@ -16,8 +16,7 @@ class AppRouter {
       case BasePage.routeName:
         return MaterialPageRoute(builder: (context) => BasePage());
       case NotificationsPage.routeName:
-        return MaterialPageRoute(
-            builder: (context) => const NotificationsPage());
+        return MaterialPageRoute(builder: (context) => const NotificationsPage());
 
       case AnalysisPage.routeName:
         return MaterialPageRoute(builder: (context) => const AnalysisPage());
@@ -29,8 +28,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const AddHabitPage());
       case EditTaskPage.routeName:
         return MaterialPageRoute(
-            builder: (context) =>
-                EditTaskPage(task: routeSettings.arguments as TaskEntity));
+            builder: (context) => EditTaskPage(task: routeSettings.arguments as TaskEntity));
       default:
         return MaterialPageRoute(builder: (context) => const SplashPage());
     }

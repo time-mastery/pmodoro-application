@@ -6,13 +6,13 @@ import "package:dartz/dartz.dart";
 import "package:equatable/equatable.dart";
 import "package:pomodore/core/resources/params/timer_state_params.dart";
 
-import "../../../../../core/resources/params/save_pomodoro_params.dart";
-import "../../../../../core/utils/ticker.dart";
-import "../../../domain/entities/pomodoro_entity.dart";
-import "../../../domain/entities/task_entity.dart";
-import "../../../domain/usecases/add_pomodoro_to_db_usecase.dart";
-import "../../../domain/usecases/restore_timer_state_usecase.dart";
-import "../../../domain/usecases/save_timer_state_usecase.dart";
+import "package:pomodore/core/resources/params/save_pomodoro_params.dart";
+import "package:pomodore/core/utils/ticker.dart";
+import "package:pomodore/features/task_management/domain/entities/pomodoro_entity.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/domain/usecases/add_pomodoro_to_db_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/restore_timer_state_usecase.dart";
+import "package:pomodore/features/task_management/domain/usecases/save_timer_state_usecase.dart";
 
 part "timer_event.dart";
 
@@ -30,8 +30,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     required this.saveTimerStateUseCase,
     required this.restoreTimerStateUseCase,
     required this.addPomodoroToDbUseCase,
-  })
-      : _ticker = ticker,
+  })  : _ticker = ticker,
         super(TimerInitial(_duration)) {
     on<TimerStarted>(_onStarted);
     on<TimerPaused>(_onPaused);
@@ -69,8 +68,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     return super.close();
   }
 
-  void _onCurrentPomodoroOnDatabaseSaved(CurrentPomodoroToDatabaseSaved event,
-      Emitter emit) async {
+  void _onCurrentPomodoroOnDatabaseSaved(CurrentPomodoroToDatabaseSaved event, Emitter emit) async {
     emit(SaveCurrentPomodoroLoading(state.duration));
 
     final Either<String, bool> result = await addPomodoroToDbUseCase.call(
@@ -80,14 +78,13 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       ),
     );
     result.fold(
-          (l) => emit(SaveCurrentPomodoroFailure(state.duration)),
-          (r) => emit(SaveCurrentPomodoroSuccess(state.duration)),
+      (l) => emit(SaveCurrentPomodoroFailure(state.duration)),
+      (r) => emit(SaveCurrentPomodoroSuccess(state.duration)),
     );
   }
 
   void _timerStateSaved(TimerStateSaved event, Emitter emit) async {
     emit(SaveTimerLoading(state.duration));
-
 
     final Either<String, int> result = await saveTimerStateUseCase.call(
       params: TimerStateParams(
@@ -99,32 +96,27 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     );
 
     result.fold(
-          (l) =>
-          emit(
-            SaveTimerFailure(state.duration),
-          ),
-          (r) =>
-          emit(
-            SaveTimerSuccess(state.duration),
-          ),
+      (l) => emit(
+        SaveTimerFailure(state.duration),
+      ),
+      (r) => emit(
+        SaveTimerSuccess(state.duration),
+      ),
     );
   }
 
   void _timerStateRestored(TimerStateRestored event, Emitter emit) async {
     emit(RestoreTimerLoading(state.duration));
 
-    final Either<String, TimerStateParams> result =
-    await restoreTimerStateUseCase.call();
+    final Either<String, TimerStateParams> result = await restoreTimerStateUseCase.call();
 
     result.fold(
-          (l) =>
-          emit(
-            RestoreTimerFailure(state.duration),
-          ),
-          (r) =>
-          emit(
-            RestoreTimerSuccess(state.duration, r),
-          ),
+      (l) => emit(
+        RestoreTimerFailure(state.duration),
+      ),
+      (r) => emit(
+        RestoreTimerSuccess(state.duration, r),
+      ),
     );
   }
 
@@ -156,9 +148,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
     emit(TimerInProgress(event.duration));
     _tickerSubscription?.cancel();
-    _tickerSubscription = _ticker
-        .tick(ticks: event.duration)
-        .listen((duration) => add(_TimerTicked(duration)));
+    _tickerSubscription =
+        _ticker.tick(ticks: event.duration).listen((duration) => add(_TimerTicked(duration)));
   }
 
   void _onPaused(TimerPaused event, Emitter<TimerState> emit) {
@@ -182,9 +173,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _onTicked(_TimerTicked event, Emitter<TimerState> emit) {
     emit(
-      event.duration > 0
-          ? TimerInProgress(event.duration)
-          : const TimerCompleted(),
+      event.duration > 0 ? TimerInProgress(event.duration) : const TimerCompleted(),
     );
   }
 }

@@ -11,12 +11,12 @@ import "package:pomodore/features/task_management/domain/entities/task_entity.da
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 import "package:uuid/uuid.dart";
 
-import "../../../../core/constant/constant.dart";
-import "../../../../core/resources/params/task_params.dart";
-import "../../../../core/shared_widgets/global_indicator.dart";
-import "../../../../core/utils/responsive/size_config.dart";
-import "../../../../di.dart";
-import "../../../../exports.dart";
+import "package:pomodore/core/constant/constant.dart";
+import "package:pomodore/core/resources/params/task_params.dart";
+import "package:pomodore/core/shared_widgets/global_indicator.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/di.dart";
+import "package:pomodore/exports.dart";
 
 class AddTaskPage extends StatelessWidget {
   const AddTaskPage({super.key, this.editItem});
@@ -28,8 +28,7 @@ class AddTaskPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => getIt.get<TasksBloc>(),
-        child: const AddTaskView());
+        create: (BuildContext context) => getIt.get<TasksBloc>(), child: const AddTaskView());
   }
 }
 
@@ -107,8 +106,7 @@ class AddTaskView extends HookWidget {
                     Container(
                       height: SizeConfig.heightMultiplier * 5,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Theme.of(context).colorScheme.onSurface),
+                        border: Border.all(color: Theme.of(context).colorScheme.onSurface),
                         borderRadius: BorderRadius.circular(AppConstant.radius),
                       ),
                       child: TextButton(
@@ -126,9 +124,7 @@ class AddTaskView extends HookWidget {
                                         use24hFormat: true,
                                         initialDateTime: DateTime.now(),
                                         onDateTimeChanged: (val) {
-                                          context
-                                              .read<TasksBloc>()
-                                              .add(DateAdded(val));
+                                          context.read<TasksBloc>().add(DateAdded(val));
                                           dateTime.value = val;
                                         }),
                                   ),
@@ -138,9 +134,7 @@ class AddTaskView extends HookWidget {
                                     child: const Text("OK"),
                                     onPressed: () {
                                       if (dateTime.value == null) {
-                                        context
-                                            .read<TasksBloc>()
-                                            .add(DateAdded(DateTime.now()));
+                                        context.read<TasksBloc>().add(DateAdded(DateTime.now()));
                                         dateTime.value = DateTime.now();
                                       }
 

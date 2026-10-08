@@ -5,13 +5,13 @@ import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/core/utils/responsive/size_config.dart";
 import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
 
-import "../../../../core/resources/params/settings_params.dart";
-import "../../../../core/services/database/storage.dart";
-import "../../../../di.dart";
-import "../../../../exports.dart";
-import "../../domain/entities/settings_entity.dart";
-import "../widgets/change_language_bottom_sheet.dart";
-import "../widgets/change_theme_bottom_sheet.dart";
+import "package:pomodore/core/resources/params/settings_params.dart";
+import "package:pomodore/core/services/database/storage.dart";
+import "package:pomodore/di.dart";
+import "package:pomodore/exports.dart";
+import "package:pomodore/features/configuration/domain/entities/settings_entity.dart";
+import "package:pomodore/features/configuration/presentation/widgets/change_language_bottom_sheet.dart";
+import "package:pomodore/features/configuration/presentation/widgets/change_theme_bottom_sheet.dart";
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -19,8 +19,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt.get<SettingsBloc>()..add(SettingsFromDeviceFetched()),
+      create: (context) => getIt.get<SettingsBloc>()..add(SettingsFromDeviceFetched()),
       child: const SettingsView(),
     );
   }
@@ -65,9 +64,7 @@ class SettingsView extends StatelessWidget {
                   ),
                   value: entity.notification,
                   onChanged: (value) {
-                    context
-                        .read<SettingsBloc>()
-                        .add(SettingsChanged(ChangeSettingsParams(
+                    context.read<SettingsBloc>().add(SettingsChanged(ChangeSettingsParams(
                           key: FStorage.notificationKey,
                           value: value,
                         )));

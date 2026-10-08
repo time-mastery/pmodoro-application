@@ -7,11 +7,11 @@ import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/
 import "package:pomodore/features/task_management/presentation/pages/add_task_page.dart";
 import "package:pomodore/features/task_management/presentation/pages/task_widgets/day_without_task_widget.dart";
 
-import "../../../../core/resources/enums/tasks_filter_enums.dart";
-import "../../../../di.dart";
-import "../../../../exports.dart";
-import "../../domain/entities/task_entity.dart";
-import "../shared_widgets/task_item.dart";
+import "package:pomodore/core/resources/enums/tasks_filter_enums.dart";
+import "package:pomodore/di.dart";
+import "package:pomodore/exports.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/presentation/shared_widgets/task_item.dart";
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
@@ -69,12 +69,9 @@ class _TaskViewState extends State<TaskView> {
         return Scaffold(
           appBar: BaseAppBar(
             title: localization.tasksTitle,
-            action: (tasksList.isNotEmpty)
-                ? const Icon(CupertinoIcons.add_circled_solid)
-                : null,
+            action: (tasksList.isNotEmpty) ? const Icon(CupertinoIcons.add_circled_solid) : null,
             onPressed: (tasksList.isNotEmpty)
-                ? () =>
-                    Navigator.pushNamed(context, AddTaskPage.routeName).then(
+                ? () => Navigator.pushNamed(context, AddTaskPage.routeName).then(
                       (_) {
                         context.read<TasksBloc>()
                           ..add(
@@ -92,16 +89,14 @@ class _TaskViewState extends State<TaskView> {
           ),
           body: Column(
             children: [
-              if (state is GetAllTasksSuccess && state.list.isEmpty)
-                const DayWithoutTask(),
+              if (state is GetAllTasksSuccess && state.list.isEmpty) const DayWithoutTask(),
               if (state is GetAllTasksFail) const Center(child: Text("error")),
               if (state is GetAllTasksLoading) const GlobalIndicator(),
               Expanded(
                 child: ListView.separated(
                   padding: const EdgeInsets.only(top: 20),
                   itemCount: tasksList.length,
-                  itemBuilder: (context, index) =>
-                      TaskItem(task: tasksList[index]),
+                  itemBuilder: (context, index) => TaskItem(task: tasksList[index]),
                   separatorBuilder: (BuildContext context, int index) {
                     return Container();
                   },

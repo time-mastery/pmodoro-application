@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 
-import "../constant/constant.dart";
+import "package:pomodore/core/constant/constant.dart";
 
 class BaseAppBar extends HookWidget implements PreferredSizeWidget {
   const BaseAppBar({
@@ -25,9 +25,7 @@ class BaseAppBar extends HookWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final controller = useAnimationController(
-        duration: const Duration(milliseconds: 800),
-        lowerBound: 0.0,
-        upperBound: 1.0)
+        duration: const Duration(milliseconds: 800), lowerBound: 0.0, upperBound: 1.0)
       ..forward();
 
     return Directionality(

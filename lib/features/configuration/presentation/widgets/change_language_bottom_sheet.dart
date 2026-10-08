@@ -3,16 +3,15 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:ionicons/ionicons.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 
-import "../../../../core/utils/responsive/size_config.dart";
-import "../../../../exports.dart";
-import "../../domain/entities/language_entity.dart";
-import "../blocs/settings_bloc/settings_bloc.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/exports.dart";
+import "package:pomodore/features/configuration/domain/entities/language_entity.dart";
+import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
 
 class ChangeLanguageBottomSheet extends StatelessWidget {
   const ChangeLanguageBottomSheet({Key? key}) : super(key: key);
 
-  Future<void> bottomSheet(BuildContext context, Widget? child) =>
-      showModalBottomSheet<void>(
+  Future<void> bottomSheet(BuildContext context, Widget? child) => showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
           return Container(
@@ -69,14 +68,12 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                           itemCount: flags.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 2),
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
                               child: Card(
                                 child: InkWell(
                                   onTap: () {
                                     context.read<SettingsBloc>().add(
-                                          LocaleChanged(
-                                              flags[index].languageCode),
+                                          LocaleChanged(flags[index].languageCode),
                                         );
                                     Navigator.pop(context);
                                   },
@@ -84,10 +81,7 @@ class ChangeLanguageBottomSheet extends StatelessWidget {
                                     padding: const EdgeInsets.all(20.0),
                                     child: Text(
                                       flags[index].title,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
+                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                             fontStyle: FontStyle.italic,
                                           ),
                                       textAlign: TextAlign.start,

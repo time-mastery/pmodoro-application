@@ -2,16 +2,15 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:pomodore/core/extensions/sized_box_extension.dart";
 
-import "../../../../core/constant/constant.dart";
-import "../../../../core/utils/responsive/size_config.dart";
-import "../../../../exports.dart";
-import "../blocs/settings_bloc/settings_bloc.dart";
+import "package:pomodore/core/constant/constant.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/exports.dart";
+import "package:pomodore/features/configuration/presentation/blocs/settings_bloc/settings_bloc.dart";
 
 class ChangeThemeBottomSheet extends StatelessWidget {
   const ChangeThemeBottomSheet({Key? key}) : super(key: key);
 
-  Future<void> bottomSheet(BuildContext context, Widget? child) =>
-      showModalBottomSheet<void>(
+  Future<void> bottomSheet(BuildContext context, Widget? child) => showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
           return Container(
@@ -63,13 +62,13 @@ class ChangeThemeBottomSheet extends StatelessWidget {
                           child: ListView.builder(
                         itemCount: AppConstant.themes.length,
                         itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 2),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
                           child: Card(
                             child: InkWell(
                               onTap: () {
-                                context.read<SettingsBloc>().add(
-                                    ThemeChanged(AppConstant.themes[index]));
+                                context
+                                    .read<SettingsBloc>()
+                                    .add(ThemeChanged(AppConstant.themes[index]));
                                 Navigator.pop(context);
                               },
                               child: Center(

@@ -5,12 +5,12 @@ import "package:pomodore/core/extensions/sized_box_extension.dart";
 import "package:pomodore/core/shared_widgets/base_app_bar.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
-import "../../../../core/shared_widgets/custom_form_field.dart";
-import "../../../../core/shared_widgets/global_button.dart";
-import "../../../../core/shared_widgets/global_indicator.dart";
-import "../../../../core/shared_widgets/global_snack.dart";
-import "../../../../di.dart";
-import "../../../../exports.dart";
+import "package:pomodore/core/shared_widgets/custom_form_field.dart";
+import "package:pomodore/core/shared_widgets/global_button.dart";
+import "package:pomodore/core/shared_widgets/global_indicator.dart";
+import "package:pomodore/core/shared_widgets/global_snack.dart";
+import "package:pomodore/di.dart";
+import "package:pomodore/exports.dart";
 
 class AddCategoryPage extends StatelessWidget {
   const AddCategoryPage({Key? key}) : super(key: key);

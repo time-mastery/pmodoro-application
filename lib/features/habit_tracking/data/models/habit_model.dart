@@ -1,10 +1,8 @@
-
-
 import "package:pomodore/core/services/database/drift_helper.dart";
 
-import "../../../../core/resources/params/habit_params.dart";
-import "../../../../core/utils/utils.dart";
-import "../../domain/entities/habit_entity.dart";
+import "package:pomodore/core/resources/params/habit_params.dart";
+import "package:pomodore/core/utils/utils.dart";
+import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 
 class HabitModel extends HabitEntity {
   const HabitModel({
@@ -29,8 +27,7 @@ class HabitModel extends HabitEntity {
 
   factory HabitModel.fromJson(Map json) {
     final overviews = json["overviews"] as Map<DateTime, int>;
-    final completed =
-        overviews.keys.any((element) => Utils.checkDateIsToday(element));
+    final completed = overviews.keys.any((element) => Utils.checkDateIsToday(element));
 
     return HabitModel(
       id: json["habit"]["_id"] ?? 0,
@@ -59,8 +56,7 @@ class HabitModel extends HabitEntity {
     collection.overviews?.forEach((element) {
       overviewsMap.addAll({DateTime.parse(element): 1});
     });
-    final completed =
-        overviewsMap.keys.any((element) => Utils.checkDateIsToday(element));
+    final completed = overviewsMap.keys.any((element) => Utils.checkDateIsToday(element));
     return HabitModel(
       overviews: overviewsMap,
       title: collection.habitTitle!,

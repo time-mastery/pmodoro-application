@@ -12,9 +12,9 @@ import "package:pomodore/exports.dart";
 import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.dart";
 import "package:uuid/uuid.dart";
 
-import "../../../../core/shared_widgets/global_snack.dart";
-import "../../../../di.dart";
-import "../blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
+import "package:pomodore/core/shared_widgets/global_snack.dart";
+import "package:pomodore/di.dart";
+import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
 
 class AddHabitPage extends StatelessWidget {
   const AddHabitPage({super.key, this.item, this.habits});
@@ -51,10 +51,9 @@ class AddHabitView extends HookWidget {
 
     useEffect(() {
       if (item != null) {
-        selectedColor.value = Colors.primaries
-            .indexWhere((element) => element.value == item!.color);
-        selectedIcon.value =
-            IconConverter.icons.keys.toList().indexOf(item!.iconName);
+        selectedColor.value =
+            Colors.primaries.indexWhere((element) => element.value == item!.color);
+        selectedIcon.value = IconConverter.icons.keys.toList().indexOf(item!.iconName);
         titleController.text = item!.title;
         desctiptionController.text = item!.description;
       }
@@ -67,9 +66,7 @@ class AddHabitView extends HookWidget {
 
     return Scaffold(
       appBar: BaseAppBar(
-        title: item == null
-            ? localization.addHabitTitle
-            : localization.updateHabit,
+        title: item == null ? localization.addHabitTitle : localization.updateHabit,
         hasBackBtn: true,
       ),
       body: BlocConsumer<HabitTrackerBloc, HabitTrackerState>(
@@ -188,8 +185,7 @@ class AddHabitView extends HookWidget {
                               HabitParams(
                                 id: item!.id,
                                 title: titleController.text,
-                                color:
-                                    Colors.primaries[selectedColor.value].value,
+                                color: Colors.primaries[selectedColor.value].value,
                                 description: desctiptionController.text,
                                 icon: IconConverter.findKeyByValue(
                                   iconList[selectedIcon.value],
@@ -201,8 +197,7 @@ class AddHabitView extends HookWidget {
                                 HabitAdded(
                                   HabitParams(
                                     title: titleController.text,
-                                    color: Colors
-                                        .primaries[selectedColor.value].value,
+                                    color: Colors.primaries[selectedColor.value].value,
                                     description: desctiptionController.text,
                                     icon: IconConverter.findKeyByValue(
                                       iconList[selectedIcon.value],

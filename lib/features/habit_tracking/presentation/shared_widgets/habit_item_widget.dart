@@ -9,7 +9,7 @@ import "package:pomodore/features/habit_tracking/domain/entities/habit_entity.da
 import "package:pomodore/features/habit_tracking/presentation/blocs/habit_tracker_bloc/habit_tracker_bloc.dart";
 import "package:pomodore/features/habit_tracking/presentation/pages/add_habit_page.dart";
 
-import "../../../../exports.dart";
+import "package:pomodore/exports.dart";
 
 class HabitItemWidget extends HookWidget {
   const HabitItemWidget({super.key, required this.item, required this.habits});
@@ -100,9 +100,7 @@ class HabitItemWidget extends HookWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: item.isCompleteToday
-                              ? color
-                              : color.withOpacity(.2),
+                          color: item.isCompleteToday ? color : color.withOpacity(.2),
                           borderRadius: BorderRadius.circular(
                             AppConstant.radius,
                           ),
@@ -168,8 +166,8 @@ class HabitItemWidget extends HookWidget {
                     ),
                     10.spaceW(),
                     GestureDetector(
-                      onTap: () => showDeleteConfirmationDialog(
-                          context, context.read<HabitTrackerBloc>()),
+                      onTap: () =>
+                          showDeleteConfirmationDialog(context, context.read<HabitTrackerBloc>()),
                       child: Container(
                         decoration: BoxDecoration(
                           color: color.withOpacity(.2),
@@ -194,8 +192,7 @@ class HabitItemWidget extends HookWidget {
     );
   }
 
-  void showDeleteConfirmationDialog(
-      BuildContext context, HabitTrackerBloc bloc) {
+  void showDeleteConfirmationDialog(BuildContext context, HabitTrackerBloc bloc) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

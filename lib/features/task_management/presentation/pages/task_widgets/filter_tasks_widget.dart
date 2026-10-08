@@ -4,7 +4,7 @@ import "package:pomodore/core/resources/enums/tasks_filter_enums.dart";
 import "package:pomodore/core/utils/debug_print.dart";
 import "package:pomodore/features/task_management/presentation/blocs/tasks_bloc/tasks_bloc.dart";
 
-import "../../../domain/entities/task_entity.dart";
+import "package:pomodore/features/task_management/domain/entities/task_entity.dart";
 
 class FilterTasksWidget extends StatelessWidget {
   const FilterTasksWidget({super.key, required this.list});
@@ -39,9 +39,7 @@ class FilterTasksWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   margin: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
-                    color: (index == 0)
-                        ? Theme.of(context).colorScheme.onBackground
-                        : null,
+                    color: (index == 0) ? Theme.of(context).colorScheme.onBackground : null,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: Theme.of(context).colorScheme.onBackground,
@@ -50,9 +48,7 @@ class FilterTasksWidget extends StatelessWidget {
                   child: Text(
                     "All Tasks",
                     style: TextStyle(
-                      color: (index == 0)
-                          ? Theme.of(context).colorScheme.background
-                          : null,
+                      color: (index == 0) ? Theme.of(context).colorScheme.background : null,
                     ),
                   ),
                 ),
@@ -70,9 +66,7 @@ class FilterTasksWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   margin: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
-                    color: (index == 1)
-                        ? Theme.of(context).colorScheme.onBackground
-                        : null,
+                    color: (index == 1) ? Theme.of(context).colorScheme.onBackground : null,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: Theme.of(context).colorScheme.onBackground,
@@ -81,9 +75,7 @@ class FilterTasksWidget extends StatelessWidget {
                   child: Text(
                     "UnCompleted",
                     style: TextStyle(
-                      color: (index == 1)
-                          ? Theme.of(context).colorScheme.background
-                          : null,
+                      color: (index == 1) ? Theme.of(context).colorScheme.background : null,
                     ),
                   ),
                 ),
@@ -101,9 +93,7 @@ class FilterTasksWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   margin: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
-                    color: (index == 2)
-                        ? Theme.of(context).colorScheme.onBackground
-                        : null,
+                    color: (index == 2) ? Theme.of(context).colorScheme.onBackground : null,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: Theme.of(context).colorScheme.onBackground,
@@ -112,9 +102,7 @@ class FilterTasksWidget extends StatelessWidget {
                   child: Text(
                     "Completed",
                     style: TextStyle(
-                      color: (index == 2)
-                          ? Theme.of(context).colorScheme.background
-                          : null,
+                      color: (index == 2) ? Theme.of(context).colorScheme.background : null,
                     ),
                   ),
                 ),

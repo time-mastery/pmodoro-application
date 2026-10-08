@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
-import "../../../../core/utils/responsive/size_config.dart";
-import "../blocs/timer_bloc/timer_bloc.dart";
+import "package:pomodore/core/utils/responsive/size_config.dart";
+import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/timer_bloc.dart";
 
 class TimerDurationSelector extends StatefulWidget {
   const TimerDurationSelector({Key? key}) : super(key: key);
@@ -76,16 +76,14 @@ class _TimerDurationSelectorState extends State<TimerDurationSelector> {
               },
               child: ListView.builder(
                 controller: _scrollController,
-                padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.widthMultiplier * 40),
+                padding: EdgeInsets.symmetric(horizontal: SizeConfig.widthMultiplier * 40),
                 scrollDirection: Axis.horizontal,
                 itemCount: listOfTimerDuration.length,
                 itemBuilder: (context, index) {
                   return BlocBuilder<TimerBloc, TimerState>(
                     builder: (context, state) {
                       if (state is ChangeTimerDurationSuccess) {}
-                      final selected = (listOfTimerDuration[index] ==
-                          TimerBloc.getDuration / 60);
+                      final selected = (listOfTimerDuration[index] == TimerBloc.getDuration / 60);
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: GestureDetector(
@@ -109,12 +107,9 @@ class _TimerDurationSelectorState extends State<TimerDurationSelector> {
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all(
                                 width: 2,
-                                color: (listOfTimerDuration[index] ==
-                                        TimerBloc.getDuration / 60)
+                                color: (listOfTimerDuration[index] == TimerBloc.getDuration / 60)
                                     ? Colors.transparent
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
+                                    : Theme.of(context).colorScheme.onBackground,
                               ),
                             ),
                             child: Center(

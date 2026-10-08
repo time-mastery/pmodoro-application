@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:pomodore/features/task_management/presentation/blocs/home_bloc/home_bloc.dart";
 
-import "../../../../../exports.dart";
+import "package:pomodore/exports.dart";
 
 class HomeTaskCountWidget extends StatelessWidget {
   const HomeTaskCountWidget({Key? key}) : super(key: key);
@@ -15,10 +15,7 @@ class HomeTaskCountWidget extends StatelessWidget {
       builder: (context, state) {
         return Text(
           localization.remainTaskTitle.replaceAll(
-              "#",
-              ((state is FetchHomeDataSuccess)
-                  ? state.list.length.toString()
-                  : "-")),
+              "#", ((state is FetchHomeDataSuccess) ? state.list.length.toString() : "-")),
           style: Theme.of(context).textTheme.titleLarge,
         );
       },

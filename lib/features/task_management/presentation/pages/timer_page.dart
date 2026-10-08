@@ -11,12 +11,12 @@ import "package:pomodore/features/task_management/presentation/blocs/timer_bloc/
 import "package:pomodore/features/task_management/presentation/pages/analysis_page.dart";
 import "package:pomodore/features/task_management/presentation/shared_widgets/timer_task.dart";
 
-import "../../../../core/services/notification/local_notification.dart";
-import "../../../../di.dart";
-import "../../../../exports.dart";
-import "../shared_widgets/timer_duration_selector.dart";
-import "timer_widgets/timer_bar_widgets.dart";
-import "timer_widgets/timer_buttons_widget.dart";
+import "package:pomodore/core/services/notification/local_notification.dart";
+import "package:pomodore/di.dart";
+import "package:pomodore/exports.dart";
+import "package:pomodore/features/task_management/presentation/shared_widgets/timer_duration_selector.dart";
+import "package:pomodore/features/task_management/presentation/pages/timer_widgets/timer_bar_widgets.dart";
+import "package:pomodore/features/task_management/presentation/pages/timer_widgets/timer_buttons_widget.dart";
 
 class TimerPage extends StatelessWidget {
   const TimerPage({Key? key}) : super(key: key);

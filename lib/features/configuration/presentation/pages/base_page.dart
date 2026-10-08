@@ -5,10 +5,10 @@ import "package:pomodore/features/configuration/presentation/blocs/base_bloc/bas
 import "package:pomodore/features/configuration/presentation/pages/settings_page.dart";
 import "package:pomodore/features/habit_tracking/presentation/pages/habit_tracking_page.dart";
 
-import "../../../../exports.dart";
-import "../../../task_management/presentation/pages/home_page.dart";
-import "../../../task_management/presentation/pages/tasks_page.dart";
-import "../../../task_management/presentation/pages/timer_page.dart";
+import "package:pomodore/exports.dart";
+import "package:pomodore/features/task_management/presentation/pages/home_page.dart";
+import "package:pomodore/features/task_management/presentation/pages/tasks_page.dart";
+import "package:pomodore/features/task_management/presentation/pages/timer_page.dart";
 
 class BasePage extends StatelessWidget {
   BasePage({Key? key}) : super(key: key);
@@ -46,8 +46,7 @@ class BasePage extends StatelessWidget {
               icon: const Icon(Ionicons.book),
               label: localization.tasksTab,
             ),
-            const BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_month), label: ""),
+            const BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: ""),
             BottomNavigationBarItem(
               icon: Container(
                 width: 40,
@@ -64,8 +63,7 @@ class BasePage extends StatelessWidget {
               label: localization.timerTab,
             ),
             BottomNavigationBarItem(
-                icon: const Icon(Ionicons.settingsOutline),
-                label: localization.settingTab),
+                icon: const Icon(Ionicons.settingsOutline), label: localization.settingTab),
           ],
           showSelectedLabels: false,
           showUnselectedLabels: false,
