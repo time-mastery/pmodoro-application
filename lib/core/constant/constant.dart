@@ -62,9 +62,11 @@ class AppConstant {
     scaffoldBackgroundColor: Colors.white,
     fontFamily: getFontFamily(),
     cardColor: Colors.white,
-    cardTheme: const CardTheme(
-      elevation: 5,
-      shape: RoundedRectangleBorder(
+    cardTheme: CardThemeData(
+      elevation: 2,
+      shadowColor: Colors.black.withValues(alpha: .15),
+      surfaceTintColor: Colors.transparent,
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
     ),
@@ -76,10 +78,10 @@ class AppConstant {
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      surface: Colors.black12,
+      surface: Colors.white,
       onSurface: Colors.black,
       surfaceTint: Colors.black12,
-      surfaceContainerHighest: Colors.black12,
+      surfaceContainerHighest: Color(0xFFEEEEEE),
       inverseSurface: Colors.white,
     ),
     snackBarTheme: const SnackBarThemeData(
@@ -95,7 +97,12 @@ class AppConstant {
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
-      elevation: 10,
+      elevation: 4,
+    ),
+    dialogTheme: DialogThemeData(
+      elevation: 3,
+      shadowColor: Colors.black.withValues(alpha: .15),
+      surfaceTintColor: Colors.transparent,
     ),
     switchTheme: const SwitchThemeData(),
     inputDecorationTheme:
@@ -110,7 +117,7 @@ class AppConstant {
     scaffoldBackgroundColor: Colors.black,
     fontFamily: getFontFamily(),
     cardColor: Colors.white10,
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -124,10 +131,10 @@ class AppConstant {
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      surface: Colors.white10,
+      surface: Color(0xFF1E1E1E),
       onSurface: Colors.white,
       surfaceTint: Colors.white10,
-      surfaceContainerHighest: Colors.white24,
+      surfaceContainerHighest: Color(0xFF2A2A2A),
       inverseSurface: Colors.black,
     ),
     snackBarTheme: const SnackBarThemeData(
@@ -163,7 +170,7 @@ class AppConstant {
     scaffoldBackgroundColor: const Color(0xff2e3440),
     fontFamily: getFontFamily(),
     cardColor: Colors.white10,
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -177,10 +184,10 @@ class AppConstant {
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      surface: Colors.white10,
+      surface: Color(0xff3B4252),
       onSurface: Colors.white,
       surfaceTint: Colors.white10,
-      surfaceContainerHighest: Colors.white24,
+      surfaceContainerHighest: Color(0xff434C5E),
       inverseSurface: Color(0xff2e3440),
     ),
     snackBarTheme: const SnackBarThemeData(
@@ -216,7 +223,7 @@ class AppConstant {
     scaffoldBackgroundColor: const Color(0xff0C134F),
     fontFamily: getFontFamily(),
     cardColor: const Color(0xff1D267D),
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -230,10 +237,10 @@ class AppConstant {
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      surface: Colors.white10,
+      surface: Color(0xff1D267D),
       onSurface: Colors.white,
       surfaceTint: Colors.white10,
-      surfaceContainerHighest: Colors.white24,
+      surfaceContainerHighest: Color(0xff2A3395),
       inverseSurface: Color(0xff0C134F),
     ),
     snackBarTheme: const SnackBarThemeData(
