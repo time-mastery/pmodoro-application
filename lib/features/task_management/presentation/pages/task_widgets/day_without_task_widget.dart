@@ -20,7 +20,7 @@ class DayWithoutTask extends StatelessWidget {
       children: [
         (SizeConfig.heightMultiplier * 10).spaceH(),
         const Icon(
-          Ionicons.document_text,
+          Ionicons.documentText,
           size: 150,
         ),
         (SizeConfig.heightMultiplier * 5).spaceH(),

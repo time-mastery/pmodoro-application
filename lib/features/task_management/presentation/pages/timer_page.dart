@@ -45,7 +45,7 @@ class TimerView extends StatelessWidget {
           ),
         ),
         leading: const Icon(
-          Ionicons.save_outline,
+          Ionicons.saveOutline,
         ),
         actions: [
           TextButton(

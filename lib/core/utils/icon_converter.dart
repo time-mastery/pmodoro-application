@@ -1,33 +1,34 @@
+import "package:flutter/widgets.dart";
 import "package:ionicons/ionicons.dart";
 
 class IconConverter {
   static final Map icons = {
-    "alarm_outline": Ionicons.alarm_outline,
-    "bed_outline": Ionicons.bed_outline,
-    "book_outline": Ionicons.book_outline,
-    "car_sport_outline": Ionicons.car_sport_outline,
-    "code_download_outline": Ionicons.code_download_outline,
-    "document_lock_outline": Ionicons.document_lock_outline,
-    "film_outline": Ionicons.film_outline,
-    "game_controller_outline": Ionicons.game_controller_outline,
-    "headset_outline": Ionicons.headset_outline,
-    "home_outline": Ionicons.home_outline,
-    "library_outline": Ionicons.library_outline,
-    "list_outline": Ionicons.list_outline,
-    "moon_outline": Ionicons.moon_outline,
-    "musical_notes_outline": Ionicons.musical_notes_outline,
-    "notifications_circle_outline": Ionicons.notifications_circle_outline,
-    "open_outline": Ionicons.open_outline,
-    "school_outline": Ionicons.school_outline,
-    "shirt_outline": Ionicons.shirt_outline,
-    "telescope_outline": Ionicons.telescope_outline,
-    "terminal_outline": Ionicons.terminal_outline,
-    "today_outline": Ionicons.today_outline,
-    "walk_outline": Ionicons.walk_outline,
-    "wallet_outline": Ionicons.wallet_outline
+    "alarm_outline": Ionicons.alarmOutline,
+    "bed_outline": Ionicons.bedOutline,
+    "book_outline": Ionicons.bookOutline,
+    "car_sport_outline": Ionicons.carSportOutline,
+    "code_download_outline": Ionicons.codeDownloadOutline,
+    "document_lock_outline": Ionicons.documentLockOutline,
+    "film_outline": Ionicons.filmOutline,
+    "game_controller_outline": Ionicons.gameControllerOutline,
+    "headset_outline": Ionicons.headsetOutline,
+    "home_outline": Ionicons.homeOutline,
+    "library_outline": Ionicons.libraryOutline,
+    "list_outline": Ionicons.listOutline,
+    "moon_outline": Ionicons.moonOutline,
+    "musical_notes_outline": Ionicons.musicalNotesOutline,
+    "notifications_circle_outline": Ionicons.notificationsCircleOutline,
+    "open_outline": Ionicons.openOutline,
+    "school_outline": Ionicons.schoolOutline,
+    "shirt_outline": Ionicons.shirtOutline,
+    "telescope_outline": Ionicons.telescopeOutline,
+    "terminal_outline": Ionicons.terminalOutline,
+    "today_outline": Ionicons.todayOutline,
+    "walk_outline": Ionicons.walkOutline,
+    "wallet_outline": Ionicons.walletOutline
   };
 
-  static String findKeyByValue(IoniconsData value) {
+  static String findKeyByValue(IconData value) {
     var entry = icons.entries.firstWhere(
       (entry) => entry.value == value,
     );

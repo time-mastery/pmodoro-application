@@ -34,7 +34,7 @@ class ProfileView extends HookWidget {
         child: Column(
           children: [
             const Icon(
-              Ionicons.person_circle,
+              Ionicons.personCircle,
               size: 120,
             ),
             SizedBox(

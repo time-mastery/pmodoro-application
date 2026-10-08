@@ -57,14 +57,14 @@ class BasePage extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  Ionicons.timer_outline,
+                  Ionicons.timerOutline,
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
               label: localization.timerTab,
             ),
             BottomNavigationBarItem(
-                icon: const Icon(Ionicons.settings_outline),
+                icon: const Icon(Ionicons.settingsOutline),
                 label: localization.settingTab),
           ],
           showSelectedLabels: false,

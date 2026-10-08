@@ -42,7 +42,7 @@ class NotificationsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(
-            Ionicons.ice_cream_outline,
+            Ionicons.iceCreamOutline,
             size: 200,
           ),
           (SizeConfig.heightMultiplier * 2).spaceH(),

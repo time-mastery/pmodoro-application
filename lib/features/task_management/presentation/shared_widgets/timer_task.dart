@@ -41,7 +41,7 @@ class TimerTask extends StatelessWidget {
             child: const Padding(
               padding: EdgeInsets.all(11.0),
               child: Icon(
-                Ionicons.ice_cream,
+                Ionicons.iceCream,
               ),
             ),
           ),
