@@ -99,5 +99,6 @@
     "noHabitMessage": "Es gibt keine Gewohnheit!",
     "updateHabit": "Gewohnheit aktualisieren",
     "remainTaskTitle": "Aufgaben (#) verbleiben",
-    "selectDate":"Auswählen des Fälligkeitsdatums"
-  }
+    "selectDate":"Auswählen des Fälligkeitsdatums",
+    "splashTagline":"FOKUS · FLOW · FERTIG"
+}

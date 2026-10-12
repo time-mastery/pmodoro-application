@@ -99,5 +99,6 @@
     "noHabitMessage": "هیچ عادتی وجود ندارد!",
     "updateHabit": "به‌روزرسانی عادت",
     "remainTaskTitle": "وظایف (#) باقی مانده",
-    "selectDate":"تاریخ و زمان را انتخاب کنید"
+    "selectDate":"تاریخ و زمان را انتخاب کنید",
+    "splashTagline":"تمرکز · جریان · پایان"
 }
