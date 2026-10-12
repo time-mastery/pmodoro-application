@@ -1,0 +1,50 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "pmdoro (macOS)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "deviceId": "macos",
+      "codeLens": {
+        "for": [
+          "run-file",
+          "debug-file"
+        ],
+        "path": "lib/main.dart",
+        "title": "${debugType} macOS"
+      }
+    },
+    {
+      "name": "pmdoro (iOS Simulator)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "deviceId": "iPhone 17 Pro",
+      "codeLens": {
+        "for": [
+          "run-file",
+          "debug-file"
+        ],
+        "path": "lib/main.dart",
+        "title": "${debugType} iOS"
+      }
+    },
+    {
+      "name": "pmdoro (macOS, profile)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "deviceId": "macos",
+      "flutterMode": "profile",
+      "codeLens": {
+        "for": [
+          "run-file"
+        ],
+        "path": "lib/main.dart",
+        "title": "${debugType} profile macOS"
+      }
+    }
+  ]
+}
