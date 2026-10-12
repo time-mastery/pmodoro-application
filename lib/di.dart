@@ -55,7 +55,7 @@ import "package:pomodore/features/task_management/domain/usecases/get_uncomplete
 final getIt = GetIt.instance;
 
 Future inject() async {
-  FStorage.initialize();
+  await FStorage.initialize();
 
   getIt.registerSingleton(AppDatabase());
 

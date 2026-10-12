@@ -1,4 +1,7 @@
+import "dart:io";
+
 import "package:flutter_secure_storage/flutter_secure_storage.dart";
+import "package:hive_flutter/hive_flutter.dart";
 
 class FStorage {
   static const notificationKey = "_notification_";
@@ -18,34 +21,51 @@ class FStorage {
 
   static late FlutterSecureStorage flutterSecureStorage;
 
-  static void initialize() async {
-    flutterSecureStorage = const FlutterSecureStorage(
-      // Data-protection keychain requires a real signing Team ID; local
-      // ad-hoc builds don't have one, so SecItemAdd fails with
-      // errSecMissingEntitlement (-34018). Fall back to the legacy keychain.
-      mOptions: MacOsOptions(useDataProtectionKeyChain: false),
-    );
+  /// On macOS the keychain ties item access to the app's code signature.
+  /// Local builds are ad-hoc signed, so every rebuild gets a new signature
+  /// and macOS asks for the login password again. Nothing stored here is
+  /// secret (settings and timer state), so macOS uses a plain Hive box.
+  static Box<String>? _macBox;
+
+  static Future<void> initialize() async {
+    if (Platform.isMacOS) {
+      await Hive.initFlutter();
+      _macBox = await Hive.openBox<String>("settings");
+    } else {
+      flutterSecureStorage = const FlutterSecureStorage();
+    }
 
     final String? init = await read(initialized);
     if (init != "1") {
-      write(initialized, "1");
-      write(notificationKey, "1");
-      write(soundKey, "1");
-      write(vibrationKey, "1");
-      write(appUpdateKey, "1");
-      write(newTipKey, "1");
-      write(showAdsKey, "0");
-      write(localeKey, "en");
-      write(themeKey, "light");
+      await Future.wait([
+        write(initialized, "1"),
+        write(notificationKey, "1"),
+        write(soundKey, "1"),
+        write(vibrationKey, "1"),
+        write(appUpdateKey, "1"),
+        write(newTipKey, "1"),
+        write(showAdsKey, "0"),
+        write(localeKey, "en"),
+        write(themeKey, "light"),
+      ]);
     }
   }
 
-  static Future<void> write(String key, String value) async =>
-      await flutterSecureStorage.write(key: key, value: value);
+  static Future<void> write(String key, String value) async {
+    final box = _macBox;
+    if (box != null) return box.put(key, value);
+    await flutterSecureStorage.write(key: key, value: value);
+  }
 
-  static Future<void> delete(String key) async =>
-      await flutterSecureStorage.delete(key: key);
+  static Future<void> delete(String key) async {
+    final box = _macBox;
+    if (box != null) return box.delete(key);
+    await flutterSecureStorage.delete(key: key);
+  }
 
-  static Future<String?> read(String key) async =>
-      await flutterSecureStorage.read(key: key);
+  static Future<String?> read(String key) async {
+    final box = _macBox;
+    if (box != null) return box.get(key);
+    return flutterSecureStorage.read(key: key);
+  }
 }
